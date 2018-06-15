@@ -18,4 +18,6 @@ public class ConfigStock {
     public static String achan = "";
     public static String bchan = "";
     public static String devchan = "";
+    // twitter enable switch
+    public static boolean twittertog = false;
 }

@@ -91,6 +91,6 @@ public class Floatzel {
                 .setShardsTotal(2).build();
 
         //TwitterManager is now a listener too, which'll do all the work onReady by itself instead of relying on MiscListener
-        if (!isdev) Floatzel.jda.addEventListener(twitterManager);
+        if (!isdev && Config.twittertog) Floatzel.jda.addEventListener(twitterManager);
     }
 }
