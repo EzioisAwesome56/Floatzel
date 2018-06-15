@@ -1,2 +1,2 @@
 # Floatzel
-Floatzel: a discord bot with a twist
+Readme coming soon(TM)
