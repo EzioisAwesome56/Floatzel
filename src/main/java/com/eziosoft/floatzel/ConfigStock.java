@@ -11,6 +11,8 @@ public class ConfigStock {
     public static String secretaccess = "";
     // bot configuration
     public static String ownerid = "";
+    public static String prefix = "&";
+    public static String devprefix = "&&";
     // twitter user ids
     public static long[] groupa = new long[]{};
     public static long[] groupb = new long[]{};

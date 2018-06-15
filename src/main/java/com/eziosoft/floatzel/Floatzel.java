@@ -45,7 +45,7 @@ public class Floatzel {
             }
         }
         version = !isdev ? "2.2.0" : "2.x Developement";
-         commandClient = new CommandClientBuilder().setOwnerId(Config.ownerid).useHelpBuilder(false).setPrefix(isdev ? "&&" : "&").build();
+         commandClient = new CommandClientBuilder().setOwnerId(Config.ownerid).useHelpBuilder(false).setPrefix(isdev ? Config.devprefix : Config.prefix).build();
 
 
         // change this depending on what token you wanna use
