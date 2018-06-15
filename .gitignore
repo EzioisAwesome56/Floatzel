@@ -1,0 +1,5 @@
+.idea/
+target/
+database/
+src/test/
+src/main/java/com/eziosoft/floatzel/Config.java
