@@ -1,4 +1,4 @@
-package com.eziosoft.floatzel.Util;
+package com.eziosoft.floatzel;
 
 public class ConfigStock {
     // discord tokens
