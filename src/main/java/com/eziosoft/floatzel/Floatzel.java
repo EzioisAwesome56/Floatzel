@@ -45,7 +45,7 @@ public class Floatzel {
             }
         }
         version = !isdev ? "2.2.0" : "2.x Developement";
-         commandClient = new CommandClientBuilder().setOwnerId("H").useHelpBuilder(false).setPrefix(isdev ? "&&" : "&").build();
+         commandClient = new CommandClientBuilder().setOwnerId(Config.ownerid).useHelpBuilder(false).setPrefix(isdev ? "&&" : "&").build();
 
 
         // change this depending on what token you wanna use
@@ -86,7 +86,7 @@ public class Floatzel {
 
 
         
-        jda = new DefaultShardManagerBuilder().setToken(!isdev ? "gay" : "H")
+        jda = new DefaultShardManagerBuilder().setToken(!isdev ? Config.token : Config.devToken)
                 .addEventListeners(listener, commandClient)
                 .setShardsTotal(2).build();
 

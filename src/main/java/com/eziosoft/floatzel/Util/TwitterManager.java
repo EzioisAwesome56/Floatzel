@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Util;
 
+import com.eziosoft.floatzel.Config;
 import com.eziosoft.floatzel.Floatzel;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -22,11 +23,14 @@ import java.util.concurrent.TimeUnit;
 
 public class TwitterManager extends ListenerAdapter {
 
-    long[] admins = h
-    long[] mods = h
+    long[] admins = Config.groupa;
+    long[] mods = Config.groupb;
     private Map<Long, Message> currentTweets = new HashMap<>();
     ConfigurationBuilder cb = new ConfigurationBuilder().setDebugEnabled(true)
-NERDS
+            .setOAuthConsumerKey(Config.key)
+            .setOAuthConsumerSecret(Config.secretkey)
+            .setOAuthAccessToken(Config.access)
+            .setOAuthAccessTokenSecret(Config.secretaccess);
             // hey the solution was to import twitter4j-stream in maven and problem solved!
             // i went ahead and added it to maven so you may need to reimport
             TwitterStream twitter = new TwitterStreamFactory(cb.build()).getInstance();
@@ -48,9 +52,9 @@ NERDS
                     builder.setDescription(status.getText());
 
                     if (!Floatzel.isdev) {
-                        Floatzel.jda.getTextChannelById(rank == 1 ? "gay mc h" : "memerino").sendMessage(builder.build()).queue(m -> currentTweets.put(status.getId(), m));
+                        Floatzel.jda.getTextChannelById(rank == 1 ? Config.achan : Config.bchan).sendMessage(builder.build()).queue(m -> currentTweets.put(status.getId(), m));
                     } else {
-                        Floatzel.jda.getTextChannelById("h").sendMessage(builder.build()).queue(m -> currentTweets.put(status.getId(), m));
+                        Floatzel.jda.getTextChannelById(Config.devchan).sendMessage(builder.build()).queue(m -> currentTweets.put(status.getId(), m));
                     }
                 }
 
