@@ -54,6 +54,17 @@ public class LootBox extends FCommand {
         ArrayList<Integer> best = new ArrayList<Integer>(){{
             add(10);
         }};
+        // test for what box got picked
+        if (shit.contains(box)){
+            event.getChannel().sendMessage("tier 1 box selected").queue();
+            return;
+        } else if (ok.contains(box)){
+            event.getChannel().sendMessage("tier 2 box selected").queue();
+            return;
+        } else if (best.contains(box)){
+            event.getChannel().sendMessage("tier 3 box selected").queue();
+            return;
+        }
 
     }
 }
