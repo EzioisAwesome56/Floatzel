@@ -9,6 +9,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -62,20 +63,24 @@ public class LootBox extends FCommand {
             add(10);
         }};
         // test for what box got picked
-        if (shit.contains(box)){
-            boximg = ImageIO.read(Uno.class.getResource(Box.boxes[0]));
-            ImageIO.setUseCache(false);
-            stream.flush();
-            ImageIO.write(boximg, "png", stream);
-            event.getChannel().sendMessage("Take this shitty level 1 box!").queue();
-            event.getChannel().sendFile(stream.toByteArray(), "a.png", null).queue();
-            return;
-        } else if (ok.contains(box)){
-            event.getChannel().sendMessage("tier 2 box selected").queue();
-            return;
-        } else if (best.contains(box)){
-            event.getChannel().sendMessage("tier 3 box selected").queue();
-            return;
+        try {
+            if (shit.contains(box)) {
+                boximg = ImageIO.read(Uno.class.getResource(Box.boxes[0]));
+                ImageIO.setUseCache(false);
+                stream.flush();
+                ImageIO.write(boximg, "png", stream);
+                event.getChannel().sendMessage("Take this shitty level 1 box!").queue();
+                event.getChannel().sendFile(stream.toByteArray(), "a.png", null).queue();
+                return;
+            } else if (ok.contains(box)) {
+                event.getChannel().sendMessage("tier 2 box selected").queue();
+                return;
+            } else if (best.contains(box)) {
+                event.getChannel().sendMessage("tier 3 box selected").queue();
+                return;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
