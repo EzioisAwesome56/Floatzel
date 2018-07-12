@@ -26,16 +26,15 @@ public class BetterLoan extends FCommand {
         // lets be lazy as shit!
         // copy pasta'a from loan.java
         Random random = new Random();
-        String usid = event.getAuthor().getId();
         // check to see if the user doesnt have a db entry, if they dont, make one
-        if (!Database.dbcheckifexist(usid)){
+        if (!Database.dbcheckifexist(uid)){
             System.out.println("New bank account created!");
         }
         // check if the user has a bank loan, if they havent claimed one at all, make one!
-        if (!Database.dbcheckifloan(usid)){
-            Database.dbdefaultsave(usid, 2);
+        if (!Database.dbcheckifloan(uid)){
+            Database.dbdefaultsave(uid, 2);
         }
-        Long prevloan = Database.dbloadtime(usid);
+        Long prevloan = Database.dbloadtime(uid);
         Long day = Integer.toUnsignedLong(86400000);
         Long passed = System.currentTimeMillis() - prevloan;
         Long passh = day - passed;
@@ -54,11 +53,11 @@ public class BetterLoan extends FCommand {
         }
         int payout = random.nextInt(500) + 67;
         event.getChannel().sendMessage("You fucking took out a loan of fucking "+Integer.toString(payout)+"\uD83E\uDD56 !").queue();
-        int bal = Database.dbloadint(usid);
+        int bal = Database.dbloadint(uid);
         bal = bal + payout;
-        Database.dbsave(usid, Integer.toString(bal));
+        Database.dbsave(uid, Integer.toString(bal));
         long takeout = System.currentTimeMillis();
         // save the time the loan wa taken out
-        Database.dbsavetime(usid, takeout);
+        Database.dbsavetime(uid, takeout);
     }
 }
