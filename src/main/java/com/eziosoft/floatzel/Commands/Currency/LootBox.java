@@ -4,6 +4,7 @@ import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class LootBox extends FCommand {
@@ -33,6 +34,26 @@ public class LootBox extends FCommand {
         Database.dbsaveint(uid, bal);
         // rng for the lootbox type
         int box = random.nextInt(10) + 1;
+        // arrays
+        // numbers for tier one
+        ArrayList<Integer> shit = new ArrayList<Integer>(){{
+            add(1);
+            add(3);
+            add(5);
+            add(7);
+            add(8);
+            add(9);
+        }};
+        // tier 2
+        ArrayList<Integer> ok = new ArrayList<Integer>(){{
+            add(2);
+            add(4);
+            add(6);
+        }};
+        // tier 3
+        ArrayList<Integer> best = new ArrayList<Integer>(){{
+            add(10);
+        }};
 
     }
 }
