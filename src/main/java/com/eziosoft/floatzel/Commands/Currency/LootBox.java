@@ -65,7 +65,7 @@ public class LootBox extends FCommand {
         // test for what box got picked
         try {
             if (shit.contains(box)) {
-                boximg = ImageIO.read(Uno.class.getResource(Box.boxes[0]));
+                boximg = ImageIO.read(Box.class.getResource(Box.boxes[0]));
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
