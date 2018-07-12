@@ -64,6 +64,19 @@ public class Database {
         }
     }
 
+    // function to save to bank accounts as ints
+    public static void dbsaveint(String id, int data){
+        File dbentry = new File(bank+id+ext);
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
+            writer.write(Integer.toString(data));
+            writer.close();
+        } catch (IOException e){
+            e.printStackTrace();
+            return;
+        }
+    }
+
     // load an integer from a db entry
     public static int dbloadint(String id){
         File dbentry = new File(bank+id+ext);
