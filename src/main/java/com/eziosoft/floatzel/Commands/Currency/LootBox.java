@@ -28,7 +28,11 @@ public class LootBox extends FCommand {
             event.getChannel().sendMessage("You don't fucking have 50 \uD83E\uDD56 to afford a lootbox dumbass!").queue();
             return;
         }
-
+        // remove money from there account
+        bal = bal - 50;
+        Database.dbsaveint(uid, bal);
+        // rng for the lootbox type
+        int box = random.nextInt(10) + 1;
 
     }
 }
