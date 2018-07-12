@@ -1,9 +1,14 @@
 package com.eziosoft.floatzel.Commands.Currency;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Res.Box.Box;
+import com.eziosoft.floatzel.Res.Uno.Uno;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,6 +22,8 @@ public class LootBox extends FCommand {
 
     @Override
     protected void execute(CommandEvent event){
+        BufferedImage boximg = null;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
         String uid = event.getAuthor().getId();
         int bal = Database.dbloadint(uid);
         Random random = new Random();
@@ -56,7 +63,12 @@ public class LootBox extends FCommand {
         }};
         // test for what box got picked
         if (shit.contains(box)){
-            event.getChannel().sendMessage("tier 1 box selected").queue();
+            boximg = ImageIO.read(Uno.class.getResource(Box.boxes[0]));
+            ImageIO.setUseCache(false);
+            stream.flush();
+            ImageIO.write(boximg, "png", stream);
+            event.getChannel().sendMessage("Take this shitty level 1 box!").queue();
+            event.getChannel().sendFile(stream.toByteArray(), "a.png", null).queue();
             return;
         } else if (ok.contains(box)){
             event.getChannel().sendMessage("tier 2 box selected").queue();
