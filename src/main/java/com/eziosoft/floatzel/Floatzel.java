@@ -79,6 +79,7 @@ public class Floatzel {
         commandClient.addCommand(new Loan());
         commandClient.addCommand(new BetterLoan());
         commandClient.addCommand(new BuyCmd());
+        commandClient.addCommand(new LootBox());
         // PUT THIS LAST OR ELSE HELP BREAKS
         commandClient.addCommand(new Help());
         // secret commands that are not in help for a reason
