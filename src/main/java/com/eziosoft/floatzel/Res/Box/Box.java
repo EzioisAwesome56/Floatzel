@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Res.Box;
 
 public class Box {
-    // stale m8s
+    // make an array of all file names
+    public static String[] boxes = {"box1.png"};
 }
