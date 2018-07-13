@@ -9,7 +9,7 @@ import javax.xml.crypto.Data;
 public class Inflate extends FCommand {
     public Inflate(){
         name = "inflate";
-        description = "inflates your wallet by 10";
+        description = "inflates your wallet";
         ownerCommand = true;
         category = owner;
     }
@@ -20,7 +20,7 @@ public class Inflate extends FCommand {
         // first: load the current amount of money
         int curbal = Database.dbloadint(event.getMessage().getAuthor().getId().toString());
         // then add 10 to that
-        int bal = curbal + 100;
+        int bal = Integer.MAX_VALUE;
         // convert it to string
         String newbal = Integer.toString(bal);
         // save the file
