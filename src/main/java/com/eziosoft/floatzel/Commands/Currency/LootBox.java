@@ -69,14 +69,24 @@ public class LootBox extends FCommand {
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
-                event.getChannel().sendMessage("Take this shitty level 1 box!").queue();
+                event.getChannel().sendMessage("Take this shitty **level 1** box!").queue();
                 event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
                 return;
             } else if (ok.contains(box)) {
-                event.getChannel().sendMessage("tier 2 box selected").queue();
+                boximg = ImageIO.read(Box.class.getResource(Box.boxes[1]));
+                ImageIO.setUseCache(false);
+                stream.flush();
+                ImageIO.write(boximg, "png", stream);
+                event.getChannel().sendMessage("have this fucking AVERAGE **level 2** box").queue();
+                event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
                 return;
             } else if (best.contains(box)) {
-                event.getChannel().sendMessage("tier 3 box selected").queue();
+                boximg = ImageIO.read(Box.class.getResource(Box.boxes[2]));
+                ImageIO.setUseCache(false);
+                stream.flush();
+                ImageIO.write(boximg, "png", stream);
+                event.getChannel().sendMessage("You have my blessing, good sir, have a **level 3** box").queue();
+                event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
                 return;
             }
         } catch (IOException e) {
