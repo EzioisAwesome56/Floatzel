@@ -70,7 +70,7 @@ public class LootBox extends FCommand {
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
                 event.getChannel().sendMessage("Take this shitty level 1 box!").queue();
-                event.getChannel().sendFile(stream.toByteArray(), "a.png", null).queue();
+                event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
                 return;
             } else if (ok.contains(box)) {
                 event.getChannel().sendMessage("tier 2 box selected").queue();
