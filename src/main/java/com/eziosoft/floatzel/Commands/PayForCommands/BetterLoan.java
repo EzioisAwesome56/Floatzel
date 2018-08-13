@@ -45,7 +45,7 @@ public class BetterLoan extends FCommand {
                 TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(passh));
         long seconds = TimeUnit.MILLISECONDS.toSeconds(passh) -
                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(passh));
-        if (System.currentTimeMillis() != prevloan + day && prevloan != 0 && System.currentTimeMillis() > prevloan){
+        if (System.currentTimeMillis() != prevloan + day && prevloan != 0 && System.currentTimeMillis() > prevloan && seconds >= 0L){
             String rentime = "";
             rentime = Long.toString(hours) + " hours, " + Long.toString(minutes) + " minutes and " + Long.toString(seconds) + " seconds ";
             event.getChannel().sendMessage("Error: You must fucking wait "+rentime+"longer to get another loan jackass").queue();
