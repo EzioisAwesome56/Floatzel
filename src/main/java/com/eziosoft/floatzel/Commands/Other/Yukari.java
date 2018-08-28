@@ -28,7 +28,7 @@ public class Yukari extends FCommand {
         int card = random.nextInt(Files.yukaris.length);
         // get get yukari
         try {
-            img = ImageIO.read(Uno.class.getResource(Files.yukaris[card]));
+            img = ImageIO.read(Files.class.getResource(Files.yukaris[card]));
             ImageIO.setUseCache(false);
             stream.flush();
             ImageIO.write(img, "png", stream);
