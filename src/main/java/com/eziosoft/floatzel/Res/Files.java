@@ -11,4 +11,7 @@ public class Files {
 
     // responses
     public static String[] unorep = {"You just got fucking reversed moron!", "Right back at you dipshit!", "Fuck off nerd!", "Eat reverse fuckface!"};
+
+    // make an array of all file names
+    public static String[] boxes = {"box1.png", "box2.png", "box3.png"};
 }

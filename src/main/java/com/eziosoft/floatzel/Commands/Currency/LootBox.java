@@ -1,8 +1,7 @@
 package com.eziosoft.floatzel.Commands.Currency;
 
 import com.eziosoft.floatzel.Commands.FCommand;
-import com.eziosoft.floatzel.Res.Box.Box;
-import com.eziosoft.floatzel.Res.Uno.Uno;
+import com.eziosoft.floatzel.Res.Files;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -65,7 +64,7 @@ public class LootBox extends FCommand {
         // test for what box got picked
         try {
             if (shit.contains(box)) {
-                boximg = ImageIO.read(Box.class.getResource(Box.boxes[0]));
+                boximg = ImageIO.read(Files.class.getResource("/box/"+ Files.boxes[0]));
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
@@ -73,7 +72,7 @@ public class LootBox extends FCommand {
                 event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
                 return;
             } else if (ok.contains(box)) {
-                boximg = ImageIO.read(Box.class.getResource(Box.boxes[1]));
+                boximg = ImageIO.read(Files.class.getResource("/box/"+Files.boxes[1]));
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
@@ -81,7 +80,7 @@ public class LootBox extends FCommand {
                 event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
                 return;
             } else if (best.contains(box)) {
-                boximg = ImageIO.read(Box.class.getResource(Box.boxes[2]));
+                boximg = ImageIO.read(Files.class.getResource("/box/"+Files.boxes[2]));
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
