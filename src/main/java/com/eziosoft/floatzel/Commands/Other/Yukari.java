@@ -12,6 +12,6 @@ public class Yukari extends FCommand {
 
     @Override
     protected void execute(CommandEvent event){
-        v
+        // start doing thingos soon
     }
 }
