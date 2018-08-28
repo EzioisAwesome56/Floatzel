@@ -76,7 +76,7 @@ public class Floatzel {
         commandClient.addCommand(new Loan());
         commandClient.addCommand(new BetterLoan());
         commandClient.addCommand(new BuyCmd());
-        commandClient.addCommand(new LootBox());
+        //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
         commandClient.addCommand(new Help());
