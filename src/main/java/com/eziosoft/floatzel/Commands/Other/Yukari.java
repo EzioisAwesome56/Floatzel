@@ -12,19 +12,18 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Yukari extends FCommand {
-    public Yukari(){
+    public Yukari() {
         name = "yukari";
         description = "sends a picture of the best waif-i mean girl";
         category = other;
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void execute(CommandEvent event) {
         // im lazy, so copy pasta
         Random random = new Random();
         BufferedImage img = null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        String filepath = "";
         // generate a number
         int card = random.nextInt(Files.yukaris.length);
         // get get yukari
@@ -37,5 +36,6 @@ public class Yukari extends FCommand {
             stream.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
     }
 }
