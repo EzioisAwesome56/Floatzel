@@ -27,6 +27,8 @@ public class Database {
     public static File sqldb = new File(sqlthing);
     // actual url to the db
     public static String url = "jdbc:sqlite:" + sqlthing;
+    // tables
+    public static String banktable = "bank";
 
     // check if folder exist
     public static void dbinit() {
@@ -93,7 +95,7 @@ public class Database {
     }
 
     // sqlite connection thing, for easily connecting later
-    private Connection connect(){
+    private static Connection connect(){
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -105,12 +107,37 @@ public class Database {
 
     // check if db entry exists
     public static Boolean dbcheckifexist(String id){
+        if (Config.olddb) {
         File userfile = new File(bank+id+ext);
         if (!userfile.exists()){
             Database.dbsave(id, "0");
             return false;
         } else {
             return true;
+        }
+        } else {
+            // the sql used to check if a person is in za database
+            String sql = "SELECT 1 FROM "+banktable+" WHERE id = '"+id+"' LIMIT 1";
+            // connection shit
+            try (Connection conn = Database.connect();
+                 PreparedStatement pstmt  = conn.prepareStatement(sql)){
+
+                ResultSet rs  = pstmt.executeQuery();
+
+                if (!rs.next()){
+                    // oh dear god here we go
+                    // insert a blank entry into the table
+                    sql = "INSERT INTO "+banktable+"(id, bal) VALUES('"+id+"',0)";
+                    Statement stmt = conn.createStatement();
+                    stmt.execute(sql);
+                    return false;
+                } else {
+                    return true;
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
         }
     }
 
