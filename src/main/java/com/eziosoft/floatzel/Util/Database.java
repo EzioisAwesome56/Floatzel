@@ -29,6 +29,7 @@ public class Database {
     public static String url = "jdbc:sqlite:" + sqlthing;
     // tables
     public static String banktable = "bank";
+    public static String loantable = "loan";
 
     // check if folder exist
     public static void dbinit() {
@@ -81,14 +82,19 @@ public class Database {
     //sqlite table initilization
     public static void sqltable() {
         // string that holds the code needed to create a tab;e
-        String banktable = "CREATE TABLE IF NOT EXISTS bank (\n"
+        String bigoof = "CREATE TABLE IF NOT EXISTS bank (\n"
                 + " id text PRIMARY KEY,\n"
                 + "	bal integer NOT NULL\n"
+                + ");";
+        String smalloof = "CREATE TABLE IF NOT EXISTS "+loantable+" (\n"
+                + " id text PRIMARY KEY,\n"
+                + " time bitint(20)\n"
                 + ");";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create all the tables
-            stmt.execute(banktable);
+            stmt.execute(bigoof);
+            stmt.execute(smalloof);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
