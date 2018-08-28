@@ -39,6 +39,13 @@ public class Database {
 
     }
 
+    // SQLITE init function
+    public static void sqlinit(){
+        // file path i think
+        String url = System.getProperty("user.dir");
+        System.out.println(url);
+    }
+
     // check if db entry exists
     public static Boolean dbcheckifexist(String id){
         File userfile = new File(bank+id+ext);
