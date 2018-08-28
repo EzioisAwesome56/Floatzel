@@ -144,15 +144,10 @@ public class Database {
 
     // function to write to a new db file
     public static void dbsave(String id, String data){
-        File dbentry = new File(bank+id+ext);
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
-            writer.write(data);
-            writer.close();
-        } catch (IOException e){
-            e.printStackTrace();
-            return;
-        }
+       // i dont know why this is still here, but just make it call dbsaveint for laziness
+        int number = Integer.valueOf(data);
+        Database.dbsaveint(id, number);
+        return;
     }
 
     // function to save to bank accounts as ints
