@@ -222,11 +222,33 @@ public class Database {
 
     // check if the user has a loan out
     public static boolean dbcheckifloan(String id){
-        File dbentry = new File(loan+id+ext);
-        if (dbentry.exists()){
-            return true;
+        if (Config.olddb) {
+
+            File dbentry = new File(loan + id + ext);
+            if (dbentry.exists()) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            // find a row with the user's id
+            String sql = "SELECT id, time FROM "+loantable+" WHERE id = '"+id+"'";
+            // execute that string and get a results set
+            try (Connection conn = Database.connect();
+                 PreparedStatement pstmt  = conn.prepareStatement(sql)){
+
+                ResultSet rs  = pstmt.executeQuery();
+
+                // loop through the result set
+                if (!rs.next()){
+                    // right, so they dont have it here at all, oof that sucks
+                    return false;
+                } else {
+                    return true;
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -259,14 +281,19 @@ public class Database {
 
     // fucntion for saving time to the loan
     public static void dbsavetime(String id, long time){
-        File dbentry = new File(loan+id+ext);
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
-            writer.write(Long.toString(time));
-            writer.close();
-        } catch (IOException e){
-            System.out.println("ERROR WRITING FILE");
-            return;
+        if (Config.olddb) {
+
+            File dbentry = new File(loan + id + ext);
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
+                writer.write(Long.toString(time));
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("ERROR WRITING FILE");
+                return;
+            }
+        } else {
+            // unimplimented feature
         }
     }
 
