@@ -169,16 +169,38 @@ public class Database {
     }
 
     // load an integer from a db entry
-    public static int dbloadint(String id){
-        File dbentry = new File(bank+id+ext);
-        try {
-            FileReader read = new FileReader(dbentry);
-            BufferedReader bread = new BufferedReader(read);
-            String content = bread.readLine();
-            return Integer.valueOf(content);
-        } catch (NumberFormatException | IOException e){
-            e.printStackTrace();
-            return -1;
+    public static int dbloadint(String id) {
+        if (Config.olddb) {
+            File dbentry = new File(bank + id + ext);
+            try {
+                FileReader read = new FileReader(dbentry);
+                BufferedReader bread = new BufferedReader(read);
+                String content = bread.readLine();
+                return Integer.valueOf(content);
+            } catch (NumberFormatException | IOException e) {
+                e.printStackTrace();
+                return -1;
+            }
+        } else {
+            // prepare the sql to load the user's table
+            String sql = "SELECT id, bal FROM "+banktable+" WHERE id = '"+id+"'";
+            // connect to the db and get the row
+            try (Connection conn = Database.connect();
+                 PreparedStatement pstmt  = conn.prepareStatement(sql)){
+                // execute the query
+                ResultSet rs  = pstmt.executeQuery();
+
+                // loop through the result set
+                if (!rs.next()){
+                    System.out.println("ERROR WHILE LOADING ROWS");
+                    return -999;
+                }
+                // alright, get the value we need now
+                return rs.getInt("bal");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return -999;
+            }
         }
     }
 
