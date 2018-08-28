@@ -4,10 +4,7 @@ import com.eziosoft.floatzel.Commands.Asshole.SwearCombine;
 import com.eziosoft.floatzel.Commands.Currency.*;
 import com.eziosoft.floatzel.Commands.Entertainment.*;
 import com.eziosoft.floatzel.Commands.Image.ImageTest;
-import com.eziosoft.floatzel.Commands.Other.Help;
-import com.eziosoft.floatzel.Commands.Other.Invite;
-import com.eziosoft.floatzel.Commands.Other.Pi;
-import com.eziosoft.floatzel.Commands.Other.Stats;
+import com.eziosoft.floatzel.Commands.Other.*;
 import com.eziosoft.floatzel.Commands.PayForCommands.BetterLoan;
 import com.eziosoft.floatzel.Commands.Secret.Gay;
 import com.eziosoft.floatzel.Commands.Sound.*;
@@ -80,6 +77,7 @@ public class Floatzel {
         commandClient.addCommand(new BetterLoan());
         commandClient.addCommand(new BuyCmd());
         commandClient.addCommand(new LootBox());
+        commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
         commandClient.addCommand(new Help());
         // secret commands that are not in help for a reason
