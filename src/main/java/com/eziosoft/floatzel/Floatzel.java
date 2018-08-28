@@ -41,7 +41,7 @@ public class Floatzel {
                 isdev = true;
             }
         }
-        version = !isdev ? "2.2.3" : "2.x Developement";
+        version = !isdev ? "2.3" : "2.x Developement";
          commandClient = new CommandClientBuilder().setOwnerId(Config.ownerid).useHelpBuilder(false).setPrefix(isdev ? Config.devprefix : Config.prefix).build();
 
 
