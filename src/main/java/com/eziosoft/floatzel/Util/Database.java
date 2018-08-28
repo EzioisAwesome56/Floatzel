@@ -2,12 +2,10 @@ package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Config;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.file.Files;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Database {
     // set the root db path
@@ -55,6 +53,8 @@ public class Database {
                 // okay, it hasnt been initalized yet, so do that
                 Database.sqlinit();
             } else {
+                // quickly run through the tables just to make sure
+                Database.sqltable();
                 System.out.println("database already installed!");
             }
         }
@@ -74,6 +74,33 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    //sqlite table initilization
+    public static void sqltable() {
+        // string that holds the code needed to create a tab;e
+        String banktable = "CREATE TABLE IF NOT EXISTS bank (\n"
+                + " id text PRIMARY KEY,\n"
+                + "	bal integer NOT NULL\n"
+                + ");";
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create all the tables
+            stmt.execute(banktable);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // sqlite connection thing, for easily connecting later
+    private Connection connect(){
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
     }
 
     // check if db entry exists
