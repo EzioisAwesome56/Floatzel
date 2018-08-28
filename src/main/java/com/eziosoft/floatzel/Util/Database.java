@@ -156,16 +156,31 @@ public class Database {
     }
 
     // function to save to bank accounts as ints
-    public static void dbsaveint(String id, int data){
-        File dbentry = new File(bank+id+ext);
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
-            writer.write(Integer.toString(data));
-            writer.close();
-        } catch (IOException e){
-            e.printStackTrace();
-            return;
+    public static void dbsaveint(String id, int data) {
+        if (Config.olddb) {
+
+            File dbentry = new File(bank + id + ext);
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
+                writer.write(Integer.toString(data));
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        } else {
+            // define the sql string
+            String sql = "UPDATE " + banktable + " SET bal = ? WHERE id = '" + id + "'";
+            try (Connection conn = Database.connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                pstmt.setInt(1, data);
+                pstmt.executeUpdate();
+                return;
+            } catch(SQLException e){
+            System.out.println(e.getMessage());
         }
+    }
     }
 
     // load an integer from a db entry
