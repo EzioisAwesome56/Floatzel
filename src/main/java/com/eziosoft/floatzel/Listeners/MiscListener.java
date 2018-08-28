@@ -27,7 +27,7 @@ public class MiscListener extends ListenerAdapter {
         if (event.getJDA().getShardInfo().getShardId() == 1) {
             // check to see if the db is setup
             if (event.getJDA().getShardInfo().getShardId() == event.getJDA().getShardInfo().getShardTotal() - 1){
-                Database.sqlinit();
+                Database.dbinit();
             }
             System.out.println("Floatzel is alive you piece of shit, now hope it doesnt start a fight dickface");
 
