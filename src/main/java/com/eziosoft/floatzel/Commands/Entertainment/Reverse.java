@@ -29,7 +29,7 @@ public class Reverse extends FCommand {
         int card = random.nextInt(Uno.unocards.length);
         // get card
         try {
-            img = ImageIO.read(Uno.class.getResource(Uno.unocards[card]));
+            img = ImageIO.read(Uno.class.getResource("/uno/"+Uno.unocards[card]));
             ImageIO.setUseCache(false);
             stream.flush();
             ImageIO.write(img, "png", stream);

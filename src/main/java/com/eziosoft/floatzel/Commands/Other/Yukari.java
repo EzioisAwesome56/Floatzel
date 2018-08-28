@@ -1,8 +1,7 @@
 package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.Commands.FCommand;
-import com.eziosoft.floatzel.Res.Uno.Uno;
-import com.eziosoft.floatzel.Res.Yukari.Files;
+import com.eziosoft.floatzel.Res.YukName;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import javax.imageio.ImageIO;
@@ -12,26 +11,29 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Yukari extends FCommand {
-    public Yukari() {
+    public Yukari(){
         name = "yukari";
         description = "sends a picture of the best waif-i mean girl";
         category = other;
     }
 
     @Override
-    protected void execute(CommandEvent event) {
-        // im lazy, so copy pasta
+    protected void execute(CommandEvent event){
+        // copy paste from Reverse.class
         Random random = new Random();
         BufferedImage img = null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        String filepath = "";
         // generate a number
-        int card = random.nextInt(Files.yukaris.length);
-        // get get yukari
+        int card = random.nextInt(YukName.yukaris.length);
+        // get card
         try {
-            img = ImageIO.read(Files.class.getResource(Files.yukaris[card]));
+            img = ImageIO.read(YukName.class.getResource("/yuk/"+YukName.yukaris[card]));
             ImageIO.setUseCache(false);
             stream.flush();
             ImageIO.write(img, "png", stream);
+            //unimplimeted feature
+            //event.getChannel().sendMessage(Uno.unorep[random.nextInt(Uno.unorep.length)]).queue();
             event.getChannel().sendFile(stream.toByteArray(), "yukari.png", null).queue();
             stream.close();
         } catch (IOException e) {
