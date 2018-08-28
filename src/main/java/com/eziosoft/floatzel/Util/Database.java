@@ -1,5 +1,7 @@
 package com.eziosoft.floatzel.Util;
 
+import com.eziosoft.floatzel.Config;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.sql.Connection;
@@ -25,31 +27,41 @@ public class Database {
     // new sqlite database location, stored as a file
     public static String sqlthing = System.getProperty("user.dir") + "floatzel.db";
     public static File sqldb = new File(sqlthing);
+    // actual url to the db
+    public static String url = "jdbc:sqlite:" + sqlthing;
 
     // check if folder exist
-    public static void dbinit(){
-        System.out.println("Checking if database folder has been created...");
-        if (!dbdir.exists()){
-            System.out.println("Database not created, setting up database...");
-            dbdir.mkdir();
-            bankdir.mkdir();
-            loandir.mkdir();
-            lottodir.mkdir();
-            bagledir.mkdir();
-            bldir.mkdir();
-            System.out.println("Database setup completed!");
-            return;
-        } else {
-            System.out.println("Database already configured!");
-            return;
+    public static void dbinit() {
+        // read from settings to find out what database the user has selected to use
+        if (Config.olddb) {
+            System.out.println("Checking if database folder has been created...");
+            if (!dbdir.exists()) {
+                System.out.println("Database not created, setting up database...");
+                dbdir.mkdir();
+                bankdir.mkdir();
+                loandir.mkdir();
+                lottodir.mkdir();
+                bagledir.mkdir();
+                bldir.mkdir();
+                System.out.println("Database setup completed!");
+                return;
+            } else {
+                System.out.println("Database already configured!");
+                return;
+            }
+        } else if (!Config.olddb) {
+            // first, check if the database file exists
+            if (!sqldb.exists()){
+                // okay, it hasnt been initalized yet, so do that
+                Database.sqlinit();
+            } else {
+                System.out.println("database already installed!");
+            }
         }
-
     }
 
     // SQLITE init function
     public static void sqlinit() {
-        // file path i think
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "floatzel.db";
         // copy paste from a website
         // sqlite database creation tool
         try (Connection conn = DriverManager.getConnection(url)) {
