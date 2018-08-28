@@ -22,4 +22,6 @@ public class ConfigStock {
     public static String devchan = "";
     // twitter enable switch
     public static boolean twittertog = false;
+    // use old database toggle
+    public static boolean olddb = false;
 }
