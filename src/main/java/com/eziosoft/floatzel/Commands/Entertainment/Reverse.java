@@ -1,7 +1,7 @@
 package com.eziosoft.floatzel.Commands.Entertainment;
 
 import com.eziosoft.floatzel.Commands.FCommand;
-import com.eziosoft.floatzel.Res.Uno.Uno;
+import com.eziosoft.floatzel.Res.Files;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import javax.imageio.ImageIO;
@@ -26,14 +26,14 @@ public class Reverse extends FCommand {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         String filepath = "";
         // generate a number
-        int card = random.nextInt(Uno.unocards.length);
+        int card = random.nextInt(Files.unocards.length);
         // get card
         try {
-            img = ImageIO.read(Uno.class.getResource("/uno/"+Uno.unocards[card]));
+            img = ImageIO.read(Files.class.getResource("/uno/"+ Files.unocards[card]));
             ImageIO.setUseCache(false);
             stream.flush();
             ImageIO.write(img, "png", stream);
-            event.getChannel().sendMessage(Uno.unorep[random.nextInt(Uno.unorep.length)]).queue();
+            event.getChannel().sendMessage(Files.unorep[random.nextInt(Files.unorep.length)]).queue();
             event.getChannel().sendFile(stream.toByteArray(), "a.png", null).queue();
             stream.close();
         } catch (IOException e) {
