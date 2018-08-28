@@ -142,7 +142,7 @@ public class Database {
     }
 
 
-    // function to write to a new db file
+    // function to write to a new db file (OLD: DO NOT USE)
     public static void dbsave(String id, String data){
        // i dont know why this is still here, but just make it call dbsaveint for laziness
         int number = Integer.valueOf(data);
