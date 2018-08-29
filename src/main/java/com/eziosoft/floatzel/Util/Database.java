@@ -328,7 +328,7 @@ public class Database {
                 return;
             }
         } else {
-            if (!isnew){
+            /*if (!isnew){
                 // this means they have never taken out a loan, and as such have a nonexistant table
                 String sql = "INSERT INTO "+loantable+"(id,time) VALUES(?,?)";
                 try (Connection conn = Database.connect();
@@ -338,9 +338,9 @@ public class Database {
                     pstmt.setLong(2, time);
                     pstmt.executeUpdate();
                 } catch (SQLException e) {
-                    System.out.println(e.getMessage());
+                    System.out.println("we fail here");
                 }
-            } else {
+            } else {*/
                 // update it instead
                 String sql = "UPDATE " + loantable + " SET time = ? WHERE id = '" + id + "'";
                 try (Connection conn = Database.connect();
@@ -351,7 +351,7 @@ public class Database {
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
-            }
+            //}
             }
         }
 
