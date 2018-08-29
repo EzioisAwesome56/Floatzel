@@ -318,7 +318,7 @@ public class Database {
     }
 
     // fucntion for saving time to the loan
-    public static void dbsavetime(String id, long time, boolean isnew){
+    public static void dbsavetime(String id, long time){
         if (Config.olddb) {
 
             File dbentry = new File(loan + id + ext);

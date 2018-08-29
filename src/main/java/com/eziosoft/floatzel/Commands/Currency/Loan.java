@@ -53,6 +53,6 @@ public class Loan extends FCommand {
         Database.dbsave(uid, Integer.toString(bal));
         long takeout = System.currentTimeMillis();
         // save the time the loan wa taken out
-        Database.dbsavetime(uid, takeout, uwhat);
+        Database.dbsavetime(uid, takeout);
     }
 }
