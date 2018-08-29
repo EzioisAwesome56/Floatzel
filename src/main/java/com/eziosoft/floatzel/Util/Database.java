@@ -316,15 +316,37 @@ public class Database {
 
     // return a long with the stored nano time
     public static long dbloadtime(String id){
-        File dbentry = new File(loan+id+ext);
-        try{
-            FileReader read = new FileReader(dbentry);
-            BufferedReader bread = new BufferedReader(read);
-            String content = bread.readLine();
-            return Long.valueOf(content);
-        } catch (IOException e){
-            e.printStackTrace();
-            return -1;
+        if (Config.olddb) {
+            File dbentry = new File(loan + id + ext);
+            try {
+                FileReader read = new FileReader(dbentry);
+                BufferedReader bread = new BufferedReader(read);
+                String content = bread.readLine();
+                return Long.valueOf(content);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return -1;
+            }
+        } else {
+            // prepare the sql to load the user's table
+            String sql = "SELECT id, time FROM "+loantable+" WHERE id = '"+id+"'";
+            // connect to the db and get the row
+            try (Connection conn = Database.connect();
+                 PreparedStatement pstmt  = conn.prepareStatement(sql)){
+                // execute the query
+                ResultSet rs  = pstmt.executeQuery();
+
+                // loop through the result set
+                if (!rs.next()){
+                    System.out.println("ERROR WHILE LOADING ROWS");
+                    return -999L;
+                }
+                // alright, get the value we need now
+                return rs.getLong("time");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return -999L;
+            }
         }
     }
 
