@@ -269,6 +269,7 @@ public class Database {
                 defpath = loan;
             } else {
                 Database.sqlblankloan(id);
+                return;
             }
         } else if (location == 3){
             defpath = trackbloan;
@@ -321,7 +322,7 @@ public class Database {
                 return;
             }
         } else {
-            if (isnew){
+            if (!isnew){
                 // this means they have never taken out a loan, and as such have a nonexistant table
                 String sql = "INSERT INTO "+loantable+"(id,time) VALUES(?,?)";
                 try (Connection conn = Database.connect();
@@ -329,6 +330,17 @@ public class Database {
                     pstmt.setString(1, id);
                     // set the time value to be the second argument index
                     pstmt.setLong(2, time);
+                    pstmt.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                // update it instead
+                String sql = "UPDATE " + loantable + " SET time = ? WHERE id = '" + id + "'";
+                try (Connection conn = Database.connect();
+                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setLong(1, time);
+                    // update
                     pstmt.executeUpdate();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
@@ -352,11 +364,12 @@ public class Database {
             }
         } else {
             // prepare the sql to load the user's table
-            String sql = "SELECT id, time FROM "+loantable+" WHERE id = '"+id+"'";
+            String sql = "SELECT id, time FROM "+loantable+" WHERE id = ?";
             // connect to the db and get the row
             try (Connection conn = Database.connect();
                  PreparedStatement pstmt  = conn.prepareStatement(sql)){
                 // execute the query
+                pstmt.setString(1, id);
                 ResultSet rs  = pstmt.executeQuery();
 
                 // loop through the result set
