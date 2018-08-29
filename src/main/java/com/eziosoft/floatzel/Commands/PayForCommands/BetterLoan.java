@@ -31,7 +31,8 @@ public class BetterLoan extends FCommand {
             System.out.println("New bank account created!");
         }
         // check if the user has a bank loan, if they havent claimed one at all, make one!
-        if (!Database.dbcheckifloan(uid)){
+        boolean uwhat = Database.dbcheckifloan(uid);
+        if (!uwhat){
             Database.dbdefaultsave(uid, 2);
         }
         Long prevloan = Database.dbloadtime(uid);
@@ -58,6 +59,6 @@ public class BetterLoan extends FCommand {
         Database.dbsave(uid, Integer.toString(bal));
         long takeout = System.currentTimeMillis();
         // save the time the loan wa taken out
-        Database.dbsavetime(uid, takeout,false);
+        Database.dbsavetime(uid, takeout, uwhat);
     }
 }
