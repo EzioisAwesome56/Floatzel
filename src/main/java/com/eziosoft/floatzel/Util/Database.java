@@ -301,7 +301,6 @@ public class Database {
             // unimplimented feature
             }
         }
-    }
 
     // return a long with the stored nano time
     public static long dbloadtime(String id){
