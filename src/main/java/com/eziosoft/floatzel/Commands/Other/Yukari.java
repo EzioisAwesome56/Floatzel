@@ -14,7 +14,7 @@ public class Yukari extends FCommand {
     public Yukari(){
         name = "yukari";
         description = "sends a picture of the best waif-i mean girl";
-        category = other;
+        category = waifu;
     }
 
     @Override
