@@ -54,8 +54,11 @@ public class Database {
         } else if (!Config.olddb) {
             // first, check if the database file exists
             if (!sqldb.exists()){
+                System.out.println("No database found! Creating a new db!");
                 // okay, it hasnt been initalized yet, so do that
                 Database.sqlinit();
+                System.out.println("Creating tables...");
+                Database.sqltable();
             } else {
                 // quickly run through the tables just to make sure
                 Database.sqltable();
