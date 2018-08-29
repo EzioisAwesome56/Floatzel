@@ -413,7 +413,31 @@ public class Database {
                 return false;
             }
         } else {
-            // write this here
+            // sql statement to check for this shit
+            String sql = "SELECT id, time FROM "+bloanperm+" WHERE id = '"+id+"'";
+            // do those sql things
+            try (Connection conn = Database.connect();
+                 PreparedStatement pstmt  = conn.prepareStatement(sql)){
+
+                ResultSet rs  = pstmt.executeQuery();
+
+                // error trap
+                if (!rs.next()){
+                    System.out.println("ERROR LOADING ROWS");
+                    return false;
+                }
+                // so if its there, get the value and return it
+                if (rs.getInt("perm") == 1){
+                    // the user has the command, let them use it
+                    return true;
+                } else {
+                    // they dont rofl lmao
+                    return false;
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
         }
     }
 
@@ -434,7 +458,7 @@ public class Database {
                 return;
             }
         } else {
-            String table = ""
+            String table = "";
             if (cmd == 1){
                 table = bloanperm;
             }
