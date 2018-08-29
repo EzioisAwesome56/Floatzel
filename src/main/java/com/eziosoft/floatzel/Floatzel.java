@@ -73,7 +73,7 @@ public class Floatzel {
         commandClient.addCommand(new Inflate());
         commandClient.addCommand(new Gamble());
         commandClient.addCommand(new Pay());
-        commandClient.addCommand(new Loan());
+        //commandClient.addCommand(new Loan());
         commandClient.addCommand(new BetterLoan());
         commandClient.addCommand(new BuyCmd());
         //commandClient.addCommand(new LootBox());
