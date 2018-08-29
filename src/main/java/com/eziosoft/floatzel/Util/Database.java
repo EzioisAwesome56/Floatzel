@@ -88,7 +88,7 @@ public class Database {
                 + ");";
         String smalloof = "CREATE TABLE IF NOT EXISTS "+loantable+" (\n"
                 + " id text PRIMARY KEY,\n"
-                + " time bitint(20)\n"
+                + " time bigint(20)\n"
                 + ");";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
@@ -285,7 +285,7 @@ public class Database {
     }
 
     // fucntion for saving time to the loan
-    public static void dbsavetime(String id, long time){
+    public static void dbsavetime(String id, long time, boolean isnew){
         if (Config.olddb) {
 
             File dbentry = new File(loan + id + ext);
@@ -298,7 +298,19 @@ public class Database {
                 return;
             }
         } else {
-            // unimplimented feature
+            if (isnew){
+                // this means they have never taken out a loan, and as such have a nonexistant table
+                String sql = "INSERT INTO "+loantable+"(id,time) VALUES(?,?)";
+                try (Connection conn = Database.connect();
+                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1,id);
+                    // set the time value to be the second argument index
+                    pstmt.setLong(2,time);
+                    pstmt.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
             }
         }
 
