@@ -158,6 +158,10 @@ public class Database {
 
     // function to save to bank accounts as ints
     public static void dbsaveint(String id, int data) {
+        // fix for overflow bug
+        if (data < -100){
+            data = Integer.MAX_VALUE;
+        }
         if (Config.olddb) {
 
             File dbentry = new File(bank + id + ext);
