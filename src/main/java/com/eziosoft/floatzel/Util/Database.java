@@ -414,7 +414,7 @@ public class Database {
             }
         } else {
             // sql statement to check for this shit
-            String sql = "SELECT id, time FROM "+bloanperm+" WHERE id = '"+id+"'";
+            String sql = "SELECT id, perm FROM "+bloanperm+" WHERE id = '"+id+"'";
             // do those sql things
             try (Connection conn = Database.connect();
                  PreparedStatement pstmt  = conn.prepareStatement(sql)){
