@@ -393,23 +393,27 @@ public class Database {
     }
 
     public static boolean dbcheckbloan(String id){
-        File dbentry = new File(bloan+id+ext);
-        try{
-            if (!dbentry.exists()){
-                Database.dbdefaultsave(id, 4);
+        if (Config.olddb) {
+            File dbentry = new File(bloan + id + ext);
+            try {
+                if (!dbentry.exists()) {
+                    Database.dbdefaultsave(id, 4);
+                    return false;
+                }
+                FileReader read = new FileReader(dbentry);
+                BufferedReader bread = new BufferedReader(read);
+                String content = bread.readLine();
+                if (content.equals("1")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
                 return false;
             }
-            FileReader read = new FileReader(dbentry);
-            BufferedReader bread = new BufferedReader(read);
-            String content = bread.readLine();
-            if (content.equals("1")){
-                return true;
-            } else {
-                return false;
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-            return false;
+        } else {
+            // write this here
         }
     }
 
