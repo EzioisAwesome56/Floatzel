@@ -264,7 +264,12 @@ public class Database {
         if (location == 1){
             defpath = bank;
         } else if (location == 2){
-            defpath = loan;
+            // yeah, bascially we dont need this anymore
+            if (Config.olddb) {
+                defpath = loan;
+            } else {
+                Database.sqlblankloan(id);
+            }
         } else if (location == 3){
             defpath = trackbloan;
         } else if (location == 4){
@@ -283,6 +288,23 @@ public class Database {
             System.out.println("ERROR SAVING DB");
             return;
             }
+    }
+
+    // sql fucntion to write a 0 to a new loan entry
+    public static void sqlblankloan(String id){
+        // prepare to insert
+        String sql = "INSERT INTO "+loantable+"(id,time) VALUES(?,?)";
+        // insert
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            pstmt.setLong(2, 0L);
+            pstmt.executeUpdate();
+            return;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
     }
 
     // fucntion for saving time to the loan
