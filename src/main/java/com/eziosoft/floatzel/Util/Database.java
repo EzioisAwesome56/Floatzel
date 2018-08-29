@@ -30,6 +30,7 @@ public class Database {
     // tables
     public static String banktable = "bank";
     public static String loantable = "loan";
+    public static String bloanperm = "bloan";
 
     // check if folder exist
     public static void dbinit() {
@@ -90,11 +91,16 @@ public class Database {
                 + " id text PRIMARY KEY,\n"
                 + " time bigint(20)\n"
                 + ");";
+        String penis = "CREATE TABLE IF NOT EXISTS "+bloanperm+" (\n"
+                + " id text PRIMARY KEY,\n"
+                + " perm integer\n"
+                + ");";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create all the tables
             stmt.execute(bigoof);
             stmt.execute(smalloof);
+            stmt.execute(penis);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -408,19 +414,37 @@ public class Database {
     }
 
     public static void dbbuycmd(int cmd, String uid){
-        String path = "";
-        if (cmd == 1){
-            path = bloan;
-        }
-        // make new file object for the db entry
-        File dbentry = new File(path+uid+ext);
-        try{
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
-            writer.write(Integer.toString(1));
-            writer.close();
-        } catch (IOException e){
-            e.printStackTrace();
-            return;
+        if (Config.olddb) {
+            String path = "";
+            if (cmd == 1) {
+                path = bloan;
+            }
+            // make new file object for the db entry
+            File dbentry = new File(path + uid + ext);
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
+                writer.write(Integer.toString(1));
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        } else {
+            String table = ""
+            if (cmd == 1){
+                table = bloanperm;
+            }
+            // start the process of sqling
+            String sql = "INSERT INTO "+table+"(id,perm) VALUES(?,?)";
+            // do the actual inserting
+            try (Connection conn = Database.connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, uid);
+                pstmt.setInt(2, 1);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
