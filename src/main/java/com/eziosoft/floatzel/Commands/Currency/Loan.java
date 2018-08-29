@@ -24,11 +24,11 @@ public class Loan extends FCommand {
         if (!Database.dbcheckifexist(uid)){
             System.out.println("New bank account created!");
         }
-        boolean uwhat = Database.dbcheckifloan(uid);
         // check if the user has a bank loan, if they havent claimed one at all, make one!
         if (!Database.dbcheckifloan(uid)){
             Database.dbdefaultsave(uid, 2);
         }
+        boolean uwhat = Database.dbcheckifloan(uid);
         Long prevloan = Database.dbloadtime(uid);
         Long day = Integer.toUnsignedLong(86400000);
         Long passed = System.currentTimeMillis() - prevloan;

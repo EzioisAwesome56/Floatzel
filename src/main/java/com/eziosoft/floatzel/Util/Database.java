@@ -246,6 +246,7 @@ public class Database {
                 // loop through the result set
                 if (!rs.next()){
                     // right, so they dont have it here at all, oof that sucks
+                    System.out.println("USER HAD NO LOAN");
                     return false;
                 } else {
                     return true;
@@ -303,9 +304,9 @@ public class Database {
                 String sql = "INSERT INTO "+loantable+"(id,time) VALUES(?,?)";
                 try (Connection conn = Database.connect();
                      PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setString(1,id);
+                    pstmt.setString(1, id);
                     // set the time value to be the second argument index
-                    pstmt.setLong(2,time);
+                    pstmt.setLong(2, time);
                     pstmt.executeUpdate();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
