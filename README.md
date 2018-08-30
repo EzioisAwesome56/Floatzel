@@ -5,4 +5,8 @@ simply clone the repo, and then rename `ConfigStock.java` to just `Config.java` 
 this bot is rewritten in Java 8, and confirmed to work in openjdk 8.
 Consult pom.xml for the rest of the requirements
 ## Credits
-Many thanks to [Godson777 on github](https://github.com/Godson777) for all of the help he has given me for this project. without him I would still be beating Floatzel Classic's code into the ground/
+Many thanks to [Godson777 on github](https://github.com/Godson777) for all of the help he has given me for this project. without him I would still be beating Floatzel Classic's code into the ground<br>
+Special thanks to the following people for finding images:<br>
+Tax.<br>
+Squidsoda<br>
+Supermario18
