@@ -18,5 +18,5 @@ public class Files {
     public static String[] boxes = {"box1.png", "box2.png", "box3.png"};
 
     // placeholder for upcoming command
-    public static String[] mitsurus = {"hi"};
+    public static String[] mitsurus = {"1.png", "2.jpg", "3.jpg", "4.jpg", "5.jpg"};
 }
