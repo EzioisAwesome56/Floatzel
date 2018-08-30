@@ -25,7 +25,7 @@ public class Mitsuru extends FCommand {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         String filepath = "";
         // generate a number
-        int card = random.nextInt(Files.yukaris.length);
+        int card = random.nextInt(Files.mitsurus.length);
         // get photo
         try {
             img = ImageIO.read(Files.class.getResource("/mit/"+ Files.mitsurus[card]));
