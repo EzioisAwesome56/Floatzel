@@ -98,7 +98,7 @@ public class TwitterManager extends ListenerAdapter {
             };
 
     // borrowed from kekbot
-    private void tweet(String message) {
+    public void tweet(String message) {
         try {
             tweeter.updateStatus(message);
             lastTweet = Instant.now();
