@@ -17,4 +17,10 @@ public class TwitterPoster extends TimerTask {
     String[] yukari = {"Man, Yukari's design is hecking awesome"};
     //reverse strings
     String[] uno = {"Ya'll just got REVERSED!"};
+
+    // override timer task's main mathood here
+    @Override
+    public void run(){
+        // do stuff here later
+    }
 }
