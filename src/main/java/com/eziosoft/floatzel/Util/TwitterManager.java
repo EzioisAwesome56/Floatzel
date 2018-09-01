@@ -10,6 +10,7 @@ import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.awt.*;
+import java.io.File;
 import java.time.Instant;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalUnit;
@@ -109,6 +110,28 @@ public class TwitterManager extends ListenerAdapter {
     public static void tweet(String message) {
         try {
             tweeter.updateStatus(message);
+            lastTweet = Instant.now();
+        } catch (TwitterException e) {
+            System.out.println("Twitter error occured!");
+            System.out.println(e.getMessage());
+            String endl = System.getProperty("line.separator");
+
+            //If we get timed out, we try the same message again.
+            if (e.getStatusCode() == -1) {
+                tweet(message);
+                return;
+            }
+
+        }
+    }
+
+    // make a copy of the class, but have it take a file argument
+    public static void tweet(String message, String filename) {
+        StatusUpdate update = new StatusUpdate(message);
+        File img = new File(Floatzel.class.getResource(filename).getFile());
+        update.setMedia(img);
+        try {
+            tweeter.updateStatus(update);
             lastTweet = Instant.now();
         } catch (TwitterException e) {
             System.out.println("Twitter error occured!");

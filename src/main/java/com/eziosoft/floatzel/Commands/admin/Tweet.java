@@ -16,6 +16,6 @@ public class Tweet extends FCommand {
     protected void execute(CommandEvent event){
         // i guess just try sending whatever the args are
         String args = event.getArgs();
-        TwitterManager.tweet(args);
+        TwitterManager.tweet(args, "/uno/card1.png");
     }
 }
