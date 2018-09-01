@@ -21,6 +21,9 @@ public abstract class FCommand extends Command {
     // bot admin shitto
     public boolean adminCommand = false;
 
+    // string to store the money emote
+    public static String moneyicon = "\uD83E\uDD56";
+
 
 
     // overwrite get help so i can be lazy as hell
