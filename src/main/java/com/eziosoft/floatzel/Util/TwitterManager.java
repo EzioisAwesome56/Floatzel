@@ -23,6 +23,9 @@ import java.util.concurrent.TimeUnit;
 
 public class TwitterManager extends ListenerAdapter {
 
+    // stuff from kekbot we probably need
+    private Instant lastTweet;
+    // floatzel stiuff resumes
     long[] admins = Config.groupa;
     long[] mods = Config.groupb;
     private Map<Long, Message> currentTweets = new HashMap<>();
@@ -92,23 +95,6 @@ public class TwitterManager extends ListenerAdapter {
                     //We may not need this
                 }
             };
-
-
-    // code borrowed from kekbot
-    private void tweet(String message) {
-        try {
-            twitter.updateStatus(message);
-            lastTweet = Instant.now();
-        } catch (TwitterException e) {
-            String endl = System.getProperty("line.separator");
-
-            //If we get timed out, we try the same message again.
-            if (e.getStatusCode() == -1) {
-                tweet(message);
-                return;
-            }
-        }
-    }
 
 
 
