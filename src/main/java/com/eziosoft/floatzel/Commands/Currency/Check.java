@@ -36,8 +36,8 @@ public class Check extends FCommand {
         // if we are here, they clearly do have a bank account
         // go get their balanace from the databse
         int bal = Database.dbloadint(user);
-
-
-
+        event.getChannel().sendMessage("user "+mentions.get(0).getName()+"has "+Integer.toString(bal)+" "+moneyicon).queue();
+        // and thats all folks
+        return;
     }
 }
