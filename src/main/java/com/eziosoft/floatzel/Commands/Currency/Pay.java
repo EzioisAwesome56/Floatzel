@@ -82,6 +82,6 @@ public class Pay extends FCommand {
         // save back to the db
         Database.dbsave(uid, newbal);
         Database.dbsave(monget, oofbal);
-        event.getChannel().sendMessage("You paid "+rawamount+"\uD83E\uDD56 to user "+monget+"!").queue();
+        event.getChannel().sendMessage("You paid "+rawamount+"\uD83E\uDD56 to user "+mentions.get(0).getName()+"!").queue();
     }
 }
