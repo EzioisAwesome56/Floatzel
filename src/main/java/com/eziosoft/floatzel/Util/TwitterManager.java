@@ -94,6 +94,24 @@ public class TwitterManager extends ListenerAdapter {
             };
 
 
+    // code borrowed from kekbot
+    private void tweet(String message) {
+        try {
+            twitter.updateStatus(message);
+            lastTweet = Instant.now();
+        } catch (TwitterException e) {
+            String endl = System.getProperty("line.separator");
+
+            //If we get timed out, we try the same message again.
+            if (e.getStatusCode() == -1) {
+                tweet(message);
+                return;
+            }
+        }
+    }
+
+
+
     public TwitterManager() {}
 
     public void shutdown() {
