@@ -25,6 +25,7 @@ public class TwitterManager extends ListenerAdapter {
 
     // stuff from kekbot we probably need
     private Instant lastTweet;
+    private final Twitter tweeter = TwitterFactory.getSingleton();
     // floatzel stiuff resumes
     long[] admins = Config.groupa;
     long[] mods = Config.groupb;
@@ -95,6 +96,23 @@ public class TwitterManager extends ListenerAdapter {
                     //We may not need this
                 }
             };
+
+    // borrowed from kekbot
+    private void tweet(String message) {
+        try {
+            tweeter.updateStatus(message);
+            lastTweet = Instant.now();
+        } catch (TwitterException e) {
+            String endl = System.getProperty("line.separator");
+
+            //If we get timed out, we try the same message again.
+            if (e.getStatusCode() == -1) {
+                tweet(message);
+                return;
+            }
+
+        }
+    }
 
 
 
