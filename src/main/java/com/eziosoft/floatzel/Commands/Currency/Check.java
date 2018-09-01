@@ -2,6 +2,9 @@ package com.eziosoft.floatzel.Commands.Currency;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.core.entities.User;
+
+import java.util.List;
 
 public class Check extends FCommand {
     public Check(){
@@ -14,6 +17,12 @@ public class Check extends FCommand {
 
     @Override
     protected void execute(CommandEvent event) {
+        // get mentions, if any
+        List<User> mentions = event.getMessage().getMentionedUsers();
+        if (mentions.isEmpty()){
+            event.getChannel().sendMessage("You didn't mention anyone!").queue();
+            return;
+        }
 
     }
 }
