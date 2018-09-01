@@ -24,8 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class TwitterManager extends ListenerAdapter {
 
     // stuff from kekbot we probably need
-    private Instant lastTweet;
-    private final Twitter tweeter = TwitterFactory.getSingleton();
+    private static Instant lastTweet;
     // floatzel stiuff resumes
     long[] admins = Config.groupa;
     long[] mods = Config.groupb;
@@ -35,6 +34,15 @@ public class TwitterManager extends ListenerAdapter {
             .setOAuthConsumerSecret(Config.secretkey)
             .setOAuthAccessToken(Config.access)
             .setOAuthAccessTokenSecret(Config.secretaccess);
+    // move some of this shit down here i guess
+    // also make a static copy of the cb
+    private static ConfigurationBuilder oof = new ConfigurationBuilder().setDebugEnabled(true)
+            .setOAuthConsumerKey(Config.key)
+            .setOAuthConsumerSecret(Config.secretkey)
+            .setOAuthAccessToken(Config.access)
+            .setOAuthAccessTokenSecret(Config.secretaccess);
+    private static final TwitterFactory tf = new TwitterFactory(oof.build());
+    private static final Twitter tweeter = tf.getInstance();
             // hey the solution was to import twitter4j-stream in maven and problem solved!
             // i went ahead and added it to maven so you may need to reimport
             TwitterStream twitter = new TwitterStreamFactory(cb.build()).getInstance();
@@ -98,7 +106,7 @@ public class TwitterManager extends ListenerAdapter {
             };
 
     // borrowed from kekbot
-    public void tweet(String message) {
+    public static void tweet(String message) {
         try {
             tweeter.updateStatus(message);
             lastTweet = Instant.now();
