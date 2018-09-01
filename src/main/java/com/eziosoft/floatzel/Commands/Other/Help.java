@@ -63,6 +63,8 @@ public class Help extends FCommand {
 
         // form the nice looking help box
         String helpmsg = "```md\n#Floatzel Version " + Floatzel.version + " help\n" + builder.toString() + "```";
+        // debug string: print to console how long the help message is
+        System.out.println(Integer.toString(helpmsg.length()));
 
         event.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(helpmsg).queue());
     }
