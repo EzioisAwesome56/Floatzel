@@ -157,18 +157,6 @@ public class Database {
 
     // load an integer from a db entry
     public static int dbloadint(String id) {
-        if (Config.olddb) {
-            File dbentry = new File(bank + id + ext);
-            try {
-                FileReader read = new FileReader(dbentry);
-                BufferedReader bread = new BufferedReader(read);
-                String content = bread.readLine();
-                return Integer.valueOf(content);
-            } catch (NumberFormatException | IOException e) {
-                e.printStackTrace();
-                return -1;
-            }
-        } else {
             // prepare the sql to load the user's table
             String sql = "SELECT id, bal FROM "+banktable+" WHERE id = '"+id+"'";
             // connect to the db and get the row
@@ -189,19 +177,9 @@ public class Database {
                 return -999;
             }
         }
-    }
 
     // check if the user has a loan out
     public static boolean dbcheckifloan(String id){
-        if (Config.olddb) {
-
-            File dbentry = new File(loan + id + ext);
-            if (dbentry.exists()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
             // find a row with the user's id
             String sql = "SELECT id, time FROM "+loantable+" WHERE id = '"+id+"'";
             // execute that string and get a results set
@@ -223,7 +201,6 @@ public class Database {
                 return false;
             }
         }
-    }
 
     // default saver
     public static void dbdefaultsave(String id, int location){
@@ -232,12 +209,8 @@ public class Database {
             defpath = bank;
         } else if (location == 2){
             // yeah, bascially we dont need this anymore
-            if (Config.olddb) {
-                defpath = loan;
-            } else {
                 Database.sqlblankloan(id);
                 return;
-            }
         } else if (location == 3){
             defpath = trackbloan;
         } else if (location == 4){
@@ -247,15 +220,6 @@ public class Database {
             return;
         }
         // write the default value to the db entry
-        File dbentry = new File(defpath+id+ext);
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
-            writer.write("0");
-            writer.close();
-        } catch (IOException e){
-            System.out.println("ERROR SAVING DB");
-            return;
-            }
     }
 
     // sql fucntion to write a 0 to a new loan entry
@@ -277,18 +241,6 @@ public class Database {
 
     // fucntion for saving time to the loan
     public static void dbsavetime(String id, long time){
-        if (Config.olddb) {
-
-            File dbentry = new File(loan + id + ext);
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
-                writer.write(Long.toString(time));
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("ERROR WRITING FILE");
-                return;
-            }
-        } else {
                 // update it instead
                 String sql = "UPDATE " + loantable + " SET time = ? WHERE id = '" + id + "'";
                 try (Connection conn = Database.connect();
@@ -300,22 +252,9 @@ public class Database {
                     System.out.println(e.getMessage());
                 }
             }
-        }
 
     // return a long with the stored nano time
     public static long dbloadtime(String id){
-        if (Config.olddb) {
-            File dbentry = new File(loan + id + ext);
-            try {
-                FileReader read = new FileReader(dbentry);
-                BufferedReader bread = new BufferedReader(read);
-                String content = bread.readLine();
-                return Long.valueOf(content);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return -1;
-            }
-        } else {
             // prepare the sql to load the user's table
             String sql = "SELECT id, time FROM "+loantable+" WHERE id = ?";
             // connect to the db and get the row
@@ -337,7 +276,6 @@ public class Database {
                 return -999L;
             }
         }
-    }
 
     public static boolean dbcheckbloan(String id){
         if (Config.olddb) {
