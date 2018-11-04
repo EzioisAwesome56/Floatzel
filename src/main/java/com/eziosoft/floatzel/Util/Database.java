@@ -34,38 +34,17 @@ public class Database {
 
     // check if folder exist
     public static void dbinit() {
-        // read from settings to find out what database the user has selected to use
-        if (Config.olddb) {
-            System.out.println("WARNING! You are currently configured to use the old database! This will be completely removed in a future update");
-            System.out.println("It is advised that you switch to the new sqlite database mode");
-            System.out.println("Checking if database folder has been created...");
-            if (!dbdir.exists()) {
-                System.out.println("Database not created, setting up database...");
-                dbdir.mkdir();
-                bankdir.mkdir();
-                loandir.mkdir();
-                lottodir.mkdir();
-                bagledir.mkdir();
-                bldir.mkdir();
-                System.out.println("Database setup completed!");
-                return;
-            } else {
-                System.out.println("Database already configured!");
-                return;
-            }
-        } else if (!Config.olddb) {
-            // first, check if the database file exists
-            if (!sqldb.exists()){
-                System.out.println("No database found! Creating a new db!");
-                // okay, it hasnt been initalized yet, so do that
-                Database.sqlinit();
-                System.out.println("Creating tables...");
-                Database.sqltable();
-            } else {
-                // quickly run through the tables just to make sure
-                Database.sqltable();
-                System.out.println("database already installed!");
-            }
+        // first, check if the database file exists
+        if (!sqldb.exists()){
+            System.out.println("No database found! Creating a new db!");
+            // okay, it hasnt been initalized yet, so do that
+            Database.sqlinit();
+            System.out.println("Creating tables...");
+            Database.sqltable();
+        } else {
+            // quickly run through the tables just to make sure
+            Database.sqltable();
+            System.out.println("database already installed!");
         }
     }
 
