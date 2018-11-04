@@ -103,15 +103,6 @@ public class Database {
 
     // check if db entry exists
     public static Boolean dbcheckifexist(String id){
-        if (Config.olddb) {
-        File userfile = new File(bank+id+ext);
-        if (!userfile.exists()){
-            Database.dbsave(id, "0");
-            return false;
-        } else {
-            return true;
-        }
-        } else {
             // the sql used to check if a person is in za database
             String sql = "SELECT 1 FROM "+banktable+" WHERE id = '"+id+"' LIMIT 1";
             // connection shit
@@ -135,7 +126,6 @@ public class Database {
                 return false;
             }
         }
-    }
 
 
     // function to write to a new db file (OLD: DO NOT USE)
@@ -152,18 +142,6 @@ public class Database {
         if (data < -100){
             data = Integer.MAX_VALUE;
         }
-        if (Config.olddb) {
-
-            File dbentry = new File(bank + id + ext);
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
-                writer.write(Integer.toString(data));
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-        } else {
             // define the sql string
             String sql = "UPDATE " + banktable + " SET bal = ? WHERE id = '" + id + "'";
             try (Connection conn = Database.connect();
@@ -175,7 +153,6 @@ public class Database {
             } catch(SQLException e){
             System.out.println(e.getMessage());
         }
-    }
     }
 
     // load an integer from a db entry
