@@ -24,6 +24,10 @@ public abstract class FCommand extends Command {
     // string to store the money emote
     public static String moneyicon = "\uD83E\uDD56";
 
+    // stuff for help caching
+    public boolean madehelp = false;
+    public String helpthing = null;
+
 
 
     // overwrite get help so i can be lazy as hell
