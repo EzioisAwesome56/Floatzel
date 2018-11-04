@@ -278,26 +278,6 @@ public class Database {
         }
 
     public static boolean dbcheckbloan(String id){
-        if (Config.olddb) {
-            File dbentry = new File(bloan + id + ext);
-            try {
-                if (!dbentry.exists()) {
-                    Database.dbdefaultsave(id, 4);
-                    return false;
-                }
-                FileReader read = new FileReader(dbentry);
-                BufferedReader bread = new BufferedReader(read);
-                String content = bread.readLine();
-                if (content.equals("1")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
-        } else {
             // sql statement to check for this shit
             String sql = "SELECT id, perm FROM "+bloanperm+" WHERE id = '"+id+"'";
             // do those sql things
@@ -324,25 +304,8 @@ public class Database {
                 return false;
             }
         }
-    }
 
     public static void dbbuycmd(int cmd, String uid){
-        if (Config.olddb) {
-            String path = "";
-            if (cmd == 1) {
-                path = bloan;
-            }
-            // make new file object for the db entry
-            File dbentry = new File(path + uid + ext);
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(dbentry));
-                writer.write(Integer.toString(1));
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-        } else {
             String table = "";
             if (cmd == 1){
                 table = bloanperm;
@@ -359,7 +322,6 @@ public class Database {
                 System.out.println(e.getMessage());
             }
         }
-    }
 
 
 
