@@ -400,6 +400,16 @@ public class Database {
         }
 
     }
+    public static int dbgetcount(){
+        String sql = "SELECT 1 FROM "+stockc;
+        try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
+            ResultSet rs = pst.executeQuery();
+            return rs.getInt("numb");
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return -999;
+        }
+    }
     public static void dbupdatestock(int id, boolean isbuy, int price, int diff, int unit){
         // update it instead
         String sql;
