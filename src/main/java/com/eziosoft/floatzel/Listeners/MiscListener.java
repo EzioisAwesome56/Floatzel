@@ -2,6 +2,7 @@ package com.eziosoft.floatzel.Listeners;
 
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.GameStatus;
+import com.eziosoft.floatzel.Timers.StockTimer;
 import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.StockUtil;
 import com.eziosoft.floatzel.Util.TwitterManager;
@@ -21,6 +22,7 @@ public class MiscListener extends ListenerAdapter {
 
     private Timer timer;
     private GameStatus gameStatus = new GameStatus();
+    private StockTimer epic = new StockTimer();
     private Boolean kekbot = true;
 
     @Override
@@ -37,6 +39,8 @@ public class MiscListener extends ListenerAdapter {
             if (timer == null) {
                 timer = new Timer();
                 timer.schedule(gameStatus, 0, TimeUnit.MINUTES.toMillis(10));
+                // also set the stocks to update every 15 minutes
+                timer.schedule(epic, 0, TimeUnit.MINUTES.toMillis(15));
             }
         }
     }
