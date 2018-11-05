@@ -36,7 +36,7 @@ public class StockUtil {
         int counter = 1;
         boolean isCrash;
         boolean isSuperCrash;
-        while (counter < stocks){
+        while (counter <= stocks){
             // randomly pick if the stock will boom or crash
             int crash = random.nextInt(50);
             if (crash == 27){
