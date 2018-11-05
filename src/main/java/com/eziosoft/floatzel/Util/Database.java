@@ -15,13 +15,6 @@ public class Database {
     public static String bagle = "database/bagle/";
     public static String bloan = "database/betterloan/";
     public static String trackbloan = "database/lotto";
-    public static File dbdir = new File(path);
-    public static File bankdir = new File(bank);
-    public static File loandir = new File(loan);
-    public static File lottodir = new File(trackbloan);
-    public static File bagledir = new File(bagle);
-    public static File bldir = new File(bloan);
-    public static String ext = ".db";
     // new sqlite database location, stored as a file
     public static String sqlthing = System.getProperty("user.dir") + "/floatzel.db";
     public static File sqldb = new File(sqlthing);
