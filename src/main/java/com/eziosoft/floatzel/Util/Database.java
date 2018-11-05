@@ -370,7 +370,7 @@ public class Database {
 
     public static void dbinccount(){
         boolean exist = true;
-        int newcount = null;
+        int newcount = -2;
         String sql = "SELECT TOP 1 1 FROM "+stockc;
         try (Connection conn = Database.connect();
              PreparedStatement pstmt  = conn.prepareStatement(sql)) {
