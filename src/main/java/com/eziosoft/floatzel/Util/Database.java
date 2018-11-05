@@ -381,10 +381,10 @@ public class Database {
             exist = rs.next();
             if (!exist) {
                 // if there isnt, make it
-                sql = "INSERT INTO "+stockc+"(numb) VALUES(1)";
+                sql = "INSERT INTO "+stockc+"(numb,what) VALUES(1,1)";
             } else {
                 int oldcount = rs.getInt("numb");
-                sql = "UPDATE "+ stockc + " SET numb = ? WHERE numb = "+oldcount;
+                sql = "UPDATE "+ stockc + " SET numb = ?, what = 1 WHERE numb = "+oldcount;
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -401,10 +401,14 @@ public class Database {
 
     }
     public static int dbgetcount(){
-        String sql = "SELECT 1 FROM "+stockc;
+        String sql = "SELECT numb FROM "+stockc+" WHERE numb > ?";
         try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
+            pst.setInt(1, 0);
             ResultSet rs = pst.executeQuery();
-            return rs.getInt("numb");
+            boolean exist = rs.next();
+            int epic = rs.getInt("numb");
+            rs.close();
+            return epic;
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return -999;
@@ -445,10 +449,13 @@ public class Database {
             // loop through the result set
             if (!rs.next()){
                 System.out.println("ERROR WHILE LOADING ROWS");
+                rs.close();
                 return -999;
             }
             // alright, get the value we need now
-            return rs.getInt("price");
+            int result = rs.getInt("price");
+            rs.close();
+            return result;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return -999;
