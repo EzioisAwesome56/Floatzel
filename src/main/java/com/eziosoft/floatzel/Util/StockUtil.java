@@ -73,8 +73,15 @@ public class StockUtil {
                     price = 1;
                 }
             }
+            // finally, save it back to the database
+            Database.dbupdatestock(counter, false, price, change, -2);
+            // and then add 1 to the counter
             counter++;
         }
+        // if we are here, we should be done
+        System.out.println("Floatzel stock updater has completed!");
+        // let people use stocks again
+        canstocks = true;
         return;
     }
 }
