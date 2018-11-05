@@ -362,6 +362,31 @@ public class Database {
             return;
         }
     }
+    public static void dbupdatestock(int id, boolean isbuy, int price, int diff, int unit){
+        // update it instead
+        String sql;
+        if (!isbuy) {
+             sql = "UPDATE " + stocktable + " SET price = ?, diff = ? WHERE id = '" + id + "'";
+        } else {
+            sql = "UPDATE " + stocktable + " SET units = ? WHERE id = '" + id + "'";
+        }
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+                if(!isbuy) {
+                    pstmt.setInt(1, price);
+                    pstmt.setInt(2, diff);
+                } else {
+                    pstmt.setInt(1, unit);
+                }
+            // update
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // methood to get current price
+
 
 
 }
