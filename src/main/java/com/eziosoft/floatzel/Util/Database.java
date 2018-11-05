@@ -344,5 +344,24 @@ public class Database {
         }
     }
 
+    // sql fucntion to write a 0 to a new loan entry
+    public static void dbnewstock(int id, String name, int units, int price){
+        // prepare to insert
+        String sql = "INSERT INTO "+stocktable+"(id,name,price,diff,units) VALUES(?,?,?,0,?)";
+        // insert
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.setString(2, name);
+            pstmt.setInt(3, price);
+            pstmt.setInt(4, units);
+            pstmt.executeUpdate();
+            return;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+    }
+
 
 }
