@@ -22,6 +22,7 @@ public class Database {
     public static String loantable = "loan";
     public static String bloanperm = "bloan";
     public static String stocktable = "stocks";
+    public static String stockc = "count";
 
     // check if folder exist
     public static void dbinit() {
@@ -77,6 +78,9 @@ public class Database {
                 + " diff integer,\n"
                 + " units integer\n"
                 + ");";
+        String stockcount = "CREATE TABLE IF NOT EXISTS "+stockc+" (\n"
+                + " numb integer PRIMARY KEY,\n"
+                + ");";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create all the tables
@@ -84,6 +88,7 @@ public class Database {
             stmt.execute(smalloof);
             stmt.execute(penis);
             stmt.execute(stock);
+            stmt.execute(stockcount);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -361,6 +366,39 @@ public class Database {
             System.out.println(e.getMessage());
             return;
         }
+    }
+
+    public static void dbinccount(){
+        boolean exist = true;
+        int newcount = null;
+        String sql = "SELECT TOP 1 1 FROM "+stockc;
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql)) {
+
+            ResultSet rs = pstmt.executeQuery();
+
+            // is there already a row here?
+            exist = rs.next();
+            if (!exist) {
+                // if there isnt, make it
+                sql = "INSERT INTO "+stockc+"(numb) VALUES(1)";
+            } else {
+                int oldcount = rs.getInt("numb");
+                sql = "UPDATE "+ stockc + " SET numb = ? WHERE numb = "+oldcount;
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return;
+        }
+        try (Connection conn = Database.connect(); PreparedStatement psmt = conn.prepareStatement(sql)){
+            if (exist){
+                psmt.setInt(1, newcount);
+            }
+            psmt.execute();
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
     }
     public static void dbupdatestock(int id, boolean isbuy, int price, int diff, int unit){
         // update it instead

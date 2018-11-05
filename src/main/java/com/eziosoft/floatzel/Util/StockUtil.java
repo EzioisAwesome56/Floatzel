@@ -17,11 +17,17 @@ public class StockUtil {
             // for the time being, create 1 stock
             Database.dbnewstock(1, "FLoatzel Industries", 100, 250);
             // thats all for now...the admin can add and remove stocks later
+            Database.dbinccount();
             System.out.println("1 new stock created!\nInit complete");
             return true;
         } else {
             System.out.println("Initilization complete");
             return true;
         }
+    }
+
+    public static void updateStock(){
+        int stocks = 1;
+        return;
     }
 }
