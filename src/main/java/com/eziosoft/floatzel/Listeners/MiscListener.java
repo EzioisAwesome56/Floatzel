@@ -3,6 +3,7 @@ package com.eziosoft.floatzel.Listeners;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.GameStatus;
 import com.eziosoft.floatzel.Util.Database;
+import com.eziosoft.floatzel.Util.StockUtil;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.ReadyEvent;
@@ -28,6 +29,7 @@ public class MiscListener extends ListenerAdapter {
             // check to see if the db is setup
             if (event.getJDA().getShardInfo().getShardId() == event.getJDA().getShardInfo().getShardTotal() - 1){
                 Database.dbinit();
+                StockUtil.initStock();
             }
             System.out.println("Floatzel is alive you piece of shit, now hope it doesnt start a fight dickface");
 
