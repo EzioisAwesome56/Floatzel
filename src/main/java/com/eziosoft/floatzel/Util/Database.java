@@ -331,7 +331,7 @@ public class Database {
     public static Boolean dbcheckstock(){
         int id = 1;
         // the sql used to check if a person is in za database
-        String sql = "SELECT 1 FROM "+stocktable+" WHERE id = '"+id+"' LIMIT 1";
+        String sql = "SELECT * FROM "+stocktable+" WHERE id = "+1;
         // connection shit
         try (Connection conn = Database.connect();
              PreparedStatement pstmt  = conn.prepareStatement(sql)){
@@ -352,14 +352,15 @@ public class Database {
     // sql fucntion to write a 0 to a new loan entry
     public static void dbnewstock(int id, String name, int units, int price){
         // prepare to insert
-        String sql = "INSERT INTO "+stocktable+"(id,name,price,diff,units) VALUES(?,?,?,0,?)";
+        String sql = "INSERT INTO "+stocktable+"(id,name,price,diff,units) VALUES(?,?,?,?,?)";
         // insert
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.setString(2, name);
             pstmt.setInt(3, price);
-            pstmt.setInt(4, units);
+            pstmt.setInt(5, units);
+            pstmt.setInt(4, 0);
             pstmt.executeUpdate();
             return;
         } catch (SQLException e) {
@@ -381,17 +382,19 @@ public class Database {
             exist = rs.next();
             if (!exist) {
                 // if there isnt, make it
-                sql = "INSERT INTO "+stockc+"(numb,what) VALUES(1,1)";
+                sql = "INSERT INTO "+stockc+"(numb) VALUES(?)";
             } else {
                 int oldcount = rs.getInt("numb");
-                sql = "UPDATE "+ stockc + " SET numb = ?, what = 1 WHERE numb = "+oldcount;
+                sql = "UPDATE "+ stockc + " SET numb = ? WHERE numb = "+oldcount;
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return;
         }
         try (Connection conn = Database.connect(); PreparedStatement psmt = conn.prepareStatement(sql)){
-            if (exist){
+            if (!exist){
+                psmt.setInt(1, 1);
+            } else {
                 psmt.setInt(1, newcount);
             }
             psmt.execute();

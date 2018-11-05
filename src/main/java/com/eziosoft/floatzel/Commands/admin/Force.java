@@ -14,8 +14,8 @@ public class Force extends FCommand {
 
     @Override
     protected void execute(CommandEvent event){
-        String arg = event.getArgs();
-        if (arg == "stock"){
+        int arg = Integer.valueOf(event.getArgs());
+        if (arg == 1){
             // force a stock update
             StockUtil.updateStock();
             event.getChannel().sendMessage("Forced stock update!").queue();
