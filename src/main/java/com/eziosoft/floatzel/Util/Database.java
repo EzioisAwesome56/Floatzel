@@ -322,6 +322,27 @@ public class Database {
             }
         }
 
+    // check to see if anything is in the table at all
+    public static Boolean dbcheckstock(){
+        int id = 1;
+        // the sql used to check if a person is in za database
+        String sql = "SELECT 1 FROM "+stocktable+" WHERE id = '"+id+"' LIMIT 1";
+        // connection shit
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql)){
+
+            ResultSet rs  = pstmt.executeQuery();
+
+            if (!rs.next()){
+                return false;
+            } else {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 
 
 }
