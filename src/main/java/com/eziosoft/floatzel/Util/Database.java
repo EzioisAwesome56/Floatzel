@@ -79,7 +79,7 @@ public class Database {
                 + " units integer\n"
                 + ");";
         String stockcount = "CREATE TABLE IF NOT EXISTS "+stockc+" (\n"
-                + " numb integer PRIMARY KEY,\n"
+                + " numb integer PRIMARY KEY\n"
                 + ");";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
