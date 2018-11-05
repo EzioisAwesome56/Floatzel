@@ -9,6 +9,7 @@ public class Force extends FCommand {
         name = "force";
         description = "Forces a event to take place";
         category = owner;
+        ownerCommand = true;
     }
 
     @Override
