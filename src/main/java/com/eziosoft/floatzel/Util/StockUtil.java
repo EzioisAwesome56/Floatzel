@@ -34,7 +34,13 @@ public class StockUtil {
         // setup the counters
         int stocks = Database.dbgetcount();
         int counter = 1;
+        boolean isCrash;
         while (counter < stocks){
+            // randomly pick if the stock will boom or crash
+            int crash = random.nextInt(50);
+            if (crash == 27){
+                isCrash = true;
+            }
             // load the price of the current stock
             int price = Database.dbgetprice(counter);
             // first, determine if a stock goes up or down in price
