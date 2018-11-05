@@ -21,6 +21,7 @@ public class Database {
     public static String banktable = "bank";
     public static String loantable = "loan";
     public static String bloanperm = "bloan";
+    public static String stocktable = "stocks";
 
     // check if folder exist
     public static void dbinit() {
@@ -69,12 +70,20 @@ public class Database {
                 + " id text PRIMARY KEY,\n"
                 + " perm integer\n"
                 + ");";
+        String stock = "CREATE TABLE IF NOT EXISTS "+stocktable+" (\n"
+                + " id integer PRIMARY KEY,\n"
+                + " name text,\n"
+                + " price integer,\n"
+                + " diff integer,\n"
+                + " units integer\n"
+                + ");";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create all the tables
             stmt.execute(bigoof);
             stmt.execute(smalloof);
             stmt.execute(penis);
+            stmt.execute(stock);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
