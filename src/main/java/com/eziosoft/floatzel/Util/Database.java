@@ -386,7 +386,26 @@ public class Database {
     }
 
     // methood to get current price
+    public static int dbgetprice(int id){
+        String sql = "SELECT price FROM "+stocktable+" WHERE id = '"+id+"'";
+        // connect to the db and get the row
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt  = conn.prepareStatement(sql)){
+            // execute the query
+            ResultSet rs  = pstmt.executeQuery();
 
+            // loop through the result set
+            if (!rs.next()){
+                System.out.println("ERROR WHILE LOADING ROWS");
+                return -999;
+            }
+            // alright, get the value we need now
+            return rs.getInt("price");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -999;
+        }
+    }
 
 
 }
