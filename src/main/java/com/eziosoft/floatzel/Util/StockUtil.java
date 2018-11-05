@@ -35,11 +35,28 @@ public class StockUtil {
         int stocks = Database.dbgetcount();
         int counter = 1;
         boolean isCrash;
+        boolean isSuperCrash;
         while (counter < stocks){
             // randomly pick if the stock will boom or crash
             int crash = random.nextInt(50);
             if (crash == 27){
                 isCrash = true;
+                isSuperCrash = false;
+            } else if (crash == 49){
+                // uh oh. A super crash/boom is happening
+                isSuperCrash = true;
+                isCrash = false;
+            } else {
+                isCrash = false;
+                isSuperCrash = false;
+            }
+            // generate the amount to add or subtract from the stock price
+            int change = (random.nextInt(24)) + 1;
+            // double it if its a crash/boom
+            if (isCrash){
+                change = change * 2;
+            } else if (isSuperCrash){
+                change = (change * 2) * 3;
             }
             // load the price of the current stock
             int price = Database.dbgetprice(counter);
@@ -49,8 +66,12 @@ public class StockUtil {
                 System.out.println("Stock id "+Integer.toString(counter)+" has no change!");
             } else if (magic == 1){
                 // increase in stock price
+                price = price + change;
             } else if (magic == 2){
-                // decrease in stock price
+                price = price - change;
+                if (price < 0){
+                    price = 1;
+                }
             }
             counter++;
         }
