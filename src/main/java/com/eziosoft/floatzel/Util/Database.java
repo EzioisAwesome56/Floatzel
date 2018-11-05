@@ -9,10 +9,7 @@ import java.sql.*;
 
 public class Database {
     // set the root db path
-    public static String path = "database/";
     public static String bank = "database/bank/";
-    public static String loan = "database/loan/";
-    public static String bagle = "database/bagle/";
     public static String bloan = "database/betterloan/";
     public static String trackbloan = "database/lotto";
     // new sqlite database location, stored as a file
