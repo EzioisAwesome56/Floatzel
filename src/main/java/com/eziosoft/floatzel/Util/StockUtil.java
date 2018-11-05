@@ -61,13 +61,13 @@ public class StockUtil {
             // load the price of the current stock
             int price = Database.dbgetprice(counter);
             // first, determine if a stock goes up or down in price
-            int magic = random.nextInt(2);
+            int magic = random.nextInt(5);
             if (magic == 0){
                 System.out.println("Stock id "+Integer.toString(counter)+" has no change!");
-            } else if (magic == 1){
+            } else if (magic == 1 || magic == 4){
                 // increase in stock price
                 price = price + change;
-            } else if (magic == 2){
+            } else if (magic == 2 || magic == 5){
                 price = price - change;
                 if (price < 0){
                     price = 1;
