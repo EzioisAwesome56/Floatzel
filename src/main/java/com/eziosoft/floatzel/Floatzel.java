@@ -80,6 +80,7 @@ public class Floatzel {
         commandClient.addCommand(new Tweet());
         commandClient.addCommand(new Check());
         commandClient.addCommand(new ViewStocks());
+        commandClient.addCommand(new Force());
         //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
