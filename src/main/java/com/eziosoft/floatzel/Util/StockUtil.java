@@ -5,7 +5,8 @@ import java.util.Random;
 
 public class StockUtil {
 
-    private Random random = new Random();
+    private static Random random = new Random();
+    public static boolean canstocks = true;
 
 
     public static boolean initStock(){
@@ -27,7 +28,26 @@ public class StockUtil {
     }
 
     public static void updateStock(){
-        int stocks = 1;
+        // dont let people buy stocks during a market update...duh
+        canstocks = false;
+        System.out.println("Floatzel is now updating the stocks...");
+        // setup the counters
+        int stocks = Database.dbgetcount();
+        int counter = 1;
+        while (counter < stocks){
+            // load the price of the current stock
+            int price = Database.dbgetprice(counter);
+            // first, determine if a stock goes up or down in price
+            int magic = random.nextInt(2);
+            if (magic == 0){
+                System.out.println("Stock id "+Integer.toString(counter)+" has no change!");
+            } else if (magic == 1){
+                // increase in stock price
+            } else if (magic == 2){
+                // decrease in stock price
+            }
+            counter++;
+        }
         return;
     }
 }
