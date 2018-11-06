@@ -26,9 +26,9 @@ public class ViewStocks extends FCommand {
         String name = Database.dbgetname(1);
         int price = Database.dbgetprice(1);
         // impliment this later lol
-        int diff = 2;
+        int diff = Database.dbgetdiff(1);
         // also add this at alater point in time
-        int unit = 420;
+        int unit = Database.dbgetunits(1);
         // form the list
         builder.append("["+name+"]\n[Cost]("+Integer.toString(price)+")\n[Difference]("+Integer.toString(diff)+")\n[Units]("+Integer.toString(unit)+")\n\n");
         list = list + builder.toString() + "```";
