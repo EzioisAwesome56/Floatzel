@@ -14,6 +14,8 @@ public class ViewStocks extends FCommand {
 
     @Override
     protected void execute(CommandEvent event){
+        String list = "```md\n#Floatzel Stock Market\n\n";
+        StringBuilder builder = new StringBuilder();
         // are the stocks open right now?
         if (!StockUtil.canstocks){
             event.getChannel().sendMessage("Error: the stocks are being updated right now. Please try again later").queue();
@@ -22,7 +24,12 @@ public class ViewStocks extends FCommand {
         // load the total amount of stocks
         int total = Database.dbgetcount();
         String name = Database.dbgetname(1);
-        event.getChannel().sendMessage("name is "+name).queue();
-
+        int price = Database.dbgetprice(1);
+        // impliment this later lol
+        int diff = 2;
+        // also add this at alater point in time
+        int unit = 420;
+        // form the list
+        return;
     }
 }
