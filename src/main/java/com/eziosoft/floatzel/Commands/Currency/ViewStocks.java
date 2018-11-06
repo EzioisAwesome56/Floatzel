@@ -31,7 +31,7 @@ public class ViewStocks extends FCommand {
         int unit = 420;
         // form the list
         builder.append("["+name+"]\n[Cost]("+Integer.toString(price)+")\n[Difference]("+Integer.toString(diff)+")\n[Units]("+Integer.toString(diff)+")\n\n");
-        list = list + builder.toString();
+        list = list + builder.toString() + "```";
         event.getChannel().sendMessage(list).queue();
         return;
     }
