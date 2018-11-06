@@ -19,8 +19,9 @@ public class ViewStocks extends FCommand {
             event.getChannel().sendMessage("Error: the stocks are being updated right now. Please try again later").queue();
             return;
         }
-        // for testing reasons only
-        int price = Database.dbgetprice(1);
-        event.getChannel().sendMessage("Stock 1's price is "+Integer.toString(price)).queue();
+        // load the total amount of stocks
+        int total = Database.dbgetcount();
+        String name = Database.dbgetname(1);
+
     }
 }
