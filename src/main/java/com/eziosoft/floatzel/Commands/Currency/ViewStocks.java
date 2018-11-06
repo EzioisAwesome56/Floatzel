@@ -22,6 +22,7 @@ public class ViewStocks extends FCommand {
         // load the total amount of stocks
         int total = Database.dbgetcount();
         String name = Database.dbgetname(1);
+        event.getChannel().sendMessage("name is "+name).queue();
 
     }
 }
