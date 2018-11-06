@@ -505,5 +505,25 @@ public class Database {
         }
     }
 
+    // get units
+    public static int dbgetunits(int id){
+        String sql = "SELECT units FROM "+stocktable+" WHERE id = "+id;
+        // connect to the db
+        try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
+            // run the query
+            ResultSet rs = pst.executeQuery();
+
+            if (!rs.next()){
+                System.out.println("SQL FAULT!");
+                return -999;
+            }
+            int diff = rs.getInt("untis");
+            return diff;
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return -999;
+        }
+    }
+
 
 }
