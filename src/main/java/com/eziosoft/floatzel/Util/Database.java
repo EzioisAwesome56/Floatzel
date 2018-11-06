@@ -517,7 +517,7 @@ public class Database {
                 System.out.println("SQL FAULT!");
                 return -999;
             }
-            int diff = rs.getInt("untis");
+            int diff = rs.getInt("units");
             return diff;
         } catch (SQLException e){
             System.out.println(e.getMessage());
