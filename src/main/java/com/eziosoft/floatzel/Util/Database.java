@@ -485,5 +485,25 @@ public class Database {
         }
     }
 
+    // get dif
+    public static int dbgetdiff(int id){
+        String sql = "SELECT diff FROM "+stocktable+" WHERE id = "+id;
+        // connect to the db
+        try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
+            // run the query
+            ResultSet rs = pst.executeQuery();
+
+            if (!rs.next()){
+                System.out.println("SQL FAULT!");
+                return -999;
+            }
+            int diff = rs.getInt("diff");
+            return diff;
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return -999;
+        }
+    }
+
 
 }
