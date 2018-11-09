@@ -16,8 +16,7 @@ import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.jagrosh.jdautilities.command.CommandClient;
-//import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import com.eziosoft.floatzel.Util.Lib.CommandClientBuilder;
+import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.bot.sharding.ShardManager;
 
