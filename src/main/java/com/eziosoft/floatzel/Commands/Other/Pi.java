@@ -13,7 +13,8 @@ public class Pi extends FCommand {
         category = other;
     }
 
-    protected void execute(CommandEvent commandEvent) {
+    @Override
+    protected void cmdrun(CommandEvent commandEvent) {
         String gay = Double.toString(Math.PI);
         commandEvent.getChannel().sendMessage("Did you fucking fail math you dumbass?\npi is clearly "+gay).queue();
   }

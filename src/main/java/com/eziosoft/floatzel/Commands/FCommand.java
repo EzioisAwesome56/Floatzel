@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands;
 
 import com.jagrosh.jdautilities.command.Command;
+import com.jagrosh.jdautilities.command.CommandEvent;
 
 public abstract class FCommand extends Command {
 
@@ -27,6 +28,16 @@ public abstract class FCommand extends Command {
     // stuff for help caching
     public boolean madehelp = false;
     public String helpthing = null;
+
+    @Override
+    protected void execute(CommandEvent var1){
+        // just run the new function lmao!
+        cmdrun(var1);
+    }
+
+    protected abstract void cmdrun(CommandEvent epic);
+
+
 
 
 
