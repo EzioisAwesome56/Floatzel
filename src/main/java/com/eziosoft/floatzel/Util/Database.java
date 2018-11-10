@@ -531,5 +531,22 @@ public class Database {
         }
     }
 
+    public static int dbcounttweets(){
+        String sql = "SELECT * FROM "+tweets;
+        int rows = 0;
+        // do a thing
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.last();
+            rows = rs.getRow();
+            rs.beforeFirst();
+        } catch (SQLException e){
+            e.printStackTrace();
+            return -1;
+        }
+        return rows;
+    }
+
 
 }
