@@ -16,7 +16,7 @@ public class Pay extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         String uid = event.getAuthor().getId();
         String unsplit = event.getArgs();
         String rawamount = "";

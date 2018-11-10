@@ -16,7 +16,7 @@ public class Boyfriend extends FCommand {
     private final Random random = new Random();
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         // ratings
         String[] rate = {"That isn't a boy, that's a girl with her fucking boobs cut off",
                 "Dude that guy is a crack head",

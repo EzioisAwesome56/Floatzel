@@ -16,7 +16,7 @@ public class ServerInfo extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         // get server
         Guild serv = event.getGuild();
         // get information about server

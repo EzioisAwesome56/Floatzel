@@ -18,7 +18,7 @@ public class Mitsuru extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         // copy paste form yukari.class
         Random random = new Random();
         BufferedImage img = null;

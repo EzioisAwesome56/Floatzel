@@ -17,7 +17,7 @@ public class Loan extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         Random random = new Random();
         String uid = event.getAuthor().getId();
         // check to see if the user doesnt have a db entry, if they dont, make one

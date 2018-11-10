@@ -18,7 +18,7 @@ public class Yukari extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         // copy paste from Reverse.class
         Random random = new Random();
         BufferedImage img = null;

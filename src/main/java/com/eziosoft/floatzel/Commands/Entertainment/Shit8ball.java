@@ -17,7 +17,7 @@ public class Shit8ball extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent h) {
+    protected void cmdrun(CommandEvent h) {
         Random random = new Random();
         // yes responses
         String[] ball = {"Of course its yes you dipshit", "Its not that fucking hard to figure out that its true", "Fuck you, its yes", "Let me answer this question with another question: is saltypepper gay? (Spoiler: yes!)",

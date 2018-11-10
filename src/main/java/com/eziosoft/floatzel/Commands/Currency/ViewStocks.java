@@ -13,7 +13,7 @@ public class ViewStocks extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         String list = "```md\n#Floatzel Stock Market\n\n";
         StringBuilder builder = new StringBuilder();
         // are the stocks open right now?

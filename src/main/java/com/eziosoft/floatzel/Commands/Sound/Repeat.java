@@ -13,7 +13,7 @@ public class Repeat extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         if (!event.getGuild().getAudioManager().isConnected()){
             event.getChannel().sendMessage("Im not fucking playing anything to repeat moron").queue();
             return;

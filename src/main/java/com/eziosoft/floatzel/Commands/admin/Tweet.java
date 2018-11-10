@@ -13,7 +13,7 @@ public class Tweet extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         // i guess just try sending whatever the args are
         String args = event.getArgs();
         TwitterManager.tweet(args);

@@ -12,7 +12,7 @@ public class Stop extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         if (event.getGuild().getAudioManager().isConnected()) {
             Floatzel.musicPlayer.closeConnection(event.getGuild());
         } else {

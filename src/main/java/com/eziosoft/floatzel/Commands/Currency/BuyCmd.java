@@ -12,7 +12,7 @@ public class BuyCmd extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         String args = event.getArgs();
         String uid = event.getAuthor().getId();
         int bal = Database.dbloadint(uid);

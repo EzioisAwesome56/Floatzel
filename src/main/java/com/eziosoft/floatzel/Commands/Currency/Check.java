@@ -17,7 +17,7 @@ public class Check extends FCommand {
 
 
     @Override
-    protected void execute(CommandEvent event) {
+    protected void cmdrun(CommandEvent event) {
         // get mentions, if any
         List<User> mentions = event.getMessage().getMentionedUsers();
         if (mentions.isEmpty()){

@@ -12,7 +12,7 @@ public class Stats extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         // start forming the stats message
         String stats = "```js\nFloatzel Stats\n";
         // version

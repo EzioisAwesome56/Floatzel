@@ -15,7 +15,7 @@ public class Bal extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         // check to see if the user alright has a db entry
         Boolean exists = Database.dbcheckifexist(event.getMessage().getAuthor().getId().toString());
         if (!exists){

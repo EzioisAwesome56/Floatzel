@@ -13,7 +13,7 @@ public class Play extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         String args = event.getArgs();
         // check if thr string is empty
         if (StringUtils.isEmpty(args)){

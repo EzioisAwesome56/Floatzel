@@ -12,7 +12,7 @@ public class Bagle extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         String uid = event.getAuthor().getId();
         if (!Database.dbcheckifexist(uid)){
             event.getChannel().sendMessage("Error: you do not have enough fucking money to afford this").queue();

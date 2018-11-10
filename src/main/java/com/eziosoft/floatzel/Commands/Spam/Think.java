@@ -12,7 +12,7 @@ public class Think extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent commandEvent) {
+    protected void cmdrun(CommandEvent commandEvent) {
         commandEvent.getChannel().sendMessage(StringUtils.repeat("\uD83E\uDD14", 100)).queue();
     }
 }

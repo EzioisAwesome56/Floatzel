@@ -22,7 +22,7 @@ public class Help extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event) {
+    protected void cmdrun(CommandEvent event) {
         if (!madehelp) {
             event.getChannel().sendMessage("Generating help message for first time, this may take some time").queue();
             StringBuilder builder = new StringBuilder();

@@ -16,7 +16,7 @@ public class BetterLoan extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         String uid = event.getAuthor().getId();
         //check if they havent bought the command yet
         if (!Database.dbcheckbloan(uid)){

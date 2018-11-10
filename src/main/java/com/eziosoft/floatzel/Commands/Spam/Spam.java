@@ -15,7 +15,7 @@ public class Spam extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event) {
+    protected void cmdrun(CommandEvent event) {
         String[] bad = {"`", "*", "_"};
         String character = event.getArgs();
         if (character.length() == 0) {

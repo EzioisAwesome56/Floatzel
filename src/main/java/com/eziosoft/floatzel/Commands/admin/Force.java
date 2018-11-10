@@ -13,7 +13,7 @@ public class Force extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         int arg = Integer.valueOf(event.getArgs());
         if (arg == 1){
             // force a stock update

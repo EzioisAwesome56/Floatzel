@@ -17,7 +17,7 @@ public class Servers  extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         // start by getting the guilds
         String serv = Floatzel.jda.getGuilds().toString();
         event.getChannel().sendMessage("Floatzel is on the following servers:\n" + serv).queue();

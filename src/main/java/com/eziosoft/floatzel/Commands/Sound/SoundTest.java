@@ -12,7 +12,7 @@ public class SoundTest extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         Floatzel.musicPlayer.loadAndMeme(event, "https://www.youtube.com/watch?v=mmVI16Vd-aY");
     }
 }

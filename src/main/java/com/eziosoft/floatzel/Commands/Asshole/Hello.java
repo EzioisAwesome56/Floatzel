@@ -14,7 +14,7 @@ public class Hello extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         Random random = new Random();
         String[] responses = {"Fuck you", "Fucking kill yourself asshole you", "Die in a hole", "Fucking HI", "I hope you burn in hell"};
         if (event.getArgs().length() < 1) {

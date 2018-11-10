@@ -12,7 +12,7 @@ public class Sax extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         Floatzel.musicPlayer.loadAndMeme(event, "https://www.youtube.com/watch?v=92UVL1FvZa4");
     }
 }

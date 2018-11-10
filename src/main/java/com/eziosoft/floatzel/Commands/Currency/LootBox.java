@@ -21,7 +21,7 @@ public class LootBox extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         BufferedImage boximg = null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         String uid = event.getAuthor().getId();

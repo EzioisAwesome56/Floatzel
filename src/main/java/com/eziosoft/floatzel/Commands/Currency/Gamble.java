@@ -16,7 +16,7 @@ public class Gamble extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         int args = 0;
         String printarg = event.getArgs().replace("@everyone", "a fucking ping").replace("@here", "a fucking ping");
         try {

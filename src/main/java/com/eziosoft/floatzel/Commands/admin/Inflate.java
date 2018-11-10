@@ -15,7 +15,7 @@ public class Inflate extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         event.getChannel().sendMessage("inflating your wallet, please wait...").queue();
         // first: load the current amount of money
         int curbal = Database.dbloadint(event.getMessage().getAuthor().getId().toString());

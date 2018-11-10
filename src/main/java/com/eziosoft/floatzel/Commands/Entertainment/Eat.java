@@ -15,7 +15,7 @@ public class Eat extends FCommand {
     private final Random random = new Random();
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         String[] thonk = {"This is your fucking foot you jackass",
                 "Tastes like fucking horse shit when you give a fucking horse fucking WEED",
                 "Get a better fucking cook jackass",

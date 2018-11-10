@@ -15,7 +15,7 @@ public class SwearCombine extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         Random random = new Random();;
         String[] words = {"fuck", "ass", "shit", "kill yourself", "die", "fucking", "hecking", "you", "nibba", "gay ass pingu", "fucktart", "asswipe", "fuckhead", "asshat", "shitface",
         "assholefuckface", "dickface", "fucktard", "fuckfart", "nigger"};

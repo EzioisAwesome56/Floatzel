@@ -15,7 +15,7 @@ public class Gay extends Command {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         Random random = new Random();
         String[] gay = {"The person above is very fucking gay", "Above is the gayiest thing ever", "the person above will eat his own virginia/dick"};
         //  call person above gay

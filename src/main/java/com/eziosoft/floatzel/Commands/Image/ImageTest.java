@@ -18,7 +18,7 @@ public class ImageTest extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event) {
+    protected void cmdrun(CommandEvent event) {
         if (event.getMessage().getAttachments().size() < 1) {
             return;
         }

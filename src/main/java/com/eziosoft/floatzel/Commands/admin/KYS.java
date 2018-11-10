@@ -17,7 +17,7 @@ public class KYS extends FCommand {
     }
     
     @Override
-    protected void execute(CommandEvent commandEvent) {
+    protected void cmdrun(CommandEvent commandEvent) {
         commandEvent.getChannel().sendMessage("\uD83D\uDD2B").queue();
         commandEvent.getChannel().sendMessage("\uD83C\uDDE7 \uD83C\uDDE6 \uD83C\uDDF3 \uD83C\uDDEC").queue(m -> {
             Floatzel.jda.shutdown();

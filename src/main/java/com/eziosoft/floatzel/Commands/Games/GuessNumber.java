@@ -13,7 +13,7 @@ public class GuessNumber extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         Random random = new Random();
         // make the number nerd
         //int numb = random.nextInt(10) + 1;

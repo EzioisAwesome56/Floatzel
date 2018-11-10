@@ -12,7 +12,7 @@ public class TestCommand extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent commandEvent) {
+    protected void cmdrun(CommandEvent commandEvent) {
         commandEvent.getChannel().sendMessage("fuck you, this command does jack shit").queue();
     }
 }

@@ -15,7 +15,7 @@ public class Girlfriend extends FCommand {
     }
 
     @Override
-    protected void execute(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         // ratings
         String[] rate = {"I do not have the fucking words for how shitty that pile of fucking dogshit is, you fucking shit fucker",
                 "That isn't a girl, that's fucking dog shit",
