@@ -1,5 +1,8 @@
 package com.eziosoft.floatzel;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ConfigStock {
     // discord tokens
     public static String token = "";
@@ -13,6 +16,8 @@ public class ConfigStock {
     public static String ownerid = "";
     public static String prefix = "&";
     public static String devprefix = "&&";
+    // bot admin
+    public static List<String> admins = Arrays.asList("");
     // twitter user ids
     public static long[] groupa = new long[]{};
     public static long[] groupb = new long[]{};
