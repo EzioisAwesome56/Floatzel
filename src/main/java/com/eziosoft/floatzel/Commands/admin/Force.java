@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.admin;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.StockUtil;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -19,7 +20,13 @@ public class Force extends FCommand {
             // force a stock update
             StockUtil.updateStock();
             event.getChannel().sendMessage("Forced stock update!").queue();
-        } else {
+        } else if (arg == 2){
+            // throw a fake error message
+            Error.Catch("Cause of error: Force.java", "The user initiated this crash");
+        }
+
+
+        else {
             event.getChannel().sendMessage("Unknown argument!").queue();
         }
     }
