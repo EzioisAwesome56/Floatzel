@@ -97,6 +97,7 @@ public class Database {
             r.table(banktable).filter(row -> row.g("id").eq(id)).update(r.hashMap("bal", data)).run(thonk);
         } catch (ReqlError e){
             // something
+
         }
     }
 
