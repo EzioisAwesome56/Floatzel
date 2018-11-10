@@ -47,9 +47,9 @@ public abstract class FCommand extends Command {
     protected void execute(CommandEvent event){
         String uid = event.getMessage().getAuthor().getId().toString();
         // check to see if its an admin only command
-        if (adminCommand){
+        if (adminCommand && !event.isOwner()){
             // is the user that is running it an admin?
-            if (!isAdmin(uid) || !event.isOwner()){
+            if (!isAdmin(uid)){
                 event.getChannel().sendMessage("Error: You do not have permission to run this").queue();
                 return;
             }
