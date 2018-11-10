@@ -2,6 +2,7 @@ package com.eziosoft.floatzel.Commands.Entertainment;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Res.Files;
+import com.eziosoft.floatzel.Util.Error;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import javax.imageio.ImageIO;
@@ -37,7 +38,7 @@ public class Reverse extends FCommand {
             event.getChannel().sendFile(stream.toByteArray(), "a.png", null).queue();
             stream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Error.Catch(e.getStackTrace().toString(), e.getMessage());
         }
     }
 }
