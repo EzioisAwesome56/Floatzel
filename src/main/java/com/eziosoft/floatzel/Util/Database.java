@@ -1,7 +1,7 @@
 package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Config;
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
 import com.rethinkdb.gen.exc.ReqlQueryLogicError;
@@ -115,12 +115,23 @@ public class Database {
     // load an integer from a db entry
     public static int dbloadint(String id) {
         String raw;
+        int bal;
             try {
-                raw = r.table(banktable).filter(row -> row.g("id").eq(id)).toJsonString().toString()
+                raw = r.table(banktable).filter(row -> row.g("id").eq(id)).toJsonString().toString();
             } catch (ReqlError e){
                 Error.Catch(e.getStackTrace().toString(), e.getMessage());
                 return -999;
             }
+            // do json things
+        try {
+            JsonElement jsone = new JsonParser().parse(raw);
+            JsonObject json = jsone.getAsJsonObject();
+            bal = Integer.valueOf(json.get("bal").getAsString());
+        } catch (JsonSyntaxException e){
+                Error.Catch(e.getStackTrace().toString(), e.getMessage());
+                return -999;
+        }
+        return bal;
 
         }
 
