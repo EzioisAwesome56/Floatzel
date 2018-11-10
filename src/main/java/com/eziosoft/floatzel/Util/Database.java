@@ -92,16 +92,11 @@ public class Database {
         if (data < -100){
             data = Integer.MAX_VALUE;
         }
-            // define the sql string
-            String sql = "UPDATE " + banktable + " SET bal = ? WHERE id = '" + id + "'";
-            try (Connection conn = Database.connect();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-                pstmt.setInt(1, data);
-                pstmt.executeUpdate();
-                return;
-            } catch(SQLException e){
-            System.out.println(e.getMessage());
+        // do the things
+        try {
+            r.table(banktable).filter(row -> row.g("id").eq(id)).update(r.hashMap("bal", data)).run(thonk);
+        } catch (ReqlError e){
+            // something
         }
     }
 
