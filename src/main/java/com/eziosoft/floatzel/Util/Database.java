@@ -60,17 +60,26 @@ public class Database {
 
     // check if db entry exists
     public static Boolean dbcheckifexist(String id){
-            // the sql used to check if a person is in za database
-            String sql = "SELECT 1 FROM "+banktable+" WHERE id = '"+id+"' LIMIT 1";
+            boolean exist = false;
             // connection shit
-            boolean exist = r.table(banktable).get(id).count().equals(1);
+            try {
+                exist = r.table(banktable).get(id).count().equals(1);
+            } catch (ReqlError e){
+                Error.Catch(e.getStackTrace().toString(), e.getMessage());
+                return false;
+            }
             if (!exist){
                 // the user does not have a bank account
                 // make one instead!
-                r.table(banktable).insert(r.array(
-                        r.hashMap("id", id)
-                        .with("bal", 0)
-                )).run(thonk);
+                try {
+                    r.table(banktable).insert(r.array(
+                            r.hashMap("id", id)
+                                    .with("bal", 0)
+                    )).run(thonk);
+                } catch (ReqlError e){
+                    Error.Catch(e.getStackTrace().toString(), e.getMessage());
+                    return false;
+                }
                 return exist;
             } else {
                 return exist;
