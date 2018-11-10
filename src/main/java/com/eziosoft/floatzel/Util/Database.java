@@ -2,6 +2,9 @@ package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Config;
 import com.rethinkdb.RethinkDB;
+import com.rethinkdb.gen.exc.ReqlError;
+import com.rethinkdb.gen.exc.ReqlQueryLogicError;
+import com.rethinkdb.model.MapObject;
 import com.rethinkdb.net.Connection;
 
 import javax.xml.crypto.Data;
@@ -27,92 +30,23 @@ public class Database {
     public static String tweets = "tweets";
     // rethink db!
     public static final RethinkDB r = RethinkDB.r;
-    public Connection thonk = r.connection().hostname("localhost").port(28015).connect();
+    public static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
+
 
     // check if folder exist
     public static void dbinit() {
         // first, check if the database file exists
-        if (!sqldb.exists()){
+        if (r.dbList().contains("floatzel").run(thonk);){
             System.out.println("No database found! Creating a new db!");
             // okay, it hasnt been initalized yet, so do that
-            Database.sqlinit();
+            r.dbCreate("floatzel").run(thonk);
             System.out.println("Creating tables...");
-            Database.sqltable();
+            // nothing
         } else {
             // quickly run through the tables just to make sure
-            Database.sqltable();
+            // nothing
             System.out.println("database already installed!");
         }
-    }
-
-    // SQLITE init function
-    public static void sqlinit() {
-        // copy paste from a website
-        // sqlite database creation tool
-        try (Connection conn = DriverManager.getConnection(url)) {
-            if (conn != null) {
-                DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    //sqlite table initilization
-    public static void sqltable() {
-        // string that holds the code needed to create a tab;e
-        String bigoof = "CREATE TABLE IF NOT EXISTS bank (\n"
-                + " id text PRIMARY KEY,\n"
-                + "	bal integer NOT NULL\n"
-                + ");";
-        String smalloof = "CREATE TABLE IF NOT EXISTS "+loantable+" (\n"
-                + " id text PRIMARY KEY,\n"
-                + " time bigint(20)\n"
-                + ");";
-        String penis = "CREATE TABLE IF NOT EXISTS "+bloanperm+" (\n"
-                + " id text PRIMARY KEY,\n"
-                + " perm integer\n"
-                + ");";
-        String stock = "CREATE TABLE IF NOT EXISTS "+stocktable+" (\n"
-                + " id integer PRIMARY KEY,\n"
-                + " name text,\n"
-                + " price integer,\n"
-                + " diff integer,\n"
-                + " units integer\n"
-                + ");";
-        String stockcount = "CREATE TABLE IF NOT EXISTS "+stockc+" (\n"
-                + " numb integer PRIMARY KEY\n"
-                + ");";
-        String tweetdb = "CREATE TABLE IF NOT EXISTS "+tweets+" (\n"
-                + " id integer PRIMARY KEY,\n"
-                + " content text\n"
-                + ");";
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            // create all the tables
-            stmt.execute(bigoof);
-            stmt.execute(smalloof);
-            stmt.execute(penis);
-            stmt.execute(stock);
-            stmt.execute(stockcount);
-            stmt.execute(tweetdb);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    // sqlite connection thing, for easily connecting later
-    private static Connection connect(){
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
     }
 
     // check if db entry exists
