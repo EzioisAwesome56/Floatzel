@@ -23,6 +23,7 @@ public class Database {
     public static String bloanperm = "bloan";
     public static String stocktable = "stocks";
     public static String stockc = "count";
+    public static String tweets = "tweets";
 
     // check if folder exist
     public static void dbinit() {
@@ -81,6 +82,10 @@ public class Database {
         String stockcount = "CREATE TABLE IF NOT EXISTS "+stockc+" (\n"
                 + " numb integer PRIMARY KEY\n"
                 + ");";
+        String tweetdb = "CREATE TABLE IF NOT EXISTS "+tweets+" (\n"
+                + " id integer PRIMARY KEY,\n"
+                + " content text\n"
+                + ");";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create all the tables
@@ -89,6 +94,7 @@ public class Database {
             stmt.execute(penis);
             stmt.execute(stock);
             stmt.execute(stockcount);
+            stmt.execute(tweetdb);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
