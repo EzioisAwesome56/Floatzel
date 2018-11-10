@@ -115,6 +115,9 @@ public class Database {
             // prepare the sql to load the user's table
             String sql = "SELECT id, bal FROM "+banktable+" WHERE id = '"+id+"'";
             // connect to the db and get the row
+            try {
+                r.table(banktable).filter(row -> row.g("id").eq(id)).toJsonString().toString()
+            }
             try (Connection conn = Database.connect();
                  PreparedStatement pstmt  = conn.prepareStatement(sql)){
                 // execute the query
