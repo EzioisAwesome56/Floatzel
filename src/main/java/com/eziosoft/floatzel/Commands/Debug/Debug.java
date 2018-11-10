@@ -18,7 +18,7 @@ public class Debug extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        String raw = getUrlContents("http://localhost:8080/");
+        String raw = getUrlContents("https://api.duckduckgo.com/?q=DuckDuckGo&format=json");
         event.getChannel().sendMessage(raw).queue();
     }
 
