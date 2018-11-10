@@ -52,29 +52,28 @@ public class Database {
         return;
     }
 
+    // create all the tables!
+    private static void makeTables(){
+        // run a bunch of rethink commands
+        r.tableCreate(banktable).run(thonk);
+    }
+
     // check if db entry exists
     public static Boolean dbcheckifexist(String id){
             // the sql used to check if a person is in za database
             String sql = "SELECT 1 FROM "+banktable+" WHERE id = '"+id+"' LIMIT 1";
             // connection shit
-            try (Connection conn = Database.connect();
-                 PreparedStatement pstmt  = conn.prepareStatement(sql)){
-
-                ResultSet rs  = pstmt.executeQuery();
-
-                if (!rs.next()){
-                    // oh dear god here we go
-                    // insert a blank entry into the table
-                    sql = "INSERT INTO "+banktable+"(id, bal) VALUES('"+id+"',0)";
-                    Statement stmt = conn.createStatement();
-                    stmt.execute(sql);
-                    return false;
-                } else {
-                    return true;
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                return false;
+            boolean exist = r.table(banktable).get(id).count().equals(1);
+            if (!exist){
+                // the user does not have a bank account
+                // make one instead!
+                r.table(banktable).insert(r.array(
+                        r.hashMap("id", id)
+                        .with("bal", 0)
+                )).run(thonk);
+                return exist;
+            } else {
+                return exist;
             }
         }
 
