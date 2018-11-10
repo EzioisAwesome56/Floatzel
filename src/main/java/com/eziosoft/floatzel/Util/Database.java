@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Config;
+import com.google.gson.Gson;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
 import com.rethinkdb.gen.exc.ReqlQueryLogicError;
@@ -31,6 +32,7 @@ public class Database {
     // rethink db!
     public static final RethinkDB r = RethinkDB.r;
     public static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
+    public static Gson g = new Gson();
 
 
     // check if folder exist
@@ -43,7 +45,7 @@ public class Database {
             r.dbCreate("floatzel").run(thonk);
             thonk.use("floatzel");
             System.out.println("Creating tables...");
-            // nothing
+            Database.makeTables();
         } else {
             // set the default db for rethonk
             thonk.use("floatzel");
@@ -112,28 +114,14 @@ public class Database {
 
     // load an integer from a db entry
     public static int dbloadint(String id) {
-            // prepare the sql to load the user's table
-            String sql = "SELECT id, bal FROM "+banktable+" WHERE id = '"+id+"'";
-            // connect to the db and get the row
+        String raw;
             try {
-                r.table(banktable).filter(row -> row.g("id").eq(id)).toJsonString().toString()
-            }
-            try (Connection conn = Database.connect();
-                 PreparedStatement pstmt  = conn.prepareStatement(sql)){
-                // execute the query
-                ResultSet rs  = pstmt.executeQuery();
-
-                // loop through the result set
-                if (!rs.next()){
-                    System.out.println("ERROR WHILE LOADING ROWS");
-                    return -999;
-                }
-                // alright, get the value we need now
-                return rs.getInt("bal");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                raw = r.table(banktable).filter(row -> row.g("id").eq(id)).toJsonString().toString()
+            } catch (ReqlError e){
+                Error.Catch(e.getStackTrace().toString(), e.getMessage());
                 return -999;
             }
+
         }
 
     // check if the user has a loan out
