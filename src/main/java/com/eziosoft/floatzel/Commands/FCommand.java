@@ -29,9 +29,17 @@ public abstract class FCommand extends Command {
     public boolean madehelp = false;
     public String helpthing = null;
 
+    private boolean isAdmin(String uid){
+        // something
+        return false;
+    }
+
     @Override
     protected void execute(CommandEvent var1){
-        // just run the new function lmao!
+        // check to see if its an admin only command
+        if (adminCommand){
+
+        }
         cmdrun(var1);
     }
 

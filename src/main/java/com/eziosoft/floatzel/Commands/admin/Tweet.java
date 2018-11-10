@@ -8,7 +8,7 @@ public class Tweet extends FCommand {
     public Tweet(){
         name = "tweet";
         description = "for debugging purposes: sends a tweet";
-        ownerCommand = true;
+        adminCommand = true;
         category = owner;
     }
 
