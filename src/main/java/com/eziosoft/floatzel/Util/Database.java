@@ -536,11 +536,13 @@ public class Database {
         int rows = 0;
         // do a thing
         try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+             Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
-            rs.last();
-            rows = rs.getRow();
-            rs.beforeFirst();
+            // sqlite is dumb
+            while (rs.next()){
+                rs.next();
+                rows = rs.getRow();
+            }
         } catch (SQLException e){
             e.printStackTrace();
             return -1;

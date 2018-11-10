@@ -1,8 +1,10 @@
 package com.eziosoft.floatzel.Commands.Debug;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import javax.xml.crypto.Data;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -18,7 +20,8 @@ public class Debug extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        event.getChannel().sendMessage("error: nothing").queue();
+        int a = Database.dbcounttweets();
+        event.getChannel().sendMessage(Integer.toString(a)).queue();
     }
 
 }
