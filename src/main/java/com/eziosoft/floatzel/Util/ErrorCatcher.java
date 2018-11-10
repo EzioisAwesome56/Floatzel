@@ -3,13 +3,16 @@ package com.eziosoft.floatzel.Util;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Random;
+
+import static com.eziosoft.floatzel.Commands.FCommand.erevent;
 
 public class ErrorCatcher {
 
     private static Random random = new Random();
 
-    public static void CatchError(String stacktrace, String msg, CommandEvent event){
+    public static void CatchError(String stacktrace, String msg){
         // init string builder
         StringBuilder builder = new StringBuilder();
         //setup a byte array
@@ -25,7 +28,21 @@ public class ErrorCatcher {
         // add the error details
         builder.append("Error message:\n"+msg+"\n\nStack Trace:\n");
         builder.append(stacktrace);
-
+        // the error report is done being made.
+        // write it to a string
+        output = builder.toString();
+        // then, convert the string into a stream
+        try {
+            stream.flush();
+            stream.write(output.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // okay, its in the stream now
+        // send the message
+        erevent.getChannel().sendMessage("DAH SHIT! Floatzel has encountered an error! Please look at the ereport.txt file for more " +
+                "information!").addFile(stream.toByteArray(), "ereport.txr").queue();
+        return;
 
     }
 }

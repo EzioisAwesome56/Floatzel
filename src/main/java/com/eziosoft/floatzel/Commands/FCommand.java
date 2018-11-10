@@ -43,8 +43,13 @@ public abstract class FCommand extends Command {
         return match;
     }
 
+    // for the error handler
+    public static CommandEvent erevent;
+
     @Override
     protected void execute(CommandEvent event){
+        // store the event for the error catcher
+        erevent = event;
         String uid = event.getMessage().getAuthor().getId().toString();
         // check to see if its an admin only command
         if (adminCommand && !event.isOwner()){
