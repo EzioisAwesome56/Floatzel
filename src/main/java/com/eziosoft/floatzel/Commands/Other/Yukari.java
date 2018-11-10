@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Random;
+import com.eziosoft.floatzel.Util.Error;
 
 public class Yukari extends FCommand {
     public Yukari(){
@@ -37,7 +38,7 @@ public class Yukari extends FCommand {
             event.getChannel().sendFile(stream.toByteArray(), "yukari.png", null).queue();
             stream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Error.Catch(e.getStackTrace().toString(), e.getMessage());
         }
     }
 }
