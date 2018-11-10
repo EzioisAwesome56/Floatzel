@@ -35,18 +35,21 @@ public class Database {
 
     // check if folder exist
     public static void dbinit() {
+        System.out.println("Floatzel is starting RethinkDB...");
         // first, check if the database file exists
-        if (r.dbList().contains("floatzel").run(thonk);){
+        if (r.dbList().contains("floatzel").run(thonk)){
             System.out.println("No database found! Creating a new db!");
             // okay, it hasnt been initalized yet, so do that
             r.dbCreate("floatzel").run(thonk);
+            thonk.use("floatzel");
             System.out.println("Creating tables...");
             // nothing
         } else {
-            // quickly run through the tables just to make sure
-            // nothing
-            System.out.println("database already installed!");
+            // set the default db for rethonk
+            thonk.use("floatzel");
+            System.out.println("ReThinkDB started!");
         }
+        return;
     }
 
     // check if db entry exists
