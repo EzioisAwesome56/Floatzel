@@ -2,12 +2,12 @@ package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Config;
 import com.rethinkdb.RethinkDB;
-import com.rethinkdb.net.Connection;
+//import com.rethinkdb.net.Connection;
 
 import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.file.Files;
-//import java.sql.*;
+import java.sql.*;
 
 public class Database {
     // set the root db path
@@ -28,7 +28,7 @@ public class Database {
     public static String tweets = "tweets";
     // rethink db!
     public static final RethinkDB r = RethinkDB.r;
-    public Connection thonk = r.connection().hostname("localhost").port(28015).connect();
+    //public Connection thonk = r.connection().hostname("localhost").port(28015).connect();
 
     // check if folder exist
     public static void dbinit() {
