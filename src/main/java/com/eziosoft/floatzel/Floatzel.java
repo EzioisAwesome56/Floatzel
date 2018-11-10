@@ -2,6 +2,7 @@ package com.eziosoft.floatzel;
 import com.eziosoft.floatzel.Commands.Asshole.Hello;
 import com.eziosoft.floatzel.Commands.Asshole.SwearCombine;
 import com.eziosoft.floatzel.Commands.Currency.*;
+import com.eziosoft.floatzel.Commands.Debug.Debug;
 import com.eziosoft.floatzel.Commands.Entertainment.*;
 import com.eziosoft.floatzel.Commands.Image.ImageTest;
 import com.eziosoft.floatzel.Commands.Other.*;
@@ -81,6 +82,7 @@ public class Floatzel {
         commandClient.addCommand(new Check());
         commandClient.addCommand(new ViewStocks());
         commandClient.addCommand(new Force());
+        commandClient.addCommand(new Debug());
         //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
