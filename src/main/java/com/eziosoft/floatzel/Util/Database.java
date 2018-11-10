@@ -9,7 +9,7 @@ import com.rethinkdb.net.Connection;
 
 import javax.xml.crypto.Data;
 import java.io.*;
-import java.nio.file.Files;
+
 
 public class Database {
     // set the root db path
@@ -96,7 +96,7 @@ public class Database {
         try {
             r.table(banktable).filter(row -> row.g("id").eq(id)).update(r.hashMap("bal", data)).run(thonk);
         } catch (ReqlError e){
-            // something
+            Error.Catch(e.getStackTrace().toString(), e.getMessage());
 
         }
     }
