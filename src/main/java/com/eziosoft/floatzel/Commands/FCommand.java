@@ -3,6 +3,8 @@ package com.eziosoft.floatzel.Commands;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import static com.eziosoft.floatzel.Config.admins;
+
 public abstract class FCommand extends Command {
 
     protected String description = "no description";
@@ -29,18 +31,32 @@ public abstract class FCommand extends Command {
     public boolean madehelp = false;
     public String helpthing = null;
 
+    // check to see if the user who ran the command is an admin
     private boolean isAdmin(String uid){
-        // something
-        return false;
+        boolean match = false;
+        for (String s : admins) {
+            if (uid.contains(s)){
+                match = true;
+                break;
+            }
+        }
+        return match;
     }
 
     @Override
-    protected void execute(CommandEvent var1){
+    protected void execute(CommandEvent event){
+        String uid = event.getMessage().getAuthor().getId().toString();
         // check to see if its an admin only command
         if (adminCommand){
+            // is the user that is running it an admin?
+            if (!isAdmin(uid) || !event.isOwner()){
+                event.getChannel().sendMessage("Error: You do not have permission to run this").queue();
+                return;
+            }
 
         }
-        cmdrun(var1);
+        // if all checks are passed, run the command
+        cmdrun(event);
     }
 
     protected abstract void cmdrun(CommandEvent epic);
