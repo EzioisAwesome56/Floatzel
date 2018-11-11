@@ -82,7 +82,7 @@ public class Database {
                 // make one instead!
                 try {
                     r.table(banktable).insert(r.array(
-                            r.hashMap("id", id)
+                            r.hashMap("uid", id)
                                     .with("bal", 0)
                     )).run(thonk);
                 } catch (ReqlError e){
@@ -113,7 +113,7 @@ public class Database {
         }
         // do the things
         try {
-            r.table(banktable).filter(row -> row.g("id").eq(id)).update(r.hashMap("bal", data)).run(thonk);
+            r.table(banktable).filter(row -> row.g("uid").eq(id)).update(r.hashMap("bal", data)).run(thonk);
         } catch (ReqlError e){
             e.printStackTrace(new PrintWriter(sw));
             Error.Catch(sw.toString(), e.getMessage());
@@ -126,7 +126,7 @@ public class Database {
         String raw;
         int bal = 0;
             try {
-                raw = r.table(banktable).filter(row -> row.g("id").eq(id)).toJson().run(thonk);
+                raw = r.table(banktable).filter(row -> row.g("uid").eq(id)).toJson().run(thonk);
             } catch (ReqlError e){
                 Error.Catch(e.getStackTrace().toString(), e.getMessage());
                 return -999;
@@ -196,7 +196,7 @@ public class Database {
     // fucntion for saving time to the loan
     public static void dbsavetime(String id, long time){
         try {
-            r.table(loantable).filter(row -> row.g("id").eq(id)).update(r.hashMap("time", time)).run(thonk);
+            r.table(loantable).filter(row -> row.g("uid").eq(id)).update(r.hashMap("time", time)).run(thonk);
             return;
         } catch (ReqlError e){
             e.printStackTrace(new PrintWriter(sw));
@@ -210,7 +210,7 @@ public class Database {
         String raw;
         long bal;
         try {
-            raw = r.table(loantable).filter(row -> row.g("id").eq(id)).toJsonString().toString();
+            raw = r.table(loantable).filter(row -> row.g("uid").eq(id)).toJsonString().toString();
         } catch (ReqlError e){
             e.printStackTrace(new PrintWriter(sw));
             Error.Catch(sw.toString(), e.getMessage());
