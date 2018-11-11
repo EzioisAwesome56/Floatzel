@@ -8,15 +8,8 @@ import com.rethinkdb.gen.exc.ReqlError;
 import com.rethinkdb.net.Connection;
 import com.rethinkdb.net.Cursor;
 
-import java.io.*;
-import java.util.List;
-
 
 public class Database {
-    // set the root db path
-    public static String bank = "database/bank/";
-    public static String bloan = "database/betterloan/";
-    public static String trackbloan = "database/lotto";
     // tables
     private static String banktable = "bank";
     private static String loantable = "loan";
