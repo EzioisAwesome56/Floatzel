@@ -34,6 +34,11 @@ public class Database {
     public static final RethinkDB r = RethinkDB.r;
     public static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
     public static Gson g = new Gson();
+    // error shitto
+    public static StringWriter sw = new StringWriter();
+    public static String weed;
+
+
     public final void a(){
         JsonReader.setLenient(true);
     }
@@ -85,7 +90,8 @@ public class Database {
                                     .with("bal", 0)
                     )).run(thonk);
                 } catch (ReqlError e){
-                    Error.Catch(e.getStackTrace().toString(), e.getMessage());
+                    e.printStackTrace(new PrintWriter(sw));
+                    Error.Catch(sw.toString(), e.getMessage());
                     return false;
                 }
                 return exist;
@@ -113,7 +119,7 @@ public class Database {
         try {
             r.table(banktable).filter(row -> row.g("id").eq(id)).update(r.hashMap("bal", data)).run(thonk);
         } catch (ReqlError e){
-            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            Error.Catch(e., e.getMessage());
 
         }
     }
