@@ -12,7 +12,7 @@ public class Error {
 
     private static Random random = new Random();
 
-    public static void Catch(String stacktrace, String msg, ){
+    public static void Catch(String stacktrace, String msg){
         // init string builder
         StringBuilder builder = new StringBuilder();
         //setup a byte array
