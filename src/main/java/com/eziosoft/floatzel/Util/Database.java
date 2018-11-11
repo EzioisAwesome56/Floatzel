@@ -124,18 +124,17 @@ public class Database {
     // load an integer from a db entry
     public static int dbloadint(String id) {
         String raw;
-        int bal;
+        int bal = 0;
             try {
-                raw = r.table(banktable).filter(row -> row.g("id").eq(id)).toJsonString().toString();
+                raw = r.table(banktable).filter(row -> row.g("id").eq(id)).toJson().run(thonk);
             } catch (ReqlError e){
                 Error.Catch(e.getStackTrace().toString(), e.getMessage());
                 return -999;
             }
             // do json things
         try {
-            JsonElement jsone = new JsonParser().parse(raw);
-            JsonObject json = jsone.getAsJsonObject();
-            bal = Integer.valueOf(json.get("bal").getAsString());
+                // debug: throw an error
+            Error.Catch(raw, "Debug output of json");
         } catch (JsonSyntaxException e){
             e.printStackTrace(new PrintWriter(sw));
             Error.Catch(sw.toString(), e.getMessage());
