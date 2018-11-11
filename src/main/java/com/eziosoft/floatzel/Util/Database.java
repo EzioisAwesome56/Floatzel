@@ -1,6 +1,5 @@
 package com.eziosoft.floatzel.Util;
 
-import com.eziosoft.floatzel.Config;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
 import com.rethinkdb.net.Connection;
