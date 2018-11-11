@@ -2,6 +2,7 @@ package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Config;
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
 import com.rethinkdb.gen.exc.ReqlQueryLogicError;
@@ -33,6 +34,10 @@ public class Database {
     public static final RethinkDB r = RethinkDB.r;
     public static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
     public static Gson g = new Gson();
+    public final void a(){
+        JsonReader.setLenient(true);
+    }
+
 
 
     // check if folder exist
@@ -125,6 +130,7 @@ public class Database {
             }
             // do json things
         try {
+                Database.a();
             JsonElement jsone = new JsonParser().parse(raw);
             JsonObject json = jsone.getAsJsonObject();
             bal = Integer.valueOf(json.get("bal").getAsString());
