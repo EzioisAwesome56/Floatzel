@@ -329,23 +329,13 @@ public class Database {
 
     // get dif
     public static int dbgetdiff(int id){
-        return -999;
-        /*String sql = "SELECT diff FROM "+stocktable+" WHERE id = "+id;
-        // connect to the db
-        try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
-            // run the query
-            ResultSet rs = pst.executeQuery();
-
-            if (!rs.next()){
-                System.out.println("SQL FAULT!");
-                return -999;
-            }
-            int diff = rs.getInt("diff");
-            return diff;
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
+        try{
+            cur = r.table(stocktable).filter(row -> row.g("sid").eq(id)).getField("diff").run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
             return -999;
-        }*/
+        }
+        return Integer.valueOf(Utils.getValue(cur));
     }
 
     // get units
