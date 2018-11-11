@@ -49,7 +49,8 @@ public class MiscListener extends ListenerAdapter {
     public void onUserUpdateOnlineStatus(UserUpdateOnlineStatusEvent event) {
         if (event.getEntity().getId().equals("213151748855037953")) {
             if (event.getNewOnlineStatus().equals(OnlineStatus.OFFLINE) && kekbot) {
-                Floatzel.jda.getTextChannelById("322114245632327703").sendMessage("Welp, there goes KekBot, my only friend... e.e").queue();
+                //Floatzel.jda.getTextChannelById("322114245632327703").sendMessage("Welp, there goes KekBot, my only friend... e.e").queue();
+                Floatzel.jda.getTextChannelById("322114245632327703").sendMessage("Haha fuck you esmbot, kekbot is offline").queue();
                 kekbot = false;
             } else if (event.getNewOnlineStatus().equals(OnlineStatus.ONLINE) && !kekbot) {
                 Floatzel.jda.getTextChannelById("322114245632327703").sendMessage("Holy shit its kekbot, hes back").queue();
