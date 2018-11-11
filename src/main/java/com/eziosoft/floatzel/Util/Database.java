@@ -1,8 +1,6 @@
 package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Config;
-import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
 import com.rethinkdb.net.Connection;
@@ -20,7 +18,6 @@ public class Database {
     // rethink db!
     private static final RethinkDB r = RethinkDB.r;
     private static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
-    public static Gson g = new Gson();
     private static Cursor cur = null;
 
 
