@@ -166,22 +166,15 @@ public class Database {
 
     // default saver
     public static void dbdefaultsave(String id, int location){
-        String defpath = "";
-        if (location == 1){
-            defpath = bank;
-        } else if (location == 2){
-            // yeah, bascially we dont need this anymore
-                Database.sqlblankloan(id);
-                return;
-        } else if (location == 3){
-            defpath = trackbloan;
-        } else if (location == 4){
-            defpath = bloan;
+        //  simplify this function as it serves only 1 purpose
+        if (location == 2){
+            // run the loan saver
+            Database.sqlblankloan(id);
+            return;
         } else {
-            System.out.println("Error: invalid location id");
+            Error.Catch("No stack trace provided!", "Unknown argument passed!");
             return;
         }
-        // write the default value to the db entry
     }
 
     // sql fucntion to write a 0 to a new loan entry
