@@ -115,7 +115,8 @@ public class Database {
         try {
             r.table(banktable).filter(row -> row.g("id").eq(id)).update(r.hashMap("bal", data)).run(thonk);
         } catch (ReqlError e){
-            Error.Catch("e", e.getMessage());
+            e.printStackTrace(new PrintWriter(sw));
+            Error.Catch(sw.toString(), e.getMessage());
 
         }
     }
@@ -136,7 +137,8 @@ public class Database {
             JsonObject json = jsone.getAsJsonObject();
             bal = Integer.valueOf(json.get("bal").getAsString());
         } catch (JsonSyntaxException e){
-                Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            e.printStackTrace(new PrintWriter(sw));
+            Error.Catch(sw.toString(), e.getMessage());
                 return -999;
         }
         return bal;
@@ -150,7 +152,8 @@ public class Database {
         try {
             exist = r.table(loantable).get(id).count().equals(1);
         } catch (ReqlError e){
-            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            e.printStackTrace(new PrintWriter(sw));
+            Error.Catch(sw.toString(), e.getMessage());
             return false;
         }
         if (!exist){
@@ -185,7 +188,8 @@ public class Database {
             )).run(thonk);
             return;
         } catch (ReqlError e){
-            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            e.printStackTrace(new PrintWriter(sw));
+            Error.Catch(sw.toString(), e.getMessage());
             return;
         }
     }
@@ -196,7 +200,8 @@ public class Database {
             r.table(loantable).filter(row -> row.g("id").eq(id)).update(r.hashMap("time", time)).run(thonk);
             return;
         } catch (ReqlError e){
-            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            e.printStackTrace(new PrintWriter(sw));
+            Error.Catch(sw.toString(), e.getMessage());
             return;
         }
             }
@@ -208,7 +213,8 @@ public class Database {
         try {
             raw = r.table(loantable).filter(row -> row.g("id").eq(id)).toJsonString().toString();
         } catch (ReqlError e){
-            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            e.printStackTrace(new PrintWriter(sw));
+            Error.Catch(sw.toString(), e.getMessage());
             return -999;
         }
         // do json things
@@ -217,7 +223,8 @@ public class Database {
             JsonObject json = jsone.getAsJsonObject();
             bal = Long.valueOf(json.get("time").getAsString());
         } catch (JsonSyntaxException e){
-            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            e.printStackTrace(new PrintWriter(sw));
+            Error.Catch(sw.toString(), e.getMessage());
             return -999;
         }
         return bal;
