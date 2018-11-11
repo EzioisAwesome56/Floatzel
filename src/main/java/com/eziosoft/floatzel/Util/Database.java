@@ -269,29 +269,24 @@ public class Database {
         }
         return Math.toIntExact(total);
     }
-    public static void dbupdatestock(int id, boolean isbuy, int price, int diff, int unit){
-        return;
-
-        /*// update it instead
-        String sql;
-        if (!isbuy) {
-             sql = "UPDATE " + stocktable + " SET price = ?, diff = ? WHERE id = '" + id + "'";
-        } else {
-            sql = "UPDATE " + stocktable + " SET units = ? WHERE id = '" + id + "'";
+    public static void dbupdatestock(int id, boolean isbuy, int price, int diff, int unit) {
+        try {
+            if (!isbuy) {
+                r.table(stocktable).filter(row -> row.g("sid").eq(id)).update(
+                        r.array(
+                                r.hashMap("price", price)
+                                        .with("diff", diff)
+                        )
+                ).run(thonk);
+            } else {
+                r.table(stocktable).filter(row -> row.g("sid").eq(id)).update(
+                        r.hashMap("units", unit)
+                ).run(thonk);
+            }
+        } catch (ReqlError e) {
+            Error.Catch(e);
+            return;
         }
-        try (Connection conn = Database.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)){
-                if(!isbuy) {
-                    pstmt.setInt(1, price);
-                    pstmt.setInt(2, diff);
-                } else {
-                    pstmt.setInt(1, unit);
-                }
-            // update
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }*/
     }
 
     // methood to get current price
