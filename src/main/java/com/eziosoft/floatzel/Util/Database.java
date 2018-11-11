@@ -185,16 +185,13 @@ public class Database {
 
     // fucntion for saving time to the loan
     public static void dbsavetime(String id, long time){
-                // update it instead
-                String sql = "UPDATE " + loantable + " SET time = ? WHERE id = '" + id + "'";
-                try (Connection conn = Database.connect();
-                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setLong(1, time);
-                    // update
-                    pstmt.executeUpdate();
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
-                }
+        try {
+            r.table(loantable).filter(row -> row.g("id").eq(id)).update(r.hashMap("time", time)).run(thonk);
+            return;
+        } catch (ReqlError e){
+            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            return;
+        }
             }
 
     // return a long with the stored nano time
