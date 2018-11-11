@@ -22,7 +22,7 @@ public class Force extends FCommand {
             event.getChannel().sendMessage("Forced stock update!").queue();
         } else if (arg == 2){
             // throw a fake error message
-            Error.Catch("Cause of error: Force.java", "The user initiated this crash");
+            Error.SpecialError("Caused by Force.java", "The user forced this crash");
         }
 
 
