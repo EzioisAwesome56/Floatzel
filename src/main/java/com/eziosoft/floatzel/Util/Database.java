@@ -58,6 +58,7 @@ public class Database {
     private static void makeTables(){
         // run a bunch of rethink commands
         r.tableCreate(banktable).run(thonk);
+        r.tableCreate(loantable).run(thonk);
     }
 
     // check if db entry exists
@@ -137,26 +138,30 @@ public class Database {
 
     // check if the user has a loan out
     public static boolean dbcheckifloan(String id){
-            // find a row with the user's id
-            String sql = "SELECT id, time FROM "+loantable+" WHERE id = '"+id+"'";
-            // execute that string and get a results set
-            try (Connection conn = Database.connect();
-                 PreparedStatement pstmt  = conn.prepareStatement(sql)){
-
-                ResultSet rs  = pstmt.executeQuery();
-
-                // loop through the result set
-                if (!rs.next()){
-                    // right, so they dont have it here at all, oof that sucks
-                    System.out.println("USER HAD NO LOAN");
-                    return false;
-                } else {
-                    return true;
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+        boolean exist = false;
+        // connection shit
+        try {
+            exist = r.table(loantable).get(id).count().equals(1);
+        } catch (ReqlError e){
+            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            return false;
+        }
+        if (!exist){
+            // the user does not have a bank account
+            // make one instead!
+            try {
+                r.table(loantable).insert(r.array(
+                        r.hashMap("id", id)
+                                .with("time", 0)
+                )).run(thonk);
+            } catch (ReqlError e){
+                Error.Catch(e.getStackTrace().toString(), e.getMessage());
                 return false;
             }
+            return exist;
+        } else {
+            return exist;
+        }
         }
 
     // default saver
