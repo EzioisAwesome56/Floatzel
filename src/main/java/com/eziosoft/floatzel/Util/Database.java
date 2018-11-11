@@ -5,12 +5,9 @@ import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
-import com.rethinkdb.gen.exc.ReqlQueryLogicError;
-import com.rethinkdb.model.MapObject;
 import com.rethinkdb.net.Connection;
 import com.rethinkdb.net.Cursor;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.util.List;
 
@@ -20,25 +17,18 @@ public class Database {
     public static String bank = "database/bank/";
     public static String bloan = "database/betterloan/";
     public static String trackbloan = "database/lotto";
-    // new sqlite database location, stored as a file
-    public static String sqlthing = System.getProperty("user.dir") + "/floatzel.db";
-    public static File sqldb = new File(sqlthing);
-    // actual url to the db
-    public static String url = "jdbc:sqlite:" + sqlthing;
     // tables
-    public static String banktable = "bank";
-    public static String loantable = "loan";
-    public static String bloanperm = "bloan";
-    public static String stocktable = "stocks";
+    private static String banktable = "bank";
+    private static String loantable = "loan";
+    private static String bloanperm = "bloan";
+    private static String stocktable = "stocks";
     public static String stockc = "count";
     public static String tweets = "tweets";
     // rethink db!
-    public static final RethinkDB r = RethinkDB.r;
-    public static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
+    private static final RethinkDB r = RethinkDB.r;
+    private static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
     public static Gson g = new Gson();
-    public static Cursor cur = null;
-    // error shitto
-    public static String weed;
+    private static Cursor cur = null;
 
 
 
@@ -174,7 +164,7 @@ public class Database {
     }
 
     // sql fucntion to write a 0 to a new loan entry
-    public static void sqlblankloan(String id){
+    private static void sqlblankloan(String id){
         // insert a thong into the loan table
         try {
             r.table(loantable).insert(r.array(
