@@ -239,25 +239,14 @@ public class Database {
 
     // check to see if anything is in the table at all
     public static Boolean dbcheckstock(){
-        return false;
-        /*int id = 1;
-        // the sql used to check if a person is in za database
-        String sql = "SELECT * FROM "+stocktable+" WHERE id = "+1;
-        // connection shit
-        try (Connection conn = Database.connect();
-             PreparedStatement pstmt  = conn.prepareStatement(sql)){
-
-            ResultSet rs  = pstmt.executeQuery();
-
-            if (!rs.next()){
-                return false;
-            } else {
-                return true;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }*/
+        boolean exist = false;
+        try{
+            exist = r.table(stocktable).getAll().count().eq(1).run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return exist;
+        }
+        return exist;
     }
 
     // sql fucntion to write a 0 to a new loan entry
