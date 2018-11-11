@@ -226,8 +226,7 @@ public class Database {
 
     public static void dbbuycmd(int cmd, String uid){
         // finish this later
-        return;
-        /*String table = "";
+        String table = "";
             if (cmd == 1){
                 table = bloanperm;
             }
@@ -241,7 +240,7 @@ public class Database {
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
-            }*/
+            }
         }
 
     // check to see if anything is in the table at all
