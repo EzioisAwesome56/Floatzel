@@ -240,11 +240,16 @@ public class Database {
     // check to see if anything is in the table at all
     public static Boolean dbcheckstock(){
         boolean exist = false;
+        long total;
         try{
-            exist = r.table(stocktable).getAll().count().eq(1).run(thonk);
+            total = r.table(stocktable).getAll().count().run(thonk);
         } catch (ReqlError e){
             Error.Catch(e);
             return exist;
+        }
+        int realtotal = Math.toIntExact(total);
+        if (realtotal >= 1){
+            exist = true;
         }
         return exist;
     }
