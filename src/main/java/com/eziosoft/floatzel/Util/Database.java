@@ -72,7 +72,9 @@ public class Database {
             boolean exist = false;
             // connection shit
             try {
-                exist = r.table(banktable).get(id).count().equals(1);
+                exist = (boolean) r.table(banktable).filter(
+                        r.hashMap("uid", id)
+                ).count().eq(1).run(thonk);
             } catch (ReqlError e){
                 Error.Catch(e.getStackTrace().toString(), e.getMessage());
                 return false;
