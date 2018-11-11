@@ -8,9 +8,11 @@ import com.rethinkdb.gen.exc.ReqlError;
 import com.rethinkdb.gen.exc.ReqlQueryLogicError;
 import com.rethinkdb.model.MapObject;
 import com.rethinkdb.net.Connection;
+import com.rethinkdb.net.Cursor;
 
 import javax.xml.crypto.Data;
 import java.io.*;
+import java.util.List;
 
 
 public class Database {
@@ -34,6 +36,7 @@ public class Database {
     public static final RethinkDB r = RethinkDB.r;
     public static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
     public static Gson g = new Gson();
+    public static Cursor cur = null;
     // error shitto
     public static StringWriter sw = new StringWriter();
     public static String weed;
@@ -125,25 +128,19 @@ public class Database {
 
     // load an integer from a db entry
     public static int dbloadint(String id) {
-        String raw;
-        int bal = 0;
+        String result;
             try {
-                raw = r.table(banktable).filter(row -> row.g("uid").eq(id)).toJson().run(thonk);
+                cur = r.table(banktable).filter(row -> row.g("uid").eq(id)).getField("bal").run(thonk);
             } catch (ReqlError e){
                 e.printStackTrace(new PrintWriter(sw));
                 Error.Catch(sw.toString(), e.getMessage());
                 return -999;
             }
             // do json things
-        try {
-                // debug: throw an error
-            Error.Catch(raw, "Debug output of json");
-        } catch (JsonSyntaxException e){
-            e.printStackTrace(new PrintWriter(sw));
-            Error.Catch(sw.toString(), e.getMessage());
-                return -999;
-        }
-        return bal;
+        // return value of bal
+        List curlist = cur.toList();
+            result = curlist.get(0).toString();
+        return Integer.valueOf(result);
 
         }
 
