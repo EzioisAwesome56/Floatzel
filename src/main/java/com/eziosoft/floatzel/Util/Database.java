@@ -130,7 +130,8 @@ public class Database {
             try {
                 raw = r.table(banktable).filter(row -> row.g("uid").eq(id)).toJson().run(thonk);
             } catch (ReqlError e){
-                Error.Catch(e.getStackTrace().toString(), e.getMessage());
+                e.printStackTrace(new PrintWriter(sw));
+                Error.Catch(sw.toString(), e.getMessage());
                 return -999;
             }
             // do json things
