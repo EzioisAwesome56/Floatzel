@@ -316,25 +316,16 @@ public class Database {
     }
 
     // get the name of a stock
-    public static String dbgetname(int id){
-        return "ERROR";
-        /*String sql = "SELECT name FROM "+stocktable+" WHERE id = "+id;
-        // connect to the db
-        try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
-            // run the query
-            ResultSet rs = pst.executeQuery();
-
-            if (!rs.next()){
-                System.out.println("SQL FAULT!");
-                return "FUCK!";
-            }
-            String name = rs.getString("name");
-            return name;
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-            return "A";
-        }*/
+    public static String dbgetname(int id) {
+        try {
+            cur = r.table(stocktable).filter(row -> row.g("sid").eq(id)).getField("name").run(thonk);
+        } catch (ReqlError e) {
+            Error.Catch(e);
+            return "ERROR";
+        }
+        return Utils.getValue(cur);
     }
+
 
     // get dif
     public static int dbgetdiff(int id){
