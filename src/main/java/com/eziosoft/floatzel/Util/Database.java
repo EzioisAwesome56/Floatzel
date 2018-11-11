@@ -39,10 +39,6 @@ public class Database {
     public static String weed;
 
 
-    public final void a(){
-        JsonReader.setLenient(true);
-    }
-
 
 
     // check if folder exist
@@ -119,7 +115,7 @@ public class Database {
         try {
             r.table(banktable).filter(row -> row.g("id").eq(id)).update(r.hashMap("bal", data)).run(thonk);
         } catch (ReqlError e){
-            Error.Catch(e., e.getMessage());
+            Error.Catch("e", e.getMessage());
 
         }
     }
@@ -136,7 +132,6 @@ public class Database {
             }
             // do json things
         try {
-                Database.a();
             JsonElement jsone = new JsonParser().parse(raw);
             JsonObject json = jsone.getAsJsonObject();
             bal = Integer.valueOf(json.get("bal").getAsString());
