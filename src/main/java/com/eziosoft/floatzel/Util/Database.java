@@ -199,15 +199,16 @@ public class Database {
 
     // return a long with the stored nano time
     public static long dbloadtime(String id){
-        String raw;
+        String result;
         long bal;
         try {
-            raw = r.table(loantable).filter(row -> row.g("uid").eq(id)).toJsonString().toString();
+            cur = r.table(loantable).filter(row -> row.g("uid").eq(id)).getField("time").run(thonk);
         } catch (ReqlError e){
             Error.Catch(e);
             return -999;
         }
-        return -1;
+        result = Utils.getValue(cur);
+        return Long.valueOf(result);
     }
 
     public static boolean dbcheckbloan(String id){
