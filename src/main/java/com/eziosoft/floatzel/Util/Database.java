@@ -177,7 +177,7 @@ public class Database {
         try {
             r.table(loantable).insert(r.array(
                     r.hashMap("id", id)
-                            .with("time", 0L)
+                            .with("time", Long.toString(0L))
             )).run(thonk);
             return;
         } catch (ReqlError e){
@@ -189,7 +189,7 @@ public class Database {
     // fucntion for saving time to the loan
     public static void dbsavetime(String id, long time){
         try {
-            r.table(loantable).filter(row -> row.g("uid").eq(id)).update(r.hashMap("time", time)).run(thonk);
+            r.table(loantable).filter(row -> row.g("uid").eq(id)).update(r.hashMap("time", Long.toString(time))).run(thonk);
             return;
         } catch (ReqlError e){
             Error.Catch(e);
