@@ -275,14 +275,14 @@ public class Database {
     public static int dbgetcount(){
         // one of the advatages of rethink: figuring out how many rows are in a table
         // thank lord!
-        int total = 0;
+        long total = 0;
         try {
             total = r.table(stocktable).count().run(thonk);
       } catch (ReqlError e){
             Error.Catch(e);
             return -999;
         }
-        return total;
+        return Math.toIntExact(total);
     }
     public static void dbupdatestock(int id, boolean isbuy, int price, int diff, int unit){
         return;
