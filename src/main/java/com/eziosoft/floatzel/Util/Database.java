@@ -171,21 +171,14 @@ public class Database {
     // sql fucntion to write a 0 to a new loan entry
     public static void sqlblankloan(String id){
         // insert a thong into the loan table
-        r.table(loantable).insert(r.array(
-                r.hashMap("id", id)
-                .with("time", 0L)
-        ))
-        // prepare to insert
-        String sql = "INSERT INTO "+loantable+"(id,time) VALUES(?,?)";
-        // insert
-        try (Connection conn = Database.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, id);
-            pstmt.setLong(2, 0L);
-            pstmt.executeUpdate();
+        try {
+            r.table(loantable).insert(r.array(
+                    r.hashMap("id", id)
+                            .with("time", 0L)
+            )).run(thonk);
             return;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (ReqlError e){
+            Error.Catch(e.getStackTrace().toString(), e.getMessage());
             return;
         }
     }
