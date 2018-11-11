@@ -1,8 +1,10 @@
 package com.eziosoft.floatzel.Util;
 
+import com.rethinkdb.net.Cursor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -69,5 +71,12 @@ public class Utils {
     //This may wind up being a private method in the music player in a later version.
     public static String songTimestamp(long current, long length) {
         return convertMillisToHMmSs(current) + "/" + convertMillisToHMmSs(length);
+    }
+
+    // get the first entire from a cursor list
+    public static String getValue(Cursor cur){
+        List curlist = cur.toList();
+        String value = curlist.get(0).toString();
+        return value;
     }
 }

@@ -138,8 +138,7 @@ public class Database {
             }
             // do json things
         // return value of bal
-        List curlist = cur.toList();
-            result = curlist.get(0).toString();
+        result = Utils.getValue(cur);
         return Integer.valueOf(result);
 
         }
