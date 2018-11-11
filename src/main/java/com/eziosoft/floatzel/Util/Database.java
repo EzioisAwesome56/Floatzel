@@ -216,7 +216,7 @@ public class Database {
         return bal;
     }
 
-    public static boolean dbcheckbloan(String id){
+    /*public static boolean dbcheckbloan(String id){
             // sql statement to check for this shit
             String sql = "SELECT id, perm FROM "+bloanperm+" WHERE id = '"+id+"'";
             // do those sql things
@@ -477,7 +477,7 @@ public class Database {
             return -1;
         }
         return rows;
-    }
+    }*/
 
 
 }
