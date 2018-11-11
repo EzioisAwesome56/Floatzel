@@ -242,7 +242,7 @@ public class Database {
         boolean exist = false;
         long total;
         try{
-            total = r.table(stocktable).getAll().count().run(thonk);
+            total = r.table(stocktable).count().run(thonk);
         } catch (ReqlError e){
             Error.Catch(e);
             return exist;
