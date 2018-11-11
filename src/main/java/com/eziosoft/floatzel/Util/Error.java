@@ -41,7 +41,7 @@ public class Error {
         // okay, its in the stream now
         // send the message
         erevent.getChannel().sendMessage("DAH SHIT! Floatzel has encountered an error! Please look at the ereport.txt file for more " +
-                "information!").addFile(stream.toByteArray(), "ereport.txr").queue();
+                "information!").addFile(stream.toByteArray(), "ereport.txt").queue();
         return;
 
     }
