@@ -196,27 +196,25 @@ public class Database {
 
     // return a long with the stored nano time
     public static long dbloadtime(String id){
-            // prepare the sql to load the user's table
-            String sql = "SELECT id, time FROM "+loantable+" WHERE id = ?";
-            // connect to the db and get the row
-            try (Connection conn = Database.connect();
-                 PreparedStatement pstmt  = conn.prepareStatement(sql)){
-                // execute the query
-                pstmt.setString(1, id);
-                ResultSet rs  = pstmt.executeQuery();
-
-                // loop through the result set
-                if (!rs.next()){
-                    System.out.println("ERROR WHILE LOADING ROWS");
-                    return -999L;
-                }
-                // alright, get the value we need now
-                return rs.getLong("time");
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                return -999L;
-            }
+        String raw;
+        long bal;
+        try {
+            raw = r.table(loantable).filter(row -> row.g("id").eq(id)).toJsonString().toString();
+        } catch (ReqlError e){
+            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            return -999;
         }
+        // do json things
+        try {
+            JsonElement jsone = new JsonParser().parse(raw);
+            JsonObject json = jsone.getAsJsonObject();
+            bal = Long.valueOf(json.get("time").getAsString());
+        } catch (JsonSyntaxException e){
+            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            return -999;
+        }
+        return bal;
+    }
 
     public static boolean dbcheckbloan(String id){
             // sql statement to check for this shit
