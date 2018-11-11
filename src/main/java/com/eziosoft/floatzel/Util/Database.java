@@ -273,10 +273,10 @@ public class Database {
         try {
             if (!isbuy) {
                 r.table(stocktable).filter(row -> row.g("sid").eq(id)).update(
-                        r.array(
                                 r.hashMap("price", price)
-                                        .with("diff", diff)
-                        )
+                ).run(thonk);
+                r.table(stocktable).filter(row -> row.g("sid").eq(id)).update(
+                        r.hashMap("diff", diff)
                 ).run(thonk);
             } else {
                 r.table(stocktable).filter(row -> row.g("sid").eq(id)).update(
