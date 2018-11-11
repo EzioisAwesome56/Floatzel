@@ -149,15 +149,6 @@ public class Database {
         if (!exist){
             // the user does not have a bank account
             // make one instead!
-            try {
-                r.table(loantable).insert(r.array(
-                        r.hashMap("id", id)
-                                .with("time", 0)
-                )).run(thonk);
-            } catch (ReqlError e){
-                Error.Catch(e.getStackTrace().toString(), e.getMessage());
-                return false;
-            }
             return exist;
         } else {
             return exist;
@@ -179,6 +170,11 @@ public class Database {
 
     // sql fucntion to write a 0 to a new loan entry
     public static void sqlblankloan(String id){
+        // insert a thong into the loan table
+        r.table(loantable).insert(r.array(
+                r.hashMap("id", id)
+                .with("time", 0L)
+        ))
         // prepare to insert
         String sql = "INSERT INTO "+loantable+"(id,time) VALUES(?,?)";
         // insert
