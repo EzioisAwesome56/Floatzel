@@ -216,8 +216,9 @@ public class Database {
         return bal;
     }
 
-    /*public static boolean dbcheckbloan(String id){
-            // sql statement to check for this shit
+    public static boolean dbcheckbloan(String id){
+        return false;
+       /* // sql statement to check for this shit
             String sql = "SELECT id, perm FROM "+bloanperm+" WHERE id = '"+id+"'";
             // do those sql things
             try (Connection conn = Database.connect();
@@ -241,11 +242,13 @@ public class Database {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
                 return false;
-            }
+            }*/
         }
 
     public static void dbbuycmd(int cmd, String uid){
-            String table = "";
+        // finish this later
+        return;
+        /*String table = "";
             if (cmd == 1){
                 table = bloanperm;
             }
@@ -259,12 +262,13 @@ public class Database {
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
-            }
+            }*/
         }
 
     // check to see if anything is in the table at all
     public static Boolean dbcheckstock(){
-        int id = 1;
+        return false;
+        /*int id = 1;
         // the sql used to check if a person is in za database
         String sql = "SELECT * FROM "+stocktable+" WHERE id = "+1;
         // connection shit
@@ -281,12 +285,12 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
-        }
+        }*/
     }
 
     // sql fucntion to write a 0 to a new loan entry
     public static void dbnewstock(int id, String name, int units, int price){
-        // prepare to insert
+        /*// prepare to insert
         String sql = "INSERT INTO "+stocktable+"(id,name,price,diff,units) VALUES(?,?,?,?,?)";
         // insert
         try (Connection conn = Database.connect();
@@ -301,11 +305,11 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return;
-        }
+        }*/
     }
 
     public static void dbinccount(){
-        boolean exist = true;
+       /* boolean exist = true;
         int newcount = -2;
         String sql = "SELECT * FROM "+stockc;
         try (Connection conn = Database.connect();
@@ -335,11 +339,12 @@ public class Database {
             psmt.execute();
         } catch (SQLException e){
             System.out.println(e.getMessage());
-        }
+        }*/
 
     }
     public static int dbgetcount(){
-        String sql = "SELECT numb FROM "+stockc+" WHERE numb > ?";
+        return -999;
+       /* String sql = "SELECT numb FROM "+stockc+" WHERE numb > ?";
         try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
             pst.setInt(1, 0);
             ResultSet rs = pst.executeQuery();
@@ -350,10 +355,12 @@ public class Database {
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return -999;
-        }
+        }*/
     }
     public static void dbupdatestock(int id, boolean isbuy, int price, int diff, int unit){
-        // update it instead
+        return;
+
+        /*// update it instead
         String sql;
         if (!isbuy) {
              sql = "UPDATE " + stocktable + " SET price = ?, diff = ? WHERE id = '" + id + "'";
@@ -372,12 +379,13 @@ public class Database {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
     }
 
     // methood to get current price
     public static int dbgetprice(int id){
-        String sql = "SELECT price FROM "+stocktable+" WHERE id = '"+id+"'";
+        return -999;
+        /*String sql = "SELECT price FROM "+stocktable+" WHERE id = '"+id+"'";
         // connect to the db and get the row
         try (Connection conn = Database.connect();
              PreparedStatement pstmt  = conn.prepareStatement(sql)){
@@ -397,12 +405,13 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return -999;
-        }
+        }*/
     }
 
     // get the name of a stock
     public static String dbgetname(int id){
-        String sql = "SELECT name FROM "+stocktable+" WHERE id = "+id;
+        return "ERROR";
+        /*String sql = "SELECT name FROM "+stocktable+" WHERE id = "+id;
         // connect to the db
         try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
             // run the query
@@ -417,12 +426,13 @@ public class Database {
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return "A";
-        }
+        }*/
     }
 
     // get dif
     public static int dbgetdiff(int id){
-        String sql = "SELECT diff FROM "+stocktable+" WHERE id = "+id;
+        return -999;
+        /*String sql = "SELECT diff FROM "+stocktable+" WHERE id = "+id;
         // connect to the db
         try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
             // run the query
@@ -437,12 +447,13 @@ public class Database {
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return -999;
-        }
+        }*/
     }
 
     // get units
     public static int dbgetunits(int id){
-        String sql = "SELECT units FROM "+stocktable+" WHERE id = "+id;
+        return -999;
+        /*String sql = "SELECT units FROM "+stocktable+" WHERE id = "+id;
         // connect to the db
         try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
             // run the query
@@ -457,11 +468,12 @@ public class Database {
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return -999;
-        }
+        }*/
     }
 
     public static int dbcounttweets(){
-        String sql = "SELECT * FROM "+tweets;
+        return -999;
+        /*String sql = "SELECT * FROM "+tweets;
         int rows = 0;
         // do a thing
         try (Connection conn = DriverManager.getConnection(url);
@@ -476,8 +488,8 @@ public class Database {
             e.printStackTrace();
             return -1;
         }
-        return rows;
-    }*/
+        return rows;*/
+    }
 
 
 }
