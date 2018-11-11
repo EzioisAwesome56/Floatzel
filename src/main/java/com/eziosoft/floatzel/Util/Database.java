@@ -45,7 +45,7 @@ public class Database {
     public static void dbinit() {
         System.out.println("Floatzel is starting RethinkDB...");
         // first, check if the database file exists
-        if (!r.dbList().contains("floatzel").equals("true")){
+        if (!r.dbList().contains("floatzel").equals("floatzel")){
             System.out.println("No database found! Creating a new db!");
             // okay, it hasnt been initalized yet, so do that
             r.dbCreate("floatzel").run(thonk);
