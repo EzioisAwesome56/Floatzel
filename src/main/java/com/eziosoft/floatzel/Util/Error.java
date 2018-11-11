@@ -25,6 +25,9 @@ public class Error {
         e.printStackTrace(new PrintWriter(sw));
         Error.Handle(sw.toString(), e.getMessage());
     }
+    public static void SpecialError(String a, String b){
+        Error.Handle(a, b);
+    }
 
     // actaully form the message and send it
     private static void Handle(String stacktrace, String msg){

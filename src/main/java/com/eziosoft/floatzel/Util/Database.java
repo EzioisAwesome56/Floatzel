@@ -129,8 +129,7 @@ public class Database {
             try {
                 cur = r.table(banktable).filter(row -> row.g("uid").eq(id)).getField("bal").run(thonk);
             } catch (ReqlError e){
-                e.printStackTrace(new PrintWriter(sw));
-                Error.Catch(sw.toString(), e.getMessage());
+                Error.Catch(e);
                 return -999;
             }
             // do json things
@@ -147,8 +146,7 @@ public class Database {
         try {
             exist = r.table(loantable).get(id).count().equals(1);
         } catch (ReqlError e){
-            e.printStackTrace(new PrintWriter(sw));
-            Error.Catch(sw.toString(), e.getMessage());
+            Error.Catch(e);
             return false;
         }
         if (!exist){
@@ -168,7 +166,7 @@ public class Database {
             Database.sqlblankloan(id);
             return;
         } else {
-            Error.Catch("No stack trace provided!", "Unknown argument passed!");
+            Error.SpecialError("No stack trace provided!", "Unknown argument passed!");
             return;
         }
     }
@@ -183,8 +181,7 @@ public class Database {
             )).run(thonk);
             return;
         } catch (ReqlError e){
-            e.printStackTrace(new PrintWriter(sw));
-            Error.Catch(sw.toString(), e.getMessage());
+            Error.Catch(e);
             return;
         }
     }
@@ -195,8 +192,7 @@ public class Database {
             r.table(loantable).filter(row -> row.g("uid").eq(id)).update(r.hashMap("time", time)).run(thonk);
             return;
         } catch (ReqlError e){
-            e.printStackTrace(new PrintWriter(sw));
-            Error.Catch(sw.toString(), e.getMessage());
+            Error.Catch(e);
             return;
         }
             }
@@ -208,21 +204,10 @@ public class Database {
         try {
             raw = r.table(loantable).filter(row -> row.g("uid").eq(id)).toJsonString().toString();
         } catch (ReqlError e){
-            e.printStackTrace(new PrintWriter(sw));
-            Error.Catch(sw.toString(), e.getMessage());
+            Error.Catch(e);
             return -999;
         }
-        // do json things
-        try {
-            JsonElement jsone = new JsonParser().parse(raw);
-            JsonObject json = jsone.getAsJsonObject();
-            bal = Long.valueOf(json.get("time").getAsString());
-        } catch (JsonSyntaxException e){
-            e.printStackTrace(new PrintWriter(sw));
-            Error.Catch(sw.toString(), e.getMessage());
-            return -999;
-        }
-        return bal;
+        return -1;
     }
 
     public static boolean dbcheckbloan(String id){
