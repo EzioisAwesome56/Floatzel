@@ -176,7 +176,7 @@ public class Database {
         // insert a thong into the loan table
         try {
             r.table(loantable).insert(r.array(
-                    r.hashMap("id", id)
+                    r.hashMap("uid", id)
                             .with("time", Long.toString(0L))
             )).run(thonk);
             return;
