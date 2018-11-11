@@ -144,14 +144,14 @@ public class Database {
         boolean exist = false;
         // connection shit
         try {
-            exist = r.table(loantable).get(id).count().equals(1);
+            exist = (boolean) r.table(loantable).filter(
+                    r.hashMap("uid", id)
+            ).count().eq(1).run(thonk);
         } catch (ReqlError e){
             Error.Catch(e);
             return false;
         }
         if (!exist){
-            // the user does not have a bank account
-            // make one instead!
             return exist;
         } else {
             return exist;
