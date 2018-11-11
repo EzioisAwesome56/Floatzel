@@ -340,23 +340,12 @@ public class Database {
 
     // get units
     public static int dbgetunits(int id){
-        return -999;
-        /*String sql = "SELECT units FROM "+stocktable+" WHERE id = "+id;
-        // connect to the db
-        try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
-            // run the query
-            ResultSet rs = pst.executeQuery();
-
-            if (!rs.next()){
-                System.out.println("SQL FAULT!");
-                return -999;
-            }
-            int diff = rs.getInt("units");
-            return diff;
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-            return -999;
-        }*/
+        try{
+            cur = r.table(stocktable).filter(row -> row.g("sid").eq(id)).getField("units").run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+        }
+        return Integer.valueOf(Utils.getValue(cur));
     }
 
     public static int dbcounttweets(){
