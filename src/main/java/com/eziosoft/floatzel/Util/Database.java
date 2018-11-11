@@ -68,6 +68,7 @@ public class Database {
         r.tableCreate(banktable).run(thonk);
         r.tableCreate(loantable).run(thonk);
         r.tableCreate(bloanperm).run(thonk);
+        r.tableCreate(stocktable).run(thonk);
     }
 
     // check if db entry exists
@@ -261,22 +262,19 @@ public class Database {
 
     // sql fucntion to write a 0 to a new loan entry
     public static void dbnewstock(int id, String name, int units, int price){
-        /*// prepare to insert
-        String sql = "INSERT INTO "+stocktable+"(id,name,price,diff,units) VALUES(?,?,?,?,?)";
-        // insert
-        try (Connection conn = Database.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            pstmt.setString(2, name);
-            pstmt.setInt(3, price);
-            pstmt.setInt(5, units);
-            pstmt.setInt(4, 0);
-            pstmt.executeUpdate();
-            return;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return;
-        }*/
+        try {
+            r.table(stocktable).insert(
+                    r.array(
+                            r.hashMap("sid", id)
+                            .with("name", name)
+                            .with("units", units)
+                            .with("price", price)
+                            .with("diff", 0)
+                    )
+            ).run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+        }
     }
 
     public static void dbinccount(){
