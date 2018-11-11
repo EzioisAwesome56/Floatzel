@@ -38,7 +38,7 @@ public class Reverse extends FCommand {
             event.getChannel().sendFile(stream.toByteArray(), "a.png", null).queue();
             stream.close();
         } catch (IOException e) {
-            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            Error.Catch(e);
         }
     }
 }
