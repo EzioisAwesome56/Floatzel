@@ -67,6 +67,7 @@ public class Database {
         // run a bunch of rethink commands
         r.tableCreate(banktable).run(thonk);
         r.tableCreate(loantable).run(thonk);
+        r.tableCreate(bloanperm).run(thonk);
     }
 
     // check if db entry exists
@@ -211,32 +212,16 @@ public class Database {
     }
 
     public static boolean dbcheckbloan(String id){
-        return false;
-       /* // sql statement to check for this shit
-            String sql = "SELECT id, perm FROM "+bloanperm+" WHERE id = '"+id+"'";
-            // do those sql things
-            try (Connection conn = Database.connect();
-                 PreparedStatement pstmt  = conn.prepareStatement(sql)){
-
-                ResultSet rs  = pstmt.executeQuery();
-
-                // error trap
-                if (!rs.next()){
-                    System.out.println("ERROR LOADING ROWS");
-                    return false;
-                }
-                // so if its there, get the value and return it
-                if (rs.getInt("perm") == 1){
-                    // the user has the command, let them use it
-                    return true;
-                } else {
-                    // they dont rofl lmao
-                    return false;
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                return false;
-            }*/
+        // sql statement to check for this shit
+        boolean exist = false;
+        try {
+            exist = (boolean) r.table(bloanperm).filter(row -> row.g("uid").eq(id)).count().eq(1).run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return exist;
+        }
+        // then just return the result
+            return exist;
         }
 
     public static void dbbuycmd(int cmd, String uid){
