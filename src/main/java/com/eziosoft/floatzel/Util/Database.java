@@ -225,21 +225,14 @@ public class Database {
         }
 
     public static void dbbuycmd(int cmd, String uid){
-        // finish this later
         String table = "";
             if (cmd == 1){
                 table = bloanperm;
             }
-            // start the process of sqling
-            String sql = "INSERT INTO "+table+"(id,perm) VALUES(?,?)";
-            // do the actual inserting
-            try (Connection conn = Database.connect();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, uid);
-                pstmt.setInt(2, 1);
-                pstmt.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            try {
+                r.table(table).insert(r.hashMap("uid", uid)).run(thonk);
+            } catch (ReqlError e){
+                Error.Catch(e);
             }
         }
 
