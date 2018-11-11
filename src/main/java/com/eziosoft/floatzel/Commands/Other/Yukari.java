@@ -38,7 +38,7 @@ public class Yukari extends FCommand {
             event.getChannel().sendFile(stream.toByteArray(), "yukari.png", null).queue();
             stream.close();
         } catch (IOException e) {
-            Error.Catch(e.getStackTrace().toString(), e.getMessage());
+            Error.Catch(e);
         }
     }
 }

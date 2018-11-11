@@ -1,9 +1,12 @@
 package com.eziosoft.floatzel.Util;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.rethinkdb.gen.exc.ReqlError;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Random;
 
 import static com.eziosoft.floatzel.Commands.FCommand.erevent;
@@ -11,8 +14,20 @@ import static com.eziosoft.floatzel.Commands.FCommand.erevent;
 public class Error {
 
     private static Random random = new Random();
+    private static StringWriter sw = new StringWriter();
 
-    public static void Catch(String stacktrace, String msg){
+    // handle every execption that could happen
+    public static void Catch(ReqlError e){
+        e.printStackTrace(new PrintWriter(sw));
+        Error.Handle(sw.toString(), e.getMessage());
+    }
+    public static void Catch(IOException e){
+        e.printStackTrace(new PrintWriter(sw));
+        Error.Handle(sw.toString(), e.getMessage());
+    }
+
+    // actaully form the message and send it
+    private static void Handle(String stacktrace, String msg){
         // init string builder
         StringBuilder builder = new StringBuilder();
         //setup a byte array

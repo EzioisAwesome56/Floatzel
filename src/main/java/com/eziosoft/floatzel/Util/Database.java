@@ -38,7 +38,6 @@ public class Database {
     public static Gson g = new Gson();
     public static Cursor cur = null;
     // error shitto
-    public static StringWriter sw = new StringWriter();
     public static String weed;
 
 
@@ -79,7 +78,7 @@ public class Database {
                         r.hashMap("uid", id)
                 ).count().eq(1).run(thonk);
             } catch (ReqlError e){
-                Error.Catch(e.getStackTrace().toString(), e.getMessage());
+                Error.Catch(e);
                 return false;
             }
             if (!exist){
@@ -91,8 +90,7 @@ public class Database {
                                     .with("bal", 0)
                     )).run(thonk);
                 } catch (ReqlError e){
-                    e.printStackTrace(new PrintWriter(sw));
-                    Error.Catch(sw.toString(), e.getMessage());
+                    Error.Catch(e);
                     return false;
                 }
                 return exist;
@@ -120,8 +118,7 @@ public class Database {
         try {
             r.table(banktable).filter(row -> row.g("uid").eq(id)).update(r.hashMap("bal", data)).run(thonk);
         } catch (ReqlError e){
-            e.printStackTrace(new PrintWriter(sw));
-            Error.Catch(sw.toString(), e.getMessage());
+            Error.Catch(e);
 
         }
     }
