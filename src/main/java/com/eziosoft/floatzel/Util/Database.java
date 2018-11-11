@@ -48,6 +48,7 @@ public class Database {
         r.tableCreate(loantable).run(thonk);
         r.tableCreate(bloanperm).run(thonk);
         r.tableCreate(stocktable).run(thonk);
+        r.tableCreate(tweets).run(thonk);
     }
 
     // check if db entry exists
@@ -338,23 +339,14 @@ public class Database {
     }
 
     public static int dbcounttweets(){
-        return -999;
-        /*String sql = "SELECT * FROM "+tweets;
-        int rows = 0;
-        // do a thing
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-            // sqlite is dumb
-            while (rs.next()){
-                rs.next();
-                rows = rs.getRow();
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-            return -1;
+        long total;
+        try{
+            total = r.table(tweets).count().run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return -999;
         }
-        return rows;*/
+        return Math.toIntExact(total);
     }
 
 
