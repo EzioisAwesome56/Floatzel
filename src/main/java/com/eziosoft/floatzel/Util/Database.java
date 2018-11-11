@@ -267,53 +267,22 @@ public class Database {
     }
 
     public static void dbinccount(){
-       /* boolean exist = true;
-        int newcount = -2;
-        String sql = "SELECT * FROM "+stockc;
-        try (Connection conn = Database.connect();
-             PreparedStatement pstmt  = conn.prepareStatement(sql)) {
-
-            ResultSet rs = pstmt.executeQuery();
-
-            // is there already a row here?
-            exist = rs.next();
-            if (!exist) {
-                // if there isnt, make it
-                sql = "INSERT INTO "+stockc+"(numb) VALUES(?)";
-            } else {
-                int oldcount = rs.getInt("numb");
-                sql = "UPDATE "+ stockc + " SET numb = ? WHERE numb = "+oldcount;
-            }
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-            return;
-        }
-        try (Connection conn = Database.connect(); PreparedStatement psmt = conn.prepareStatement(sql)){
-            if (!exist){
-                psmt.setInt(1, 1);
-            } else {
-                psmt.setInt(1, newcount);
-            }
-            psmt.execute();
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-        }*/
+       // since rethink db isnt shit like sqlite, we dont need this anymore
+        // as such, this function does nothing
+        return;
 
     }
     public static int dbgetcount(){
-        return -999;
-       /* String sql = "SELECT numb FROM "+stockc+" WHERE numb > ?";
-        try (Connection conn = Database.connect(); PreparedStatement pst = conn.prepareStatement(sql)){
-            pst.setInt(1, 0);
-            ResultSet rs = pst.executeQuery();
-            boolean exist = rs.next();
-            int epic = rs.getInt("numb");
-            rs.close();
-            return epic;
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
+        // one of the advatages of rethink: figuring out how many rows are in a table
+        // thank lord!
+        int total = 0;
+        try {
+            total = r.table(stocktable).count().run(thonk);
+      } catch (ReqlError e){
+            Error.Catch(e);
             return -999;
-        }*/
+        }
+        return total;
     }
     public static void dbupdatestock(int id, boolean isbuy, int price, int diff, int unit){
         return;
@@ -342,28 +311,13 @@ public class Database {
 
     // methood to get current price
     public static int dbgetprice(int id){
-        return -999;
-        /*String sql = "SELECT price FROM "+stocktable+" WHERE id = '"+id+"'";
-        // connect to the db and get the row
-        try (Connection conn = Database.connect();
-             PreparedStatement pstmt  = conn.prepareStatement(sql)){
-            // execute the query
-            ResultSet rs  = pstmt.executeQuery();
-
-            // loop through the result set
-            if (!rs.next()){
-                System.out.println("ERROR WHILE LOADING ROWS");
-                rs.close();
-                return -999;
-            }
-            // alright, get the value we need now
-            int result = rs.getInt("price");
-            rs.close();
-            return result;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        try {
+            cur = r.table(stocktable).filter(row -> row.g("sid").eq(id)).getField("price").run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
             return -999;
-        }*/
+        }
+        return Integer.valueOf(Utils.getValue(cur));
     }
 
     // get the name of a stock
