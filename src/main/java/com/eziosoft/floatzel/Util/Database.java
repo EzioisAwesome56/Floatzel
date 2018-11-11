@@ -200,7 +200,6 @@ public class Database {
     // return a long with the stored nano time
     public static long dbloadtime(String id){
         String result;
-        long bal;
         try {
             cur = r.table(loantable).filter(row -> row.g("uid").eq(id)).getField("time").run(thonk);
         } catch (ReqlError e){
