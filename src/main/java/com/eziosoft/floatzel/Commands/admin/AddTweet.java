@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.admin;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 public class AddTweet extends FCommand {
@@ -19,5 +20,11 @@ public class AddTweet extends FCommand {
             return;
         }
         // save the tweet
+        int id = Database.dbcounttweets() + 1;
+        boolean a = Database.dbsavetweet(tweet, id);
+        if (a){
+            event.getChannel().sendMessage("Tweet saved!").queue();
+            return;
+        }
     }
 }

@@ -344,5 +344,18 @@ public class Database {
         return Math.toIntExact(total);
     }
 
+    public static boolean dbsavetweet(String text, int id){
+        try {
+            r.table(tweets).insert(r.array(
+                    r.hashMap("tid", id)
+                    .with("txt", text)
+            )).run(thonk);
+            return true;
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return false;
+        }
+    }
+
 
 }
