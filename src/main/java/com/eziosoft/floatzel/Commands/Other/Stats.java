@@ -32,7 +32,7 @@ public class Stats extends FCommand {
         // free mem
         stats = stats + "Free RAM: "+ Double.toString(((double)Runtime.getRuntime().freeMemory() / (double)(1024.0 * 1024.0))) + " MB\n";
         // used ram
-        stats = stats + "Used RAM: "+ Double.toString(((double)(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())) / (double)(1024.0 * 1024)) + "MB\n";
+        stats = stats + "Used RAM: "+ Double.toString(((double)(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())) / (double)(1024.0 * 1024)) + " MB\n";
         // max ram
         stats = stats + "Max RAM: " + Double.toString(((double)Runtime.getRuntime().maxMemory() / (double)(1024.0 * 1024.0))) + " MB\n";
         // processors
