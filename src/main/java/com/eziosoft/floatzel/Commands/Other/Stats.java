@@ -28,11 +28,13 @@ public class Stats extends FCommand {
         // operating system architechure
         stats = stats + "OS Artchitecture: " + System.getProperty("os.arch") + "\n";
         // RAMMMMMM
-        stats = stats + "Total RAM: "+ Long.toString(Runtime.getRuntime().totalMemory()) + "\n";
+        stats = stats + "Total RAM: "+ Double.toString(((double)Runtime.getRuntime().totalMemory() / (double)(1024.0 * 1024.0))) + " MB\n";
         // free mem
-        stats = stats + "Free RAM: "+ Long.toString(Runtime.getRuntime().freeMemory()) + "\n";
+        stats = stats + "Free RAM: "+ Double.toString(((double)Runtime.getRuntime().freeMemory() / (double)(1024.0 * 1024.0))) + " MB\n";
+        // used ram
+        stats = stats + "Used RAM: "+ Double.toString(((double)(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())) / (double)(1024.0 * 1024)) + "MB\n";
         // max ram
-        stats = stats + "Max RAM: " + Long.toString(Runtime.getRuntime().maxMemory()) + "\n";
+        stats = stats + "Max RAM: " + Double.toString(((double)Runtime.getRuntime().maxMemory() / (double)(1024.0 * 1024.0))) + " MB\n";
         // processors
         stats = stats + "Accessible Processors: "+ Integer.toString(Runtime.getRuntime().availableProcessors()) + "\n";
         // end it
