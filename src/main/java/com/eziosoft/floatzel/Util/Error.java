@@ -3,6 +3,7 @@ package com.eziosoft.floatzel.Util;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.rethinkdb.gen.exc.ReqlError;
 
+import javax.script.ScriptException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,6 +28,10 @@ public class Error {
     }
     public static void SpecialError(String a, String b){
         Error.Handle(a, b);
+    }
+    public static void Catch(ScriptException e){
+        e.printStackTrace(new PrintWriter(sw));
+        Error.Handle(sw.toString(), e.getMessage());
     }
 
     // actaully form the message and send it
