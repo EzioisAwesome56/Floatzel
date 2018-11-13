@@ -6,6 +6,7 @@ import com.eziosoft.floatzel.Commands.Debug.Debug;
 import com.eziosoft.floatzel.Commands.Entertainment.*;
 import com.eziosoft.floatzel.Commands.Image.ImageTest;
 import com.eziosoft.floatzel.Commands.Other.*;
+import com.eziosoft.floatzel.Commands.Owner.Eval;
 import com.eziosoft.floatzel.Commands.PayForCommands.BetterLoan;
 import com.eziosoft.floatzel.Commands.Secret.Gay;
 import com.eziosoft.floatzel.Commands.Sound.*;
@@ -84,6 +85,7 @@ public class Floatzel {
         commandClient.addCommand(new Force());
         commandClient.addCommand(new Debug());
         commandClient.addCommand(new AddTweet());
+        commandClient.addCommand(new Eval());
         //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
