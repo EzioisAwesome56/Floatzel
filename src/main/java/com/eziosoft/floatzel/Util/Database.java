@@ -357,6 +357,7 @@ public class Database {
         }
 
     }
+    // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name){
         try {
             r.tableCreate(name).run(thonk);
