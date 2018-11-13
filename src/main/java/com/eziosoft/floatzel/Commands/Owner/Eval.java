@@ -27,15 +27,36 @@ public class Eval extends FCommand {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try{
             engine.eval("var imports = new JavaImporter(java.io, java.lang, java.util, com.eziosoft.floatzel);");
+        } catch (ScriptException e){
+            Error.Catch(e);
+            return;
+        }
+        // now actually run this
+        try {
             engine.put("command", this);
             engine.put("event", event);
             engine.put("client", event.getClient());
             engine.put("guild", event.getGuild());
             engine.put("channel", event.getTextChannel());
             engine.put("jda", event.getJDA());
+            // now try to run it
+            Object out = engine.eval(
+                    "(function() {" +
+                            "with (imports) {" +
+                            code +
+                            "}" +
+                            "})();");
+            if (out == null){
+                event.getChannel().sendMessage("```Whatever you tried probably worked, unless you requested a object```").queue();
+                return;
+            } else {
+                event.getChannel().sendMessage("```"+out.toString()+"```").queue();
+                return;
+            }
         } catch (ScriptException e){
             Error.Catch(e);
-            return;
+        } catch (Exception e){
+            Error.Catch(e);
         }
     }
 }

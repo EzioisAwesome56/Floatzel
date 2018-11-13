@@ -33,7 +33,10 @@ public class Error {
         e.printStackTrace(new PrintWriter(sw));
         Error.Handle(sw.toString(), e.getMessage());
     }
-
+    public static void Catch(Exception e){
+        e.printStackTrace(new PrintWriter(sw));
+        Error.Handle(sw.toString(), e.getMessage());
+    }
     // actaully form the message and send it
     private static void Handle(String stacktrace, String msg){
         // init string builder
