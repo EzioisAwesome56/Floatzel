@@ -355,6 +355,16 @@ public class Database {
             Error.Catch(e);
             return false;
         }
+
+    }
+    public static boolean dbmaketable(String name){
+        try {
+            r.tableCreate(name).run(thonk);
+            return true;
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return false;
+        }
     }
 
 
