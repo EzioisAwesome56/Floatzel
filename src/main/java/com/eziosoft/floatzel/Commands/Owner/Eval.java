@@ -26,7 +26,7 @@ public class Eval extends FCommand {
         // enable the scripting manager
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try{
-            engine.eval("var imports = new JavaImporter(java.io, java.lang, java.util, com.eziosoft.floatzel);");
+            engine.eval("var imports = new JavaImporter(java.io, java.lang, java.util, com.eziosoft.floatzel, comcom.eziosoft.floatzel.Database);");
         } catch (ScriptException e){
             Error.Catch(e);
             return;
