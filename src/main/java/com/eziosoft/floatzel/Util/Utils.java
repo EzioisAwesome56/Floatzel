@@ -81,7 +81,7 @@ public class Utils {
             return value;
         } catch (IndexOutOfBoundsException e){
             Error.Catch(e);
-            return "-999";
+            return "ERROR IN getValue!";
         }
     }
 }
