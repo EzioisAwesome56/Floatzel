@@ -6,6 +6,8 @@ import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import static com.eziosoft.floatzel.Util.StockUtil.canstocks;
+
 public class StockBuy extends FCommand {
     public StockBuy(){
         name = "stockbuy";
@@ -15,6 +17,10 @@ public class StockBuy extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
+        if (!canstocks){
+            event.getChannel().sendMessage("You cannot buy a stock while floatzel is updating the market!").queue();
+            return;
+        }
         // check if the user even has stocks yet
         String uid = event.getAuthor().getId();
         boolean hasstocks = Database.dbcheckifstock(uid);
