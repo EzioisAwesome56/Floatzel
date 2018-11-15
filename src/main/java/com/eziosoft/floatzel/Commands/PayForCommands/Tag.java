@@ -14,9 +14,15 @@ public class Tag extends FCommand {
     @Override
     protected void cmdrun(CommandEvent event){
         String args = event.getArgs();
-        if (!Database.dbcheckiftag(event.getGuild().getId())){
-            event.getChannel().sendMessage("Error: This guild has not purchased the tag command yet!").queue();
-            return;
+        boolean perm = Database.dbcheckiftag(event.getGuild().getId());
+        if(args.equals("check")){
+            if(!perm){
+                event.getChannel().sendMessage("This guild has not purchased the tag command!").queue();
+                return;
+            } else {
+                event.getChannel().sendMessage("This guild can use the tag command!").queue();
+                return;
+            }
         }
     }
 }
