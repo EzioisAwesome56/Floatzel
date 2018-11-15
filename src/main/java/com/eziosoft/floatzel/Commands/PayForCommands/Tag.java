@@ -15,7 +15,13 @@ public class Tag extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        String args = argsplit[0];
+        String args = "";
+        try {
+            args = argsplit[0];
+        } catch (ArrayIndexOutOfBoundsException e){
+            event.getChannel().sendMessage("Error: no arguments provided!").queue();
+            return;
+        }
         String tn = null;
         int howlong = argsplit.length;
         System.out.println(howlong);
@@ -102,6 +108,13 @@ public class Tag extends FCommand {
         } else if (args.equals("remove")){
             event.getChannel().sendMessage("unfinished feature!").queue();
             return;
+        } else {
+            // check if the tag exists for the guild
+            boolean exist = Database.dbchecktag(event.getGuild().getId(), args);
+            if (!exist){
+                event.getChannel().sendMessage("Error: you can't delete a tag that doesn't exist, you idiot!").queue();
+                return;
+            }
         }
 
     }
