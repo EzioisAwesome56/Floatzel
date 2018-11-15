@@ -68,6 +68,9 @@ public class Tag extends FCommand {
                 String curbal = Integer.toString((Database.dbloadint(event.getAuthor().getId())));
                 event.getChannel().sendMessage("Error: adding a tag costs 50"+moneyicon+", You have "+curbal+moneyicon+"!").queue();
                 return;
+            } else if (tn.length() > 50){
+                event.getChannel().sendMessage("Error: tag names cannot be fucking longer then 50 characters!").queue();
+                return;
             } else {
                 // if we made it here, its probably okay to add the tag
                 // form the tag content
@@ -96,6 +99,9 @@ public class Tag extends FCommand {
                 event.getChannel().sendMessage("Tag added successfully!").queue();
                 return;
             }
+        } else if (args.equals("remove")){
+            event.getChannel().sendMessage("unfinished feature!").queue();
+            return;
         }
 
     }
