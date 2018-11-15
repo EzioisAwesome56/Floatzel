@@ -4,6 +4,7 @@ import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.Error;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import org.apache.commons.lang3.ObjectUtils;
 
 public class Tag extends FCommand {
     public Tag(){
@@ -69,11 +70,31 @@ public class Tag extends FCommand {
                 return;
             } else {
                 // if we made it here, its probably okay to add the tag
+                // form the tag content
+                String content = null;
+                int total = howlong - 2;
+                int a = 0;
+                try {
+                    while (a != total) {
+                        content = content + argsplit[2 + a];
+                        a++;
+                    }
+                } catch (NullPointerException e){
+                    Error.Catch(e);
+                    return;
+                }
+                // last minute check, see if the tag is too long
+                if (content.length() > 1500){
+                    event.getChannel().sendMessage("Error: that tag is too long! tags can be 1500 characters long at maximun, moron!").queue();
+                    return;
+                }
                 // subtract 50 from their money
                 int newbal = Database.dbloadint(event.getAuthor().getId()) - 50;
                 Database.dbsaveint(event.getAuthor().getId(), newbal);
                 // then add the new tag
-
+                Database.dbsavetag(event.getGuild().getId(), tn, content);
+                event.getChannel().sendMessage("Tag added successfully!").queue();
+                return;
             }
         }
 
