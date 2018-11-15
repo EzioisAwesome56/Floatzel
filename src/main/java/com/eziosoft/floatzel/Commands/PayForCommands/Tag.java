@@ -47,7 +47,7 @@ public class Tag extends FCommand {
             try {
                 tn = argsplit[1];
             } catch (NullPointerException e){
-                Error.Catch(e);
+                event.getChannel().sendMessage("Error: either something broke or you didn't give me a tag name!").queue();
                 return;
             }
             // run checks before actually adding the tag
