@@ -12,7 +12,7 @@ public class Database {
     private static String loantable = "loan";
     private static String bloanperm = "bloan";
     private static String stocktable = "stocks";
-    //public static String stockc = "count";
+    private static String stockbuy = "boughtstock";
     private static String tweets = "tweets";
     private static String tagperm = "gtagperm";
     private static String tags = "tags";
@@ -53,6 +53,7 @@ public class Database {
         r.tableCreate(tweets).run(thonk);
         r.tableCreate(tagperm).run(thonk);
         r.tableCreate(tags).run(thonk);
+        r.tableCreate(stockbuy).run(thonk);
     }
 
     // check if db entry exists
