@@ -25,7 +25,10 @@ public class Tag extends FCommand {
             }
         } else if (args.equals("buy")){
             int balance = Database.dbloadint(event.getAuthor().getId());
-            if (balance < 500){
+            if (!Database.dbcheckifexist(event.getAuthor().getId())){
+                event.getChannel().sendMessage("Error: You need atleast 500\"+moneyicon+\" to buy this command, moron!").queue();
+                return;
+            } else if (balance < 500){
                 event.getChannel().sendMessage("Error: You need atleast 500"+moneyicon+" to buy this command, moron!").queue();
                 return;
             } else {
@@ -36,5 +39,6 @@ public class Tag extends FCommand {
                 return;
             }
         }
+
     }
 }
