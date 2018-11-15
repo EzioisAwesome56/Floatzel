@@ -13,7 +13,7 @@ public class Tag extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        String args = event.getArgs();
+        String args = argsplit[0];
         boolean perm = Database.dbcheckiftag(event.getGuild().getId());
         if(args.equals("check")){
             if(!perm){
