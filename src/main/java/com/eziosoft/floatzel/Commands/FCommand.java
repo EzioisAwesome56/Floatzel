@@ -20,6 +20,7 @@ public abstract class FCommand extends Command {
     public static Category sound = new Category("Audio");
     public static Category other = new Category("Other");
     public static Category waifu = new Category("Waifu");
+    public static Category buyshit = new Category("Purchasable Commands");
 
     // bot admin shitto
     public boolean adminCommand = false;
