@@ -432,6 +432,18 @@ public class Database {
         return tcont;
     }
 
+    // check if the user has bought a stock yet
+    public static Boolean dbcheckifstock(String uid){
+        boolean exist = false;
+        try{
+            exist = (boolean) r.table(stockbuy).filter(row -> row.g("uid", uid)).count().eq(1).run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return true;
+        }
+        return exist;
+    }
+
     // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name){
         try {
