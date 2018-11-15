@@ -71,7 +71,7 @@ public class Tag extends FCommand {
             } else {
                 // if we made it here, its probably okay to add the tag
                 // form the tag content
-                String content = null;
+                String content = "";
                 int total = howlong - 2;
                 int a = 0;
                 try {
