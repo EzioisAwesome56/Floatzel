@@ -39,10 +39,10 @@ public class StockUtil {
         while (counter <= stocks){
             // randomly pick if the stock will boom or crash
             int crash = random.nextInt(50);
-            if (crash == 27){
+            if (crash <= 20 || crash >= 35){
                 isCrash = true;
                 isSuperCrash = false;
-            } else if (crash == 49){
+            } else if (crash == 25 || crash == 28 || crash == 34){
                 // uh oh. A super crash/boom is happening
                 isSuperCrash = true;
                 isCrash = false;
