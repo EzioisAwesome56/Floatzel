@@ -399,6 +399,20 @@ public class Database {
         }
         return exist;
     }
+    // used for saving tags to the database
+    public static void dbsavetag(String gid, String tname, String tcont){
+        try {
+            r.table(tags).insert(r.array(
+                    r.hashMap("gid", gid)
+                    .with("tname", tname)
+                    .with("cont", tcont)
+            )).run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return;
+        }
+    }
+
     // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name){
         try {
