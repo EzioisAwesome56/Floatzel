@@ -456,6 +456,19 @@ public class Database {
         return exist;
     }
 
+    // buy a stock
+    public static void dbbuystock(String uid, int id){
+        try{
+            r.table(stockbuy).insert(
+                    r.hashMap("uid", uid)
+                    .with("sid", id)
+            ).run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return;
+        }
+    }
+
     // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name){
         try {
