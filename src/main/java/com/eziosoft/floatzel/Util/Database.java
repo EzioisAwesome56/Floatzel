@@ -389,10 +389,10 @@ public class Database {
     public static boolean dbchecktag(String gid, String tname){
         boolean exist = false;
         try {
-            exist = (boolean) r.table(tags).filter(r.array(
+            exist = (boolean) r.table(tags).filter(r.literal(r.array(
                     r.hashMap("gid", gid)
                     .with("tname", tname)
-            )).count().eq(1).run(thonk);
+            ))).count().eq(1).run(thonk);
         } catch (ReqlError e){
             Error.Catch(e);
             return true;
