@@ -75,8 +75,13 @@ public class Utils {
 
     // get the first entire from a cursor list
     public static String getValue(Cursor cur){
-        List curlist = cur.toList();
-        String value = curlist.get(0).toString();
-        return value;
+        try {
+            List curlist = cur.toList();
+            String value = curlist.get(0).toString();
+            return value;
+        } catch (IndexOutOfBoundsException e){
+            Error.Catch(e);
+            return "-999";
+        }
     }
 }
