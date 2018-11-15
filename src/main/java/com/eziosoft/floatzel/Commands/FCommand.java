@@ -22,6 +22,9 @@ public abstract class FCommand extends Command {
     public static Category waifu = new Category("Waifu");
     public static Category buyshit = new Category("Purchasable Commands");
 
+    // for holding the split args
+    public static String[] argsplit = null;
+
     // bot admin shitto
     public boolean adminCommand = false;
 
@@ -49,6 +52,8 @@ public abstract class FCommand extends Command {
 
     @Override
     protected void execute(CommandEvent event){
+        // split the arguments
+        argsplit = event.getArgs().split("\\s+");
         // store the event for the error catcher
         erevent = event;
         String uid = event.getMessage().getAuthor().getId().toString();
