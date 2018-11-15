@@ -58,7 +58,7 @@ public class Tag extends FCommand {
             } else if (!Database.dbcheckifexist(event.getAuthor().getId())){
                 event.getChannel().sendMessage("Error: adding a tag costs 50"+moneyicon+", You have 0"+moneyicon+"!").queue();
                 return;
-            } else if(Database.dbchecktag(event.getGuild().getId(), tn)){
+            } else if(!Database.dbchecktag(event.getGuild().getId(), tn)){
                 event.getChannel().sendMessage("Error: a tag with that name already exists!").queue();
                 return;
             } else if(howlong < 3){
