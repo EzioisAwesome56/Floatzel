@@ -24,7 +24,7 @@ public class Tag extends FCommand {
         }
         String tn = null;
         int howlong = argsplit.length;
-        System.out.println(howlong);
+        //System.out.println(howlong);
         boolean perm = Database.dbcheckiftag(event.getGuild().getId());
         if(args.equals("check")){
             if(!perm){
