@@ -17,21 +17,8 @@ public class Error {
     private static Random random = new Random();
     private static StringWriter sw = new StringWriter();
 
-    // handle every execption that could happen
-    public static void Catch(ReqlError e){
-        e.printStackTrace(new PrintWriter(sw));
-        Error.Handle(sw.toString(), e.getMessage());
-    }
-    public static void Catch(IOException e){
-        e.printStackTrace(new PrintWriter(sw));
-        Error.Handle(sw.toString(), e.getMessage());
-    }
     public static void SpecialError(String a, String b){
         Error.Handle(a, b);
-    }
-    public static void Catch(ScriptException e){
-        e.printStackTrace(new PrintWriter(sw));
-        Error.Handle(sw.toString(), e.getMessage());
     }
     public static void Catch(Exception e){
         e.printStackTrace(new PrintWriter(sw));
