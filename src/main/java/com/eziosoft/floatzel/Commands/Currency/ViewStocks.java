@@ -9,7 +9,7 @@ public class ViewStocks extends FCommand {
     public ViewStocks(){
         name = "viewstocks";
         help = "View the current stock market pricing";
-        category = money;
+        category = stocks;
     }
 
     @Override
