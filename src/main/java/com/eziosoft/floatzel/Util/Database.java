@@ -371,6 +371,17 @@ public class Database {
         }
 
     }
+
+    // insert the guild into the permission table
+    public static void dbsettagperm(String gid){
+        try{
+            r.table(tagperm).insert(
+                    r.hashMap("gid", gid)
+            ).run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+        }
+    }
     // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name){
         try {

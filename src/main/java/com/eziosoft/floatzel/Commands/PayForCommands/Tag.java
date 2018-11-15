@@ -23,6 +23,18 @@ public class Tag extends FCommand {
                 event.getChannel().sendMessage("This guild can use the tag command!").queue();
                 return;
             }
+        } else if (args.equals("buy")){
+            int balance = Database.dbloadint(event.getAuthor().getId());
+            if (balance < 500){
+                event.getChannel().sendMessage("Error: You need atleast 500"+moneyicon+" to buy this command, moron!").queue();
+                return;
+            } else {
+                balance = balance - 500;
+                Database.dbsaveint(event.getAuthor().getId(), balance);
+                Database.dbsettagperm(event.getGuild().getId());
+                event.getChannel().sendMessage("You bought the tag command for the guild!").queue();
+                return;
+            }
         }
     }
 }
