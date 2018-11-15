@@ -39,6 +39,15 @@ public class Tag extends FCommand {
                 event.getChannel().sendMessage("You bought the tag command for the guild!").queue();
                 return;
             }
+        } else if (args.equals("add")){
+            // run checks before actually adding the tag
+            if (!perm){
+                event.getChannel().sendMessage("Error: this guild has not bought the tag command!").queue();
+                return;
+            } else if (!Database.dbcheckifexist(event.getAuthor().getId())){
+                event.getChannel().sendMessage("Error: adding a tag costs 50"+moneyicon+", You have 0"+moneyicon+"!").queue();
+                return;
+            }
         }
 
     }
