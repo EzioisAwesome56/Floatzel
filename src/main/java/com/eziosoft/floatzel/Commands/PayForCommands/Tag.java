@@ -47,7 +47,7 @@ public class Tag extends FCommand {
         } else if (args.equals("add")){
             try {
                 tn = argsplit[1];
-            } catch (NullPointerException e){
+            } catch (ArrayIndexOutOfBoundsException e){
                 event.getChannel().sendMessage("Error: either something broke or you didn't give me a tag name!").queue();
                 return;
             }
@@ -79,7 +79,7 @@ public class Tag extends FCommand {
                         content = content + argsplit[2 + a];
                         a++;
                     }
-                } catch (NullPointerException e){
+                } catch (ArrayIndexOutOfBoundsException e){
                     Error.Catch(e);
                     return;
                 }
