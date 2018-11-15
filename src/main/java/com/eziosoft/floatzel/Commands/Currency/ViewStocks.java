@@ -30,7 +30,7 @@ public class ViewStocks extends FCommand {
         // also add this at alater point in time
         int unit = Database.dbgetunits(1);
         // form the list
-        builder.append("["+name+"]\n[Cost]("+Integer.toString(price)+")\n[Difference]("+Integer.toString(diff)+")\n[Units]("+Integer.toString(unit)+")\n\n");
+        builder.append("["+name+"](Stock id: "+Integer.toString(1)+")\n[Cost]("+Integer.toString(price)+")\n[Difference]("+Integer.toString(diff)+")\n[Units]("+Integer.toString(unit)+")\n\n");
         list = list + builder.toString() + "```";
         event.getChannel().sendMessage(list).queue();
         return;
