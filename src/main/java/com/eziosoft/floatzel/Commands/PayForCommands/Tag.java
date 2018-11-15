@@ -67,6 +67,13 @@ public class Tag extends FCommand {
                 String curbal = Integer.toString((Database.dbloadint(event.getAuthor().getId())));
                 event.getChannel().sendMessage("Error: adding a tag costs 50"+moneyicon+", You have "+curbal+moneyicon+"!").queue();
                 return;
+            } else {
+                // if we made it here, its probably okay to add the tag
+                // subtract 50 from their money
+                int newbal = Database.dbloadint(event.getAuthor().getId()) - 50;
+                Database.dbsaveint(event.getAuthor().getId(), newbal);
+                // then add the new tag
+
             }
         }
 
