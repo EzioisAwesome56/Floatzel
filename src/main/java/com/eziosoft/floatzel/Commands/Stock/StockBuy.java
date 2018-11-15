@@ -33,6 +33,9 @@ public class StockBuy extends FCommand {
         if (id == 0){
             event.getChannel().sendMessage("Error: Stock id 0 is a known invalid id!").queue();
             return;
+        } else if (!Database.dbvalidatestockid(id)){
+            event.getChannel().sendMessage("Error: invalid stock id! You can find stock ids in the viewstocks command!").queue();
+            return;
         }
     }
 }
