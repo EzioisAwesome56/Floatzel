@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.PayForCommands;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 public class Tag extends FCommand {
@@ -12,6 +13,10 @@ public class Tag extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        // re
+        String args = event.getArgs();
+        if (!Database.dbcheckiftag(event.getGuild().getId())){
+            event.getChannel().sendMessage("Error: This guild has not purchased the tag command yet!").queue();
+            return;
+        }
     }
 }

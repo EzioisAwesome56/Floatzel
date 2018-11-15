@@ -12,8 +12,9 @@ public class Database {
     private static String loantable = "loan";
     private static String bloanperm = "bloan";
     private static String stocktable = "stocks";
-    public static String stockc = "count";
-    public static String tweets = "tweets";
+    //public static String stockc = "count";
+    private static String tweets = "tweets";
+    private static String tagperm = "gtagperm";
     // rethink db!
     private static final RethinkDB r = RethinkDB.r;
     private static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
@@ -49,6 +50,7 @@ public class Database {
         r.tableCreate(bloanperm).run(thonk);
         r.tableCreate(stocktable).run(thonk);
         r.tableCreate(tweets).run(thonk);
+        r.tableCreate(tagperm).run(thonk);
     }
 
     // check if db entry exists
@@ -80,6 +82,18 @@ public class Database {
                 return exist;
             }
         }
+
+        // funtion to check if a guild has bought the tag command already
+    public static boolean dbcheckiftag(String gid){
+        boolean exist = false;
+        try{
+            exist = (boolean) r.table(tagperm).filter(r.hashMap("gid", gid)).count().eq(1).run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return false;
+        }
+        return exist;
+    }
 
 
     // function to write to a new db file (OLD: DO NOT USE)
