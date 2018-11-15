@@ -15,6 +15,7 @@ public class Database {
     //public static String stockc = "count";
     private static String tweets = "tweets";
     private static String tagperm = "gtagperm";
+    private static String tags = "tags";
     // rethink db!
     private static final RethinkDB r = RethinkDB.r;
     private static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
@@ -51,6 +52,7 @@ public class Database {
         r.tableCreate(stocktable).run(thonk);
         r.tableCreate(tweets).run(thonk);
         r.tableCreate(tagperm).run(thonk);
+        r.tableCreate(tags).run(thonk);
     }
 
     // check if db entry exists
@@ -381,6 +383,21 @@ public class Database {
         } catch (ReqlError e){
             Error.Catch(e);
         }
+    }
+
+    // checking if a tag exists
+    public static boolean dbchecktag(String gid, String tname){
+        boolean exist = false;
+        try {
+            exist = (boolean) r.table(tags).filter(r.array(
+                    r.hashMap("gid", gid)
+                    .with("tname", tname)
+            )).count().eq(1).run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return true;
+        }
+        return exist;
     }
     // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name){
