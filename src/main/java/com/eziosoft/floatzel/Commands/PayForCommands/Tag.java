@@ -115,6 +115,10 @@ public class Tag extends FCommand {
                 event.getChannel().sendMessage("Error: you can't delete a tag that doesn't exist, you idiot!").queue();
                 return;
             }
+            // get the tag from the database
+            String tag = Database.dbloadtag(event.getGuild().getId(), args);
+            event.getChannel().sendMessage(tag).queue();
+            return;
         }
 
     }
