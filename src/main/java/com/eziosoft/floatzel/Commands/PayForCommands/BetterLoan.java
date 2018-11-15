@@ -12,7 +12,7 @@ public class BetterLoan extends FCommand {
     public BetterLoan(){
         name = "betterloan";
         description = "Go to a better fucking bank and take out a loan";
-        category = money;
+        category = buyshit;
     }
 
     @Override
