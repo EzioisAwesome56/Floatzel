@@ -25,7 +25,7 @@ public class StockBuy extends FCommand {
         // then start checking for the id
         int id = 0;
         try {
-            id = Integer.valueOf(argsplit[1]);
+            id = Integer.valueOf(argsplit[0]);
         } catch (ArrayIndexOutOfBoundsException e){
             event.getChannel().sendMessage("Error: you didnt provide an id you moron!\nyou can get the id by running the viewstocks command!").queue();
             return;
