@@ -11,7 +11,7 @@ public class Tag extends FCommand {
     }
 
     @Override
-    protected static void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event){
         // re
     }
 }
