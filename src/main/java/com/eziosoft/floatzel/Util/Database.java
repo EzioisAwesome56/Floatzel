@@ -433,13 +433,25 @@ public class Database {
     }
 
     // check if the user has bought a stock yet
-    public static Boolean dbcheckifstock(String uid){
+    public static boolean dbcheckifstock(String uid){
         boolean exist = false;
         try{
-            exist = (boolean) r.table(stockbuy).filter(row -> row.g("uid", uid)).count().eq(1).run(thonk);
+            exist = (boolean) r.table(stockbuy).filter(row -> row.g("uid").eq(uid)).count().eq(1).run(thonk);
         } catch (ReqlError e){
             Error.Catch(e);
             return true;
+        }
+        return exist;
+    }
+
+    // validate a stock id
+    public static boolean dbvalidatestockid(int id){
+        boolean exist = false;
+        try{
+            exist = (boolean) r.table(stocktable).filter(row -> row.g("sid").eq(id)).count().eq(1).run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return false;
         }
         return exist;
     }
