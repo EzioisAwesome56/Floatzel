@@ -13,6 +13,7 @@ import com.eziosoft.floatzel.Commands.Secret.Gay;
 import com.eziosoft.floatzel.Commands.Sound.*;
 import com.eziosoft.floatzel.Commands.Spam.Spam;
 import com.eziosoft.floatzel.Commands.Spam.Think;
+import com.eziosoft.floatzel.Commands.Stock.Stock;
 import com.eziosoft.floatzel.Commands.Stock.StockBuy;
 import com.eziosoft.floatzel.Commands.Test.TestCommand;
 import com.eziosoft.floatzel.Commands.admin.*;
@@ -90,6 +91,7 @@ public class Floatzel {
         commandClient.addCommand(new Eval());
         commandClient.addCommand(new Tag());
         commandClient.addCommand(new StockBuy());
+        commandClient.addCommand(new Stock());
         //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS

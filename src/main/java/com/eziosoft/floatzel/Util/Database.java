@@ -469,6 +469,18 @@ public class Database {
         }
     }
 
+    // get the id of the stock a user bought
+    public static int dbloadstockid(String uid){
+        try{
+            cur = r.table(stockbuy).filter(row -> row.g("uid").eq(uid)).getField("sid").run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return -999;
+        }
+        int id = Integer.valueOf(Utils.getValue(cur));
+        return id;
+    }
+
     // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name){
         try {
