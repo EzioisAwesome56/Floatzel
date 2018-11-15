@@ -64,7 +64,7 @@ public class Tag extends FCommand {
             } else if (!Database.dbcheckifexist(event.getAuthor().getId())){
                 event.getChannel().sendMessage("Error: adding a tag costs 50"+moneyicon+", You have 0"+moneyicon+"!").queue();
                 return;
-            } else if(!Database.dbchecktag(event.getGuild().getId(), tn)){
+            } else if(Database.dbchecktag(event.getGuild().getId(), tn)){
                 event.getChannel().sendMessage("Error: a tag with that name already exists!").queue();
                 return;
             } else if(howlong < 3){
@@ -112,7 +112,7 @@ public class Tag extends FCommand {
             // check if the tag exists for the guild
             boolean exist = Database.dbchecktag(event.getGuild().getId(), args);
             if (!exist){
-                event.getChannel().sendMessage("Error: you can't delete a tag that doesn't exist, you idiot!").queue();
+                event.getChannel().sendMessage("Error: you cant view a tag that doesnt exist, moron!").queue();
                 return;
             }
             // get the tag from the database

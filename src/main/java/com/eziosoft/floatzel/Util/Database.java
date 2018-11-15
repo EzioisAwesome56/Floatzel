@@ -393,7 +393,7 @@ public class Database {
                     row -> row.g("gid").eq(gid).and(
                             row.g("tname").eq(tname)
                     )
-            ).distinct().count().lt(1).run(thonk);
+            ).distinct().count().gt(0).run(thonk);
         } catch (ReqlError e){
             Error.Catch(e);
             return true;
