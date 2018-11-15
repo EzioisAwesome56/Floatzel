@@ -414,6 +414,23 @@ public class Database {
         }
     }
 
+    // used for loading tags
+    public static String dbloadtag(String gid, String tname){
+        String tcont = "";
+        try{
+            cur = r.table(tags).filter(
+                    row -> row.g("gid").eq(gid).and(
+                            row.g("tname").eq(tname)
+                    )
+            ).getField("cont").run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return "ERROR";
+        }
+        tcont = Utils.getValue(cur);
+        return tcont;
+    }
+
     // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name){
         try {
