@@ -32,7 +32,7 @@ public class Stock extends FCommand {
         int diff = Database.dbgetdiff(id);
         int price = Database.dbgetprice(id);
         // then build the message
-        builder.append("```md#Your stocks\n\n");
+        builder.append("```md\n#Your stocks\n\n");
         builder.append("name: "+name+"\n");
         builder.append("[price]("+Integer.toString(price)+")\n");
         builder.append("[difference]("+Integer.toString(diff)+")\n```");
