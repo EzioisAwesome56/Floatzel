@@ -23,7 +23,7 @@ public class ViewStocks extends FCommand {
         }
         // load the total amount of stocks
         int total = Database.dbgetcount();
-        for (int x = 1; x != total; x++) {
+        for (int x = 1; x <= total; x++) {
             String name = Database.dbgetname(x);
             int price = Database.dbgetprice(x);
             // impliment this later lol
@@ -31,7 +31,7 @@ public class ViewStocks extends FCommand {
             // also add this at alater point in time
             int unit = Database.dbgetunits(x);
             // form the list
-            builder.append("[" + name + "](Stock id: " + Integer.toString(1) + ")\n[Cost](" + Integer.toString(price) + ")\n[Difference](" + Integer.toString(diff) + ")\n[Units](" + Integer.toString(unit) + ")\n\n");
+            builder.append("[" + name + "](Stock id: " + Integer.toString(x) + ")\n[Cost](" + Integer.toString(price) + ")\n[Difference](" + Integer.toString(diff) + ")\n[Units](" + Integer.toString(unit) + ")\n\n");
         }
         list = list + builder.toString() + "```";
         event.getChannel().sendMessage(list).queue();
