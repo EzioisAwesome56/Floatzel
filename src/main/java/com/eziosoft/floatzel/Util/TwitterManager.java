@@ -112,9 +112,8 @@ public class TwitterManager extends ListenerAdapter {
             tweeter.updateStatus(message);
             lastTweet = Instant.now();
         } catch (TwitterException e) {
-            System.out.println("Twitter error occured!");
-            System.out.println(e.getMessage());
-            String endl = System.getProperty("line.separator");
+            System.out.println("Twitter error occured, handling...");
+            Error.CatchTweet(e);
 
             //If we get timed out, we try the same message again.
             if (e.getStatusCode() == -1) {
