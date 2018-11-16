@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Util;
 
+import com.eziosoft.floatzel.Floatzel;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
 import com.rethinkdb.net.Connection;
@@ -497,6 +498,7 @@ public class Database {
             cur = r.table(tweets).getField("txt").run(thonk);
         } catch (ReqlError e){
             Error.Catch(e);
+            Floatzel.fail = true;
             return cur;
         }
         return cur;
