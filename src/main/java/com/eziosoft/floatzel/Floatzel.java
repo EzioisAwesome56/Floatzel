@@ -40,6 +40,9 @@ public class Floatzel {
     public static TwitterManager twitterManager = new TwitterManager();
     public static Player musicPlayer = new Player();
 
+    //thing for the tweet bot
+    public static boolean tweeton = false;
+
     public static void main(String[] args) throws LoginException {
         //Checking if shit is dev (which is set by adding --dev to java args, if so, do extra shit.
         for (String arg : args) {
