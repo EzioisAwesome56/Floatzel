@@ -9,7 +9,7 @@ public class Tweet extends FCommand {
         name = "tweet";
         description = "for debugging purposes: sends a tweet";
         adminCommand = true;
-        category = owner;
+        category = admin;
     }
 
     @Override

@@ -8,8 +8,8 @@ public class AddTweet extends FCommand {
     public AddTweet(){
         name = "addtweet";
         description = "Adds a tweet to the tweet database";
-        ownerCommand = true;
-        category = owner;
+        adminCommand = true;
+        category = admin;
     }
 
     @Override
