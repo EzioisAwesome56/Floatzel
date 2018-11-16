@@ -491,6 +491,17 @@ public class Database {
         }
     }
 
+    // get all tweets
+    public static Cursor dbgetalltweets(){
+        try{
+            cur = r.table(tweets).getField("txt").run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return cur;
+        }
+        return cur;
+    }
+
     // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name){
         try {
