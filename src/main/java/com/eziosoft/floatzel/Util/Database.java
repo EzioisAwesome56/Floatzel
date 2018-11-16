@@ -481,6 +481,16 @@ public class Database {
         return id;
     }
 
+    // deleting a user's entry on the table
+    public static void dbdeletestock(String uid){
+        try {
+            r.table(stockbuy).filter(row -> row.g("uid").eq(uid)).delete().run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return;
+        }
+    }
+
     // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name){
         try {
