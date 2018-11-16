@@ -22,6 +22,7 @@ public abstract class FCommand extends Command {
     public static Category waifu = new Category("Waifu");
     public static Category buyshit = new Category("Purchasable Commands");
     public static Category stocks =  new Category("Stock Market");
+    public static Category admin = new Category("Admin Commands");
 
     // for holding the split args
     public static String[] argsplit = null;
