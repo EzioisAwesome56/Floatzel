@@ -15,6 +15,7 @@ import com.eziosoft.floatzel.Commands.Spam.Spam;
 import com.eziosoft.floatzel.Commands.Spam.Think;
 import com.eziosoft.floatzel.Commands.Stock.Stock;
 import com.eziosoft.floatzel.Commands.Stock.StockBuy;
+import com.eziosoft.floatzel.Commands.Stock.StockSell;
 import com.eziosoft.floatzel.Commands.Test.TestCommand;
 import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
@@ -92,6 +93,7 @@ public class Floatzel {
         commandClient.addCommand(new Tag());
         commandClient.addCommand(new StockBuy());
         commandClient.addCommand(new Stock());
+        commandClient.addCommand(new StockSell());
         //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
