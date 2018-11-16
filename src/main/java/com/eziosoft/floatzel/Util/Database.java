@@ -269,6 +269,16 @@ public class Database {
         }
     }
 
+    // HOTFIX: deleting stocks
+    public static void deletestock(int id){
+        try{
+            r.table(stocktable).filter(row -> row.g("sid").eq(id)).delete().run(thonk);
+        } catch (ReqlError e){
+            Error.Catch(e);
+            return;
+        }
+    }
+
     public static void dbinccount(){
        // since rethink db isnt shit like sqlite, we dont need this anymore
         // as such, this function does nothing
