@@ -34,8 +34,7 @@ public class Reverse extends FCommand {
             ImageIO.setUseCache(false);
             stream.flush();
             ImageIO.write(img, "png", stream);
-            event.getChannel().sendMessage(Files.unorep[random.nextInt(Files.unorep.length)]).queue();
-            event.getChannel().sendFile(stream.toByteArray(), "a.png", null).queue();
+            event.getChannel().sendMessage(Files.unorep[random.nextInt(Files.unorep.length)]).addFile(stream.toByteArray(), "a.png").queue();
             stream.close();
         } catch (IOException e) {
             Error.Catch(e);
