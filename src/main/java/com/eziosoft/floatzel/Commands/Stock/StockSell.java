@@ -29,7 +29,7 @@ public class StockSell extends FCommand {
         // then get the stock id
         int id = Database.dbloadstockid(uid);
         // first check to make sure the user put yes on the end
-        if (!argsplit[1].equals("yes")){
+        if (!argsplit[0].equals("yes")){
             event.getChannel().sendMessage("Are you sure you want to sell your stock? run 'stocksell yes' to confirm.").queue();
             return;
         }
