@@ -64,10 +64,10 @@ public class StockUtil {
             int magic = random.nextInt(5);
             if (magic == 0){
                 System.out.println("Stock id "+Integer.toString(counter)+" has no change!");
-            } else if (magic == 1 || magic == 4){
+            } else if (magic == 1){
                 // increase in stock price
                 price = price + change;
-            } else if (magic == 2 || magic == 5){
+            } else if (magic == 2 || magic == 4){
                 price = price - change;
                 if (price < 0){
                     price = 1;
