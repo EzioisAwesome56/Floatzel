@@ -42,6 +42,7 @@ public class Floatzel {
 
     //thing for the tweet bot
     public static boolean tweeton = false;
+    public static boolean fail = false;
 
     public static void main(String[] args) throws LoginException {
         //Checking if shit is dev (which is set by adding --dev to java args, if so, do extra shit.
