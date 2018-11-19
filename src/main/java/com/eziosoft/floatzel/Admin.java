@@ -9,4 +9,14 @@ public class Admin {
         TwitterUtils.tweetbot();
         return;
     }
+
+    public static boolean tweettog(){
+        if(!Floatzel.tweeton){
+            Floatzel.tweeton = true;
+            return Floatzel.tweeton;
+        } else {
+            Floatzel.tweeton = false;
+            return Floatzel.tweeton;
+        }
+    }
 }
