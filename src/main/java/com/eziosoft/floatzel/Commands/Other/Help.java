@@ -111,6 +111,10 @@ public class Help extends FCommand {
         event.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(helpthing).queue());
         event.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(helpthing2).queue());
         event.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(mischelp).queue());
+        event.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(
+                "```md\n#important floatzel notice!\n\n"+
+                        "#Floatzel BOT does not take any credit for any of the artwork featured in this bot. All works where sourced from the internet for user enjoyment.```"
+        ));
 
     }
 }
