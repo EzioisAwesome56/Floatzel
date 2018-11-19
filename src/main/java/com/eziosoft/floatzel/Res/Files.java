@@ -17,6 +17,9 @@ public class Files {
     // make an array of all file names
     public static String[] boxes = {"box1.png", "box2.png", "box3.png"};
 
-    // placeholder for upcoming command
+    // file names for mitsuru
     public static String[] mitsurus = {"1.png", "2.jpg", "3.jpg", "4.jpg", "5.jpg"};
+
+    // file names for new thing
+    public static String[] floof = {""};
 }
