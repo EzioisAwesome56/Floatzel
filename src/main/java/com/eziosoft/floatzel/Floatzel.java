@@ -98,6 +98,7 @@ public class Floatzel {
         commandClient.addCommand(new StockBuy());
         commandClient.addCommand(new Stock());
         commandClient.addCommand(new StockSell());
+        commandClient.addCommand(new Floof());
         //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
