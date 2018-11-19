@@ -93,7 +93,7 @@ public class Error {
         }
         // okay, its in the stream now
         // send the message
-        Floatzel.jda.getTextChannelById("449353384458453003").sendMessage("Floatzel ran into a twitter error and gave up. Error report below").addFile(stream.toByteArray(), "twittererror.txt").queue();
+        Floatzel.jda.getTextChannelById("512787662344814622").sendMessage("Floatzel ran into a twitter error and gave up. Error report below").addFile(stream.toByteArray(), "twittererror.txt").queue();
         return;
 
     }
