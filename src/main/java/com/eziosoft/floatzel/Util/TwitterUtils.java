@@ -45,21 +45,19 @@ public class TwitterUtils {
             // grab a ralsei from the list of filenames
             index = random.nextInt(Files.floof.length);
             filename = "/floof/" + Files.floof[index];
-            File image = new File(Floatzel.class.getResource(filename).getFile());
             // then get a message from a small list
             index = random.nextInt(Phrase.floofword.length);
             msg = Phrase.floofword[index];
             // then pass it to the tweet handler
-            errorcode = TwitterManager.tweet(msg, image);
+            errorcode = TwitterManager.tweet(msg, Floatzel.class.getResource(filename).getFile());
         } else if (type == 2){
             // copy pasta
             index = random.nextInt(Files.unocards.length);
             filename = "/uno/" + Files.unocards[index];
-            File image = new File(Floatzel.class.getResource(filename).getFile());
             // then get a message from a small list
            msg = "OMG UNO!!!!!!";
             // then pass it to the tweet handler
-            errorcode = TwitterManager.tweet(msg, image);
+            errorcode = TwitterManager.tweet(msg, Floatzel.class.getResource(filename).getFile());
         }
         // check if its a duplicate
         if (errorcode == 187){

@@ -130,7 +130,8 @@ public class TwitterManager extends ListenerAdapter {
     }
 
     // make a copy of the class, but have it take a file argument
-    public static int tweet(String message, File image) {
+    public static int tweet(String message, String path) {
+        File image = new File(Floatzel.class.getResource(path).getFile());
         StatusUpdate update = new StatusUpdate(message);
         update.setMedia(image);
         try {
