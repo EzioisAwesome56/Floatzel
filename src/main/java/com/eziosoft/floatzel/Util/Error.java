@@ -30,6 +30,10 @@ public class Error {
         e.printStackTrace(new PrintWriter(sw));
         Error.handtweet(sw.toString(), e.getMessage());
     }
+    // thing to log repeat tweets
+    public static void ReportDupe(String msg){
+        Error.handtweet("Twitter returned error code. See above", msg);
+    }
     // actaully form the message and send it
     private static void Handle(String stacktrace, String msg){
         // init string builder

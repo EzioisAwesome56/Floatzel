@@ -16,6 +16,7 @@ public class TwitterUtils {
     private static int index = 0;
     private static String filename = "";
     private static String msg = "";
+    private static int errorcode = 0;
 
     public static void tweetbot(){
         // is the tweetbot on?
@@ -49,6 +50,16 @@ public class TwitterUtils {
             index = random.nextInt(Phrase.floofword.length);
             msg = Phrase.floofword[index];
             // then pass it to the tweet handler
+            errorcode = TwitterManager.tweet(msg, image);
+        }
+        // check if its a duplicate
+        if (errorcode == 187){
+            Error.ReportDupe("ERROR CODE "+Integer.toString(errorcode));
+            // reset errorcode to 0
+            errorcode = 0;
+            // then recall the function
+            tweetbot();
+            return;
         }
     }
 }
