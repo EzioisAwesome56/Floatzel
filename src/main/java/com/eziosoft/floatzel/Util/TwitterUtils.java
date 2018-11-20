@@ -49,14 +49,6 @@ public class TwitterUtils {
             msg = "And you get a very floofy boi";
             // then pass it to the tweet handler
             errorcode = TwitterManager.tweet(msg, Floatzel.class.getResource(filename).getFile());
-        } else if (type == 2){
-            // copy pasta
-            index = random.nextInt(Files.unocards.length);
-            filename = "/uno/" + Files.unocards[index];
-            // then get a message from a small list
-           msg = "OMG UNO!!!!!!";
-            // then pass it to the tweet handler
-            errorcode = TwitterManager.tweet(msg, Floatzel.class.getResource(filename).getFile());
         }
         // check if its a duplicate
         if (errorcode == 187){
