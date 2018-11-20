@@ -81,7 +81,7 @@ public class Error {
         int index = random.nextInt(phrases.length);
         builder.append(phrases[index] + "\n\n");
         // boring text
-        builder.append("Floatzel has ecountered a= twitter error. Detailed error informtion will be provided below\n\n");
+        builder.append("Floatzel has encountered a twitter error. Detailed error information will be provided below\n\n");
         // add the error details
         builder.append("Error message:\n"+msg+"\n\nStack Trace:\n");
         builder.append(stack);
