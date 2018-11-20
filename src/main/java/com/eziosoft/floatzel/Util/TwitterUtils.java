@@ -23,9 +23,6 @@ public class TwitterUtils {
         if (!Floatzel.tweeton){
             return;
         }
-        // generate an integer to pick what type of tweet to tweet
-        int type = random.nextInt(3);
-        if (type == 0) {
             // get all ttweets
             Cursor cur = Database.dbgetalltweets();
             // did it fail to load?
@@ -41,23 +38,5 @@ public class TwitterUtils {
             String tweet = tweets.get(oof).toString();
             // then send the tweet out to the world
             TwitterManager.tweet(tweet);
-        } else if (type == 1){
-            // grab a ralsei from the list of filenames
-            index = random.nextInt(Files.floof.length);
-            filename = "/floof/" + Files.floof[index];
-            // then get a message from a small list
-            msg = "And you get a very floofy boi";
-            // then pass it to the tweet handler
-            errorcode = TwitterManager.tweet(msg, Floatzel.class.getResource(filename).getFile());
-        }
-        // check if its a duplicate
-        if (errorcode == 187){
-            Error.ReportDupe("ERROR CODE "+Integer.toString(errorcode));
-            // reset errorcode to 0
-            errorcode = 0;
-            // then recall the function
-            tweetbot();
-            return;
-        }
     }
 }
