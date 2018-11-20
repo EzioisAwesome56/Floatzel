@@ -24,7 +24,7 @@ public class TwitterUtils {
             return;
         }
         // generate an integer to pick what type of tweet to tweet
-        int type = random.nextInt(5);
+        int type = random.nextInt(3);
         if (type == 0) {
             // get all ttweets
             Cursor cur = Database.dbgetalltweets();
@@ -49,6 +49,15 @@ public class TwitterUtils {
             // then get a message from a small list
             index = random.nextInt(Phrase.floofword.length);
             msg = Phrase.floofword[index];
+            // then pass it to the tweet handler
+            errorcode = TwitterManager.tweet(msg, image);
+        } else if (type == 2){
+            // copy pasta
+            index = random.nextInt(Files.unocards.length);
+            filename = "/uno/" + Files.unocards[index];
+            File image = new File(Floatzel.class.getResource(filename).getFile());
+            // then get a message from a small list
+           msg = "OMG UNO!!!!!!";
             // then pass it to the tweet handler
             errorcode = TwitterManager.tweet(msg, image);
         }
