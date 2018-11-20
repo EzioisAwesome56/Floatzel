@@ -46,8 +46,7 @@ public class TwitterUtils {
             index = random.nextInt(Files.floof.length);
             filename = "/floof/" + Files.floof[index];
             // then get a message from a small list
-            index = random.nextInt(Phrase.floofword.length);
-            msg = Phrase.floofword[index];
+            msg = "And you get a very floofy boi";
             // then pass it to the tweet handler
             errorcode = TwitterManager.tweet(msg, Floatzel.class.getResource(filename).getFile());
         } else if (type == 2){
