@@ -21,7 +21,8 @@ public class GameStatus extends TimerTask {
             "Simpsons", "Explosive cheese", "Being a bot", "hi Cublex", "Pentium 3", "meme machine", "18 is bisexual", "ezio is bi",
             "PyCharm", "Rectangle Gay", "Making the frogs gay", "eirrac", "what the fuck is a hedgehog", "heck you blur", "enitsirhc", "fuck me harder daddy",
             "Intelij", "Smoking weed", "Persona -12 + GAY DLC", "Circles", "Godson is radical", "Ryan is gay", "Java 10", "with Yukari", "Super Dankio Ocyssey",
-            "Fucking Mitsuru with a stick", "Persona: Waifu simulator", "Ezio X Yukari", "Yukari is hot", "Ezio is dumb"};
+            "Fucking Mitsuru with a stick", "Persona: Waifu simulator", "Ezio X Yukari", "Yukari is hot", "Ezio is dumb", "Smelling Ralsei's feet", "Licking Ralsei feetz",
+            "Calling 18 a gaylord", "Watching Mitsuru and Ralsei fuck"};
 
     @Override
     public void run() {
