@@ -2,8 +2,10 @@ package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Res.Files;
+import com.eziosoft.floatzel.Res.Phrase;
 import com.rethinkdb.net.Cursor;
 
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -13,6 +15,7 @@ public class TwitterUtils {
 
     private static int index = 0;
     private static String filename = "";
+    private static String msg = "";
 
     public static void tweetbot(){
         // is the tweetbot on?
@@ -40,7 +43,12 @@ public class TwitterUtils {
         } else if (type == 1){
             // grab a ralsei from the list of filenames
             index = random.nextInt(Files.floof.length);
+            filename = "/floof/" + Files.floof[index];
+            File image = new File(Floatzel.class.getResource(filename).getFile());
             // then get a message from a small list
+            index = random.nextInt(Phrase.floofword.length);
+            msg = Phrase.floofword[index];
+            // then pass it to the tweet handler
         }
     }
 }

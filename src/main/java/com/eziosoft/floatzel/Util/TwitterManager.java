@@ -107,7 +107,7 @@ public class TwitterManager extends ListenerAdapter {
             };
 
     // borrowed from kekbot
-    public static void tweet(String message) {
+    public static int tweet(String message) {
         try {
             tweeter.updateStatus(message);
             lastTweet = Instant.now();
@@ -118,17 +118,21 @@ public class TwitterManager extends ListenerAdapter {
             //If we get timed out, we try the same message again.
             if (e.getStatusCode() == -1) {
                 tweet(message);
-                return;
+                return -1;
+            } else if (e.getStatusCode() == 187){
+                // duplicate
+                // return is
+                return 187;
             }
 
         }
+        return 420;
     }
 
     // make a copy of the class, but have it take a file argument
-    public static void tweet(String message, String filename) {
+    public static int tweet(String message, File image) {
         StatusUpdate update = new StatusUpdate(message);
-        File img = new File(Floatzel.class.getResource(filename).getFile());
-        update.setMedia(img);
+        update.setMedia(image);
         try {
             tweeter.updateStatus(update);
             lastTweet = Instant.now();
@@ -140,10 +144,15 @@ public class TwitterManager extends ListenerAdapter {
             //If we get timed out, we try the same message again.
             if (e.getStatusCode() == -1) {
                 tweet(message);
-                return;
+                return -1;
+            } else if (e.getStatusCode() == 187){
+                // okay so it was a dupelicate status
+                // return it and try again
+                return e.getStatusCode();
             }
 
         }
+        return 420;
     }
 
 
