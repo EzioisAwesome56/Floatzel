@@ -45,10 +45,12 @@ public class TwitterUtils {
                 errorcode = 0;
                 if (retry == 5){
                     // fuck it
+                    retry = 0;
+                    return;
+                } else {
+                    tweetbot();
                     return;
                 }
-                tweetbot();
-                return;
             }
     }
 }
