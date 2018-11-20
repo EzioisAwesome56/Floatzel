@@ -17,6 +17,7 @@ public class TwitterUtils {
     private static String filename = "";
     private static String msg = "";
     private static int errorcode = 0;
+    private static int retry = 0;
 
     public static void tweetbot(){
         // is the tweetbot on?
@@ -37,6 +38,17 @@ public class TwitterUtils {
             int oof = random.nextInt(lenght);
             String tweet = tweets.get(oof).toString();
             // then send the tweet out to the world
-            TwitterManager.tweet(tweet);
+            errorcode = TwitterManager.tweet(tweet);
+            if (errorcode == 187){
+                // just do it again
+                retry++;
+                errorcode = 0;
+                if (retry == 5){
+                    // fuck it
+                    return;
+                }
+                tweetbot();
+                return;
+            }
     }
 }
