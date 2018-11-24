@@ -8,6 +8,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
@@ -20,6 +21,7 @@ public class Floof extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
+        File gif = null;
         event.getChannel().sendTyping().queue();
         // reuse the same old code for a 3rd time
         Random random = new Random();
@@ -31,20 +33,20 @@ public class Floof extends FCommand {
         // get dat floofy boi
         try {
             String filename = Files.floof[card];
-            img = ImageIO.read(Files.class.getResource("/floof/"+ filename));
-            ImageIO.setUseCache(false);
-            stream.flush();
             if (!filename.equals("26.gif")) {
+                img = ImageIO.read(Files.class.getResource("/floof/" + filename));
+                ImageIO.setUseCache(false);
+                stream.flush();
                 ImageIO.write(img, "png", stream);
             } else {
-                ImageIO.write(img, "gif", stream);
+                gif = new File(Files.class.getResource("/floof/" + filename).getFile());
             }
             //unimplimeted feature
             //event.getChannel().sendMessage(Uno.unorep[random.nextInt(Uno.unorep.length)]).queue();
             if (!filename.equals("26.gif")) {
                 event.getChannel().sendFile(stream.toByteArray(), "floofboi.png", null).queue();
             } else {
-                event.getChannel().sendFile(stream.toByteArray(), "floofboi.gif", null).queue();
+                event.getChannel().sendFile(gif, "floofboi.gif", null).queue();
             }
             stream.close();
         } catch (IOException e) {
