@@ -16,6 +16,7 @@ public class Course extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
+        event.getChannel().sendTyping().queue();
         String id = "";
         try {
             id = argsplit[0];

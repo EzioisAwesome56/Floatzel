@@ -16,6 +16,7 @@ public class RandCourse extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
+        event.getChannel().sendTyping().queue();
         String id = GetRandomLevel();
         if (id.equals("error")){
             event.getChannel().sendMessage("Smm4j encountered an error! You are probably being rated limited by nintendo. Try again in an hour").queue();
