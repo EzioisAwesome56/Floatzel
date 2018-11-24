@@ -2,7 +2,9 @@ package com.eziosoft.floatzel.Commands.Smm;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Util.Error;
+import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.smm4j.Smm4j;
+import com.eziosoft.smm4j.Util;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 public class Course extends FCommand {
@@ -18,10 +20,10 @@ public class Course extends FCommand {
         try {
             id = argsplit[0];
         } catch (ArrayIndexOutOfBoundsException e){
-            Error.Catch(e);
+            event.getChannel().sendMessage("Error: you didn't give me a fucking level id!").queue();
             return;
         }
         String[] levelinfo = Smm4j.getLevel(id);
-
+        event.getChannel().sendMessage(Utils.buildSmm(levelinfo)).queue();
     }
 }

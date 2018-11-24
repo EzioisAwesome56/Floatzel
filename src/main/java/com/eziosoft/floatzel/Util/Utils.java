@@ -2,6 +2,8 @@ package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Floatzel;
 import com.rethinkdb.net.Cursor;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
@@ -84,5 +86,16 @@ public class Utils {
             Error.Catch(e);
             return "ERROR IN getValue!";
         }
+    }
+
+    public static MessageEmbed buildSmm(String[] a){
+        EmbedBuilder builder = new EmbedBuilder();
+        builder.setThumbnail(a[3]);
+        builder.setAuthor(a[0], a[6]);
+        builder.setTitle("Level by: "+a[2]);
+        builder.addField("Difficulty", a[1], true);
+        builder.addField("Level ID", a[5], true);
+        builder.setImage(a[4]);
+        return builder.build();
     }
 }
