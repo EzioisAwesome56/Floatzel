@@ -12,8 +12,6 @@ public class Boyfriend extends FCommand {
         description = "Rates your asshole excuse of a boyfriend";
         category = fun;
     }
-    // whos ready for a lot of copy-paste?!?!?!
-    private final Random random = new Random();
 
     @Override
     protected void cmdrun(CommandEvent event){

@@ -12,7 +12,6 @@ public class Eat extends FCommand {
         description = "makes the bot try to fucking eat something";
         category = fun;
     }
-    private final Random random = new Random();
 
     @Override
     protected void cmdrun(CommandEvent event){

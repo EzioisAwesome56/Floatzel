@@ -3,6 +3,7 @@ package com.eziosoft.floatzel.Commands.Other;
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Res.Files;
 import com.eziosoft.floatzel.Util.Error;
+import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import javax.imageio.ImageIO;
@@ -20,25 +21,11 @@ public class Mitsuru extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        // copy paste form yukari.class
-        Random random = new Random();
-        BufferedImage img = null;
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        String filepath = "";
+        event.getChannel().sendTyping().queue();
         // generate a number
         int card = random.nextInt(Files.mitsurus.length);
         // get photo
-        try {
-            img = ImageIO.read(Files.class.getResource("/mit/"+ Files.mitsurus[card]));
-            ImageIO.setUseCache(false);
-            stream.flush();
-            ImageIO.write(img, "png", stream);
-            //unimplimeted feature
-            //event.getChannel().sendMessage(Uno.unorep[random.nextInt(Uno.unorep.length)]).queue();
-            event.getChannel().sendFile(stream.toByteArray(), "mitsuru.png", null).queue();
-            stream.close();
-        } catch (IOException e) {
-            Error.Catch(e);
-        }
+        String filename = Files.mitsurus[card];
+        event.getChannel().sendFile(Utils.getResourse("/mit/", filename), "mitsuru."+ Utils.getFileType(filename), null).queue();
     }
 }

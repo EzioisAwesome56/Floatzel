@@ -7,8 +7,6 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import java.util.Random;
 
 public class Shit8ball extends FCommand {
-    // code slightly based on kekbot's, sorry godson i needed a refrence
-    private final Random random = new Random();
 
     public Shit8ball() {
         name = "8ball";

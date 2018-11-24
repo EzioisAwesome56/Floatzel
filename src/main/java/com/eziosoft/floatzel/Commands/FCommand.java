@@ -3,12 +3,16 @@ package com.eziosoft.floatzel.Commands;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import java.util.Random;
+
 import static com.eziosoft.floatzel.Config.admins;
 
 public abstract class FCommand extends Command {
 
     protected String description = "no description";
     protected String cmdgroup = "not grouped";
+
+    public static Random random = new Random();
 
     // basic categories
     public static Category money = new Category("Currency");

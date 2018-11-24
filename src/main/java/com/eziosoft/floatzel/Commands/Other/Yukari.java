@@ -2,6 +2,7 @@ package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Res.Files;
+import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import javax.imageio.ImageIO;
@@ -20,25 +21,11 @@ public class Yukari extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        // copy paste from Reverse.class
-        Random random = new Random();
-        BufferedImage img = null;
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        String filepath = "";
+        event.getChannel().sendTyping().queue();
         // generate a number
         int card = random.nextInt(Files.yukaris.length);
-        // get card
-        try {
-            img = ImageIO.read(Files.class.getResource("/yuk/"+ Files.yukaris[card]));
-            ImageIO.setUseCache(false);
-            stream.flush();
-            ImageIO.write(img, "png", stream);
-            //unimplimeted feature
-            //event.getChannel().sendMessage(Uno.unorep[random.nextInt(Uno.unorep.length)]).queue();
-            event.getChannel().sendFile(stream.toByteArray(), "yukari.png", null).queue();
-            stream.close();
-        } catch (IOException e) {
-            Error.Catch(e);
-        }
+        // get file
+        String filename = Files.yukaris[card];
+        event.getChannel().sendFile(Utils.getResourse("/yuk/", filename), "yukari." + Utils.getFileType(filename), null).queue();
     }
 }

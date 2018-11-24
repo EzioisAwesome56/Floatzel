@@ -7,7 +7,6 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import java.util.Random;
 
 public class Girlfriend extends FCommand {
-    private final Random random = new Random();
     public Girlfriend(){
         name = "gf";
         description = "Rates your bitchy girlfriend";
