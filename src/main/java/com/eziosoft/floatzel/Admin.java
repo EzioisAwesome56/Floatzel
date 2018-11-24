@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel;
 
+import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Util.TwitterUtils;
 
 public class Admin {
@@ -18,5 +19,9 @@ public class Admin {
             Floatzel.tweeton = false;
             return Floatzel.tweeton;
         }
+    }
+
+    public static void setKek(String a){
+        MiscListener.kekoff = a;
     }
 }
