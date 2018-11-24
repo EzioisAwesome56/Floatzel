@@ -24,6 +24,10 @@ public class Course extends FCommand {
             return;
         }
         String[] levelinfo = Smm4j.getLevel(id);
+        if (levelinfo[0].equals("error")){
+            event.getChannel().sendMessage("Smm4j returned error. You may have requested an invalid course or are being rate limited").queue();
+            return;
+        }
         event.getChannel().sendMessage(Utils.buildSmm(levelinfo)).queue();
     }
 }
