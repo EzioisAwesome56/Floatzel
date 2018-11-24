@@ -20,6 +20,7 @@ public class Floof extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
+        event.getChannel().sendTyping().queue();
         // reuse the same old code for a 3rd time
         Random random = new Random();
         BufferedImage img = null;
