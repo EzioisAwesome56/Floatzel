@@ -1,11 +1,13 @@
 package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Res.Files;
 import com.rethinkdb.net.Cursor;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.io.FileReader;
 import java.util.List;
 import java.util.Random;
@@ -97,5 +99,14 @@ public class Utils {
         builder.addField("Level ID", a[5], true);
         builder.setImage(a[4]);
         return builder.build();
+    }
+
+    public static File getResourse(String path, String filename){
+        return new File(Files.class.getResource(path + filename).getFile());
+    }
+
+    public static String getFileType(String filename){
+        String[] parts = filename.split("\\.");
+        return parts[1];
     }
 }
