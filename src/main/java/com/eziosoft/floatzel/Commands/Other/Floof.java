@@ -30,13 +30,22 @@ public class Floof extends FCommand {
         int card = random.nextInt(Files.floof.length);
         // get dat floofy boi
         try {
-            img = ImageIO.read(Files.class.getResource("/floof/"+ Files.floof[card]));
+            String filename = Files.floof[card];
+            img = ImageIO.read(Files.class.getResource("/floof/"+ filename));
             ImageIO.setUseCache(false);
             stream.flush();
-            ImageIO.write(img, "png", stream);
+            if (!filename.equals("26.gif")) {
+                ImageIO.write(img, "png", stream);
+            } else {
+                ImageIO.write(img, "gif", stream);
+            }
             //unimplimeted feature
             //event.getChannel().sendMessage(Uno.unorep[random.nextInt(Uno.unorep.length)]).queue();
-            event.getChannel().sendFile(stream.toByteArray(), "floofboi.png", null).queue();
+            if (!filename.equals("26.gif")) {
+                event.getChannel().sendFile(stream.toByteArray(), "floofboi.png", null).queue();
+            } else {
+                event.getChannel().sendFile(stream.toByteArray(), "floofboi.gif", null).queue();
+            }
             stream.close();
         } catch (IOException e) {
             Error.Catch(e);
