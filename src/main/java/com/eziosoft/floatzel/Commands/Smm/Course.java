@@ -19,6 +19,7 @@ public class Course extends FCommand {
     protected void cmdrun(CommandEvent event){
         event.getChannel().sendTyping().queue();
         String id = "";
+        Level levelinf;
         try {
             id = argsplit[0];
         } catch (ArrayIndexOutOfBoundsException e){
@@ -26,11 +27,11 @@ public class Course extends FCommand {
             return;
         }
         try {
-            Level levelinf = Level.getLevel(id);
+            levelinf = Level.getLevel(id);
         } catch (NullPointerException e){
             Error.Catch(e);
             return;
         }
-        event.getChannel().sendMessage(Utils.buildSmm(levelinfo)).queue();
+        event.getChannel().sendMessage(Utils.buildSmm(levelinf)).queue();
     }
 }

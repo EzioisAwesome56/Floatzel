@@ -91,9 +91,9 @@ public class Utils {
         }
     }
 
-    public static MessageEmbed buildSmm(Level level){
+    public static MessageEmbed buildSmm(Level epic){
         EmbedBuilder builder = new EmbedBuilder();
-        builder.setThumbnail(a[3]);
+        builder.setThumbnail(epic.imgURL);
         builder.setAuthor(a[0], a[6]);
         builder.setTitle("Level by: "+a[2]);
         builder.addField("Difficulty", a[1], true);
