@@ -2,6 +2,7 @@ package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Res.Files;
+import com.eziosoft.smm4j.Level;
 import com.rethinkdb.net.Cursor;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -90,7 +91,7 @@ public class Utils {
         }
     }
 
-    public static MessageEmbed buildSmm(String[] a){
+    public static MessageEmbed buildSmm(Level level){
         EmbedBuilder builder = new EmbedBuilder();
         builder.setThumbnail(a[3]);
         builder.setAuthor(a[0], a[6]);
