@@ -3,6 +3,7 @@ package com.eziosoft.floatzel.Util;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Res.Files;
 import com.eziosoft.smm4j.Level;
+import com.eziosoft.smm4j.Util;
 import com.rethinkdb.net.Cursor;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -91,14 +92,18 @@ public class Utils {
         }
     }
 
-    public static MessageEmbed buildSmm(Level epic){
+    public static MessageEmbed buildSmm(Level lvl){
         EmbedBuilder builder = new EmbedBuilder();
-        builder.setThumbnail(epic.imgURL);
-        builder.setAuthor("test");
-        /*builder.setTitle("Level by: "+a[2]);
-        builder.addField("Difficulty", a[1], true);
-        builder.addField("Level ID", a[5], true);
-        builder.setImage(a[4]);*/
+        builder.setThumbnail(lvl.imgURL);
+        builder.setAuthor(lvl.name, Util.makeUrl(lvl.id));
+        builder.setTitle("Level by: "+lvl.author);
+        builder.addField("Difficulty", lvl.difficulty, true);
+        builder.addField("Level ID", lvl.id, true);
+        builder.addField("Stars", Integer.toString(lvl.liked), true);
+        builder.addField("Total Players", Integer.toString(lvl.played), true);
+        builder.addField("Total Attempts", Integer.toString(lvl.attempts), true);
+        builder.addField("Total Clears", Integer.toString(lvl.clears), true);
+        builder.setImage(lvl.fullImgURL);
         return builder.build();
     }
 
