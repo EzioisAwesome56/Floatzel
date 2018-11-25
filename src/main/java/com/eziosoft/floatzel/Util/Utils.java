@@ -94,11 +94,11 @@ public class Utils {
     public static MessageEmbed buildSmm(Level epic){
         EmbedBuilder builder = new EmbedBuilder();
         builder.setThumbnail(epic.imgURL);
-        builder.setAuthor(a[0], a[6]);
-        builder.setTitle("Level by: "+a[2]);
+        builder.setAuthor("test");
+        /*builder.setTitle("Level by: "+a[2]);
         builder.addField("Difficulty", a[1], true);
         builder.addField("Level ID", a[5], true);
-        builder.setImage(a[4]);
+        builder.setImage(a[4]);*/
         return builder.build();
     }
 
