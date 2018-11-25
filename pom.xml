@@ -66,7 +66,7 @@
         <dependency>
             <groupId>com.github.EzioisAwesome56</groupId>
             <artifactId>smm4j</artifactId>
-            <version>327ce92</version>
+            <version>fc749b3</version>
         </dependency>
     </dependencies>
 
