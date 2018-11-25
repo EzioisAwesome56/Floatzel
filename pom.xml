@@ -66,6 +66,7 @@
         <dependency>
             <groupId>com.github.EzioisAwesome56</groupId>
             <artifactId>smm4j</artifactId>
+            <!-- version 2.1, but as a commit because jitpack is ass-->
             <version>fc749b3</version>
         </dependency>
     </dependencies>
