@@ -104,7 +104,8 @@ public class Help extends FCommand {
             helpthing2 = "```md\n#Floatzel Help Continued\n"+build2.toString()+"```";
             mischelp = "```md\n#Floatzel Help Continued\n"+misc.toString()+"\n\n\n" +
                     "#important floatzel notice!\n" +
-                    "#Floatzel BOT does not take any credit for any of the artwork featured in this bot. All works where sourced from the internet for user enjoyment.```";
+                    "#Floatzel BOT does not take any credit for any of the artwork featured in this bot. All works where sourced from the internet for user enjoyment.\n" +
+                    "#Most ralsei images can be found here: https://imgur.com/a/019wZSk#m2JQKnw ```";
             madehelp = true;
             System.out.println(Integer.toString(helpmsg.length()));
             System.out.println(Integer.toString(helpthing2.length()));
