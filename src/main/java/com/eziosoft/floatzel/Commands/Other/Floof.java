@@ -18,6 +18,7 @@ public class Floof extends FCommand {
         name = "floof";
         help = "Floof up your day!";
         category =  other;
+        aliases = new String[]{"ralsei"};
     }
 
     @Override
