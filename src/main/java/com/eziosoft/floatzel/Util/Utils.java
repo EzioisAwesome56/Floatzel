@@ -94,16 +94,17 @@ public class Utils {
 
     public static MessageEmbed buildSmm(Level lvl){
         EmbedBuilder builder = new EmbedBuilder();
-        builder.setThumbnail(lvl.imgURL);
-        builder.setAuthor(lvl.name, Util.makeUrl(lvl.id));
-        builder.setTitle("Level by: "+lvl.author);
-        builder.addField("Difficulty", lvl.difficulty, true);
-        builder.addField("Level ID", lvl.id, true);
-        builder.addField("Stars", Integer.toString(lvl.liked), true);
-        builder.addField("Total Players", Integer.toString(lvl.played), true);
-        builder.addField("Total Attempts", Integer.toString(lvl.attempts), true);
-        builder.addField("Total Clears", Integer.toString(lvl.clears), true);
-        builder.setImage(lvl.fullImgURL);
+        builder.setThumbnail(lvl.imgURL());
+        builder.setAuthor(lvl.name(), Util.makeUrl(lvl.id()));
+        builder.setTitle("Level by: "+lvl.author());
+        builder.addField("Difficulty", lvl.difficulty(), true);
+        builder.addField("Level ID", lvl.id(), true);
+        builder.addField("Stars", Integer.toString(lvl.liked()), true);
+        builder.addField("Total Players", Integer.toString(lvl.played()), true);
+        builder.addField("Total Attempts", Integer.toString(lvl.attempts()), true);
+        builder.addField("Total Clears", Integer.toString(lvl.clears()), true);
+        builder.addField("Upload Date", lvl.date(), true);
+        builder.setImage(lvl.fullimgURL());
         return builder.build();
     }
 
