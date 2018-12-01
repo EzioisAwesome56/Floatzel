@@ -2,6 +2,7 @@ package com.eziosoft.floatzel.Commands.Sound;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -10,6 +11,7 @@ public class Repeat extends FCommand {
         name = "repeat";
         description = "sets repeat on playing music";
         category = sound;
+        aliases = Utils.makeAlias("loop");
     }
 
     @Override

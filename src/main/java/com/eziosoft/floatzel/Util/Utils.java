@@ -116,4 +116,9 @@ public class Utils {
         String[] parts = filename.split("\\.");
         return parts[1];
     }
+
+    // make sigel aliases easier to define
+    public static String[] makeAlias(String name){
+        return new String[]{name};
+    }
 }
