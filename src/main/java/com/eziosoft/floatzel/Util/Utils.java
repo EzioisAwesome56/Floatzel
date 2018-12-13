@@ -11,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -108,8 +110,8 @@ public class Utils {
         return builder.build();
     }
 
-    public static File getResourse(String path, String filename){
-        return new File(Files.class.getResource(path + filename).getFile());
+    public static InputStream getResourse(String path, String filename){
+        return Files.class.getResourceAsStream(path + filename);
     }
 
     public static String getFileType(String filename){
