@@ -51,7 +51,7 @@ public class MiscListener extends ListenerAdapter {
         }
     }
 
-    @Override
+    /*@Override
     public void onUserUpdateOnlineStatus(UserUpdateOnlineStatusEvent event) {
         if (event.getEntity().getId().equals("213151748855037953")) {
             if (event.getNewOnlineStatus().equals(OnlineStatus.OFFLINE) && kekbot) {
@@ -62,5 +62,5 @@ public class MiscListener extends ListenerAdapter {
                 kekbot = true;
             }
         }
-    }
+    }*/
 }
