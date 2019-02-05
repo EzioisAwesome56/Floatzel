@@ -1,7 +1,9 @@
 package com.eziosoft.floatzel.Listeners;
 
+import com.eziosoft.floatzel.Config;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.GameStatus;
+import com.eziosoft.floatzel.Slack.Slack;
 import com.eziosoft.floatzel.Timers.StockTimer;
 import com.eziosoft.floatzel.Timers.TwitterPoster;
 import com.eziosoft.floatzel.Util.Database;
@@ -13,6 +15,7 @@ import net.dv8tion.jda.core.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import twitter4j.Twitter;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
@@ -36,6 +39,12 @@ public class MiscListener extends ListenerAdapter {
             if (event.getJDA().getShardInfo().getShardId() == event.getJDA().getShardInfo().getShardTotal() - 1){
                 Database.dbinit();
                 StockUtil.initStock();
+                // init slack
+                try {
+                    Slack.StartSlack(Config.slackbot);
+                } catch (IOException e){
+                    System.out.println("There was an error starting slack");
+                }
             }
             System.out.println("Floatzel is alive you piece of shit, now hope it doesnt start a fight dickface");
 

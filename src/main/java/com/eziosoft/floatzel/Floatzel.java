@@ -55,12 +55,6 @@ public class Floatzel {
                 isdev = true;
             }
         }
-        // start slack
-        try {
-            Slack.StartSlack(Config.slackbot);
-        } catch (IOException e){
-            System.out.println("There was an error starting slack");
-        }
 
         // resume everything else
         version = !isdev ? "2.4.3 HOTFIX 1" : "2.x Developement";
