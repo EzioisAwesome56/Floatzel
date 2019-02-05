@@ -23,7 +23,9 @@ public class Slack {
                 String content = req.getContent();
 
                 // reply to the user
-                resp.reply("You say '" + content + "'.");
+                if(content.startsWith("&amp;")) {
+                    resp.reply("You say '" + content.substring(5) + "'.");
+                }
             }
         });
 
