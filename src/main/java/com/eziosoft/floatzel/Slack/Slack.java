@@ -1,9 +1,6 @@
 package com.eziosoft.floatzel.Slack;
 
-import com.eziosoft.floatzel.CommdLogic.SpamLogic;
-import com.eziosoft.floatzel.CommdLogic.StatsLogic;
-import com.eziosoft.floatzel.CommdLogic.TestCommandLogic;
-import com.eziosoft.floatzel.CommdLogic.ThinkLogic;
+import com.eziosoft.floatzel.CommdLogic.*;
 import org.riversun.slacklet.Slacklet;
 import org.riversun.slacklet.SlackletRequest;
 import org.riversun.slacklet.SlackletResponse;
@@ -48,6 +45,9 @@ public class Slack {
                             break;
                         case "stats":
                             StatsLogic.slackRun(req, resp);
+                            break;
+                        case "gensent":
+                            SwearCombineLogic.slackRun(req, resp);
                             break;
                         default:
                             // do nothing because this isnt a command
