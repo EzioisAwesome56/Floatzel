@@ -22,6 +22,7 @@ import com.eziosoft.floatzel.Commands.Test.TestCommand;
 import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
+import com.eziosoft.floatzel.Slack.Slack;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
@@ -29,6 +30,7 @@ import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.bot.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
+import java.io.IOException;
 
 
 public class Floatzel {
@@ -53,6 +55,14 @@ public class Floatzel {
                 isdev = true;
             }
         }
+        // start slack
+        try {
+            Slack.StartSlack(Config.slackbot);
+        } catch (IOException e){
+            System.out.println("There was an error starting slack");
+        }
+
+        // resume everything else
         version = !isdev ? "2.4.3 HOTFIX 1" : "2.x Developement";
          commandClient = new CommandClientBuilder().setOwnerId(Config.ownerid).useHelpBuilder(false).setPrefix(isdev ? Config.devprefix : Config.prefix).build();
 

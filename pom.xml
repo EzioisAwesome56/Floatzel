@@ -69,6 +69,12 @@
             <!-- God damn it jitpack stop being broken-->
             <version>93ef1de</version>
         </dependency>
+        <!-- testing slack intergation -->
+        <dependency>
+            <groupId>org.riversun</groupId>
+            <artifactId>slacklet</artifactId>
+            <version>1.0.4</version>
+        </dependency>
     </dependencies>
 
     <properties>
