@@ -29,4 +29,6 @@ public class ConfigStock {
     public static boolean twittertog = false;
     // use old database toggle
     public static boolean olddb = false;
+    // SLACK: bot token
+    public static String slackbot = "";
 }
