@@ -189,7 +189,7 @@ public class Player extends ListenerAdapter {
         if (!audioManager.isConnected() && !audioManager.isAttemptingToConnect()) {
             Optional<VoiceChannel> voiceChannel = event.getGuild().getVoiceChannels().stream().filter(c -> c.getMembers().contains(event.getEvent().getMember())).findFirst();
             if (!voiceChannel.isPresent()) {
-                event.getTextChannel().sendMessage("You're not in a VC you fkcuign faggot").queue();
+                event.getTextChannel().sendMessage("You're not in a VC you fucking faggot").queue();
             } else {
                 audioManager.openAudioConnection(voiceChannel.get());
                 announceStart(event, voiceChannel.get());
