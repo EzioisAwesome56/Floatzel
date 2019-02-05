@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Slack;
 
 import com.eziosoft.floatzel.CommdLogic.TestCommandLogic;
+import com.eziosoft.floatzel.CommdLogic.ThinkLogic;
 import org.riversun.slacklet.Slacklet;
 import org.riversun.slacklet.SlackletRequest;
 import org.riversun.slacklet.SlackletResponse;
@@ -10,6 +11,7 @@ import java.io.IOException;
 public class Slack {
 
     public static void StartSlack(String token) throws IOException {
+        System.out.println("Floatzel is starting Slack frontend...");
 
         SlackletService slackService = new SlackletService(token);
 
@@ -33,6 +35,9 @@ public class Slack {
                         case "test":
                             TestCommandLogic.slackRun(req, resp);
                             break;
+                        case "think":
+                            ThinkLogic.slackRun(req, resp);
+                            break;
                         default:
                             // do nothing because this isnt a command
                             break;
@@ -42,6 +47,7 @@ public class Slack {
         });
 
         slackService.start();
+        System.out.println("Floatzel has started slack!");
         return;
     }
 }

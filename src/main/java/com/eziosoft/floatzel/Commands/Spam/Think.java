@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.Spam;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.CommdLogic.ThinkLogic;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,6 +14,6 @@ public class Think extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent commandEvent) {
-        commandEvent.getChannel().sendMessage(StringUtils.repeat("\uD83E\uDD14", 100)).queue();
+        commandEvent.getChannel().sendMessage(ThinkLogic.makeMessage()).queue();
     }
 }
