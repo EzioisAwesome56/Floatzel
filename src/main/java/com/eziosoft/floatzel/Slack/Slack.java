@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Slack;
 
+import com.eziosoft.floatzel.CommdLogic.SpamLogic;
 import com.eziosoft.floatzel.CommdLogic.TestCommandLogic;
 import com.eziosoft.floatzel.CommdLogic.ThinkLogic;
 import org.riversun.slacklet.Slacklet;
@@ -37,6 +38,9 @@ public class Slack {
                             break;
                         case "think":
                             ThinkLogic.slackRun(req, resp);
+                            break;
+                        case "spam":
+                            SpamLogic.slackRun(req, resp, raw[1]);
                             break;
                         default:
                             // do nothing because this isnt a command
