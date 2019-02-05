@@ -8,6 +8,9 @@ import org.riversun.slacklet.Slacklet;
 import org.riversun.slacklet.SlackletRequest;
 import org.riversun.slacklet.SlackletResponse;
 import org.riversun.slacklet.SlackletService;
+import org.riversun.xternal.simpleslackapi.SlackAttachment;
+import org.riversun.xternal.simpleslackapi.SlackFile;
+
 import java.io.IOException;
 
 public class Slack {
@@ -21,7 +24,7 @@ public class Slack {
 
             @Override
             public void onMessagePosted(SlackletRequest req, SlackletResponse resp) {
-                // user posted message and BOT intercepted it
+                // user posted message and BOT intercepted
 
                 // get message content
                 String content = req.getContent();
