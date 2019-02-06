@@ -90,6 +90,8 @@ public class Resize extends FCommand {
             writer.dispose();
         } catch (IOException e){
             Error.Catch(e);
+        } catch (IllegalArgumentException e){
+            Error.Catch(e);
         }
     }
 }
