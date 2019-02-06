@@ -62,7 +62,7 @@ public class Resize extends FCommand {
             BufferedImage whoa = ImageIO.read(temp);
             // make output image
             BufferedImage outputImage = new BufferedImage(100,
-                    100, whoa.getType());
+                    100, what.getType());
             Graphics2D g = outputImage.createGraphics();
             // scales input image to output
             g.drawImage(whoa, 0, 0, 100, 100, null);
@@ -74,7 +74,7 @@ public class Resize extends FCommand {
             output2.close();
             // RESIZE IMAGE BACK TO ORIGINAL SIZE
             whoa = ImageIO.read(temp2);
-            outputImage = new BufferedImage(width, height, whoa.getType());
+            outputImage = new BufferedImage(width, height, what.getType());
             g = outputImage.createGraphics();
             g.drawImage(whoa, 0, 0, width, height, null);
             g.dispose();
