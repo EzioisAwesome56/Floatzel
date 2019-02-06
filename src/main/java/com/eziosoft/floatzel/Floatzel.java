@@ -119,7 +119,7 @@ public class Floatzel {
 
         
         jda = new DefaultShardManagerBuilder().setToken(!isdev ? Config.token : Config.devToken)
-                .addEventListeners(listener, commandClient)
+                .addEventListeners(listener, commandClient, musicPlayer)
                 .setShardsTotal(2).build();
 
         //TwitterManager is now a listener too, which'll do all the work onReady by itself instead of relying on MiscListener

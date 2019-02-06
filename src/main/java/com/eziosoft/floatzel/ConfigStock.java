@@ -31,4 +31,5 @@ public class ConfigStock {
     public static boolean olddb = false;
     // SLACK: bot token
     public static String slackbot = "";
+    public static Boolean enslack = false;
 }

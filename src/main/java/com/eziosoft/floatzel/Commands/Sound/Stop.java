@@ -12,11 +12,17 @@ public class Stop extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
-        if (event.getGuild().getAudioManager().isConnected()) {
-            Floatzel.musicPlayer.closeConnection(event.getGuild());
+    protected void cmdrun(CommandEvent event) {
+        // wow this took way to long for me to find out how to do
+        if (!Floatzel.musicPlayer.getHost(event.getGuild()).equals(event.getAuthor())) {
+            event.reply("Stop trying to hijack this music session! You ain't the fucking host!");
+            return;
         } else {
-            event.getChannel().sendMessage("I cant fucking stop if I'm playing jack shit asshole!").queue();
+            if (event.getGuild().getAudioManager().isConnected()) {
+                Floatzel.musicPlayer.closeConnection(event.getGuild());
+            } else {
+                event.getChannel().sendMessage("I cant fucking stop if I'm playing jack shit asshole!").queue();
+            }
         }
     }
 }
