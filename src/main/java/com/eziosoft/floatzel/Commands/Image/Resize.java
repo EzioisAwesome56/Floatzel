@@ -20,9 +20,10 @@ import java.util.Iterator;
 
 public class Resize extends FCommand {
     public Resize(){
-        name = "resize";
-        description = "resizes an image to be small";
+        name = "jpeg";
+        description = "jpeg-ifys your image";
         category = other;
+        aliases = Utils.makeAlias("resize");
     }
 
     protected void cmdrun(CommandEvent event){
