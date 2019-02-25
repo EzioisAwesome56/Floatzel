@@ -91,8 +91,8 @@ public class Resize extends FCommand {
             writer.dispose();
         } catch (IOException e){
             Error.Catch(e);
-        } catch (IllegalArgumentException e){
-            Error.Catch(e);
-        }
+        } catch (NullPointerException e){
+        event.reply("Oi mate, this isnt a fucking image!");
+    }
     }
 }
