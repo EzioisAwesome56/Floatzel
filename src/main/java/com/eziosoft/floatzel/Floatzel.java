@@ -109,6 +109,7 @@ public class Floatzel {
         commandClient.addCommand(new Course());
         commandClient.addCommand(new RandCourse());
         commandClient.addCommand(new Resize());
+        commandClient.addCommand(new Cow());
         //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
