@@ -40,7 +40,7 @@ public class Cow extends FCommand {
             event.reply("```\n"+Cowsay.say(wat)+"\n```");
             return;
         }
-        String[] wat = {"-f", "tux", event.getArgs()};
+        String[] wat = {event.getArgs()};
         event.reply("```\n"+Cowsay.say(wat)+"\n```");
 
 
