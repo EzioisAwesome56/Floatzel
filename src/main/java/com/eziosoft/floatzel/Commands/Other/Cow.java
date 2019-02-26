@@ -23,7 +23,7 @@ public class Cow extends FCommand {
         }
         // check to see if -f was provided
         if (argsplit[0].equals("-f")){
-            if (argsplit.length == 1){
+            if (argsplit.length == 1 || argsplit.length == 2){
                 event.reply("Fuckface, you didnt provide enough arguments!");
                 return;
             }
