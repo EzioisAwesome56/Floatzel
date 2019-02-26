@@ -79,7 +79,7 @@ public abstract class FCommand extends Command {
         cmdrun(event);
     }
 
-    protected abstract void cmdrun(CommandEvent epic);
+    protected abstract void cmdrun(CommandEvent event);
 
 
 
