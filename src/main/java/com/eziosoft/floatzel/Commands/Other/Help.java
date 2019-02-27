@@ -137,8 +137,8 @@ public class Help extends FCommand {
         builder.showPageNumbers(true);
 
         categories.forEach(c -> {
-            if (c.getName().equalsIgnoreCase("bot owner") && !event.isOwner()) return;
-            if (c.getName().equalsIgnoreCase("bot admin") && !Utils.isAdmin(event.getAuthor().getId()
+            if (c.getName().equalsIgnoreCase(FCommand.owner.getName()) && !event.isOwner()) return;
+            if (c.getName().equalsIgnoreCase(FCommand.admin.getName()) && !Utils.isAdmin(event.getAuthor().getId()
             )) return;
             if (c.getName().equalsIgnoreCase("test")) return;
             if (c.getName().equals("unassigned")) return;
