@@ -13,6 +13,8 @@ public class Gay extends FCommand {
     // secret command so we dont need description stuff
     public Gay(){
         name = "gay";
+        description = "how are you reading this";
+        category = other;
     }
 
     @Override

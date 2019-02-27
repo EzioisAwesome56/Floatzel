@@ -6,9 +6,9 @@ import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.EmbedPaginator;
 import com.eziosoft.floatzel.Commands.FCommand;
-import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.core.EmbedBuilder;
+import com.jagrosh.jdautilities.command.Command;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -22,6 +22,7 @@ public class Help extends FCommand {
     public Help() {
         name = "help";
         description = "fuck";
+        category = other;
 
         Floatzel.commandClient.getCommands().forEach(command -> commands.add((FCommand) command));
     }
@@ -141,9 +142,9 @@ public class Help extends FCommand {
             )) return;
             if (c.getName().equalsIgnoreCase("test")) return;
             if (c.getName().equals("unassigned")) return;
-            List<Command> commands = new ArrayList<>(event.getClient().getCommands()).stream().filter(cmd -> cmd.getCategory().equals(c)).sorted(Comparator.comparing(Command::getName)).collect(Collectors.toList());
+            //List<Command> commands = new ArrayList<>(Floatzel.commandClient.getCommands()).stream().filter(cmd -> cmd.getCategory().equals(c)).sorted(Comparator.comparing(Command::getName)).collect(Collectors.toList());
             for (int i = 0; i < commands.size(); i += 10) {
-                List<Command> currentPage = commands.subList(i, (i + 10 < commands.size() ? i + 10 : commands.size()));
+                List<FCommand> currentPage = commands.subList(i, (i + 10 < commands.size() ? i + 10 : commands.size()));
                 EmbedBuilder eBuilder = new EmbedBuilder();
                 eBuilder.setTitle(c.getName());
                 eBuilder.setDescription(StringUtils.join(currentPage.stream().map(cmd -> Floatzel.isdev ? Config.devprefix : Config.prefix + cmd.getName() + " - " + cmd.getHelp()).collect(Collectors.toList()), "\n"));
