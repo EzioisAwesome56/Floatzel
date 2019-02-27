@@ -115,4 +115,10 @@ public class Help extends FCommand {
         event.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(helpthing2).queue());
         event.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(mischelp).queue());
     }
+
+    //Roughly stolen from https://github.com/Godson777/KekBot/blob/master/src/main/java/com/godson/kekbot/command/commands/general/Help.java
+    // Sorry, godson!
+    private void sendHelp(CommandEvent event){
+        // shit tm
+    }
 }
