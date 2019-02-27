@@ -91,7 +91,7 @@ public class Help extends FCommand {
         EmbedBuilder builder = new EmbedBuilder();
         builder.addField("Command:", command.getName(), true);
         builder.addField("Category:", command.getCategory().getName(), true);
-        if (aliases.length > 0) builder.addField("Aliases:", StringUtils.join(command.getAliases(), ", "), false);
+        if (command.getAliases().length > 0) builder.addField("Aliases:", StringUtils.join(command.getAliases(), ", "), false);
         builder.addField("Description:", command.getHelp(), false);
         //builder.addField("Usage (<> Required, {} Optional):", StringUtils.join(command.getUsage().stream().map(usage -> event.getPrefix() + usage).collect(Collectors.toList()), "\n"), false);
         builder.setFooter("Fuckin' Floatzel " + Floatzel.version, null);
