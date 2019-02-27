@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Util;
 
+import com.eziosoft.floatzel.Config;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Res.Files;
 import com.eziosoft.smm4j.Level;
@@ -149,6 +150,7 @@ public class Utils {
 
     // moved from fcommand
     public static boolean isAdmin(String uid){
+        if (Config.ownerid.equals(uid)) return true;
         boolean match = false;
         for (String s : admins) {
             if (uid.contains(s)){

@@ -9,6 +9,7 @@ import com.eziosoft.floatzel.Commands.FCommand;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.core.EmbedBuilder;
 import com.jagrosh.jdautilities.command.Command;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -29,100 +30,11 @@ public class Help extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event) {
-        sendHelp(event);
-        // TODO: remove this shit
-        return;
-        /*if (!madehelp) {
-            event.getChannel().sendMessage("Generating help message for first time, this may take some time").queue();
-            // as of 2.4.1 we need 2 string builders
-            StringBuilder builder = new StringBuilder();
-            StringBuilder build2 = new StringBuilder();
-            StringBuilder misc = new StringBuilder();
-            // now start actually doing things
-            List<String> rawcats = new ArrayList<String>();
-            // for making 2 help messages
-            List<String> one = new ArrayList<String>();
-            List<String> two = new ArrayList<String>();
-            // flip through all commands and create a list of all catogories
-            commands.forEach(cmd -> {
-                if (cmd.getCategory() != null) {
-                    String cmdcat = cmd.getCategory().getName();
-                    if (!rawcats.contains(cmdcat)) {
-                        rawcats.add((String) cmdcat);
-                    }
-                }
-            });
-            // split the categories into the 2 lists
-            int size = rawcats.size();
-            for (int i = 0; i < size; i++){
-                if (i < (size + 1)/2){
-                    one.add(rawcats.get(i));
-                } else {
-                    two.add(rawcats.get(i));
-                }
-            }
-            // now sort the commands into categories
-            String[] catsone = new String[one.size()];
-            String[] catstwo = new String[two.size()];
-            one.toArray(catsone);
-            two.toArray(catstwo);
-            String curcat = "";
-            // run this twice to build the 2 seperate help messages
-            for (int i = 0; i < catsone.length; i++) {
-                curcat = catsone[i];
-                final String h = curcat;
-                builder.append("#" + curcat + "\n");
-                commands.forEach(cmd -> {
-                    if (cmd.getCategory() != null) {
-                        if (cmd.getCategory().getName().equals(h)) {
-                            builder.append("[" + cmd.getName() + "](" + cmd.getHelp() + ")\n");
-                        }
-                    }
-                });
-                builder.append("\n");
-            }
-            // now run it again
-            for (int i = 0; i < catstwo.length; i++) {
-                curcat = catstwo[i];
-                final String h = curcat;
-                build2.append("#" + curcat + "\n");
-                commands.forEach(cmd -> {
-                    if (cmd.getCategory() != null) {
-                        if (cmd.getCategory().getName().equals(h)) {
-                            build2.append("[" + cmd.getName() + "](" + cmd.getHelp() + ")\n");
-                        }
-                    }
-                });
-                build2.append("\n");
-            }
-            // deal with unsorted commands now
-            misc.append("#Unsorted\n");
-            commands.forEach(cmd -> {
-                if (cmd.getCategory() == null) {
-                    misc.append("[" + cmd.getName() + "](" + cmd.getHelp() + ")\n");
-                }
-            });
-
-
-            //commands.forEach(command -> builder.append("[" + command.getName() + "](" + command.getHelp() + ")\n"));
-
-            // form the nice looking help box
-            String helpmsg = "```md\n#Floatzel Version " + Floatzel.version + " help\n" + builder.toString() + "```";
-            // debug string: print to console how long the help message is
-            helpthing = helpmsg;
-            helpthing2 = "```md\n#Floatzel Help Continued\n"+build2.toString()+"```";
-            mischelp = "```md\n#Floatzel Help Continued\n"+misc.toString()+"\n\n\n" +
-                    "#important floatzel notice!\n" +
-                    "#Floatzel BOT does not take any credit for any of the artwork featured in this bot. All works where sourced from the internet for user enjoyment.\n" +
-                    "#Most ralsei images can be found here: https://imgur.com/a/019wZSk#m2JQKnw ```";
-            madehelp = true;
-            System.out.println(Integer.toString(helpmsg.length()));
-            System.out.println(Integer.toString(helpthing2.length()));
-            System.out.println(Integer.toString(mischelp.length()));
+        if (argsplit.length == 0) {
+            sendHelp(event);
+        } else {
+            sendCommandHelp(event, argsplit[0]);
         }
-        event.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(helpthing).queue());
-        event.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(helpthing2).queue());
-        event.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(mischelp).queue());*/
     }
 
     //Roughly stolen from https://github.com/Godson777/KekBot/blob/master/src/main/java/com/godson/kekbot/command/commands/general/Help.java
@@ -156,5 +68,34 @@ public class Help extends FCommand {
 
         builder.build().display(event.getChannel());
 
+    }
+
+    // more kekbot guts!
+    private void sendCommandHelp(CommandEvent event, String commandName) {
+        boolean found;
+        Optional<Command> command = event.getClient().getCommands().stream().filter(c -> c.getName().equalsIgnoreCase(commandName)).findAny();
+        //Check if the command exists, if it does, check if they have perms to view the command (or the command is hidden).
+        if (command.isPresent()) {
+            if (command.get().getCategory().getName().equalsIgnoreCase("bot owner")) found = event.isOwner();
+            else if (command.get().getCategory().getName().equalsIgnoreCase("bot admin")) found = Utils.isAdmin(event.getAuthor().getId());
+            else found = !command.get().getCategory().getName().equalsIgnoreCase("unassigned");
+        } else found = false;
+
+
+        if (found) {
+            event.getChannel().sendMessage(getCommandHelp(event, command.get())).queue();
+        } else event.getChannel().sendMessage("That is not a mother fucking command!").queue();
+    }
+
+    private MessageEmbed getCommandHelp(CommandEvent event, Command command) {
+        EmbedBuilder builder = new EmbedBuilder();
+        builder.addField("Command:", command.getName(), true);
+        builder.addField("Category:", command.getCategory().getName(), true);
+        if (command.getAliases().length > 0) builder.addField("Aliases:", StringUtils.join(command.getAliases(), ", "), false);
+        builder.addField("Description:", command.getHelp(), false);
+        //builder.addField("Usage (<> Required, {} Optional):", StringUtils.join(command.getUsage().stream().map(usage -> event.getPrefix() + usage).collect(Collectors.toList()), "\n"), false);
+        builder.setFooter("Fuckin' Floatzel " + Floatzel.version, null);
+        builder.setAuthor("Fuck you, I'm Floatzel", null, event.getSelfUser().getAvatarUrl());
+        return builder.build();
     }
 }
