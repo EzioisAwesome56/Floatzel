@@ -11,6 +11,7 @@ public class Cow extends FCommand {
         name = "cowsay";
         description = "moooo";
         aliases = Utils.makeAlias("cow");
+        category = fun;
     }
 
     @Override
