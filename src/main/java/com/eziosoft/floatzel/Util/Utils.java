@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import static com.eziosoft.floatzel.Config.admins;
+
 public class Utils {
     private static Random random = new Random();
 
@@ -143,5 +145,17 @@ public class Utils {
 
         // Return the buffered image
         return bimage;
+    }
+
+    // moved from fcommand
+    public static boolean isAdmin(String uid){
+        boolean match = false;
+        for (String s : admins) {
+            if (uid.contains(s)){
+                match = true;
+                break;
+            }
+        }
+        return match;
     }
 }

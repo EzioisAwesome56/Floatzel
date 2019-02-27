@@ -27,17 +27,22 @@ import com.eziosoft.floatzel.Slack.Slack;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
+import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.bot.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
+import java.util.concurrent.Executors;
 
 
 public class Floatzel {
     public static boolean isdev = false;
     // version shit
     public static String version;
+
+    // stolen from kekbot: some form of event waiter?
+    public static final EventWaiter waiter = new EventWaiter(Executors.newSingleThreadScheduledExecutor(), false);
 
     public static ShardManager jda;
     public static CommandClient commandClient;

@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Commands;
 
+import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -46,14 +47,8 @@ public abstract class FCommand extends Command {
 
     // check to see if the user who ran the command is an admin
     private boolean isAdmin(String uid){
-        boolean match = false;
-        for (String s : admins) {
-            if (uid.contains(s)){
-                match = true;
-                break;
-            }
-        }
-        return match;
+        // moved this to utils
+        return Utils.isAdmin(uid);
     }
 
     // for the error handler
