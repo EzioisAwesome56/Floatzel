@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Util;
 
+import com.eziosoft.floatzel.Config;
 import com.eziosoft.floatzel.Floatzel;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
@@ -19,7 +20,7 @@ public class Database {
     private static String tags = "tags";
     // rethink db!
     private static final RethinkDB r = RethinkDB.r;
-    private static Connection thonk = r.connection().hostname("localhost").port(28015).connect();
+    private static Connection thonk;
     private static Cursor cur = null;
 
 
@@ -27,6 +28,14 @@ public class Database {
 
     // check if folder exist
     public static void dbinit() {
+        Connection.Builder builder = r.connection().hostname("localhost").port(28015);
+        if (Config.dbUser != null) {
+            builder.user(Config.dbUser, Config.dbPass != null ? Config.dbPass : "");
+        } else {
+            builder.user("admin", Config.dbPass != null ? Config.dbPass : "");
+        }
+
+        thonk = builder.connect();
         System.out.println("Floatzel is starting RethinkDB...");
         // first, check if the database file exists
         if (!(boolean) r.dbList().contains("floatzel").run(thonk)){

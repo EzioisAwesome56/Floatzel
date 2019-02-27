@@ -7,6 +7,9 @@ public class ConfigStock {
     // discord tokens
     public static String token = "";
     public static String devToken = "";
+    // db config
+    public static String dbUser = null;
+    public static String dbPass = null;
     // twitter tokens
     public static String key = "";
     public static String secretkey = "";

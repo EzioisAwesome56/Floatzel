@@ -128,7 +128,7 @@ public class Help extends FCommand {
     //Roughly stolen from https://github.com/Godson777/KekBot/blob/master/src/main/java/com/godson/kekbot/command/commands/general/Help.java
     // Sorry, godson!
     private void sendHelp(CommandEvent event){
-        List<Category> categories = event.getClient().getCommands().stream().map(Command::getCategory).distinct().sorted(Comparator.comparing(Category::getName)).collect(Collectors.toList());
+        List<Category> categories = commands.stream().map(Command::getCategory).distinct().sorted(Comparator.comparing(Category::getName)).collect(Collectors.toList());
         EmbedPaginator.Builder builder = new EmbedPaginator.Builder();
         builder.addUsers(event.getAuthor());
         builder.setEventWaiter(Floatzel.waiter);
@@ -142,14 +142,14 @@ public class Help extends FCommand {
             )) return;
             if (c.getName().equalsIgnoreCase("test")) return;
             if (c.getName().equals("unassigned")) return;
-            //List<Command> commands = new ArrayList<>(Floatzel.commandClient.getCommands()).stream().filter(cmd -> cmd.getCategory().equals(c)).sorted(Comparator.comparing(Command::getName)).collect(Collectors.toList());
-            for (int i = 0; i < commands.size(); i += 10) {
-                List<FCommand> currentPage = commands.subList(i, (i + 10 < commands.size() ? i + 10 : commands.size()));
+            List<FCommand> sorted = new ArrayList<>(commands).stream().filter(cmd -> cmd.getCategory().equals(c)).sorted(Comparator.comparing(Command::getName)).collect(Collectors.toList());
+            for (int i = 0; i < sorted.size(); i += 10) {
+                List<FCommand> currentPage = sorted.subList(i, (i + 10 < sorted.size() ? i + 10 : sorted.size()));
                 EmbedBuilder eBuilder = new EmbedBuilder();
                 eBuilder.setTitle(c.getName());
-                eBuilder.setDescription(StringUtils.join(currentPage.stream().map(cmd -> Floatzel.isdev ? Config.devprefix : Config.prefix + cmd.getName() + " - " + cmd.getHelp()).collect(Collectors.toList()), "\n"));
-                eBuilder.setFooter("KekBot v" + Floatzel.version, null);
-                eBuilder.setAuthor("KekBot, your friendly meme-based bot!", null, event.getSelfUser().getAvatarUrl());
+                eBuilder.setDescription(StringUtils.join(currentPage.stream().map(cmd -> (Floatzel.isdev ? Config.devprefix : Config.prefix) + cmd.getName() + " - " + cmd.getHelp()).collect(Collectors.toList()), "\n"));
+                eBuilder.setFooter("Floatzel v" + Floatzel.version, null);
+                eBuilder.setAuthor("Fuck you, I'm floatzel.", null, event.getSelfUser().getAvatarUrl());
                 builder.addItems(eBuilder.build());
             }
         });
