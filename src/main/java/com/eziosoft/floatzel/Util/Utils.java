@@ -1,6 +1,5 @@
 package com.eziosoft.floatzel.Util;
 
-import com.eziosoft.floatzel.Config;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.JsonConfig;
 import com.eziosoft.floatzel.Res.Files;

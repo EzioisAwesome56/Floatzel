@@ -1,6 +1,5 @@
 package com.eziosoft.floatzel.Util;
 
-import com.eziosoft.floatzel.Config;
 import com.eziosoft.floatzel.Floatzel;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;

@@ -1,7 +1,6 @@
 package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.Commands.FCommand;
-import com.eziosoft.floatzel.Config;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.EmbedPaginator;

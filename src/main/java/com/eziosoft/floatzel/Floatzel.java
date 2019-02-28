@@ -41,6 +41,11 @@ import java.util.concurrent.Executors;
 
 
 public class Floatzel {
+    // json configuration file
+    public static JsonConfig conf = new JsonConfig();
+    public static Gson gson = new Gson();
+
+
     public static boolean isdev = false;
     // version shit
     public static String version;
@@ -51,12 +56,8 @@ public class Floatzel {
     public static ShardManager jda;
     public static CommandClient commandClient;
     public static MiscListener listener = new MiscListener();
-    public static TwitterManager twitterManager = new TwitterManager();
+    public static TwitterManager twitterManager;
     public static Player musicPlayer = new Player();
-
-    // json configuration file
-    public static JsonConfig conf = new JsonConfig();
-    public static Gson gson = new Gson();
 
     //thing for the tweet bot
     public static boolean tweeton = false;
@@ -90,6 +91,8 @@ public class Floatzel {
             }
 
         }
+        // will this work?
+        twitterManager = new TwitterManager();
 
         // resume everything else
         version = !isdev ? "2.4.5" : "2.x Developement";

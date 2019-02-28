@@ -1,6 +1,5 @@
 package com.eziosoft.floatzel.Listeners;
 
-import com.eziosoft.floatzel.Config;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.GameStatus;
 import com.eziosoft.floatzel.Slack.Slack;
