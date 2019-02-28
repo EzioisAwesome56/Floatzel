@@ -26,6 +26,7 @@ import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Slack.Slack;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
+import com.google.gson.Gson;
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
@@ -33,6 +34,8 @@ import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.bot.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.Executors;
 
@@ -53,6 +56,7 @@ public class Floatzel {
 
     // json configuration file
     public static JsonConfig conf = new JsonConfig();
+    public static Gson gson = new Gson();
 
     //thing for the tweet bot
     public static boolean tweeton = false;
@@ -64,12 +68,27 @@ public class Floatzel {
         for (String arg : args) {
             if (arg.equalsIgnoreCase("--dev")) {
                 isdev = true;
-                System.out.println("RUNNING IN DEVELOPEMENT MODE!");
+                System.out.println("RUNNING IN DEVELOPMENT MODE!");
             }
         }
+
         // does the configuration file exist??!!?!??!?!!
         if (!Utils.configExist()){
             System.out.println("Floatzel was unable to find configuration data!");
+            // we assume it doesnt exist and generate fresh config data
+            Utils.makeConfig(conf, gson);
+            // then just exit the software!
+            System.exit(0);
+        } else {
+            // it exists, load it!
+            boolean a = Utils.loadConfig(conf, gson);
+            if (!a){
+                System.out.println("there was a error loading config. Floatzel shutting down...");
+                System.exit(1);
+            } else {
+                System.out.println("Configuration data loaded!");
+            }
+
         }
 
         // resume everything else

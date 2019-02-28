@@ -2,9 +2,12 @@ package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Config;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.JsonConfig;
 import com.eziosoft.floatzel.Res.Files;
 import com.eziosoft.smm4j.Level;
 import com.eziosoft.smm4j.Util;
+import com.google.gson.Gson;
+import com.rethinkdb.gen.ast.Json;
 import com.rethinkdb.net.Cursor;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -12,10 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -171,7 +171,37 @@ public class Utils {
         }
     }
 
-    public static void makeConfig(){
-        // do shit here
+    public static void makeConfig(JsonConfig h, Gson g){
+        // load default configuration data
+        h.loadDefaults();
+        // convert the file to a string
+        String json = g.toJson(h);
+        // save the file
+        try {
+            FileWriter writer = new FileWriter("config.json");
+            writer.write(json);
+            writer.close();
+        } catch (IOException e){
+            System.out.println("ERROR WHILE SAVING CONFIG");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        System.out.println("A default config file has been generated. Please edit this file with your own information!");
+    }
+
+    public static boolean loadConfig(JsonConfig h, Gson g){
+        System.out.println("Now loading configuration file...");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("config.json"));
+            h = g.fromJson(br, JsonConfig.class);
+            br.close();
+            // minor last second processing: make the text null into real null
+            if (h.dbPass().equals("null")){ h.setDbPass(null);}
+            if (h.dbUser().equals("null")){ h.setDbUser(null);}
+            return true;
+        } catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }
