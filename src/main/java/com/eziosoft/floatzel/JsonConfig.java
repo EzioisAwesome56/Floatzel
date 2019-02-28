@@ -5,34 +5,34 @@ import java.util.List;
 
 public class JsonConfig {
     // tokens
-    String token;
-    String devtoken;
+    private String token;
+    private String devtoken;
     // db config
-    String dbUser;
-    String dbPass;
+    private String dbUser;
+    private String dbPass;
     // twitter stuff
-    String key;
-    String secretkey;
-    String access;
-    String secretaccess;
+    private String key;
+    private String secretkey;
+    private String access;
+    private String secretaccess;
     // bot config
-    String ownerid;
-    String prefix;
-    String devprefix;
+    private String ownerid;
+    private String prefix;
+    private String devprefix;
     // bot admins
-    List<String> admins;
+    private List<String> admins;
     // twitter user ids
-    long[] groupa;
-    long[] groupb;
+    private long[] groupa;
+    private long[] groupb;
     // twitter channels
-    String achan;
-    String bchan;
-    String devchan;
+    private String achan;
+    private String bchan;
+    private String devchan;
     // twitter toggle
-    boolean twittertog;
+    private boolean twittertog;
     // slack shit
-    String slackbot;
-    boolean enslack;
+    private String slackbot;
+    private boolean enslack;
 
     public void loadDefaults(){
         System.out.println("Loading default configuration data...");
