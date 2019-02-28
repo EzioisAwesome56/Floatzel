@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class Utils {
     private static Random random = new Random();
 
-    private static List<String> admins = Floatzel.conf.getAdmins();
+    //private static List<String> admins = Floatzel.conf.getAdmins();
 
 
     public static String genBar(String filled, String empty, int maxLength, int fill) {
@@ -151,7 +151,7 @@ public class Utils {
     public static boolean isAdmin(String uid){
         if (Floatzel.conf.getOwnerid().equals(uid)) return true;
         boolean match = false;
-        for (String s : admins) {
+        for (String s : Floatzel.conf.getAdmins()) {
             if (uid.contains(s)){
                 match = true;
                 break;
