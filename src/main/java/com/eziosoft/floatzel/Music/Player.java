@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Music;
 
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
@@ -130,6 +131,7 @@ public class Player extends ListenerAdapter {
             @Override
             public void loadFailed(FriendlyException exception) {
                 event.getChannel().sendMessage("HOLY FUCK AN ERROR: " + exception.getMessage()).queue();
+                Error.Catch(exception);
                 if (musicManager.player.getPlayingTrack() == null) killConnection(event.getGuild());
             }
         });
