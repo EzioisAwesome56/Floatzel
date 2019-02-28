@@ -1,6 +1,7 @@
 # Floatzel
 ## Setting up the bot
-simply clone the repo, and then rename `ConfigStock.java` to just `Config.java` then just fill in all of the information asked for in the file. Then just compile the bot and you should be good to go!
+Simply clone the bot, compile it, then run it. It will generate a config.json file with the correct setup for floatzel.<br>
+From there, it is as simple as entering in your details into the config.json file and running the bot.
 ## Requirements
 this bot is rewritten in Java 8, and confirmed to work in openjdk 8.<br>
 The bot requires a rethinkDB server, without a password, running on the same machine that the bot is for database storage. Password options may be added later<br>
