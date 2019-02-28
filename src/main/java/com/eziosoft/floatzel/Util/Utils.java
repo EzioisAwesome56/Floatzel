@@ -160,4 +160,18 @@ public class Utils {
         }
         return match;
     }
+
+    // check if the config file exists
+    public static boolean configExist(){
+        File config = new File("config.json");
+        if (config.exists()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void makeConfig(){
+        // do shit here
+    }
 }

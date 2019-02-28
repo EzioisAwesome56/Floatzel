@@ -25,6 +25,7 @@ import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Slack.Slack;
 import com.eziosoft.floatzel.Util.TwitterManager;
+import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
@@ -50,16 +51,25 @@ public class Floatzel {
     public static TwitterManager twitterManager = new TwitterManager();
     public static Player musicPlayer = new Player();
 
+    // json configuration file
+    public static JsonConfig conf = new JsonConfig();
+
     //thing for the tweet bot
     public static boolean tweeton = false;
     public static boolean fail = false;
 
     public static void main(String[] args) throws LoginException {
+        System.out.println("Floatzel is now starting up...");
         //Checking if shit is dev (which is set by adding --dev to java args, if so, do extra shit.
         for (String arg : args) {
             if (arg.equalsIgnoreCase("--dev")) {
                 isdev = true;
+                System.out.println("RUNNING IN DEVELOPEMENT MODE!");
             }
+        }
+        // does the configuration file exist??!!?!??!?!!
+        if (!Utils.configExist()){
+            System.out.println("Floatzel was unable to find configuration data!");
         }
 
         // resume everything else
