@@ -29,7 +29,7 @@ public class Help extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event) {
-        if (argsplit.length == 0) {
+        if (event.getArgs().length() < 1) {
             sendHelp(event);
         } else {
             sendCommandHelp(event, argsplit[0]);
@@ -75,8 +75,8 @@ public class Help extends FCommand {
         Optional<Command> command = event.getClient().getCommands().stream().filter(c -> c.getName().equalsIgnoreCase(commandName)).findAny();
         //Check if the command exists, if it does, check if they have perms to view the command (or the command is hidden).
         if (command.isPresent()) {
-            if (command.get().getCategory().getName().equalsIgnoreCase("bot owner")) found = event.isOwner();
-            else if (command.get().getCategory().getName().equalsIgnoreCase("bot admin")) found = Utils.isAdmin(event.getAuthor().getId());
+            if (command.get().getCategory().getName().equalsIgnoreCase(owner.getName())) found = event.isOwner();
+            else if (command.get().getCategory().getName().equalsIgnoreCase(admin.getName())) found = Utils.isAdmin(event.getAuthor().getId());
             else found = !command.get().getCategory().getName().equalsIgnoreCase("unassigned");
         } else found = false;
 
