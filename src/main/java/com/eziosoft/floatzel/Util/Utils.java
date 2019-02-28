@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import static com.eziosoft.floatzel.Config.admins;
-
 public class Utils {
     private static Random random = new Random();
+
+    private static List<String> admins = Floatzel.conf.getAdmins();
 
 
     public static String genBar(String filled, String empty, int maxLength, int fill) {
@@ -150,7 +150,7 @@ public class Utils {
 
     // moved from fcommand
     public static boolean isAdmin(String uid){
-        if (Config.ownerid.equals(uid)) return true;
+        if (Floatzel.conf.getOwnerid().equals(uid)) return true;
         boolean match = false;
         for (String s : admins) {
             if (uid.contains(s)){
@@ -171,11 +171,11 @@ public class Utils {
         }
     }
 
-    public static void makeConfig(JsonConfig h, Gson g){
+    public static void makeConfig(Gson g){
         // load default configuration data
-        h.loadDefaults();
+        Floatzel.conf.loadDefaults();
         // convert the file to a string
-        String json = g.toJson(h);
+        String json = g.toJson(Floatzel.conf);
         // save the file
         try {
             FileWriter writer = new FileWriter("config.json");
@@ -189,15 +189,15 @@ public class Utils {
         System.out.println("A default config file has been generated. Please edit this file with your own information!");
     }
 
-    public static boolean loadConfig(JsonConfig h, Gson g){
+    public static boolean loadConfig(Gson g){
         System.out.println("Now loading configuration file...");
         try {
             BufferedReader br = new BufferedReader(new FileReader("config.json"));
-            h = g.fromJson(br, JsonConfig.class);
+            Floatzel.conf = g.fromJson(br, JsonConfig.class);
             br.close();
             // minor last second processing: make the text null into real null
-            if (h.dbPass().equals("null")){ h.setDbPass(null);}
-            if (h.dbUser().equals("null")){ h.setDbUser(null);}
+            if (Floatzel.conf.dbPass().equals("null")){ Floatzel.conf.setDbPass(null);}
+            if (Floatzel.conf.dbUser().equals("null")){ Floatzel.conf.setDbUser(null);}
             return true;
         } catch (IOException e){
             e.printStackTrace();

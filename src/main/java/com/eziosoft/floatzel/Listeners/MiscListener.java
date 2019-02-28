@@ -39,10 +39,10 @@ public class MiscListener extends ListenerAdapter {
             if (event.getJDA().getShardInfo().getShardId() == event.getJDA().getShardInfo().getShardTotal() - 1){
                 Database.dbinit();
                 StockUtil.initStock();
-                if (Config.enslack) {
+                if (Floatzel.conf.getEnSlack()) {
                     // init slack
                     try {
-                        Slack.StartSlack(Config.slackbot);
+                        Slack.StartSlack(Floatzel.conf.getSlackbot());
                     } catch (IOException e) {
                         System.out.println("There was an error starting slack");
                     }

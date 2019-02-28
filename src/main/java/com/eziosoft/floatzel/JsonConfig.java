@@ -81,4 +81,65 @@ public class JsonConfig {
     public void setDbPass(String h){
         this.dbPass = h;
     }
+    // get everything else
+    public String getOwnerid() {
+        return ownerid;
+    }
+    public String getPrefix() {
+        return prefix;
+    }
+    public String getDevprefix(){
+        return devprefix;
+    }
+    public String getToken(){
+        return this.token;
+    }
+    public String getDevtoken(){
+        return this.devtoken;
+    }
+    // getting shit for twitter
+    public String getKey(){
+        return this.key;
+    }
+    public String getSecretkey(){
+        return this.secretkey;
+    }
+    public String getAccess(){
+        return this.access;
+    }
+    public String getSecretaccess(){
+        return this.secretaccess;
+    }
+    // bot admins
+    public List<String> getAdmins(){
+        return this.admins;
+    }
+    // twitter groups
+    public long[] getGroupa(){
+        return this.groupa;
+    }
+    public long[] getGroupb(){
+        return this.groupb;
+    }
+    // twitter channels
+    public String getAchan(){
+        return this.achan;
+    }
+    public String getBchan(){
+        return this.bchan;
+    }
+    public String getDevchan(){
+        return this.devchan;
+    }
+    // twitter toggle
+    public boolean getTwitterTog(){
+        return this.twittertog;
+    }
+    // slack shit
+    public String getSlackbot(){
+        return this.slackbot;
+    }
+    public boolean getEnSlack(){
+        return this.enslack;
+    }
 }

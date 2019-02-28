@@ -76,12 +76,12 @@ public class Floatzel {
         if (!Utils.configExist()){
             System.out.println("Floatzel was unable to find configuration data!");
             // we assume it doesnt exist and generate fresh config data
-            Utils.makeConfig(conf, gson);
+            Utils.makeConfig(gson);
             // then just exit the software!
             System.exit(0);
         } else {
             // it exists, load it!
-            boolean a = Utils.loadConfig(conf, gson);
+            boolean a = Utils.loadConfig(gson);
             if (!a){
                 System.out.println("there was a error loading config. Floatzel shutting down...");
                 System.exit(1);
@@ -93,7 +93,7 @@ public class Floatzel {
 
         // resume everything else
         version = !isdev ? "2.4.5" : "2.x Developement";
-         commandClient = new CommandClientBuilder().setOwnerId(Config.ownerid).useHelpBuilder(false).setPrefix(isdev ? Config.devprefix : Config.prefix).build();
+         commandClient = new CommandClientBuilder().setOwnerId(conf.getOwnerid()).useHelpBuilder(false).setPrefix(!isdev ? conf.getPrefix() : conf.getDevprefix()).build();
 
 
         // change this depending on what token you wanna use
@@ -153,11 +153,11 @@ public class Floatzel {
 
 
         
-        jda = new DefaultShardManagerBuilder().setToken(!isdev ? Config.token : Config.devToken)
+        jda = new DefaultShardManagerBuilder().setToken(!isdev ? conf.getToken() : conf.getDevtoken())
                 .addEventListeners(listener, commandClient, musicPlayer, waiter)
                 .setShardsTotal(2).build();
 
         //TwitterManager is now a listener too, which'll do all the work onReady by itself instead of relying on MiscListener
-        if (!isdev && Config.twittertog) Floatzel.jda.addEventListener(twitterManager);
+        if (!isdev && Floatzel.conf.getTwitterTog()) Floatzel.jda.addEventListener(twitterManager);
     }
 }

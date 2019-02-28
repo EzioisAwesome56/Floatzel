@@ -59,7 +59,7 @@ public class Help extends FCommand {
                 List<FCommand> currentPage = sorted.subList(i, (i + 10 < sorted.size() ? i + 10 : sorted.size()));
                 EmbedBuilder eBuilder = new EmbedBuilder();
                 eBuilder.setTitle(c.getName());
-                eBuilder.setDescription(StringUtils.join(currentPage.stream().map(cmd -> (Floatzel.isdev ? Config.devprefix : Config.prefix) + cmd.getName() + " - " + cmd.getHelp()).collect(Collectors.toList()), "\n"));
+                eBuilder.setDescription(StringUtils.join(currentPage.stream().map(cmd -> (Floatzel.isdev ? Floatzel.conf.getDevprefix() : Floatzel.conf.getPrefix()) + cmd.getName() + " - " + cmd.getHelp()).collect(Collectors.toList()), "\n"));
                 eBuilder.setFooter("Floatzel v" + Floatzel.version, null);
                 eBuilder.setAuthor("Fuck you, I'm floatzel.", null, event.getSelfUser().getAvatarUrl());
                 builder.addItems(eBuilder.build());

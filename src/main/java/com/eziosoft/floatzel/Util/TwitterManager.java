@@ -27,21 +27,21 @@ public class TwitterManager extends ListenerAdapter {
     // stuff from kekbot we probably need
     private static Instant lastTweet;
     // floatzel stiuff resumes
-    long[] admins = Config.groupa;
-    long[] mods = Config.groupb;
+    long[] admins = Floatzel.conf.getGroupa();
+    long[] mods = Floatzel.conf.getGroupb();
     private Map<Long, Message> currentTweets = new HashMap<>();
     ConfigurationBuilder cb = new ConfigurationBuilder().setDebugEnabled(true)
-            .setOAuthConsumerKey(Config.key)
-            .setOAuthConsumerSecret(Config.secretkey)
-            .setOAuthAccessToken(Config.access)
-            .setOAuthAccessTokenSecret(Config.secretaccess);
+            .setOAuthConsumerKey(Floatzel.conf.getKey())
+            .setOAuthConsumerSecret(Floatzel.conf.getSecretkey())
+            .setOAuthAccessToken(Floatzel.conf.getAccess())
+            .setOAuthAccessTokenSecret(Floatzel.conf.getSecretaccess());
     // move some of this shit down here i guess
     // also make a static copy of the cb
     private static ConfigurationBuilder oof = new ConfigurationBuilder().setDebugEnabled(true)
-            .setOAuthConsumerKey(Config.key)
-            .setOAuthConsumerSecret(Config.secretkey)
-            .setOAuthAccessToken(Config.access)
-            .setOAuthAccessTokenSecret(Config.secretaccess);
+            .setOAuthConsumerKey(Floatzel.conf.getKey())
+            .setOAuthConsumerSecret(Floatzel.conf.getSecretkey())
+            .setOAuthAccessToken(Floatzel.conf.getAccess())
+            .setOAuthAccessTokenSecret(Floatzel.conf.getSecretaccess());
     private static final TwitterFactory tf = new TwitterFactory(oof.build());
     private static final Twitter tweeter = tf.getInstance();
             // hey the solution was to import twitter4j-stream in maven and problem solved!
@@ -65,9 +65,9 @@ public class TwitterManager extends ListenerAdapter {
                     builder.setDescription(status.getText());
 
                     if (!Floatzel.isdev) {
-                        Floatzel.jda.getTextChannelById(rank == 1 ? Config.achan : Config.bchan).sendMessage(builder.build()).queue(m -> currentTweets.put(status.getId(), m));
+                        Floatzel.jda.getTextChannelById(rank == 1 ? Floatzel.conf.getAchan() : Floatzel.conf.getBchan()).sendMessage(builder.build()).queue(m -> currentTweets.put(status.getId(), m));
                     } else {
-                        Floatzel.jda.getTextChannelById(Config.devchan).sendMessage(builder.build()).queue(m -> currentTweets.put(status.getId(), m));
+                        Floatzel.jda.getTextChannelById(Floatzel.conf.getDevchan()).sendMessage(builder.build()).queue(m -> currentTweets.put(status.getId(), m));
                     }
                 }
 

@@ -29,10 +29,10 @@ public class Database {
     // check if folder exist
     public static void dbinit() {
         Connection.Builder builder = r.connection().hostname("localhost").port(28015);
-        if (Config.dbUser != null) {
-            builder.user(Config.dbUser, Config.dbPass != null ? Config.dbPass : "");
+        if (Floatzel.conf.dbUser() != null) {
+            builder.user(Floatzel.conf.dbUser(), Floatzel.conf.dbPass() != null ? Floatzel.conf.dbPass() : "");
         } else {
-            builder.user("admin", Config.dbPass != null ? Config.dbPass : "");
+            builder.user("admin", Floatzel.conf.dbPass() != null ? Floatzel.conf.dbPass() : "");
         }
 
         thonk = builder.connect();

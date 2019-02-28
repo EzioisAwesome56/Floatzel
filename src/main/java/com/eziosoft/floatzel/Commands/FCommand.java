@@ -6,8 +6,6 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 
 import java.util.Random;
 
-import static com.eziosoft.floatzel.Config.admins;
-
 public abstract class FCommand extends Command {
 
     protected String description = "no description";
