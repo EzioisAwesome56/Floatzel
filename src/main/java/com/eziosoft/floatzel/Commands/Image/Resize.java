@@ -66,15 +66,11 @@ public class Resize extends FCommand {
                     fail = false;
                 }
 
-            } catch (MalformedURLException | UnknownHostException | IllegalArgumentException | FileNotFoundException e) {
+            } catch (MalformedURLException | UnknownHostException | IllegalArgumentException | FileNotFoundException | SSLHandshakeException | SocketException e) {
                 fail = true;
-                System.out.println(e.getMessage());
-            } catch (SSLHandshakeException | SocketException e) {
-                fail = true;
-                System.out.println(e.getMessage());
-            } catch (IOException e) {
-                fail = true;
-                System.out.println(e.getMessage());
+            } catch (IOException e){
+                Error.Catch(e);
+                return;
             }
         } else {
             // try and pull a message from the history
