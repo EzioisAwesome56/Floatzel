@@ -7,9 +7,11 @@ import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.requests.Route;
+import org.apache.commons.io.IOUtils;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
+import org.im4java.core.Info;
 import org.im4java.process.Pipe;
 
 import javax.imageio.IIOImage;
@@ -48,6 +50,7 @@ public class Resize extends FCommand {
             a = event.getMessage();
             try {
                 source = a.getAttachments().get(0).getInputStream();
+                fail = false;
             } catch (IOException e){
                 Error.Catch(e);
                 return;
@@ -59,7 +62,7 @@ public class Resize extends FCommand {
                 URLConnection connection = image.openConnection();
                 connection.setRequestProperty("User-Agent", "Mozilla/5.0");
                 connection.connect();
-                source = connection.getInputStream();
+                source = new ByteArrayInputStream(IOUtils.toByteArray(connection.getInputStream()));
                 if (source == null) {
                     fail = true;
                 } else {
@@ -117,9 +120,54 @@ public class Resize extends FCommand {
             op.addImage("jpg:-");
             cmd.run(op, ImageIO.read(source));
             stream.flush();
-            byte[] done = stream.toByteArray();
+            source.reset();
+            source = new ByteArrayInputStream(stream.toByteArray());
+            stream.reset();
+            // shrinking the image!
+            cmd = new ConvertCmd();
+            if (Floatzel.isdev) cmd.setSearchPath("C:\\magick");
+            cmd.setOutputConsumer(pipeOut);
+            op = new IMOperation();
+            what = ImageIO.read(source);
+            int height = what.getHeight();
+            int width = what.getWidth();
+            op.addImage();
+            op.format("jpg");
+            op.resize(200,200);
+            op.addImage("jpg:-");
+            cmd.run(op, what);
+            stream.flush();
+            // next jpeg
+            event.getChannel().sendTyping().queue();
+            source.reset();
+            source = new ByteArrayInputStream(stream.toByteArray());
+            stream.reset();
+            cmd = new ConvertCmd();
+            if (Floatzel.isdev) cmd.setSearchPath("C:\\magick");
+            cmd.setOutputConsumer(pipeOut);
+            op = new IMOperation();
+            op.addImage();
+            op.format("jpg");
+            op.quality((double) 1);
+            op.addImage("jpg:-");
+            cmd.run(op, ImageIO.read(source));
+            stream.flush();
+            // finally: resize it back to original size
+            source.reset();
+            source = new ByteArrayInputStream(stream.toByteArray());
+            stream.reset();
+            cmd = new ConvertCmd();
+            if (Floatzel.isdev) cmd.setSearchPath("C:\\magick");
+            cmd.setOutputConsumer(pipeOut);
+            op = new IMOperation();
+            op.addImage();
+            op.resize(width, height);
+            op.addImage("jpg:-");
+            cmd.run(op, ImageIO.read(source));
+            stream.flush();
+            event.getChannel().sendFile(stream.toByteArray(), "wat.jpg").queue();
             stream.close();
-            event.getChannel().sendFile(done, "wat.jpg").queue();
+            source.close();
         } catch (IOException | InterruptedException | IM4JavaException e){
             Error.Catch(e);
         }
