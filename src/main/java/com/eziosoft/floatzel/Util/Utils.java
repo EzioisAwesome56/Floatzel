@@ -6,12 +6,15 @@ import com.eziosoft.floatzel.Res.Files;
 import com.eziosoft.smm4j.Level;
 import com.eziosoft.smm4j.Util;
 import com.google.gson.Gson;
+import com.jagrosh.jdautilities.command.CommandEvent;
 import com.rethinkdb.gen.ast.Json;
 import com.rethinkdb.net.Cursor;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
