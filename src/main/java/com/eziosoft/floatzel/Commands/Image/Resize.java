@@ -6,29 +6,17 @@ import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.requests.Route;
 import org.apache.commons.io.IOUtils;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
-import org.im4java.core.Info;
 import org.im4java.process.Pipe;
 
-import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
-import javax.imageio.stream.FileImageOutputStream;
-import javax.imageio.stream.ImageOutputStream;
 import javax.net.ssl.SSLHandshakeException;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 public class Resize extends FCommand {
     public Resize() {
@@ -38,19 +26,15 @@ public class Resize extends FCommand {
         aliases = Utils.makeAlias("resize");
     }
 
+    private String failMessage = "No fucking images was found you dumbass!";
+
     protected void cmdrun(CommandEvent event){
-        InputStream source = null;
         event.getChannel().sendTyping().queue();
-        Message a = null;
-        BufferedImage what = null;
-        boolean fail = true;
         // try and find a thingy??????
         if (event.getMessage().getAttachments().size() > 0 && event.getMessage().getAttachments().get(0).isImage()){
             // this is an image attachment message
-            a = event.getMessage();
             try {
-                source = a.getAttachments().get(0).getInputStream();
-                fail = false;
+                resizeImage(event, event.getMessage().getAttachments().get(0).getInputStream());
             } catch (IOException e){
                 Error.Catch(e);
                 return;
@@ -62,49 +46,45 @@ public class Resize extends FCommand {
                 URLConnection connection = image.openConnection();
                 connection.setRequestProperty("User-Agent", "Mozilla/5.0");
                 connection.connect();
-                source = new ByteArrayInputStream(IOUtils.toByteArray(connection.getInputStream()));
-                if (source == null) {
-                    fail = true;
-                } else {
-                    fail = false;
+                InputStream stream = connection.getInputStream();
+                // We use ImageIO because it won't accept anything that's not a proper image. Checking if the stream is null is 100% useless.
+                if (ImageIO.read(stream) == null) {
+                    event.getChannel().sendMessage(failMessage).queue();
                 }
+                resizeImage(event, new ByteArrayInputStream(IOUtils.toByteArray(connection.getInputStream())));
 
             } catch (MalformedURLException | UnknownHostException | IllegalArgumentException | FileNotFoundException | SSLHandshakeException | SocketException e) {
-                fail = true;
+                event.getChannel().sendMessage(failMessage).queue();
             } catch (IOException e){
                 Error.Catch(e);
                 return;
             }
         } else {
             // try and pull a message from the history
-            List<Message> gay = event.getChannel().getHistory().retrievePast(50).complete();
-            for (Message m : gay){
-                if (m.getAttachments().size() > 0){
-                    if (m.getAttachments().get(0).getHeight() > 0){
-                        a = m;
-                        fail = false;
-                        break;
+            event.getChannel().getHistory().retrievePast(50).queue(messages -> {
+                for (Message m : messages){
+                    if (m.getAttachments().size() < 1) {
+                        continue;
+                    }
+
+                    if (m.getAttachments().get(0).isImage()) {
+                        try {
+                            resizeImage(event, m.getAttachments().get(0).getInputStream());
+                            return;
+                        } catch (IOException e){
+                            Error.Catch(e);
+                        }
                     }
                 }
-            }
-            if (a == null){
-                fail = true;
-            } else {
-                try {
-                    source = a.getAttachments().get(0).getInputStream();
-                } catch (IOException e){
-                    Error.Catch(e);
-                    return;
-                }
-            }
+                event.getChannel().sendMessage(failMessage).queue();
+            });
         }
 
-        // did it fail?
-        if (fail){
-            event.getChannel().sendMessage("No fucking images was found you dumbass!").queue();
-            return;
-        }
-        // prepare for magick stuff
+    }
+
+    // We moved this process into its own method, for both tidiness and since we'll be calling it three times.
+    private void resizeImage(CommandEvent event, InputStream source) {
+        BufferedImage what;// prepare for magick stuff
         try {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             Pipe pipeOut = new Pipe(null, stream);
