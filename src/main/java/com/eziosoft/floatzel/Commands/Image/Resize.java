@@ -168,7 +168,7 @@ public class Resize extends FCommand {
             event.getChannel().sendFile(stream.toByteArray(), "wat.jpg").queue();
             stream.close();
             source.close();
-        } catch (IOException | InterruptedException | IM4JavaException e){
+        } catch (IOException | InterruptedException | IM4JavaException | NullPointerException e){
             Error.Catch(e);
         }
     }
