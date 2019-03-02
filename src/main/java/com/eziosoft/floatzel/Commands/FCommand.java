@@ -4,6 +4,7 @@ import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import java.io.InputStream;
 import java.util.Random;
 
 public abstract class FCommand extends Command {
@@ -27,6 +28,7 @@ public abstract class FCommand extends Command {
     public static Category stocks =  new Category("Stock Market");
     public static Category admin = new Category("Admin Commands");
     public static Category smm = new Category("Super Mario Maker");
+    public static Category image = new Category("Image");
 
     // for holding the split args
     public static String[] argsplit = null;
@@ -66,13 +68,13 @@ public abstract class FCommand extends Command {
                 event.getChannel().sendMessage("Error: You do not have permission to run this").queue();
                 return;
             }
-
         }
-        // if all checks are passed, run the command
         cmdrun(event);
     }
 
     protected abstract void cmdrun(CommandEvent event);
+
+
 
 
 

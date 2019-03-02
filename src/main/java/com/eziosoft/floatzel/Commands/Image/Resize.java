@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.Image;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Commands.FImageCommand;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
@@ -18,68 +19,17 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
 
-public class Resize extends FCommand {
+public class Resize extends FImageCommand {
     public Resize() {
         name = "jpeg";
         description = "jpeg-ifys your image";
-        category = other;
+        category = FCommand.image;
         aliases = Utils.makeAlias("resize");
     }
 
-    private String failMessage = "No fucking images was found you dumbass!";
-
-    protected void cmdrun(CommandEvent event){
-        event.getChannel().sendTyping().queue();
-        // try and find a thingy??????
-        if (event.getMessage().getAttachments().size() > 0 && event.getMessage().getAttachments().get(0).isImage()){
-            // this is an image attachment message
-            try {
-                resizeImage(event, event.getMessage().getAttachments().get(0).getInputStream());
-            } catch (IOException e){
-                Error.Catch(e);
-                return;
-            }
-        } else if (event.getArgs().length() > 0){
-            // try to load the link i guess
-            try {
-                URL image = new URL(argsplit[0]);
-                URLConnection connection = image.openConnection();
-                connection.setRequestProperty("User-Agent", "Mozilla/5.0");
-                connection.connect();
-                InputStream stream = connection.getInputStream();
-                // We use ImageIO because it won't accept anything that's not a proper image. Checking if the stream is null is 100% useless.
-                if (ImageIO.read(stream) == null) {
-                    event.getChannel().sendMessage(failMessage).queue();
-                }
-                resizeImage(event, new ByteArrayInputStream(IOUtils.toByteArray(connection.getInputStream())));
-
-            } catch (MalformedURLException | UnknownHostException | IllegalArgumentException | FileNotFoundException | SSLHandshakeException | SocketException e) {
-                event.getChannel().sendMessage(failMessage).queue();
-            } catch (IOException e){
-                Error.Catch(e);
-                return;
-            }
-        } else {
-            // try and pull a message from the history
-            event.getChannel().getHistory().retrievePast(50).queue(messages -> {
-                for (Message m : messages){
-                    if (m.getAttachments().size() < 1) {
-                        continue;
-                    }
-
-                    if (m.getAttachments().get(0).isImage()) {
-                        try {
-                            resizeImage(event, m.getAttachments().get(0).getInputStream());
-                            return;
-                        } catch (IOException e){
-                            Error.Catch(e);
-                        }
-                    }
-                }
-                event.getChannel().sendMessage(failMessage).queue();
-            });
-        }
-
+    @Override
+    protected void imageRun(CommandEvent event, InputStream source){
+        resizeImage(event, source);
     }
 
     // We moved this process into its own method, for both tidiness and since we'll be calling it three times.
