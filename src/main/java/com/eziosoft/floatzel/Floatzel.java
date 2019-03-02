@@ -4,9 +4,7 @@ import com.eziosoft.floatzel.Commands.Asshole.SwearCombine;
 import com.eziosoft.floatzel.Commands.Currency.*;
 import com.eziosoft.floatzel.Commands.Debug.Debug;
 import com.eziosoft.floatzel.Commands.Entertainment.*;
-import com.eziosoft.floatzel.Commands.Image.Explode;
-import com.eziosoft.floatzel.Commands.Image.ImageTest;
-import com.eziosoft.floatzel.Commands.Image.Resize;
+import com.eziosoft.floatzel.Commands.Image.*;
 import com.eziosoft.floatzel.Commands.Other.*;
 import com.eziosoft.floatzel.Commands.Owner.Eval;
 import com.eziosoft.floatzel.Commands.PayForCommands.BetterLoan;
@@ -150,6 +148,8 @@ public class Floatzel {
         commandClient.addCommand(new Resize());
         commandClient.addCommand(new Cow());
         commandClient.addCommand(new Explode());
+        commandClient.addCommand(new Implode());
+        commandClient.addCommand(new Wall());
         //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
