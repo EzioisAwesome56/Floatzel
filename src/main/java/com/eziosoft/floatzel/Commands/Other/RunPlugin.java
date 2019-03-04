@@ -9,7 +9,6 @@ public class RunPlugin extends FCommand {
     public RunPlugin(){
         name = "run";
         description = "Fucking runs a javascript plugin";
-        ownerCommand = true;
         category = other;
     }
 

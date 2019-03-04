@@ -23,6 +23,15 @@ public class Plugin {
             // load the plugin file
             engine.eval(new FileReader("plugins/test.js"));
             Invocable runjs = (Invocable) engine;
+            boolean ownercmd = (boolean) runjs.invokeFunction("isOwner", "");
+
+            // permission checks
+            if (ownercmd){
+                if (!event.isOwner()){
+                    event.getChannel().sendMessage("Error: you are fucking lacking in permission to run this!").queue();
+                    return;
+                }
+            }
             // try running the plugin
             runjs.invokeFunction("run", "");
         } catch (ScriptException | FileNotFoundException | NoSuchMethodException e){
