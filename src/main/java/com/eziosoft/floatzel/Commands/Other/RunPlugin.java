@@ -14,7 +14,12 @@ public class RunPlugin extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        Plugin.runPlugin(event);
+        // check to make sure they gave arguments
+        if (event.getArgs().length() < 1){
+            event.getChannel().sendMessage("Fuckhead! You didnt provide the name of the plugin you want to run!").queue();
+            return;
+        }
+        Plugin.runPlugin(event, argsplit[0]);
         return;
     }
 }
