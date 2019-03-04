@@ -8,6 +8,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 
 public class Plugin {
 
@@ -22,16 +23,26 @@ public class Plugin {
             engine.put("channel", event.getTextChannel());
             // load the plugin file
             engine.eval(new FileReader("plugins/test.js"));
+            // load in Plugin api support file
+            engine.eval(new InputStreamReader(Utils.getResourse("/plugin/", "support.js")));
             Invocable runjs = (Invocable) engine;
-            boolean ownercmd = (boolean) runjs.invokeFunction("isOwner", "");
 
-            // permission checks
-            if (ownercmd){
-                if (!event.isOwner()){
-                    event.getChannel().sendMessage("Error: you are fucking lacking in permission to run this!").queue();
-                    return;
+            // permission checking
+            if (!(boolean) runjs.invokeFunction("checkPermission", "")){
+                // check if required permission is bot admin
+                if ((boolean) runjs.invokeFunction("isAdmin", "")){
+                    if (!Utils.isAdmin(event.getAuthor().getId())){
+                        event.getChannel().sendMessage("Error: you are not a fucking bot admin! You cannot run this plugin!").queue();
+                        return;
+                    }
+                } else if ((boolean) runjs.invokeFunction("isOwner", "")){
+                    if (!event.isOwner()){
+                        event.getChannel().sendMessage("Error: you arent a fucking bot owner and cant run this plugin!").queue();
+                        return;
+                    }
                 }
             }
+
             // try running the plugin
             runjs.invokeFunction("run", "");
         } catch (ScriptException | FileNotFoundException | NoSuchMethodException e){

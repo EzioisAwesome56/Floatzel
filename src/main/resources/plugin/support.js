@@ -4,11 +4,21 @@
 
 // function to check permissions
 function checkPermission(){
-	if (ownerCmd){
+	if (ownerCmd == true){
 		return false;
-	} else if (adminCmd){
+	} else if (adminCmd == true){
 		return false;
 	} else {
 		return true;
 	}
+};
+
+// used for checking if the permission needed is bot owner
+function isOwner(){
+	return ownerCmd;
+};
+
+// used for checking if command requires bot admin permissions
+function isAdmin(){
+	return adminCmd;
 };
