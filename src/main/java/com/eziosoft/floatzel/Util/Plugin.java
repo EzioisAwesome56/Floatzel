@@ -21,6 +21,10 @@ public class Plugin {
             engine.put("event", event);
             engine.put("guild", event.getGuild());
             engine.put("channel", event.getTextChannel());
+            // load jvm-npm
+            engine.eval("load('"+ Plugin.class.getResource("/plugin/lib/jvm-npm.js").getFile() + "');");
+            // load polyfill.js
+            engine.eval(new InputStreamReader(Utils.getResourse("/plugin/lib/", "polyfill.js")));
             // load plugin api utils
             engine.eval(new InputStreamReader(Utils.getResourse("/plugin/", "util.js")));
             // load the plugin file
