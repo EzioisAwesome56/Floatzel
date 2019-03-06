@@ -1,9 +1,11 @@
 package com.eziosoft.floatzel.Commands.Currency;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.rethinkdb.gen.exc.ReqlError;
 
 import javax.xml.crypto.Data;
 
@@ -15,7 +17,7 @@ public class Bal extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws DatabaseException {
         // check to see if the user alright has a db entry
         Boolean exists = Database.dbcheckifexist(event.getMessage().getAuthor().getId().toString());
         if (!exists){

@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Util;
 
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Res.Files;
 import com.eziosoft.floatzel.Res.Phrase;
@@ -19,7 +20,7 @@ public class TwitterUtils {
     private static int errorcode = 0;
     private static int retry = 0;
 
-    public static void tweetbot(){
+    public static void tweetbot() throws DatabaseException {
         // is the tweetbot on?
         if (!Floatzel.tweeton){
             return;

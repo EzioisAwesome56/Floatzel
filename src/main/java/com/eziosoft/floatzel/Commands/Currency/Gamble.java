@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.Currency;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -16,7 +17,7 @@ public class Gamble extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws DatabaseException {
         int args = 0;
         String printarg = event.getArgs().replace("@everyone", "a fucking ping").replace("@here", "a fucking ping");
         try {

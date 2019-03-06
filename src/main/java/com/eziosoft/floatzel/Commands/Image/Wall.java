@@ -22,7 +22,7 @@ public class Wall extends FImageCommand {
     }
 
     @Override
-    protected void imageRun(CommandEvent event, InputStream source) {
+    protected void imageRun(CommandEvent event, InputStream source) throws IOException, InterruptedException, IM4JavaException {
         // setup im
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Pipe pipeOut = new Pipe(null, stream);
@@ -49,7 +49,7 @@ public class Wall extends FImageCommand {
             stream.close();
             source.close();
         } catch (IOException | InterruptedException | IM4JavaException e){
-            Error.Catch(e);
+            throw e;
         }
 
     }

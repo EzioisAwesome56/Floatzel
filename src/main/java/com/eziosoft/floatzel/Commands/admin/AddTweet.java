@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.admin;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -13,7 +14,7 @@ public class AddTweet extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws DatabaseException {
         String tweet = event.getArgs();
         if (tweet.length() > 280){
             event.getChannel().sendMessage("That tweet is too long dumbass!").queue();

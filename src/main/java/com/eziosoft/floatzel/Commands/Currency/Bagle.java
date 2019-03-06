@@ -13,7 +13,8 @@ public class Bagle extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        String uid = event.getAuthor().getId();
+        // considering this command is old as fuck and unfinished, just leave it. lol
+        /*String uid = event.getAuthor().getId();
         if (!Database.dbcheckifexist(uid)){
             event.getChannel().sendMessage("Error: you do not have enough fucking money to afford this").queue();
             return;
@@ -22,8 +23,9 @@ public class Bagle extends FCommand {
         if (bal < 100){
             event.getChannel().sendMessage("You dont have enough fucking bread to do this dipshit").queue();
             return;
-        }
+        }*/
         // buy a bagle
+
     }
 
 }

@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.Currency;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -16,7 +17,7 @@ public class Pay extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws DatabaseException {
         String uid = event.getAuthor().getId();
         String unsplit = event.getArgs();
         String rawamount = "";

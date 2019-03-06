@@ -1,6 +1,8 @@
 package com.eziosoft.floatzel.Commands.PayForCommands;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
+import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -16,24 +18,36 @@ public class BetterLoan extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws GenericException, DatabaseException{
         String uid = event.getAuthor().getId();
         //check if they havent bought the command yet
-        if (!Database.dbcheckbloan(uid)){
-            event.getChannel().sendMessage("You didnt fucking buy this command yet jackass!").queue();
-            return;
+        try {
+            if (!Database.dbcheckbloan(uid)) {
+                event.getChannel().sendMessage("You didnt fucking buy this command yet jackass!").queue();
+                return;
+            }
+        } catch (DatabaseException e){
+            throw e;
         }
         // lets be lazy as shit!
         // copy pasta'a from loan.java
         Random random = new Random();
         // check to see if the user doesnt have a db entry, if they dont, make one
-        if (!Database.dbcheckifexist(uid)){
-            System.out.println("New bank account created!");
+        try {
+            if (!Database.dbcheckifexist(uid)) {
+                System.out.println("New bank account created!");
+            }
+        } catch (DatabaseException e){
+            throw e;
         }
         // check if the user has a bank loan, if they havent claimed one at all, make one!
         boolean uwhat = Database.dbcheckifloan(uid);
         if (!uwhat){
-            Database.dbdefaultsave(uid, 2);
+            try {
+                Database.dbdefaultsave(uid, 2);
+            } catch (GenericException e){
+                throw e;
+            }
         }
         Long prevloan = Database.dbloadtime(uid);
         Long day = Integer.toUnsignedLong(86400000);

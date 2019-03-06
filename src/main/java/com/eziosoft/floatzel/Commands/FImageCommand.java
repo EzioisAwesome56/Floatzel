@@ -12,13 +12,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
+import java.rmi.server.ExportException;
 
 public abstract class FImageCommand extends FCommand {
 
     private String failMessage = "No fucking images was found you dumbass!";
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws Exception {
         event.getChannel().sendTyping().queue();
         // try and find a thingy??????
         if (event.getMessage().getAttachments().size() > 0 && event.getMessage().getAttachments().get(0).isImage()){
@@ -26,8 +27,9 @@ public abstract class FImageCommand extends FCommand {
             try {
                 imageRun(event, event.getMessage().getAttachments().get(0).getInputStream());
             } catch (IOException e){
-                Error.Catch(e);
-                return;
+                throw e;
+            } catch (Exception e){
+                throw e;
             }
         } else if (event.getArgs().length() > 0){
             // try to load the link i guess
@@ -42,13 +44,16 @@ public abstract class FImageCommand extends FCommand {
                     event.getChannel().sendMessage(failMessage).queue();
                     return;
                 }
-                imageRun(event, new ByteArrayInputStream(IOUtils.toByteArray(connection.getInputStream())));
+                try {
+                    imageRun(event, new ByteArrayInputStream(IOUtils.toByteArray(connection.getInputStream())));
+                } catch (Exception e){
+                    throw e;
+                }
 
             } catch (MalformedURLException | UnknownHostException | IllegalArgumentException | FileNotFoundException | SSLHandshakeException | SocketException e) {
                 event.getChannel().sendMessage(failMessage).queue();
             } catch (IOException e){
-                Error.Catch(e);
-                return;
+                throw e;
             }
         } else {
             // try and pull a message from the history
@@ -63,7 +68,10 @@ public abstract class FImageCommand extends FCommand {
                             imageRun(event, m.getAttachments().get(0).getInputStream());
                             return;
                         } catch (IOException e){
-                            Error.Catch(e);
+                            // ugh
+                            Error.CatchOld(e);
+                        } catch (Exception e){
+                            Error.CatchOld(e);
                         }
                     }
                 }
@@ -72,5 +80,5 @@ public abstract class FImageCommand extends FCommand {
         }
     }
 
-    protected abstract void imageRun(CommandEvent event, InputStream source);
+    protected abstract void imageRun(CommandEvent event, InputStream source) throws Exception;
 }

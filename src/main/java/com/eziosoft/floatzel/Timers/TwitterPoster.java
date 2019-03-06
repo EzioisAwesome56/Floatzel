@@ -1,7 +1,9 @@
 package com.eziosoft.floatzel.Timers;
 
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Database;
+import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.TwitterUtils;
 import com.eziosoft.floatzel.Util.Utils;
 import com.rethinkdb.net.Cursor;
@@ -19,6 +21,10 @@ public class TwitterPoster extends TimerTask {
     @Override
     public void run(){
         // just call the tweetbot in utils
-        TwitterUtils.tweetbot();
+        try {
+            TwitterUtils.tweetbot();
+        } catch (DatabaseException e){
+            Error.CatchTweet(e);
+        }
     }
 }

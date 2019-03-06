@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Commands;
 
+import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -71,10 +72,14 @@ public abstract class FCommand extends Command {
                 return;
             }
         }
-        cmdrun(event);
+        try {
+            cmdrun(event);
+        } catch (Exception e){
+            Error.Catch(e, event);
+        }
     }
 
-    protected abstract void cmdrun(CommandEvent event);
+    protected abstract void cmdrun(CommandEvent event) throws Exception;
 
 
 

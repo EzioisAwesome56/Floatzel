@@ -20,7 +20,7 @@ public class RunPlugin extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws LoadPluginException{
         // check to make sure they gave arguments
         if (event.getArgs().length() < 1){
             event.getChannel().sendMessage("Fuckhead! You didnt provide the name of the plugin you want to run!").queue();
@@ -39,8 +39,7 @@ public class RunPlugin extends FCommand {
                 event.getChannel().sendMessage("Error: that plugin doesnt fucking exist!").queue();
                 return;
             } catch (LoadPluginException e){
-                Error.Catch(e);
-                return;
+                throw e;
             }
             if (info[0].equals("fuck!")){
                 return;

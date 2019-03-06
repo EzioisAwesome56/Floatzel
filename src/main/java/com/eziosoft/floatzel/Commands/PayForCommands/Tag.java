@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.PayForCommands;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.Error;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -14,7 +15,7 @@ public class Tag extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws ArrayIndexOutOfBoundsException, DatabaseException {
         String args = "";
         try {
             args = argsplit[0];
@@ -89,8 +90,7 @@ public class Tag extends FCommand {
                         a++;
                     }
                 } catch (ArrayIndexOutOfBoundsException e){
-                    Error.Catch(e);
-                    return;
+                    throw e;
                 }
                 // last minute check, see if the tag is too long
                 if (content.length() > 1500){

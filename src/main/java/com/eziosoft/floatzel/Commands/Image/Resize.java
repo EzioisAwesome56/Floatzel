@@ -28,12 +28,16 @@ public class Resize extends FImageCommand {
     }
 
     @Override
-    protected void imageRun(CommandEvent event, InputStream source){
-        resizeImage(event, source);
+    protected void imageRun(CommandEvent event, InputStream source) throws IOException, InterruptedException, IM4JavaException, NullPointerException{
+        try {
+            resizeImage(event, source);
+        } catch (IOException | InterruptedException | IM4JavaException | NullPointerException e){
+            throw e;
+        }
     }
 
     // We moved this process into its own method, for both tidiness and since we'll be calling it three times.
-    private void resizeImage(CommandEvent event, InputStream source) {
+    private void resizeImage(CommandEvent event, InputStream source) throws IOException, InterruptedException, IM4JavaException, NullPointerException {
         BufferedImage what;// prepare for magick stuff
         try {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -99,7 +103,7 @@ public class Resize extends FImageCommand {
             stream.close();
             source.close();
         } catch (IOException | InterruptedException | IM4JavaException | NullPointerException e){
-            Error.Catch(e);
+            throw e;
         }
     }
 }

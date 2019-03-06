@@ -22,7 +22,7 @@ public class Implode extends FImageCommand {
     }
 
     @Override
-    protected void imageRun(CommandEvent event, InputStream source) {
+    protected void imageRun(CommandEvent event, InputStream source) throws IOException, IM4JavaException, InterruptedException {
         // setup imagemagick
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Pipe pipeOut = new Pipe(null, stream);
@@ -43,7 +43,7 @@ public class Implode extends FImageCommand {
             stream.close();
             source.close();
         } catch (IOException | IM4JavaException | InterruptedException e){
-            Error.Catch(e);
+            throw e;
         }
     }
 }

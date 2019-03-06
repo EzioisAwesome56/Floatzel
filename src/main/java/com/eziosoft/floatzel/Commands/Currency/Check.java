@@ -1,8 +1,10 @@
 package com.eziosoft.floatzel.Commands.Currency;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import com.rethinkdb.gen.exc.ReqlError;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public class Check extends FCommand {
 
 
     @Override
-    protected void cmdrun(CommandEvent event) {
+    protected void cmdrun(CommandEvent event) throws DatabaseException {
         // get mentions, if any
         List<User> mentions = event.getMessage().getMentionedUsers();
         if (mentions.isEmpty()){

@@ -1,6 +1,8 @@
 package com.eziosoft.floatzel.Commands.Currency;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
+import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -17,7 +19,7 @@ public class Loan extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws GenericException, DatabaseException {
         Random random = new Random();
         String uid = event.getAuthor().getId();
         // check to see if the user doesnt have a db entry, if they dont, make one
@@ -27,7 +29,11 @@ public class Loan extends FCommand {
         // check if the user has a bank loan, if they havent claimed one at all, make one!
         boolean uwhat = Database.dbcheckifloan(uid);
         if (!uwhat){
-            Database.dbdefaultsave(uid, 2);
+            try {
+                Database.dbdefaultsave(uid, 2);
+            } catch (GenericException e){
+                throw e;
+            }
         }
         Long prevloan = Database.dbloadtime(uid);
         Long day = Integer.toUnsignedLong(86400000);

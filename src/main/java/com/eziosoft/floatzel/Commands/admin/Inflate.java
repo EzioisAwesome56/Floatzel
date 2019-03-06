@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.admin;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -15,7 +16,7 @@ public class Inflate extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws DatabaseException {
         event.getChannel().sendMessage("inflating your wallet, please wait...").queue();
         // first: load the current amount of money
         int curbal = Database.dbloadint(event.getMessage().getAuthor().getId().toString());

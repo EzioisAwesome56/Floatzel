@@ -1,4 +1,5 @@
 package com.eziosoft.floatzel.Util;
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database.*;
 
 import java.util.Random;
@@ -9,7 +10,7 @@ public class StockUtil {
     public static boolean canstocks = true;
 
 
-    public static boolean initStock(){
+    public static boolean initStock() throws DatabaseException {
         // initilize the stock market values
         System.out.println("Floatzel is initilizing the stock market, please wait...");
         // test to see if theres anytnhing in the tables at all
@@ -27,7 +28,7 @@ public class StockUtil {
         }
     }
 
-    public static void updateStock(){
+    public static void updateStock() throws DatabaseException{
         // dont let people buy stocks during a market update...duh
         canstocks = false;
         System.out.println("Floatzel is now updating the stocks...");

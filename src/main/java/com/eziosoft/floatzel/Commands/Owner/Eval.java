@@ -18,7 +18,7 @@ public class Eval extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws ScriptException{
         String code = event.getArgs();
         if (code.length() < 0){
             event.getChannel().sendMessage("Error: invalid arguments!").queue();
@@ -29,8 +29,7 @@ public class Eval extends FCommand {
         try{
             engine.eval("var imports = new JavaImporter(java.io, java.lang, java.util, com.eziosoft.floatzel);");
         } catch (ScriptException e){
-            Error.Catch(e);
-            return;
+            throw e;
         }
         // now actually run this
         try {
@@ -55,9 +54,9 @@ public class Eval extends FCommand {
                 return;
             }
         } catch (ScriptException e){
-            Error.Catch(e);
+            throw e;
         } catch (Exception e){
-            Error.Catch(e);
+            throw e;
         }
     }
 }

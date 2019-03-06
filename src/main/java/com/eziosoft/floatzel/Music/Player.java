@@ -131,7 +131,6 @@ public class Player extends ListenerAdapter {
             @Override
             public void loadFailed(FriendlyException exception) {
                 event.getChannel().sendMessage("HOLY FUCK AN ERROR: " + exception.getMessage()).queue();
-                Error.Catch(exception);
                 if (musicManager.player.getPlayingTrack() == null) killConnection(event.getGuild());
             }
         });

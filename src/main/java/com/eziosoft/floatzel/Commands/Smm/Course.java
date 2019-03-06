@@ -16,7 +16,7 @@ public class Course extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws NullPointerException{
         event.getChannel().sendTyping().queue();
         String id = "";
         Level levelinf;
@@ -29,8 +29,7 @@ public class Course extends FCommand {
         try {
             levelinf = Level.getLevel(id);
         } catch (NullPointerException e){
-            Error.Catch(e);
-            return;
+            throw e;
         }
         event.getChannel().sendMessage(Utils.buildSmm(levelinf)).queue();
     }

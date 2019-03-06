@@ -1,11 +1,13 @@
 package com.eziosoft.floatzel.Listeners;
 
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.GameStatus;
 import com.eziosoft.floatzel.Slack.Slack;
 import com.eziosoft.floatzel.Timers.StockTimer;
 import com.eziosoft.floatzel.Timers.TwitterPoster;
 import com.eziosoft.floatzel.Util.Database;
+import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.StockUtil;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import net.dv8tion.jda.core.OnlineStatus;
@@ -37,7 +39,11 @@ public class MiscListener extends ListenerAdapter {
             // check to see if the db is setup
             if (event.getJDA().getShardInfo().getShardId() == event.getJDA().getShardInfo().getShardTotal() - 1){
                 Database.dbinit();
-                StockUtil.initStock();
+                try {
+                    StockUtil.initStock();
+                } catch (DatabaseException e){
+                    Error.CatchOld(e);
+                }
                 if (Floatzel.conf.getEnSlack()) {
                     // init slack
                     try {

@@ -24,7 +24,7 @@ public class Explode extends FImageCommand {
     }
 
     @Override
-    protected void imageRun(CommandEvent event, InputStream source){
+    protected void imageRun(CommandEvent event, InputStream source) throws IOException, InterruptedException, IM4JavaException{
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Pipe pipeOut = new Pipe(null, stream);
         // actual image shit
@@ -44,7 +44,7 @@ public class Explode extends FImageCommand {
             stream.close();
             source.close();
         } catch (IOException | InterruptedException | IM4JavaException e){
-            Error.Catch(e);
+            throw e;
         }
     }
 }

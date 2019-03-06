@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.Currency;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.StockUtil;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -13,7 +14,7 @@ public class ViewStocks extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws DatabaseException {
         String list = "```md\n#Floatzel Stock Market\n\n";
         StringBuilder builder = new StringBuilder();
         // are the stocks open right now?

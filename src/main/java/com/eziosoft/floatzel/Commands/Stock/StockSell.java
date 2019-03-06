@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.Stock;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -14,7 +15,7 @@ public class StockSell extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws DatabaseException {
         if (!canstocks){
             event.getChannel().sendMessage("You cannot sell a stock while floatzel is updating the market!").queue();
             return;
