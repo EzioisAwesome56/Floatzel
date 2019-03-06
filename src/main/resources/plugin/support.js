@@ -22,3 +22,12 @@ function isOwner(){
 function isAdmin(){
 	return adminCmd;
 };
+
+// the next 2 are used for getting plugin names and help text
+function getName(){
+	return name;
+};
+
+function getHelp(){
+	return help;
+};

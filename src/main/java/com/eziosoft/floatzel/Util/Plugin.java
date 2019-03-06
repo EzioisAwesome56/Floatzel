@@ -82,4 +82,22 @@ public class Plugin {
             return "fuck";
         }
     }
+
+    // get plugin information for registering
+    public static String[] getPluginInfo(String filename){
+        // we dont need to load the entire plugin API, just enough to get the required strings from them
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+        // load the plugin file
+        try {
+            engine.eval(new FileReader("plugins/" + filename + ".js"));
+            // load the support library
+            engine.eval(new InputStreamReader(Utils.getResourse("/plugin/", "support.js")));
+            Invocable runjs = (Invocable) engine;
+            // then load the 2 strings needed
+            return new String[]{(String) runjs.invokeFunction("getName", ""), (String) runjs.invokeFunction("getHelp", "")};
+        } catch (FileNotFoundException | ScriptException | NoSuchMethodException e){
+            Error.Catch(e);
+            return Utils.makeAlias("fuck!");
+        }
+    }
 }
