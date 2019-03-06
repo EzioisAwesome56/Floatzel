@@ -22,6 +22,11 @@ function convertArray(what){
 // interface with java to get a byte array back
 function sendFile(input, filename, event){
 	with (imports){
-		return com.eziosoft.floatzel.Util.Plugin.JSFileSend(input, event, filename);
+		return com.eziosoft.floatzel.Util.Plugin.JSFileSend(convertArray(input), event, filename);
 	}
+};
+
+// combined function to get the uint8array from java
+function getArray(message){
+	return StringView.base64ToBytes(getString(message));
 };
