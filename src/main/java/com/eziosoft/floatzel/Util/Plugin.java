@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Util;
 
+import com.eziosoft.floatzel.Exception.LoadPluginException;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Message;
@@ -84,7 +85,7 @@ public class Plugin {
     }
 
     // get plugin information for registering
-    public static String[] getPluginInfo(String filename){
+    public static String[] getPluginInfo(String filename) throws FileNotFoundException, LoadPluginException {
         // we dont need to load the entire plugin API, just enough to get the required strings from them
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         // load the plugin file
@@ -95,9 +96,11 @@ public class Plugin {
             Invocable runjs = (Invocable) engine;
             // then load the 2 strings needed
             return new String[]{(String) runjs.invokeFunction("getName", ""), (String) runjs.invokeFunction("getHelp", "")};
-        } catch (FileNotFoundException | ScriptException | NoSuchMethodException e){
-            Error.Catch(e);
-            return Utils.makeAlias("fuck!");
+        } catch (FileNotFoundException e){
+            throw new FileNotFoundException();
+        } catch (ScriptException | NoSuchMethodException e){
+            // throw that shit baby
+            throw new LoadPluginException(e.getMessage());
         }
     }
 }

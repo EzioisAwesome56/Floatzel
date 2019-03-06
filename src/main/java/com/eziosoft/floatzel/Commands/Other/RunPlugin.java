@@ -2,10 +2,14 @@ package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Commands.Plugin.BasePlugin;
+import com.eziosoft.floatzel.Exception.LoadPluginException;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Plugin;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+
+import java.io.FileNotFoundException;
 
 public class RunPlugin extends FCommand {
     public RunPlugin(){
@@ -28,8 +32,16 @@ public class RunPlugin extends FCommand {
                 event.getChannel().sendMessage("Oi fuckface! you didnt provide a plugin filename for me to register!").queue();
                 return;
             }
-            // TODO: check if the file name is valid
-            String[] info = Plugin.getPluginInfo(argsplit[1]);
+            String[] info;
+            try {
+                info = Plugin.getPluginInfo(argsplit[1]);
+            } catch (FileNotFoundException e){
+                event.getChannel().sendMessage("Error: that plugin doesnt fucking exist!").queue();
+                return;
+            } catch (LoadPluginException e){
+                Error.Catch(e);
+                return;
+            }
             if (info[0].equals("fuck!")){
                 return;
             }
@@ -37,8 +49,9 @@ public class RunPlugin extends FCommand {
             Floatzel.commandClient.addCommand(new BasePlugin(info[0], argsplit[1], info[1]));
             event.getChannel().sendMessage("Plugin has been fucking loaded!").queue();
             return;
+        } else if (argsplit[0].equals("run")){
+            Plugin.runPlugin(event, argsplit[2]);
+            return;
         }
-        Plugin.runPlugin(event, argsplit[0]);
-        return;
     }
 }
