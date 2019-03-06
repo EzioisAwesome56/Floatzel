@@ -29,6 +29,8 @@ public abstract class FCommand extends Command {
     public static Category admin = new Category("Admin Commands");
     public static Category smm = new Category("Super Mario Maker");
     public static Category image = new Category("Image");
+    // new! plugin group
+    public static Category plugin = new Category("Loadee Plugins");
 
     // for holding the split args
     public static String[] argsplit = null;
