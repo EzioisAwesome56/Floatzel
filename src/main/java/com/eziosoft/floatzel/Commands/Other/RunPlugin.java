@@ -9,9 +9,10 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 
 public class RunPlugin extends FCommand {
     public RunPlugin(){
-        name = "run";
-        description = "Fucking runs a javascript plugin";
-        category = other;
+        name = "plugin";
+        description = "Plugin manipulation shitz";
+        category = owner;
+        ownerCommand = true;
     }
 
     @Override
@@ -29,7 +30,7 @@ public class RunPlugin extends FCommand {
             }
             // TODO: check if the file name is valid
             String[] info = Plugin.getPluginInfo(argsplit[1]);
-            if (info[0].equals("fuck")){
+            if (info[0].equals("fuck!")){
                 return;
             }
             // then register it
