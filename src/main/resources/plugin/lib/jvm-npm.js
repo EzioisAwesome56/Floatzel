@@ -162,6 +162,7 @@ module = (typeof module === 'undefined') ? {} : module;
     var r = [];
     r.push(java.lang.System.getProperty('user.home') + '/.node_modules');
     r.push(java.lang.System.getProperty('user.home') + '/.node_libraries');
+	r.push("plugins/node");
 
     if (Require.NODE_PATH) {
       r = r.concat(parsePaths(Require.NODE_PATH));
