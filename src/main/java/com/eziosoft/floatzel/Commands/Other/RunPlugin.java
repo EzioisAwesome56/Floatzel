@@ -49,7 +49,7 @@ public class RunPlugin extends FCommand {
             event.getChannel().sendMessage("Plugin has been fucking loaded!").queue();
             return;
         } else if (argsplit[0].equals("run")){
-            Plugin.runPlugin(event, argsplit[2]);
+            Plugin.runPlugin(event, argsplit[1]);
             return;
         }
     }
