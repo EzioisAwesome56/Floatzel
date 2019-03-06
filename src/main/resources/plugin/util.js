@@ -14,11 +14,6 @@ function getString(b){
 	}
 }
 
-// get a uint8array from string
-function stringToBytes(string){
-	return new TextEncoder("ISO-8859-1").encode(string);
-}
-
 // convert uint8array to string to send to java
 function convertArray(what){
 	return StringView.bytesToBase64(what);
