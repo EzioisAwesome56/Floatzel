@@ -1,6 +1,8 @@
 package com.eziosoft.floatzel.Util;
 
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.core.entities.Channel;
+import net.dv8tion.jda.core.entities.Message;
 import org.apache.commons.io.IOUtils;
 
 import javax.script.Invocable;
@@ -9,6 +11,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 public class Plugin {
 
@@ -26,9 +29,8 @@ public class Plugin {
             engine.eval("load('"+ Plugin.class.getResource("/plugin/lib/jvm-npm.js").getFile() + "');");
             // load polyfill.js
             engine.eval(new InputStreamReader(Utils.getResourse("/plugin/lib/", "polyfill.js")));
-            // load 2 things for text decoding
-            engine.eval("load('https://unpkg.com/text-encoding@0.6.4/lib/encoding-indexes.js');");
-            engine.eval("load('https://unpkg.com/text-encoding@0.6.4/lib/encoding.js');");
+            // load stringview lib
+            engine.eval("load('"+ Plugin.class.getResource("/plugin/lib/stringview.js").getFile() +"');");
             // load plugin api utils
             engine.eval(new InputStreamReader(Utils.getResourse("/plugin/", "util.js")));
             // load the plugin file
@@ -66,16 +68,15 @@ public class Plugin {
     }
 
     // used to convert strings produced by js back to byte[]
-    public static byte[] stringToByte(String file){
+    public static void JSFileSend(String file, CommandEvent e, String filename){
         // first, get a byte array from the string
-        byte[] a = file.getBytes(StandardCharsets.ISO_8859_1);
-        return a;
+        e.getChannel().sendFile(Base64.getDecoder().decode(file), filename, null).queue();
     }
 
     // used to convert byte[] to strings
-    public static String attachTostring(CommandEvent event){
+    public static String attachTostring(Message m){
         try {
-            return new String(IOUtils.toByteArray(event.getMessage().getAttachments().get(0).getInputStream()), StandardCharsets.ISO_8859_1);
+            return new String(Base64.getEncoder().encode(IOUtils.toByteArray(m.getAttachments().get(0).getInputStream())));
         } catch (IOException e){
             e.printStackTrace();
             return "fuck";
