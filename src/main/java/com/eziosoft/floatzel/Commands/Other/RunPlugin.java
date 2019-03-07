@@ -13,44 +13,55 @@ import java.io.FileNotFoundException;
 
 public class RunPlugin extends FCommand {
     public RunPlugin(){
-        name = "plugin";
-        description = "Plugin manipulation shitz";
+        name = "command";
+        description = "fucking interfacing with bot commands!";
         category = owner;
         ownerCommand = true;
     }
 
     @Override
-    protected void cmdrun(CommandEvent event) throws LoadPluginException{
+    protected void cmdrun(CommandEvent event) throws LoadPluginException {
         // check to make sure they gave arguments
-        if (event.getArgs().length() < 1){
+        if (event.getArgs().length() < 1) {
             event.getChannel().sendMessage("Fuckhead! You didnt provide the name of the plugin you want to run!").queue();
             return;
         }
-        if (argsplit[0].equals("load")){
-            // check to make sure the user provided a file name
-            if (argsplit[1].isEmpty()){
-                event.getChannel().sendMessage("Oi fuckface! you didnt provide a plugin filename for me to register!").queue();
+        if (argsplit[0].equals("plugin")) {
+            if (argsplit[1].equals("load")) {
+                // check to make sure the user provided a file name
+                try {
+                    if (argsplit[2].isEmpty()) {
+                        event.getChannel().sendMessage("Oi fuckface! you didnt provide a plugin filename for me to register!").queue();
+                        return;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e){
+                    event.reply("You dumb idiot! You didnt provide a plugin filename for me to load!");
+                    return;
+                }
+                String[] info;
+                try {
+                    info = Plugin.getPluginInfo(argsplit[1]);
+                } catch (FileNotFoundException e) {
+                    event.getChannel().sendMessage("Error: that plugin doesnt fucking exist!").queue();
+                    return;
+                } catch (LoadPluginException e) {
+                    throw e;
+                } catch (ArrayIndexOutOfBoundsException e){
+                    event.reply("Oi dumbfuck! You didnt tell me what plugin you wanted to load!");
+                    return;
+                }
+                // then register it
+                Floatzel.commandClient.addCommand(new BasePlugin(info[0], argsplit[2], info[1]));
+                event.getChannel().sendMessage("Plugin has been fucking loaded!").queue();
                 return;
+            } else if (argsplit[1].equals("run")) {
+                try {
+                    Plugin.runPlugin(event, argsplit[2]);
+                } catch (ArrayIndexOutOfBoundsException e){
+                    event.reply("Oi moron, you didnt tell me what to run!");
+                    return;
+                }
             }
-            String[] info;
-            try {
-                info = Plugin.getPluginInfo(argsplit[1]);
-            } catch (FileNotFoundException e){
-                event.getChannel().sendMessage("Error: that plugin doesnt fucking exist!").queue();
-                return;
-            } catch (LoadPluginException e){
-                throw e;
-            }
-            if (info[0].equals("fuck!")){
-                return;
-            }
-            // then register it
-            Floatzel.commandClient.addCommand(new BasePlugin(info[0], argsplit[1], info[1]));
-            event.getChannel().sendMessage("Plugin has been fucking loaded!").queue();
-            return;
-        } else if (argsplit[0].equals("run")){
-            Plugin.runPlugin(event, argsplit[1]);
-            return;
         }
     }
 }
