@@ -25,7 +25,7 @@ public class RunPlugin extends FCommand {
     protected void cmdrun(CommandEvent event) throws LoadPluginException {
         // check to make sure they gave arguments
         if (event.getArgs().length() < 1) {
-            event.getChannel().sendMessage("Fuckhead! You didnt provide the name of the plugin you want to run!").queue();
+            event.getChannel().sendMessage("Fuckhead! You didn't provide the function you want to preform!").queue();
             return;
         }
         if (argsplit[0].equals("plugin")) {
