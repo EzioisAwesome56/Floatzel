@@ -21,7 +21,7 @@ public class Help extends FCommand {
 
     public Help() {
         name = "help";
-        description = "fuck";
+        description = "displays help for the bot's commands";
         category = other;
 
         Floatzel.commandClient.getCommands().forEach(command -> commands.add((FCommand) command));
