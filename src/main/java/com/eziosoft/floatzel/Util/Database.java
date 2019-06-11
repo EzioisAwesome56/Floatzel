@@ -110,9 +110,8 @@ public class Database {
     // function to write to a new db file (OLD: DO NOT USE)
     public static void dbsave(String id, String data) throws DatabaseException{
        // i dont know why this is still here, but just make it call dbsaveint for laziness
-        int number = Integer.valueOf(data);
         try {
-            Database.dbsaveint(id, number);
+            Database.dbsaveint(id, Integer.valueOf(data));
         } catch (DatabaseException e){
             throw e;
         }
