@@ -30,3 +30,30 @@ function sendFile(input, filename, event){
 function getArray(message){
 	return StringView.base64ToBytes(getString(message));
 };
+
+// the following is used for interacting with floatzel's currency
+// function to get user ids
+function getId(){
+	return message.getAuthor().getId();
+}
+
+// check if someone has a bank account
+function hasAccount(id){
+	with (imports){
+		return com.eziosoft.floatzel.Util.Database.dbcheckifexist(id);
+	}
+}
+
+// load user's current amount of money
+function loadAccount(id){
+	with (imports){
+		return com.eziosoft.floatzel.Util.Database.dbloadint(id);
+	}
+}
+
+// save a new value to a user's bank account
+function saveAccount(id, bal){
+	with (imports){
+		com.eziosoft.floatzel.Util.Database.dbsaveint(id, bal);
+	}
+}
