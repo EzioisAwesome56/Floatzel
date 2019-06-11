@@ -64,6 +64,14 @@ public class RunPlugin extends FCommand {
                     return;
                 }
             }
+        } else if (argsplit[0].equals("unload")){
+            // try to unload the command given
+            try{
+                Floatzel.commandClient.removeCommand(argsplit[1]);
+            } catch (ArrayIndexOutOfBoundsException e){
+                event.reply("DO'H! You didn't provide what command you want to unload!");
+                return;
+            }
         }
     }
 }
