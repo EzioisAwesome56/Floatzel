@@ -22,6 +22,7 @@ public class KYS extends FCommand {
         commandEvent.getChannel().sendMessage("\uD83C\uDDE7 \uD83C\uDDE6 \uD83C\uDDF3 \uD83C\uDDEC").queue(m -> {
             Floatzel.jda.shutdown();
             Floatzel.twitterManager.shutdown();
+            System.exit(1);
         });
     }
 }
