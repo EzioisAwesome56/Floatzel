@@ -6,6 +6,7 @@ import com.eziosoft.floatzel.Exception.LoadPluginException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Plugin;
+import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -17,6 +18,7 @@ public class RunPlugin extends FCommand {
         description = "fucking interfacing with bot commands!";
         category = owner;
         ownerCommand = true;
+        aliases = Utils.makeAlias("cmd");
     }
 
     @Override
