@@ -1,9 +1,10 @@
 package com.eziosoft.floatzel.Util;
 
+import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Exception.LoadPluginException;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Message;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import javax.script.Invocable;
@@ -11,12 +12,28 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class Plugin {
 
-    public static void runPlugin(CommandEvent event, String name){
+    public static void runPlugin(CommandEvent event, String name) throws GenericException{
+        // before doing ANYTHING; check if the plugin and lib folder exists
+        File plugindir = new File("plugins");
+        File libdir = new File("plugins/lib");
+        if (!plugindir.exists()) {
+            plugindir.mkdir();
+            libdir.mkdir();
+            // write the libs into the folder
+            try {
+                byte[] npm = IOUtils.toByteArray(Utils.getResourse("/plugin/lib/", "jvm-npm.js"));
+                byte[] string = IOUtils.toByteArray(Utils.getResourse("/plugin/lib/", "stringview.js"));
+                FileUtils.writeByteArrayToFile(new File("plugins/lib/jvm-npm.js"), npm);
+                FileUtils.writeByteArrayToFile(new File("plugins/lib/stringview.js"), string);
+            } catch (IOException e) {
+                throw new GenericException(e.getMessage());
+            }
+        }
+
         // init the scripting engine
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
         try {
@@ -27,11 +44,11 @@ public class Plugin {
             engine.put("channel", event.getTextChannel());
             engine.put("message", event.getMessage());
             // load jvm-npm
-            engine.eval("load('"+ Plugin.class.getResource("/plugin/lib/jvm-npm.js").getFile() + "');");
+            engine.eval("load('plugins/lib/jvm-npm.js');");
             // load polyfill.js
             engine.eval(new InputStreamReader(Utils.getResourse("/plugin/lib/", "polyfill.js")));
             // load stringview lib
-            engine.eval("load('"+ Plugin.class.getResource("/plugin/lib/stringview.js").getFile() +"');");
+            engine.eval("load('plugins/lib/stringview.js');");
             // load plugin api utils
             engine.eval(new InputStreamReader(Utils.getResourse("/plugin/", "util.js")));
             // load the plugin file

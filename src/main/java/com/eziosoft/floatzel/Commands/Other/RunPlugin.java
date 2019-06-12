@@ -2,6 +2,7 @@ package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Commands.Plugin.BasePlugin;
+import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Exception.LoadPluginException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Error;
@@ -22,7 +23,7 @@ public class RunPlugin extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event) throws LoadPluginException {
+    protected void cmdrun(CommandEvent event) throws LoadPluginException, GenericException {
         // check to make sure they gave arguments
         if (event.getArgs().length() < 1) {
             event.getChannel().sendMessage("Fuckhead! You didn't provide the function you want to preform!").queue();
@@ -62,6 +63,8 @@ public class RunPlugin extends FCommand {
                 } catch (ArrayIndexOutOfBoundsException e){
                     event.reply("Oi moron, you didnt tell me what to run!");
                     return;
+                } catch (GenericException e){
+                    throw e;
                 }
             }
         } else if (argsplit[0].equals("unload")){
