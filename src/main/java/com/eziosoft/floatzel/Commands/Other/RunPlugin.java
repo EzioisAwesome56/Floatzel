@@ -43,7 +43,7 @@ public class RunPlugin extends FCommand {
                 }
                 String[] info;
                 try {
-                    info = Plugin.getPluginInfo(argsplit[1]);
+                    info = Plugin.getPluginInfo(argsplit[2]);
                 } catch (FileNotFoundException e) {
                     event.getChannel().sendMessage("Error: that plugin doesnt fucking exist!").queue();
                     return;
