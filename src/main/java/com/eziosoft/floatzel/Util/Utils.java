@@ -186,6 +186,7 @@ public class Utils {
             System.out.println("ERROR WHILE SAVING CONFIG");
             System.out.println(e.getMessage());
             e.printStackTrace();
+            System.exit(2);
         }
         System.out.println("A default config file has been generated. Please edit this file with your own information!");
     }
