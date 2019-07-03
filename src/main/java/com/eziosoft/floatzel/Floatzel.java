@@ -112,7 +112,7 @@ public class Floatzel {
         commandClient.addCommand(new Invite());
         commandClient.addCommand(new SoundTest());
         commandClient.addCommand(new Shit8ball());
-        commandClient.addCommand(new Hello());
+        //commandClient.addCommand(new Hello());
         commandClient.addCommand(new Stats());
         commandClient.addCommand(new Reverse());
         commandClient.addCommand(new Servers());
