@@ -6,7 +6,11 @@ import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.StockUtil;
+import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.core.entities.Icon;
+
+import java.io.IOException;
 
 public class Force extends FCommand {
     public Force(){
@@ -17,7 +21,7 @@ public class Force extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event) throws GenericException, DatabaseException {
+    protected void cmdrun(CommandEvent event) throws GenericException, DatabaseException, IOException {
         int arg = Integer.valueOf(event.getArgs());
         if (arg == 1){
             // force a stock update
@@ -28,13 +32,15 @@ public class Force extends FCommand {
         } else if (arg == 3){
             Floatzel.joke = true;
             // load the pfp while we are here
-            Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(Floatzel.jokeicon).queue();
+            Icon jokeicon = Icon.from(Utils.getResourse("/pfps/", "float.png"));
+            Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(jokeicon).queue();
             // also set the name
             event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.jokename).queue();
         } else if (arg == 4){
             Floatzel.joke = false;
             // set it back to normal
-            Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(Floatzel.normalicon).queue();
+            Icon normalicon = Icon.from(Utils.getResourse("/pfps/", "float.png"));
+            Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(normalicon).queue();
             event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.normalname).queue();
         }
 
