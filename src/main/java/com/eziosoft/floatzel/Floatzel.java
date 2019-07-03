@@ -32,6 +32,7 @@ import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.bot.sharding.ShardManager;
+import net.dv8tion.jda.core.entities.Icon;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -48,6 +49,8 @@ public class Floatzel {
     public static boolean joke = false;
     public static String jokename = "Cirno";
     public static String normalname = "Floatzel";
+    public static Icon jokeicon = null;
+    public static Icon normalicon = null;
 
 
     public static boolean isdev = false;
@@ -75,6 +78,18 @@ public class Floatzel {
                 isdev = true;
                 System.out.println("RUNNING IN DEVELOPMENT MODE!");
             }
+        }
+        // load the pfps
+        try{
+            jokeicon = Icon.from(Utils.getResourse("/pfps/", "cirno.png"));
+            if (isdev){
+                normalicon = Icon.from(Utils.getResourse("/pfps/", "floatdev.png"));
+            } else {
+                normalicon = Icon.from(Utils.getResourse("/pfps/", "float.png"));
+            }
+        } catch (IOException e){
+            System.out.println("SOMETHING BAD HAPPENED WHILE LOADING PFPS");
+            e.printStackTrace();
         }
 
         // does the configuration file exist??!!?!??!?!!
