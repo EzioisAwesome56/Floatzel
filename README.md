@@ -14,4 +14,5 @@ Many thanks to [Godson777 on github](https://github.com/Godson777) for all of th
 Special thanks to the following people for finding images:<br>
 Tax.<br>
 Squidsoda<br>
-Supermario18
+Supermario18<br>
+Art credit: https://www.deviantart.com/chariko/art/Cirno-776752096
