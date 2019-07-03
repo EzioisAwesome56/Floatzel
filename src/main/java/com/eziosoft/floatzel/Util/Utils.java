@@ -206,4 +206,18 @@ public class Utils {
             return false;
         }
     }
+
+    // stuff for the joke mode
+    static String[] swears = {"fuck", "shit", "damn"};
+    static String[] insults = {"dumb", "fuckface", "fucktard", "moron", "dumbass"};
+
+    public static String getSwear(int hardcode){
+        return "lol";
+        // do stuff here
+    }
+
+    public static String getInsult(){
+        int index = random.nextInt(insults.length);
+        return insults[index];
+    }
 }
