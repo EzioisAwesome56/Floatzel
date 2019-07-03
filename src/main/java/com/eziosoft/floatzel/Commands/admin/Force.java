@@ -32,16 +32,16 @@ public class Force extends FCommand {
         } else if (arg == 3){
             Floatzel.joke = true;
             // load the pfp while we are here
-            Icon jokeicon = Icon.from(Utils.getResourse("/pfps/", "float.png"));
+            Icon jokeicon = Icon.from(Utils.getResourse("/pfps/", "cirno.png"));
             Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(jokeicon).queue();
             // also set the name
             event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.jokename).queue();
         } else if (arg == 4){
             Floatzel.joke = false;
             // set it back to normal
-            Icon normalicon = Icon.from(Utils.getResourse("/pfps/", "float.png"));
+            Icon normalicon = Icon.from(Utils.getResourse("/pfps/", Floatzel.isdev ? "floatdev.png" : "float.png"));
             Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(normalicon).queue();
-            event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.normalname).queue();
+            event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.isdev ? Floatzel.normalname + "Dev" : Floatzel.normalname).queue();
         }
 
 
