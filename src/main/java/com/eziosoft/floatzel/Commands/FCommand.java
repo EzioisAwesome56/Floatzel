@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Commands;
 
+import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.Command;
@@ -59,6 +60,34 @@ public abstract class FCommand extends Command {
 
     @Override
     protected void execute(CommandEvent event){
+        // is joke mode on?
+        if (Floatzel.joke){
+            // set the joke name to be the right thing
+            if (event.getGuild().getSelfMember().getNickname().isEmpty()){
+                event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.jokename).queue();
+            } else if (!event.getGuild().getSelfMember().getNickname().equals(Floatzel.jokename)){
+                event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.jokename).queue();
+            }
+            // then fake out and act like it cant do anything if its not an admin command
+            if (event.isOwner()) {
+               event.reply("Just for you I'll work daddy!!!!!!!");
+            } else {
+                event.getTextChannel().sendMessage("I'm so stupid I can't figure out how to use that command! Sorry!").queue();
+                return;
+            }
+        } else {
+            // is the name still the joke name
+            try {
+                if (event.getGuild().getSelfMember().getNickname().isEmpty()) {
+                    event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.normalname).queue();
+                } else if (event.getGuild().getSelfMember().getNickname().equals(Floatzel.jokename)) {
+                    event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.normalname).queue();
+                }
+            } catch (NullPointerException e){
+                // just set to normal nick
+                event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.normalname).queue();
+            }
+        }
         // split the arguments
         argsplit = event.getArgs().split("\\s+");
         // store the event for the error catcher

@@ -24,9 +24,16 @@ public class GameStatus extends TimerTask {
             "Fucking Mitsuru with a stick", "Persona: Waifu simulator", "Ezio X Yukari", "Yukari is hot", "Ezio is dumb", "Smelling Ralsei's feet", "Licking Ralsei feetz",
             "Calling 18 a gaylord", "Watching Mitsuru and Ralsei fuck", "DMAN has the largest gay", "TOUHOU"};
 
+    String[] stupid = {"I failed math", "buy my water flavoured ice!", "why does everyone hate me :C", "Ice > weed", "I have -2 iq"};
+
     @Override
     public void run() {
-        int index = random.nextInt(games.length);
-        Floatzel.jda.getShards().forEach(jda -> jda.getPresence().setGame(Game.playing(games[index])));
+        if (!Floatzel.joke) {
+            int index = random.nextInt(games.length);
+            Floatzel.jda.getShards().forEach(jda -> jda.getPresence().setGame(Game.playing(games[index])));
+        } else {
+            int index = random.nextInt(stupid.length);
+            Floatzel.jda.getShards().forEach(jda -> jda.getPresence().setGame(Game.playing(stupid[index])));
+        }
     }
 }

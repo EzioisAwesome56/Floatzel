@@ -46,6 +46,8 @@ public class Floatzel {
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public static boolean joke = false;
+    public static String jokename = "Cirno";
+    public static String normalname = "Floatzel";
 
 
     public static boolean isdev = false;
