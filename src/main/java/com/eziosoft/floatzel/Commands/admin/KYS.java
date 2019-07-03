@@ -2,6 +2,7 @@ package com.eziosoft.floatzel.Commands.admin;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
@@ -26,8 +27,8 @@ public class KYS extends FCommand {
                 System.exit(1);
             });
         } else {
-            commandEvent.getChannel().sendMessage("aw man the fucking government took away my gun ;-;").queue();
-            commandEvent.getChannel().sendMessage("Screw this shit, im out, bye").queue(m -> {
+            commandEvent.getChannel().sendMessage("aw man the "+ Utils.getSwear(1) +"  government took away my gun ;-;").queue();
+            commandEvent.getChannel().sendMessage("Screw this "+Utils.getSwear(0)+", im out, bye").queue(m -> {
                 Floatzel.jda.shutdown();
                 Floatzel.twitterManager.shutdown();
                 System.exit(1);

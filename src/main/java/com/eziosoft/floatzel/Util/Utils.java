@@ -212,8 +212,12 @@ public class Utils {
     static String[] insults = {"dumb", "fuckface", "fucktard", "moron", "dumbass"};
 
     public static String getSwear(int hardcode){
-        return "lol";
+        // deal with hardcoded values first
+        if (hardcode == 1){
+            return "fucking";
+        }
         // do stuff here
+        return "";
     }
 
     public static String getInsult(){

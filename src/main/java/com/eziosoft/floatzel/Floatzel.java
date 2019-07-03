@@ -45,6 +45,8 @@ public class Floatzel {
     public static JsonConfig conf = new JsonConfig();
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    public static boolean joke = false;
+
 
     public static boolean isdev = false;
     // version shit
