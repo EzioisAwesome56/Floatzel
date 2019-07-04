@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Commands.admin;
 
+import com.eziosoft.floatzel.Admin;
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Exception.GenericException;
@@ -42,6 +43,8 @@ public class Force extends FCommand {
             Icon normalicon = Icon.from(Utils.getResourse("/pfps/", Floatzel.isdev ? "floatdev.png" : "float.png"));
             Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(normalicon).queue();
             event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.isdev ? Floatzel.normalname + "Dev" : Floatzel.normalname).queue();
+        } else if (arg == 5){
+            event.reply(Boolean.toString(Admin.tweettog()));
         }
 
 
