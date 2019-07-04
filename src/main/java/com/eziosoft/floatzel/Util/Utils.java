@@ -224,4 +224,12 @@ public class Utils {
         int index = random.nextInt(insults.length);
         return insults[index];
     }
+
+    static String[] cirnoText = {"I'm so stupid I can't figure out how to use that command! Sorry!", "I accidentally froze this command! whoops!", "I shot a bullet at my hand and now I can't run this command!",
+    "I'm too lazy to run this command, sorry!", "Stop trying to run this command before I freeze you!"};
+
+    public static String getCirnoText(){
+        int index = random.nextInt(cirnoText.length);
+        return cirnoText[index];
+    }
 }

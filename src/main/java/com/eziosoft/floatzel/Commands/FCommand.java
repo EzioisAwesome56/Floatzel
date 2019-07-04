@@ -72,7 +72,7 @@ public abstract class FCommand extends Command {
             if (event.isOwner()) {
                event.reply("Just for you I'll work daddy!!!!!!!");
             } else {
-                event.getTextChannel().sendMessage("I'm so stupid I can't figure out how to use that command! Sorry!").queue();
+                event.getTextChannel().sendMessage(Utils.getCirnoText()).queue();
                 return;
             }
         } else {
