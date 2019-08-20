@@ -100,7 +100,7 @@ public class Floatzel {
         twitterManager = new TwitterManager();
 
         // resume everything else
-        version = !isdev ? "2.5.2" : "2.x Developement";
+        version = !isdev ? "2.5.3" : "2.x Developement";
          commandClient = new CommandClientBuilder().setOwnerId(conf.getOwnerid()).useHelpBuilder(false).setPrefix(!isdev ? conf.getPrefix() : conf.getDevprefix()).build();
 
 
@@ -157,6 +157,7 @@ public class Floatzel {
         commandClient.addCommand(new Wall());
         commandClient.addCommand(new RunPlugin());
         commandClient.addCommand(new Random());
+        commandClient.addCommand(new Ping());
         //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
