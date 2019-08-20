@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Cow extends FCommand {
     public Cow(){
         name = "cowsay";
-        description = "moooo";
+        description = "provide a cowfile after -f for a custom cow. ex cowsay -f tux for tux instead of cow";
         aliases = Utils.makeAlias("cow");
         category = fun;
     }
