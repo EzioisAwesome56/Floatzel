@@ -1,5 +1,4 @@
 package com.eziosoft.floatzel;
-import com.eziosoft.floatzel.Commands.Asshole.Hello;
 import com.eziosoft.floatzel.Commands.Asshole.SwearCombine;
 import com.eziosoft.floatzel.Commands.Currency.*;
 import com.eziosoft.floatzel.Commands.Debug.Debug;
@@ -22,7 +21,6 @@ import com.eziosoft.floatzel.Commands.Test.TestCommand;
 import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
-import com.eziosoft.floatzel.Slack.Slack;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
 import com.google.gson.Gson;
@@ -32,12 +30,8 @@ import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.bot.sharding.ShardManager;
-import net.dv8tion.jda.core.entities.Icon;
 
 import javax.security.auth.login.LoginException;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.concurrent.Executors;
 
 

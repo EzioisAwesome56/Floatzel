@@ -62,7 +62,7 @@ public class JsonConfig {
         // twitter toggle
         this.twittertog = false;
         // slack shit
-        this.slackbot = "Slack api token (optional)";
+        this.slackbot = "Slack api token (Serves no purpose)";
         this.enslack = false;
         System.out.println("Default configuration loaded!");
         return;

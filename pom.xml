@@ -18,11 +18,6 @@
             <name>jcenter-bintray</name>
             <url>http://jcenter.bintray.com</url>
         </repository>
-        <repository>
-            <id>ezio-repo</id>
-            <name>Ezio's fucking repo</name>
-            <url>http://home.eziofrog.tk/maven2</url>
-        </repository>
 
 
     </repositories>
@@ -91,12 +86,6 @@
             <artifactId>smm4j</artifactId>
             <!-- God damn it jitpack stop being broken-->
             <version>93ef1de</version>
-        </dependency>
-        <!-- testing slack intergation -->
-        <dependency>
-            <groupId>org.riversun</groupId>
-            <artifactId>slacklet</artifactId>
-            <version>1.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.github.ricksbrown</groupId>

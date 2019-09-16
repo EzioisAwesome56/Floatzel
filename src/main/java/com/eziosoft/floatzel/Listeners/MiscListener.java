@@ -1,27 +1,17 @@
 package com.eziosoft.floatzel.Listeners;
 
 import com.eziosoft.floatzel.Exception.DatabaseException;
-import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.GameStatus;
-import com.eziosoft.floatzel.Slack.Slack;
 import com.eziosoft.floatzel.Timers.StockTimer;
 import com.eziosoft.floatzel.Timers.TwitterPoster;
 import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.StockUtil;
-import com.eziosoft.floatzel.Util.TwitterManager;
-import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.ReadyEvent;
-import net.dv8tion.jda.core.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import twitter4j.Twitter;
 
-import java.io.IOException;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
-
-import static com.eziosoft.floatzel.Floatzel.isdev;
-import static com.eziosoft.floatzel.Floatzel.twitterManager;
 
 public class MiscListener extends ListenerAdapter {
 
@@ -43,14 +33,6 @@ public class MiscListener extends ListenerAdapter {
                     StockUtil.initStock();
                 } catch (DatabaseException e){
                     Error.CatchOld(e);
-                }
-                if (Floatzel.conf.getEnSlack()) {
-                    // init slack
-                    try {
-                        Slack.StartSlack(Floatzel.conf.getSlackbot());
-                    } catch (IOException e) {
-                        System.out.println("There was an error starting slack");
-                    }
                 }
             }
             System.out.println("Floatzel is alive you piece of shit, now hope it doesnt start a fight dickface");
