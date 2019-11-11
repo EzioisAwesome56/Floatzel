@@ -1,10 +1,7 @@
-package com.eziosoft.floatzel.Commands.Test;
+package com.eziosoft.floatzel.Commands.test;
 
 import com.eziosoft.floatzel.Commands.FCommand;
-import com.eziosoft.floatzel.CommdLogic.TestCommandLogic;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import org.riversun.slacklet.SlackletRequest;
-import org.riversun.slacklet.SlackletResponse;
 
 public class TestCommand extends FCommand {
 
@@ -16,6 +13,6 @@ public class TestCommand extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent commandEvent) {
-        commandEvent.getChannel().sendMessage(TestCommandLogic.makeMessage()).queue();
+        commandEvent.getChannel().sendMessage("fuck you, this command does jack shit\nbut hey, atleast its not slack'd anymore!").queue();
     }
 }
