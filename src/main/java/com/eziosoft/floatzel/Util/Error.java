@@ -47,7 +47,7 @@ public class Error {
         int index = random.nextInt(phrases.length);
         builder.append(phrases[index]).append(endl+endl);
         // boring text
-        builder.append("Floatzel has ecountered an error. Detailed error informtion will be provided below").append(endl+endl);
+        builder.append("Floatzel has ecountered an error. Detailed error information will be provided below").append(endl+endl);
         // add the error details
         builder.append("Error message:"+endl+msg+endl+endl+"Stack Trace:"+endl);
         builder.append(stacktrace);
