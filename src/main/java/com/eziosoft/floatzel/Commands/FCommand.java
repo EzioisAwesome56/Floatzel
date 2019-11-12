@@ -12,7 +12,6 @@ import java.util.Random;
 public abstract class FCommand extends Command {
 
     protected String description = "no description";
-    protected String cmdgroup = "not grouped";
 
     public static Random random = new Random();
 
