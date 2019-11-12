@@ -43,12 +43,6 @@ public abstract class FCommand extends Command {
     // string to store the money emote
     public static String moneyicon = "\uD83E\uDD56";
 
-    // stuff for help caching
-    public boolean madehelp = false;
-    public String helpthing = null;
-    public String helpthing2 = null;
-    public String mischelp = null;
-
     // check to see if the user who ran the command is an admin
     private boolean isAdmin(String uid){
         // moved this to utils
