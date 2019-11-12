@@ -16,9 +16,15 @@ import java.io.IOException;
 public class Force extends FCommand {
     public Force(){
         name = "force";
-        description = "Forces a event to take place";
+        description = "Event list:\n" +
+                "1- force stock market update\n" +
+                "2- trigger error handler\n" +
+                "3- enable joke mode\n" +
+                "4- disable joke mode\n" +
+                "5- enable tweetbot";
         category = owner;
         ownerCommand = true;
+        aliases = Utils.makeAlias("event");
     }
 
     @Override
