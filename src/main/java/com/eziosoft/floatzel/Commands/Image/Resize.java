@@ -24,7 +24,6 @@ public class Resize extends FImageCommand {
         name = "jpeg";
         description = "jpeg-ifys your image";
         category = FCommand.image;
-        aliases = Utils.makeAlias("resize");
     }
 
     @Override
