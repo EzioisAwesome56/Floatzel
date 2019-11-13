@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class FImageCommand extends FCommand {
 
-    private String failMessage = "No fucking images was found you dumbass!";
+    private String failMessage = "No fucking images where found you dumbass!";
 
     @Override
     protected void cmdrun(CommandEvent event) throws Exception {
