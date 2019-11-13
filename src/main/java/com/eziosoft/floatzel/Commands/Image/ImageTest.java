@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class ImageTest extends FCommand {
     public ImageTest(){
@@ -18,12 +19,12 @@ public class ImageTest extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event) {
+    protected void cmdrun(CommandEvent event) throws InterruptedException, ExecutionException {
         if (event.getMessage().getAttachments().size() < 1) {
             return;
         }
         try {
-            BufferedImage picture = ImageIO.read(event.getMessage().getAttachments().get(0).getInputStream());
+            BufferedImage picture = ImageIO.read(event.getMessage().getAttachments().get(0).retrieveInputStream().get());
             Graphics2D g = picture.createGraphics();
             g.setStroke(new BasicStroke(4));
             g.setColor(Color.ORANGE);

@@ -9,9 +9,9 @@ import com.google.gson.Gson;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.rethinkdb.gen.ast.Json;
 import com.rethinkdb.net.Cursor;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.imageio.ImageIO;
