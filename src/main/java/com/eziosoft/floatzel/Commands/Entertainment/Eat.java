@@ -11,6 +11,7 @@ public class Eat extends FCommand {
         name = "eat";
         description = "makes the bot try to fucking eat something";
         category = fun;
+        aliases = Utils.makeAlias("vore");
     }
 
     @Override
