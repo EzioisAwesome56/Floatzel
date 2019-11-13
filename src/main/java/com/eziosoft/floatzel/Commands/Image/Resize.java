@@ -6,7 +6,7 @@ import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 import org.apache.commons.io.IOUtils;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
@@ -27,9 +27,9 @@ public class Resize extends FImageCommand {
     }
 
     @Override
-    protected void imageRun(CommandEvent event, InputStream source) throws IOException, InterruptedException, IM4JavaException, NullPointerException{
+    protected void imageRun(CommandEvent event, byte[] dink) throws IOException, InterruptedException, IM4JavaException, NullPointerException{
         try {
-            resizeImage(event, source);
+            resizeImage(event, new ByteArrayInputStream(dink));
         } catch (IOException | InterruptedException | IM4JavaException | NullPointerException e){
             throw e;
         }

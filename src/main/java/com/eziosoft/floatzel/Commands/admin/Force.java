@@ -8,7 +8,7 @@ import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.StockUtil;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.core.entities.Icon;
+import net.dv8tion.jda.api.entities.Icon;
 
 import java.io.IOException;
 
@@ -41,13 +41,13 @@ public class Force extends FCommand {
             Icon jokeicon = Icon.from(Utils.getResourse("/pfps/", "cirno.png"));
             Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(jokeicon).queue();
             // also set the name
-            event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.jokename).queue();
+            event.getSelfMember().modifyNickname(Floatzel.jokename).queue();
         } else if (arg == 4){
             Floatzel.joke = false;
             // set it back to normal
             Icon normalicon = Icon.from(Utils.getResourse("/pfps/", Floatzel.isdev ? "floatdev.png" : "float.png"));
             Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(normalicon).queue();
-            event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.isdev ? Floatzel.normalname + "Dev" : Floatzel.normalname).queue();
+            event.getSelfMember().modifyNickname(Floatzel.isdev ? Floatzel.normalname + "Dev" : Floatzel.normalname).queue();
         } else if (arg == 5){
             event.reply(Boolean.toString(Admin.tweettog()));
         }

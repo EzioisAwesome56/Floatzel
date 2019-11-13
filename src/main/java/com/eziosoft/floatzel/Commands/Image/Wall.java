@@ -10,6 +10,7 @@ import org.im4java.core.IMOperation;
 import org.im4java.process.Pipe;
 
 import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,8 +23,9 @@ public class Wall extends FImageCommand {
     }
 
     @Override
-    protected void imageRun(CommandEvent event, InputStream source) throws IOException, InterruptedException, IM4JavaException {
+    protected void imageRun(CommandEvent event, byte[] dink) throws IOException, InterruptedException, IM4JavaException {
         // setup im
+        InputStream source = new ByteArrayInputStream(dink);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Pipe pipeOut = new Pipe(null, stream);
         // actual image shit

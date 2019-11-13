@@ -6,9 +6,9 @@ import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.EmbedPaginator;
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 import com.jagrosh.jdautilities.command.Command;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 

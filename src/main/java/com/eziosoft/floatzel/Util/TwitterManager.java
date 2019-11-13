@@ -1,10 +1,10 @@
 package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Floatzel;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.ReadyEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -77,7 +77,7 @@ public class TwitterManager extends ListenerAdapter {
                         Message m = currentTweets.get(statusDeletionNotice.getStatusId());
                         EmbedBuilder builder = new EmbedBuilder();
                         builder.setColor(Color.GRAY);
-                        builder.setTimestamp(m.getCreationTime());
+                        builder.setTimestamp(m.getTimeCreated());
                         builder.setTitle("This tweet was removed from Twitter.");
                         m.editMessage(builder.build()).queue();
                         currentTweets.remove(statusDeletionNotice.getStatusId());

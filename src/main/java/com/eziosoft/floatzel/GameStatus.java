@@ -1,6 +1,6 @@
 package com.eziosoft.floatzel;
 
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.api.entities.Activity;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -30,10 +30,10 @@ public class GameStatus extends TimerTask {
     public void run() {
         if (!Floatzel.joke) {
             int index = random.nextInt(games.length);
-            Floatzel.jda.getShards().forEach(jda -> jda.getPresence().setGame(Game.playing(games[index])));
+            Floatzel.jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.playing(games[index])));
         } else {
             int index = random.nextInt(stupid.length);
-            Floatzel.jda.getShards().forEach(jda -> jda.getPresence().setGame(Game.playing(stupid[index])));
+            Floatzel.jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.playing(stupid[index])));
         }
     }
 }

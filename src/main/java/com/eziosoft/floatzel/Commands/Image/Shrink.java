@@ -25,8 +25,9 @@ public class Shrink extends FImageCommand {
         aliases = Utils.makeAlias("resize");
     }
 
-    protected void imageRun(CommandEvent event, InputStream source) throws IOException, InterruptedException, IM4JavaException {
+    protected void imageRun(CommandEvent event, byte[] dink) throws IOException, InterruptedException, IM4JavaException {
         // make a var for this
+        InputStream source = new ByteArrayInputStream(dink);
         BufferedImage what;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Pipe pipeOut = new Pipe(null, stream);

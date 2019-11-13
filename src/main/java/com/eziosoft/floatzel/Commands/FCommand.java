@@ -57,9 +57,9 @@ public abstract class FCommand extends Command {
         if (Floatzel.joke){
             // set the joke name to be the right thing
             if (event.getGuild().getSelfMember().getNickname().isEmpty()){
-                event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.jokename).queue();
+                event.getGuild().getSelfMember().modifyNickname(Floatzel.jokename).queue();
             } else if (!event.getGuild().getSelfMember().getNickname().equals(Floatzel.jokename)){
-                event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.jokename).queue();
+                event.getGuild().getSelfMember().modifyNickname(Floatzel.jokename).queue();
             }
             // then fake out and act like it cant do anything if its not an admin command
             if (event.isOwner()) {
@@ -72,13 +72,13 @@ public abstract class FCommand extends Command {
             // is the name still the joke name
             try {
                 if (event.getGuild().getSelfMember().getNickname().isEmpty()) {
-                    event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.normalname).queue();
+                    event.getGuild().getSelfMember().modifyNickname(Floatzel.normalname).queue();
                 } else if (event.getGuild().getSelfMember().getNickname().equals(Floatzel.jokename)) {
-                    event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.normalname).queue();
+                    event.getGuild().getSelfMember().modifyNickname(Floatzel.normalname).queue();
                 }
             } catch (NullPointerException e){
                 // just set to normal nick
-                event.getGuild().getController().setNickname(event.getSelfMember(), Floatzel.normalname).queue();
+                event.getGuild().getSelfMember().modifyNickname(Floatzel.normalname).queue();
             }
         }
         // split the arguments

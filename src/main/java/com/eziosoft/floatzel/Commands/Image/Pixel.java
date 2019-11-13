@@ -23,9 +23,10 @@ public class Pixel extends FImageCommand {
         category = FCommand.image;
     }
 
-    protected void imageRun(CommandEvent event, InputStream source) throws IOException, InterruptedException, IM4JavaException {
+    protected void imageRun(CommandEvent event, byte[] dink) throws IOException, InterruptedException, IM4JavaException {
         // basically just clone shrink
         // but set the size to be 1x1
+        InputStream source = new ByteArrayInputStream(dink);
         BufferedImage what;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Pipe pipeOut = new Pipe(null, stream);
