@@ -24,7 +24,7 @@ public class Eat extends FCommand {
                 "Are you sure you didn't just fucking buy this from the store asshole?",
                 "Fuck, this is pretty good stuff, too bad it took you 5 years to make it arsehole",
                 "Fuck you, I'm going to apply for a copyright on this fucking food because it's so fucking good but made by a fuckwit",
-                "die"};
+                "Dank weed(tm) is the only thing better."};
         int h = thonk.length;
         int rate = random.nextInt(h);
         String good = "\uD83C\uDF5E";
