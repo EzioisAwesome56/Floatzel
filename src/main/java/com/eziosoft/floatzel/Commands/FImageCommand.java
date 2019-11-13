@@ -5,6 +5,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.entities.Message;
 import org.apache.commons.io.IOUtils;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.net.ssl.SSLHandshakeException;
 import java.io.ByteArrayInputStream;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
 import java.rmi.server.ExportException;
+import java.util.concurrent.TimeUnit;
 
 public abstract class FImageCommand extends FCommand {
 
@@ -25,7 +27,7 @@ public abstract class FImageCommand extends FCommand {
         if (event.getMessage().getAttachments().size() > 0 && event.getMessage().getAttachments().get(0).isImage()){
             // this is an image attachment message
             try {
-                imageRun(event, event.getMessage().getAttachments().get(0).retrieveInputStream().get());
+                imageRun(event, IOUtils.toByteArray(event.getMessage().getAttachments().get(0).retrieveInputStream().join()));
             } catch (IOException e){
                 throw e;
             } catch (Exception e){
@@ -45,7 +47,7 @@ public abstract class FImageCommand extends FCommand {
                     return;
                 }
                 try {
-                    imageRun(event, new ByteArrayInputStream(IOUtils.toByteArray(connection.getInputStream())));
+                    imageRun(event, IOUtils.toByteArray(connection.getInputStream()));
                 } catch (Exception e){
                     throw e;
                 }
@@ -65,7 +67,7 @@ public abstract class FImageCommand extends FCommand {
 
                     if (m.getAttachments().get(0).isImage()) {
                         try {
-                            imageRun(event, m.getAttachments().get(0).retrieveInputStream().get());
+                            imageRun(event, IOUtils.toByteArray(m.getAttachments().get(0).retrieveInputStream().join()));
                             return;
                         } catch (IOException e){
                             // ugh
@@ -80,5 +82,5 @@ public abstract class FImageCommand extends FCommand {
         }
     }
 
-    protected abstract void imageRun(CommandEvent event, InputStream source) throws Exception;
+    protected abstract void imageRun(CommandEvent event, byte[] dink) throws Exception;
 }

@@ -27,9 +27,9 @@ public class Resize extends FImageCommand {
     }
 
     @Override
-    protected void imageRun(CommandEvent event, InputStream source) throws IOException, InterruptedException, IM4JavaException, NullPointerException{
+    protected void imageRun(CommandEvent event, byte[] dink) throws IOException, InterruptedException, IM4JavaException, NullPointerException{
         try {
-            resizeImage(event, source);
+            resizeImage(event, new ByteArrayInputStream(dink));
         } catch (IOException | InterruptedException | IM4JavaException | NullPointerException e){
             throw e;
         }
