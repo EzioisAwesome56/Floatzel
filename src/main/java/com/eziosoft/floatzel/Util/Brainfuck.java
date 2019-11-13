@@ -16,7 +16,7 @@ public class Brainfuck {
         String instruct = "";
         // actually run it
         while (count != len){
-            instruct = fuck.substring(count, count);
+            instruct = fuck.substring(count, count + 1);
             if (instruct.equals(">")){
                 cell++;
             } else if (instruct.equals("<")){
@@ -31,7 +31,7 @@ public class Brainfuck {
                 // deviate slightly from normal Brainfuck
                 // go to next character and load that
                 count++;
-                mem[cell] = Integer.valueOf(fuck.substring(count, count));
+                mem[cell] = Integer.valueOf(fuck.substring(count, count + 1));
             }
             // inc the counter by 1
             count++;
