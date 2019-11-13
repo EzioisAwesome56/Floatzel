@@ -151,6 +151,7 @@ public class Floatzel {
         commandClient.addCommand(new RunPlugin());
         commandClient.addCommand(new Random());
         commandClient.addCommand(new Ping());
+        commandClient.addCommand(new Shrink());
         //commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
