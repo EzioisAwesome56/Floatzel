@@ -3,7 +3,7 @@ package com.eziosoft.floatzel.Util;
 import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Exception.LoadPluginException;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -13,6 +13,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.*;
 import java.util.Base64;
+import java.util.concurrent.ExecutionException;
 
 public class Plugin {
 
@@ -94,8 +95,8 @@ public class Plugin {
     // used to convert byte[] to strings
     public static String attachTostring(Message m){
         try {
-            return new String(Base64.getEncoder().encode(IOUtils.toByteArray(m.getAttachments().get(0).getInputStream())));
-        } catch (IOException e){
+            return new String(Base64.getEncoder().encode(IOUtils.toByteArray(m.getAttachments().get(0).retrieveInputStream().get())));
+        } catch (IOException | ExecutionException | InterruptedException e){
             e.printStackTrace();
             return "fuck";
         }

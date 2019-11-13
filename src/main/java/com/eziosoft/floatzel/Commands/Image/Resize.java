@@ -6,7 +6,7 @@ import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 import org.apache.commons.io.IOUtils;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;

@@ -7,8 +7,8 @@ import com.eziosoft.floatzel.Timers.TwitterPoster;
 import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.StockUtil;
-import net.dv8tion.jda.core.events.ReadyEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;

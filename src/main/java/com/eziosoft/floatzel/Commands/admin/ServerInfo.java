@@ -2,8 +2,8 @@ package com.eziosoft.floatzel.Commands.admin;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 
 import java.awt.*;
 

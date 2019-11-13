@@ -2,7 +2,7 @@ package com.eziosoft.floatzel.Commands;
 
 import com.eziosoft.floatzel.Util.Error;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
@@ -25,7 +25,7 @@ public abstract class FImageCommand extends FCommand {
         if (event.getMessage().getAttachments().size() > 0 && event.getMessage().getAttachments().get(0).isImage()){
             // this is an image attachment message
             try {
-                imageRun(event, event.getMessage().getAttachments().get(0).getInputStream());
+                imageRun(event, event.getMessage().getAttachments().get(0).retrieveInputStream().get());
             } catch (IOException e){
                 throw e;
             } catch (Exception e){
@@ -65,7 +65,7 @@ public abstract class FImageCommand extends FCommand {
 
                     if (m.getAttachments().get(0).isImage()) {
                         try {
-                            imageRun(event, m.getAttachments().get(0).getInputStream());
+                            imageRun(event, m.getAttachments().get(0).retrieveInputStream().get());
                             return;
                         } catch (IOException e){
                             // ugh

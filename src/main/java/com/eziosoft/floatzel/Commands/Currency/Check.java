@@ -5,7 +5,7 @@ import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.rethinkdb.gen.exc.ReqlError;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.List;
 
