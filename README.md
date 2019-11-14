@@ -3,7 +3,7 @@
 Simply clone the bot, compile it, then run it. It will generate a config.json file with the correct setup for floatzel.<br>
 From there, it is as simple as entering in your details into the config.json file and running the bot.
 ## Requirements
-this bot is rewritten in Java 8, and confirmed to work in openjdk 8.<br>
+this bot is written in Java 8, and confirmed to work in openjdk 8.<br>
 The bot requires a rethinkDB server, without a password, running on the same machine that the bot is for database storage. Password options may be added later<br>
 Consult pom.xml for the rest of the requirements
 ## Plugin api
