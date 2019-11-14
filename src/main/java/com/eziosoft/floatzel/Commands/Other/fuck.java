@@ -16,7 +16,11 @@ public class fuck extends FCommand {
     protected void cmdrun(CommandEvent event){
         event.reply("Parsing brainfuck, please wait...");
         event.getChannel().sendTyping().queue();
-        event.reply(Brainfuck.ParseBrainFuck(argsplit[0]));
+        try {
+            event.reply(Brainfuck.ParseBrainFuck(argsplit[0]));
+        } catch (ArrayIndexOutOfBoundsException e){
+            event.reply("Error: You have exceeded the amount of memory provided!");
+        }
         return;
     }
 }
