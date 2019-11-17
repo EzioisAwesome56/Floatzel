@@ -85,7 +85,7 @@ public abstract class FCommand extends Command {
         argsplit = event.getArgs().split("\\s+");
         // store the event for the error catcher
         erevent = event;
-        String uid = event.getMessage().getAuthor().getId().toString();
+        String uid = event.getMessage().getAuthor().getId();
         // check to see if its an admin only command
         if (adminCommand && !event.isOwner()){
             // is the user that is running it an admin?
