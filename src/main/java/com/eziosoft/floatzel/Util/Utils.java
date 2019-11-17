@@ -25,8 +25,6 @@ import java.util.concurrent.TimeUnit;
 public class Utils {
     private static Random random = new Random();
 
-    //private static List<String> admins = Floatzel.conf.getAdmins();
-
 
     public static String genBar(String filled, String empty, int maxLength, int fill) {
         String full = StringUtils.repeat(filled, maxLength);
