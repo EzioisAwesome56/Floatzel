@@ -104,7 +104,7 @@ public class LootBox extends FCommand {
                 // generate reward
                 reward = random.nextInt(100) + 125;
             } else if (god.contains(box)) {
-                boximg = ImageIO.read(Files.class.getResource("/box/"+Files.boxes[2]));
+                boximg = ImageIO.read(Files.class.getResource("/box/"+Files.boxes[3]));
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
