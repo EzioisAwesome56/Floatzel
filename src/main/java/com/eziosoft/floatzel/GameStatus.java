@@ -22,7 +22,7 @@ public class GameStatus extends TimerTask {
             "PyCharm", "Rectangle Gay", "Making the frogs gay", "eirrac", "what the fuck is a hedgehog", "heck you blur", "enitsirhc", "fuck me harder daddy",
             "Intelij", "Smoking weed", "Persona -12 + GAY DLC", "Circles", "Godson is radical", "Ryan is gay", "Java 10", "with Yukari", "Super Dankio Ocyssey",
             "Fucking Mitsuru with a stick", "Persona: Waifu simulator", "Ezio X Yukari", "Yukari is hot", "Ezio is dumb", "Smelling Ralsei's feet", "Licking Ralsei feetz",
-            "Calling 18 a gaylord", "Watching Mitsuru and Ralsei fuck", "DMAN has the largest gay", "TOUHOU"};
+            "Calling 18 a gaylord", "Watching Mitsuru and Ralsei fuck", "DMAN has the largest gay", "TOUHOU", "Nintendo", "Linux, bitch"};
 
     String[] stupid = {"I failed math", "buy my water flavoured ice!", "why does everyone hate me :C", "Ice > weed", "I have -2 iq"};
 
