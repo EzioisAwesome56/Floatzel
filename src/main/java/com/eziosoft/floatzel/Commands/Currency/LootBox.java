@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class LootBox extends FCommand {
-    private final Random random = new Random();
     public LootBox(){
         name = "lootbox";
         description = "buy a loot box to win cards";
@@ -27,7 +26,6 @@ public class LootBox extends FCommand {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         String uid = event.getAuthor().getId();
         int bal = Database.dbloadint(uid);
-        Random random = new Random();
         // check if the user has a bank account
         if (!Database.dbcheckifexist(uid)){
             System.out.println("New bank account created!");
@@ -38,10 +36,11 @@ public class LootBox extends FCommand {
             return;
         }
         // remove money from there account
-        bal = bal - 50;
-        Database.dbsaveint(uid, bal);
+        Database.dbsaveint(uid, bal - 50);
         // rng for the lootbox type
         int box = random.nextInt(10) + 1;
+        // this is for later
+        int reward = 0;
         // arrays
         // numbers for tier one
         ArrayList<Integer> shit = new ArrayList<Integer>(){{
@@ -71,6 +70,10 @@ public class LootBox extends FCommand {
                 ImageIO.write(boximg, "png", stream);
                 event.getChannel().sendMessage("Take this shitty **level 1** box!").queue();
                 event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
+                // generate reward
+                reward = random.nextInt(5) + 1;
+                event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " in the box!");
+                Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
                 return;
             } else if (ok.contains(box)) {
                 boximg = ImageIO.read(Files.class.getResource("/box/"+Files.boxes[1]));
@@ -79,6 +82,10 @@ public class LootBox extends FCommand {
                 ImageIO.write(boximg, "png", stream);
                 event.getChannel().sendMessage("have this fucking AVERAGE **level 2** box").queue();
                 event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
+                // generate reward
+                reward = random.nextInt(20) + 20;
+                event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " in the box!");
+                Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
                 return;
             } else if (best.contains(box)) {
                 boximg = ImageIO.read(Files.class.getResource("/box/"+Files.boxes[2]));
@@ -87,6 +94,10 @@ public class LootBox extends FCommand {
                 ImageIO.write(boximg, "png", stream);
                 event.getChannel().sendMessage("You have my blessing, good sir, have a **level 3** box").queue();
                 event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
+                // generate reward
+                reward = random.nextInt(100) + 50;
+                event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " in the box!");
+                Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
                 return;
             }
         } catch (IOException e) {

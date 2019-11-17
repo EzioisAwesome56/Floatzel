@@ -154,7 +154,7 @@ public class Floatzel {
         commandClient.addCommand(new Shrink());
         commandClient.addCommand(new Pixel());
         commandClient.addCommand(new fuck());
-        //commandClient.addCommand(new LootBox());
+        commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         // PUT THIS LAST OR ELSE HELP BREAKS
         commandClient.addCommand(new Help());
