@@ -14,7 +14,6 @@ public class Brainfuck {
         "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
         String out = "";
         String instruct = "";
-        String temp = "";
         // actually run it
         while (count != len){
             instruct = fuck.substring(count, count + 1);
