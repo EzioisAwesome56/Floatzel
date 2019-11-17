@@ -17,7 +17,8 @@ import java.util.Random;
 public class LootBox extends FCommand {
     public LootBox(){
         name = "lootbox";
-        description = "buy a loot box to win cards";
+        description = "buy a totally-not-rigged box to win money\n" +
+                "one box costs 50"+ moneyicon;
         category = money;
         aliases = Utils.makeAlias("box");
     }
