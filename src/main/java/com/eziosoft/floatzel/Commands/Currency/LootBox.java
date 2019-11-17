@@ -87,9 +87,6 @@ public class LootBox extends FCommand {
                 event.getChannel().sendMessage("Take this shitty **level 1** box!").addFile(stream.toByteArray(), "box.png").queue();
                 // generate reward
                 reward = random.nextInt(5) + 50;
-                event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " inside!");
-                Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
-                return;
             } else if (ok.contains(box)) {
                 boximg = ImageIO.read(Files.class.getResource("/box/"+Files.boxes[1]));
                 ImageIO.setUseCache(false);
@@ -98,9 +95,6 @@ public class LootBox extends FCommand {
                 event.getChannel().sendMessage("have this fucking AVERAGE **level 2** box").addFile(stream.toByteArray(), "box.png").queue();
                 // generate reward
                 reward = random.nextInt(20) + 75;
-                event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " inside!");
-                Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
-                return;
             } else if (best.contains(box)) {
                 boximg = ImageIO.read(Files.class.getResource("/box/"+Files.boxes[2]));
                 ImageIO.setUseCache(false);
@@ -109,9 +103,6 @@ public class LootBox extends FCommand {
                 event.getChannel().sendMessage("You have my blessing, good sir, have a **level 3** box").addFile(stream.toByteArray(), "box.png").queue();
                 // generate reward
                 reward = random.nextInt(100) + 125;
-                event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " inside!");
-                Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
-                return;
             } else if (god.contains(box)) {
                 boximg = ImageIO.read(Files.class.getResource("/box/"+Files.boxes[2]));
                 ImageIO.setUseCache(false);
@@ -120,10 +111,9 @@ public class LootBox extends FCommand {
                 event.getChannel().sendMessage("The gods bless you with a **level 4** box").addFile(stream.toByteArray(), "box.png").queue();
                 // generate reward
                 reward = random.nextInt(200) + 500;
-                event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " inside!");
-                Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
-                return;
             }
-
+            // actually give the reward
+            event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " inside!");
+            Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
     }
 }
