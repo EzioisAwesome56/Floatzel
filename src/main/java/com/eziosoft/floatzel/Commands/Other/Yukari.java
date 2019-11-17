@@ -26,6 +26,6 @@ public class Yukari extends FCommand {
         int card = random.nextInt(Files.yukaris.length);
         // get file
         String filename = Files.yukaris[card];
-        event.getChannel().sendFile(Utils.getResourse("/yuk/", filename), "yukari." + Utils.getFileType(filename), null).queue();
+        event.getChannel().sendFile(Utils.getResourse("/yuk/", filename), "yukari." + Utils.getFileType(filename)).queue();
     }
 }

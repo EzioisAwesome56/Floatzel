@@ -26,6 +26,6 @@ public class Mitsuru extends FCommand {
         int card = random.nextInt(Files.mitsurus.length);
         // get photo
         String filename = Files.mitsurus[card];
-        event.getChannel().sendFile(Utils.getResourse("/mit/", filename), "mitsuru."+ Utils.getFileType(filename), null).queue();
+        event.getChannel().sendFile(Utils.getResourse("/mit/", filename), "mitsuru."+ Utils.getFileType(filename)).queue();
     }
 }

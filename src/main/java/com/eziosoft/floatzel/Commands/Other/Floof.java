@@ -28,6 +28,6 @@ public class Floof extends FCommand {
         int card = random.nextInt(Files.floof.length);
         // get dat floofy boi
         String filename = Files.floof[card];
-        event.getChannel().sendFile(Utils.getResourse("/floof/", filename), "floofyboi." + Utils.getFileType(filename), null).queue();
+        event.getChannel().sendFile(Utils.getResourse("/floof/", filename), "floofyboi." + Utils.getFileType(filename)).queue();
     }
 }
