@@ -27,12 +27,13 @@ public class LootBox extends FCommand {
         String uid = event.getAuthor().getId();
         // check if the user has a bank account
         if (!Database.dbcheckifexist(uid)){
-            System.out.println("New bank account created!");
+            event.reply("You don't even have 50"+ moneyicon + " to fucking pay for this!");
+            return;
         }
         int bal = Database.dbloadint(uid);
         // check if they have enough money for a loot box
         if (bal < 50){
-            event.getChannel().sendMessage("You don't fucking have 50 \uD83E\uDD56 to afford a lootbox dumbass!").queue();
+            event.getChannel().sendMessage("You don't fucking have 50" + moneyicon + " to afford a lootbox dumbass!").queue();
             return;
         }
         // remove money from there account
