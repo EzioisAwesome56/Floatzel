@@ -6,7 +6,7 @@
 
     <groupId>com.eziosoft</groupId>
     <artifactId>floatzel</artifactId>
-    <version>2.5.5 JDA 4</version>
+    <version>2.6</version>
 
     <repositories>
         <repository>
