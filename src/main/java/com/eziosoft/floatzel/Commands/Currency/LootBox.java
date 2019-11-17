@@ -25,11 +25,11 @@ public class LootBox extends FCommand {
         BufferedImage boximg = null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         String uid = event.getAuthor().getId();
-        int bal = Database.dbloadint(uid);
         // check if the user has a bank account
         if (!Database.dbcheckifexist(uid)){
             System.out.println("New bank account created!");
         }
+        int bal = Database.dbloadint(uid);
         // check if they have enough money for a loot box
         if (bal < 50){
             event.getChannel().sendMessage("You don't fucking have 50 \uD83E\uDD56 to afford a lootbox dumbass!").queue();
