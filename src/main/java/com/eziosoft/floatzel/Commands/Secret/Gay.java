@@ -11,7 +11,7 @@ public class Gay extends FCommand {
     // secret command so we dont need description stuff
     public Gay(){
         name = "gay";
-        description = "how are you reading this";
+        description = "I dunno, you figure out what it does!";
         category = other;
     }
 
