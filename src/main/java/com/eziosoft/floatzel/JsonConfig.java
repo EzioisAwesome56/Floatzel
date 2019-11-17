@@ -135,11 +135,4 @@ public class JsonConfig {
     public boolean getTwitterTog(){
         return this.twittertog;
     }
-    // slack shit
-    public String getSlackbot(){
-        return this.slackbot;
-    }
-    public boolean getEnSlack(){
-        return this.enslack;
-    }
 }
