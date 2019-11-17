@@ -156,9 +156,7 @@ public class Floatzel {
         commandClient.addCommand(new fuck());
         commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
-        // PUT THIS LAST OR ELSE HELP BREAKS
         commandClient.addCommand(new Help());
-        // secret commands that are not in help for a reason
         commandClient.addCommand(new Gay());
 
 
