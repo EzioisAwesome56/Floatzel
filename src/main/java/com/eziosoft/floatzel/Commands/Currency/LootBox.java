@@ -21,7 +21,7 @@ public class LootBox extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event) throws DatabaseException {
+    protected void cmdrun(CommandEvent event) throws DatabaseException, IOException {
         BufferedImage boximg = null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         String uid = event.getAuthor().getId();
@@ -62,14 +62,12 @@ public class LootBox extends FCommand {
             add(10);
         }};
         // test for what box got picked
-        try {
             if (shit.contains(box)) {
                 boximg = ImageIO.read(Files.class.getResource("/box/"+ Files.boxes[0]));
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
-                event.getChannel().sendMessage("Take this shitty **level 1** box!").queue();
-                event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
+                event.getChannel().sendMessage("Take this shitty **level 1** box!").addFile(stream.toByteArray(), "box.png").queue();
                 // generate reward
                 reward = random.nextInt(5) + 1;
                 event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " in the box!");
@@ -80,8 +78,7 @@ public class LootBox extends FCommand {
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
-                event.getChannel().sendMessage("have this fucking AVERAGE **level 2** box").queue();
-                event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
+                event.getChannel().sendMessage("have this fucking AVERAGE **level 2** box").addFile(stream.toByteArray(), "box.png").queue();
                 // generate reward
                 reward = random.nextInt(20) + 20;
                 event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " in the box!");
@@ -92,17 +89,13 @@ public class LootBox extends FCommand {
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
-                event.getChannel().sendMessage("You have my blessing, good sir, have a **level 3** box").queue();
-                event.getChannel().sendFile(stream.toByteArray(), "box.png", null).queue();
+                event.getChannel().sendMessage("You have my blessing, good sir, have a **level 3** box").addFile(stream.toByteArray(), "box.png").queue();
                 // generate reward
                 reward = random.nextInt(100) + 50;
                 event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " in the box!");
                 Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
                 return;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 }
