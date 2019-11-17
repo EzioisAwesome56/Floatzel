@@ -4,6 +4,7 @@ import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Res.Files;
 import com.eziosoft.floatzel.Util.Database;
+import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
 import javax.imageio.ImageIO;
@@ -18,6 +19,7 @@ public class LootBox extends FCommand {
         name = "lootbox";
         description = "buy a loot box to win cards";
         category = money;
+        aliases = Utils.makeAlias("box");
     }
 
     @Override
