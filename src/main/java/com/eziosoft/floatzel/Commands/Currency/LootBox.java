@@ -42,7 +42,7 @@ public class LootBox extends FCommand {
         // remove money from there account
         Database.dbsaveint(uid, bal - 50);
         // rng for the lootbox type
-        int box = random.nextInt(10) + 1;
+        int box = random.nextInt(20) + 1;
         // this is for later
         int reward = 0;
         // arrays
@@ -54,16 +54,29 @@ public class LootBox extends FCommand {
             add(7);
             add(8);
             add(9);
+            add(16);
+            add(17);
+            add(18);
+            add(19);
         }};
         // tier 2
         ArrayList<Integer> ok = new ArrayList<Integer>(){{
             add(2);
             add(4);
             add(6);
+            add(13);
+            add(14);
+            add(15);
         }};
         // tier 3
         ArrayList<Integer> best = new ArrayList<Integer>(){{
             add(10);
+            add(11);
+            add(12);
+        }};
+        // tier 4
+        ArrayList<Integer> god = new ArrayList<Integer>(){{
+            add(20);
         }};
         // test for what box got picked
             if (shit.contains(box)) {
@@ -96,6 +109,17 @@ public class LootBox extends FCommand {
                 event.getChannel().sendMessage("You have my blessing, good sir, have a **level 3** box").addFile(stream.toByteArray(), "box.png").queue();
                 // generate reward
                 reward = random.nextInt(100) + 125;
+                event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " inside!");
+                Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
+                return;
+            } else if (god.contains(box)) {
+                boximg = ImageIO.read(Files.class.getResource("/box/"+Files.boxes[2]));
+                ImageIO.setUseCache(false);
+                stream.flush();
+                ImageIO.write(boximg, "png", stream);
+                event.getChannel().sendMessage("The gods bless you with a **level 4** box").addFile(stream.toByteArray(), "box.png").queue();
+                // generate reward
+                reward = random.nextInt(200) + 500;
                 event.reply("Opening the box, you find "+ Integer.toString(reward) + moneyicon + " inside!");
                 Database.dbsaveint(uid, Database.dbloadint(uid) + reward);
                 return;
