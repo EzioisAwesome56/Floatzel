@@ -63,7 +63,7 @@ public abstract class FCommand extends Command {
             }
             // then fake out and act like it cant do anything if its not an admin command
             if (event.isOwner()) {
-               event.reply("Just for you I'll work daddy!!!!!!!");
+               event.reply("Warning: executing command may cause space-time continuum rips. Proceed with caution!");
             } else {
                 event.getTextChannel().sendMessage(Utils.getCirnoText()).queue();
                 return;
