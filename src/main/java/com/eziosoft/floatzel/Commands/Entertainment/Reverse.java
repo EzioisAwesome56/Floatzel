@@ -27,6 +27,6 @@ public class Reverse extends FCommand {
         int card = random.nextInt(Files.unocards.length);
         // get card
         String filename = Files.unocards[card];
-        event.getChannel().sendFile(Utils.getResourse("/uno/", filename), "reverse." + Utils.getFileType(filename), null).queue();
+        event.getChannel().sendFile(Utils.getResourse("/uno/", filename), "reverse." + Utils.getFileType(filename)).queue();
     }
 }
