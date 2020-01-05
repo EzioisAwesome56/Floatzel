@@ -12,7 +12,8 @@ public class Ship extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        String one = "";
+        // im never gonna fucking finish this lmaooooooo
+        /*String one = "";
         String two = "";
         try {
             one = argsplit[0];
@@ -21,6 +22,6 @@ public class Ship extends FCommand {
             event.getChannel().sendMessage("Error: you didnt provide enough arguments dumb fuck").queue();
             return;
         }
-        event.getChannel().sendMessage("Unfinished command! Please wait for a future update").queue();
+        event.getChannel().sendMessage("Unfinished command! Please wait for a future update").queue();*/
     }
 }

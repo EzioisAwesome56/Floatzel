@@ -28,6 +28,18 @@ public class Girlfriend extends FCommand {
                 "Holy shit she's fucking hot, don't just sit on your ass!",
                 "Why the fuck haven't you married this perfect woman yet you dumbass?",
                 "HOLY SHIT IT'S GOD"};
+        String[] notassrate = {"Words cannot describe how bad this person is",
+                "I don't think that's a girl, yo",
+                "my advice: get her out of your life",
+                "She's still not ideal mind you!",
+                "I suppose you could do much worse then her",
+                "It's midrange, she's not good, not bad, okay.",
+                "Don't let this one slip away bro!",
+                "This person would make the world a better fucking place man",
+                "I wish I had a girlfriend like this one",
+                "Don't just sit there my guy!",
+                "Why the fuck haven't you married her yet?",
+                "HOLY SHIT IT'S GOD"};
         // generate a rating score
         int rating = random.nextInt(12);
         String name = event.getArgs();
@@ -35,16 +47,29 @@ public class Girlfriend extends FCommand {
         String good = "❤";
         // checks to see if someone is trying to be dumb
         if (name.length() < 1){
-            event.getChannel().sendMessage("You didn't enter a name you fuck face!").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You didn't enter a name you fuck face!").queue();
+            } else {
+                event.reply("you forgot to enter a name!");
+            }
             return;
         } else if (name.length() > 1500 || name.length() == 1500){
-            event.getChannel().sendMessage("That fucking name is way to fucking long you fuckwit!").queue();
+            if (ass) {
+                event.getChannel().sendMessage("That fucking name is way to fucking long you fuckwit!").queue();
+            } else {
+                event.reply("that name is far too long");
+            }
             return;
         }
         // start making the bar
         String bar = Utils.genBar(good, bad, 10, rating < 11 ? rating : 10);
         // next, form the message itself
-        String msg = "**Girl: **"+name+"\n**Rating: **"+bar+"\n**Thoughts: **"+rate[rating];
+        String msg;
+        if (ass){
+             msg = "**Girl: **"+name+"\n**Rating: **"+bar+"\n**Thoughts: **"+rate[rating];
+        } else {
+            msg = "**Girl: **"+name+"\n**Rating: **"+bar+"\n**Thoughts: **"+notassrate[rating];
+        }
         //event.getChannel().sendMessage(msg).queue();
         event.reply(msg);
     }
