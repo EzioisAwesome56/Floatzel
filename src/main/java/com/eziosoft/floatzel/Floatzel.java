@@ -158,6 +158,7 @@ public class Floatzel {
         commandClient.addCommand(new Yukari());
         commandClient.addCommand(new Help());
         commandClient.addCommand(new Gay());
+        commandClient.addCommand(new Expand());
 
 
         
