@@ -33,13 +33,11 @@ public class GameStatus extends TimerTask {
     public void run() {
         if (!Floatzel.joke) {
             int index = random.nextInt(games.length);
-            int type = random.nextInt(4);
+            int type = random.nextInt(3);
             if (type == 0) {
                 jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.watching(games[index])));
             } else if (type == 1){
                 jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.listening(games[index])));
-            } else if (type == 2){
-                jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.streaming(games[index], "https://www.google.com")));
             } else {
                 jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.playing(games[index])));
             }
