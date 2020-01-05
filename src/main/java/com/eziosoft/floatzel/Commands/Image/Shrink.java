@@ -44,6 +44,8 @@ public class Shrink extends FImageCommand {
         cmd.run(op, what);
         stream.flush();
         event.getChannel().sendFile(stream.toByteArray(), "small.jpg").queue();
+        stream.close();
+        source.close();
     }
 
 
