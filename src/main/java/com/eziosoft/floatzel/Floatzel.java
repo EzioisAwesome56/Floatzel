@@ -6,6 +6,7 @@ import com.eziosoft.floatzel.Commands.Entertainment.*;
 import com.eziosoft.floatzel.Commands.Image.*;
 import com.eziosoft.floatzel.Commands.Other.*;
 import com.eziosoft.floatzel.Commands.Owner.Eval;
+import com.eziosoft.floatzel.Commands.Owner.MakeTable;
 import com.eziosoft.floatzel.Commands.PayForCommands.BetterLoan;
 import com.eziosoft.floatzel.Commands.PayForCommands.Tag;
 import com.eziosoft.floatzel.Commands.Secret.Gay;
@@ -161,6 +162,7 @@ public class Floatzel {
         commandClient.addCommand(new Expand());
         commandClient.addCommand(new Small());
         commandClient.addCommand(new Swirl());
+        commandClient.addCommand(new MakeTable());
 
 
         
