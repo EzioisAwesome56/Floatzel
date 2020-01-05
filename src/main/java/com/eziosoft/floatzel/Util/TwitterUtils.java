@@ -22,36 +22,35 @@ public class TwitterUtils {
 
     public static void tweetbot() throws DatabaseException {
         // is the tweetbot on?
-        if (!Floatzel.tweeton){
+        if (!Floatzel.tweeton) {
             return;
         }
-            // get all ttweets
-            Cursor cur = Database.dbgetalltweets();
-            // did it fail to load?
-            if (Floatzel.fail) {
-                Floatzel.fail = false;
-                return;
-            }
-            // get a list from the cursor
-            List tweets = cur.toList();
-            int lenght = tweets.size();
-            // then get a tweet from the list
-            int oof = random.nextInt(lenght);
-            String tweet = tweets.get(oof).toString();
+        // get the actual tweet message from database
+        Cursor cur = Database.dbgetalltweets();
+        // did it fail to load?
+        if (Floatzel.fail) {
+            Floatzel.fail = false;
+            return;
+        }
+        // cursor -> list conversion
+        List tweets = cur.toList();
+        int lenght = tweets.size();
+        // loop to ensure we actually tweet something
+        boolean finished = false;
+        while (!finished) {
             // then send the tweet out to the world
-            errorcode = TwitterManager.tweet(tweet);
-            if (errorcode == 187){
+            errorcode = TwitterManager.tweet(tweets.get(random.nextInt(lenght)).toString());
+            if (errorcode == 187) {
                 // just do it again
                 retry++;
                 errorcode = 0;
-                if (retry == 5){
+                if (retry == 5) {
                     // fuck it
-                    retry = 0;
-                    return;
-                } else {
-                    tweetbot();
-                    return;
-                }
+                    finished = true;
             }
+        } else {
+                finished = true;
+            }
+        }
     }
 }
