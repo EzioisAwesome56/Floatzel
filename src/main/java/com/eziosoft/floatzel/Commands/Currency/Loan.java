@@ -14,7 +14,7 @@ public class Loan extends FCommand {
     private final Random random = new Random();
     public Loan(){
         name = "loan";
-        description = "get a fucking bank loan once per day";
+        description = "get a bank loan once per day";
         category = money;
     }
 
@@ -53,7 +53,11 @@ public class Loan extends FCommand {
             return;
         }
         int payout = random.nextInt(50) + 1;
-        event.getChannel().sendMessage("You fucking took out a loan of fucking "+Integer.toString(payout)+"\uD83E\uDD56 !").queue();
+        if (ass) {
+            event.getChannel().sendMessage("You fucking took out a loan of fucking " + Integer.toString(payout) + "\uD83E\uDD56 !").queue();
+        } else {
+            event.reply("you took out a loan of " + Integer.toString(payout) + moneyicon+ "!");
+        }
         int bal = Database.dbloadint(uid);
         bal = bal + payout;
         Database.dbsave(uid, Integer.toString(bal));

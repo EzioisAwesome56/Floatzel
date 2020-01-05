@@ -30,13 +30,21 @@ public class LootBox extends FCommand {
         String uid = event.getAuthor().getId();
         // check if the user has a bank account
         if (!Database.dbcheckifexist(uid)){
-            event.reply("You don't even have 50"+ moneyicon + " to fucking pay for this!");
+            if (ass) {
+                event.reply("You don't even have 50" + moneyicon + " to fucking pay for this!");
+            } else {
+                event.reply("You don't even have 50"+moneyicon+"to pay for a single box!");
+            }
             return;
         }
         int bal = Database.dbloadint(uid);
         // check if they have enough money for a loot box
         if (bal < 50){
-            event.getChannel().sendMessage("You don't fucking have 50" + moneyicon + " to afford a lootbox dumbass!").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You don't fucking have 50" + moneyicon + " to afford a lootbox dumbass!").queue();
+            } else {
+                event.reply("you do not have the required 50"+moneyicon+" to buy a single box!");
+            }
             return;
         }
         // remove money from there account
@@ -84,7 +92,12 @@ public class LootBox extends FCommand {
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
-                event.getChannel().sendMessage("Take this shitty **level 1** box!").addFile(stream.toByteArray(), "box.png").queue();
+
+                if (ass) {
+                    event.getChannel().sendMessage("Take this shitty **level 1** box!").addFile(stream.toByteArray(), "box.png").queue();
+                } else {
+                    event.getChannel().sendMessage("Take this awful **level 1** box!").addFile(stream.toByteArray(), "box.png").queue();
+                }
                 // generate reward
                 reward = random.nextInt(5) + 50;
             } else if (ok.contains(box)) {
@@ -92,7 +105,11 @@ public class LootBox extends FCommand {
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
-                event.getChannel().sendMessage("have this fucking AVERAGE **level 2** box").addFile(stream.toByteArray(), "box.png").queue();
+                if (ass) {
+                    event.getChannel().sendMessage("have this fucking AVERAGE **level 2** box").addFile(stream.toByteArray(), "box.png").queue();
+                } else {
+                    event.getChannel().sendMessage("have this alright **level 2** box").addFile(stream.toByteArray(), "box.png").queue();
+                }
                 // generate reward
                 reward = random.nextInt(20) + 75;
             } else if (best.contains(box)) {

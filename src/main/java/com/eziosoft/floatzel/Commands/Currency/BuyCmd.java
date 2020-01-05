@@ -33,7 +33,11 @@ public class BuyCmd extends FCommand {
                 return;
             }
             if (Database.dbcheckbloan(uid)){
-                event.getChannel().sendMessage("You already fucking bought this command, don't fucking throw more money at me dumbass!").queue();
+                if (ass) {
+                    event.getChannel().sendMessage("You already fucking bought this command, don't fucking throw more money at me dumbass!").queue();
+                } else {
+                    event.reply("You already bought this command, no need to buy it again");
+                }
                 return;
             }
             // subtract the amount of money from the user's bank account and then save it

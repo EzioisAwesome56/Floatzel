@@ -25,26 +25,50 @@ public class Gamble extends FCommand {
         } catch (NumberFormatException
                 e) {
             if (event.getArgs().length() < 1){
-                event.getChannel().sendMessage("You didnt enter a guess jackass!").queue();
+                if (ass) {
+                    event.getChannel().sendMessage("You didnt enter a guess jackass!").queue();
+                } else {
+                    event.reply("you forgot to enter a guess!");
+                }
             } else if (event.getArgs().length() > 50) {
-                event.getChannel().sendMessage("That isnt a number and its also way to fucking big jackass!").queue();
+                if (ass) {
+                    event.getChannel().sendMessage("That isnt a number and its also way to fucking big jackass!").queue();
+                } else {
+                    event.reply("That message is far too long, please try something shorter!");
+                }
             } else {
-                event.getChannel().sendMessage("`" + printarg + "`" + " isnt a number dumbass!").queue();
+                if (ass) {
+                    event.getChannel().sendMessage("`" + printarg + "`" + " isnt a number dumbass!").queue();
+                } else {
+                    event.reply("That is not even a number, please try again!");
+                }
             }
             return;
         }
         if (args > 5){
-            event.getChannel().sendMessage("That guess is not between 1 and 5 jackass!").queue();
+            if (ass) {
+                event.getChannel().sendMessage("That guess is not between 1 and 5 jackass!").queue();
+            } else {
+                event.reply("That guess is not between 1 and 5!");
+            }
             return;
         }
         Random random = new Random();
         int bal = Database.dbloadint(event.getAuthor().getId());
         // check if the user even has a db entry
         if (!Database.dbcheckifexist(event.getMessage().getAuthor().getId())){
-            event.getChannel().sendMessage("You dont have enough fucking bread to do this dumbass! You need atleast 5!").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You dont have enough fucking bread to do this dumbass! You need atleast 5!").queue();
+            } else {
+                event.reply("You need atleast 5"+ moneyicon+ " to do this, but you don't have any!");
+            }
             return;
         } else if (bal < 5){
-            event.getChannel().sendMessage("You dont have enough french bread to fucking do this dumbass!").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You dont have enough french bread to fucking do this dumbass!").queue();
+            } else {
+                event.reply("you do not have enough "+moneyicon+" to afford this!");
+            }
             return;
         } else {
             bal = bal - 5;
@@ -60,7 +84,11 @@ public class Gamble extends FCommand {
             Database.dbsave(event.getAuthor().getId(), Integer.toString(bal));
             return;
         } else {
-            event.getChannel().sendMessage("**YOU LOST!**\nTry again next time fucker").queue();
+            if (ass) {
+                event.getChannel().sendMessage("**YOU LOST!**\nTry again next time fucker").queue();
+            } else {
+                event.reply("**YOU LOST!**\naw, darn. perhaps you should try again?");
+            }
             return;
         }
     }

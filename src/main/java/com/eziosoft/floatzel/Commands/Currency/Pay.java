@@ -22,25 +22,41 @@ public class Pay extends FCommand {
         String unsplit = event.getArgs();
         String rawamount = "";
         if (unsplit.isEmpty()){
-            event.getChannel().sendMessage("You didnt give me any arguments dickface!").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You didnt give me any arguments dickface!").queue();
+            } else {
+                event.reply("You forgot to provide arguments for this command!");
+            }
             return;
         }
         String[] args = unsplit.split(" \\| ");
         try {
             rawamount = args[1];
         } catch (ArrayIndexOutOfBoundsException e){
-            event.getChannel().sendMessage("You didnt correctly provide fucking arguments").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You didn't correctly provide fucking arguments").queue();
+            } else{
+                event.reply("You provided invalid command arguments!");
+            }
             return;
         }
         int amount = 0;
         try{
             amount = Integer.valueOf(rawamount);
         } catch (NumberFormatException e){
-            event.getChannel().sendMessage(rawamount+" is not a valid number asshole").queue();
+            if (ass) {
+                event.getChannel().sendMessage(rawamount + " is not a valid number asshole").queue();
+            } else {
+                event.reply(rawamount + "is not a valid number, please try again");
+            }
             return;
         }
         if (!Database.dbcheckifexist(uid)){
-            event.getChannel().sendMessage("You don't have enough fucking french bread to pay someone dipshit").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You don't have enough fucking french bread to pay someone dipshit").queue();
+            } else {
+                event.reply("you do not have any "+moneyicon+" to pay someone!");
+            }
             return;
         }
         int bal = Database.dbloadint(uid);
@@ -50,12 +66,16 @@ public class Pay extends FCommand {
         }
         List<User> mentions = event.getMessage().getMentionedUsers();
         if (mentions.size() < 1){
-            event.getChannel().sendMessage("You didnt mention a user dumbass!").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You didnt mention a user dumbass!").queue();
+            } else {
+                event.reply("you forgot to mention who you want to pay!");
+            }
             return;
         }
         String monget = mentions.get(0).getId();
         if (!Database.dbcheckifexist(monget)){
-            System.out.println("H");
+            System.out.println("bank account created for user who is going to be paid");
         }
         // load balances
         int recvbal = Database.dbloadint(monget);
@@ -64,15 +84,27 @@ public class Pay extends FCommand {
             return;
         }
         if (uid == monget){
-            event.getChannel().sendMessage("You cant pay yourself dumbass").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You cant pay yourself dumbass").queue();
+            } else {
+                event.reply("You cannot pay yourself, sorry");
+            }
             return;
         }
         if (amount < 0){
-            event.getChannel().sendMessage("You cant pay someone minus bread you fuckface moron").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You cant pay someone minus bread you fuckface moron").queue();
+            } else {
+                event.reply("No, you cannot give someone negative "+moneyicon);
+            }
             return;
         }
         if (mentions.get(0).isBot()){
-            event.getChannel().sendMessage("You cant fucking pay a robot, they have no fucking use for it dumbass").queue();
+            if (ass) {
+                event.getChannel().sendMessage("You cant fucking pay a robot, they have no fucking use for it dumbass").queue();
+            } else {
+                event.reply("While im sure they would like it, bots have no use for "+moneyicon);
+            }
             return;
         }
         // alright fuck the error walls, lets go
