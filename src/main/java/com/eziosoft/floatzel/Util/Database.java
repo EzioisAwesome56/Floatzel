@@ -554,7 +554,7 @@ public class Database {
     public static void dbsetass(String gid, String option) throws DatabaseException{
         // do the things
         try {
-            r.table(banktable).filter(row -> row.g("gid").eq(gid)).update(r.hashMap("option", option)).run(thonk);
+            r.table(ass).filter(row -> row.g("gid").eq(gid)).update(r.hashMap("option", option)).run(thonk);
         } catch (ReqlError e){
             throw new DatabaseException(e.getMessage(), e.getStackTrace());
         }

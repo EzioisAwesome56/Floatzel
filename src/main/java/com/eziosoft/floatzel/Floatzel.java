@@ -163,6 +163,7 @@ public class Floatzel {
         commandClient.addCommand(new Small());
         commandClient.addCommand(new Swirl());
         commandClient.addCommand(new MakeTable());
+        commandClient.addCommand(new SetAss());
 
 
         
