@@ -1,6 +1,8 @@
 package com.eziosoft.floatzel.Commands;
 
+import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.Command;
@@ -51,8 +53,19 @@ public abstract class FCommand extends Command {
     // for the error handler
     public static CommandEvent erevent;
 
+    // checking if the user has ass mode on
+    public static Boolean ass;
+
     @Override
     protected void execute(CommandEvent event){
+        // load ass mode
+        try {
+            ass = Database.dbcheckifass(event.getGuild().getId());
+        } catch (DatabaseException e){
+            Error.Catch(e, event);
+            event.reply("Due to critical error, assuming jerk mode is OFF to continue operating");
+            ass = false;
+        }
         // is joke mode on?
         if (Floatzel.joke){
             // set the joke name to be the right thing

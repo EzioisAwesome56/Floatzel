@@ -19,6 +19,8 @@ public class Database {
     private static String tweets = "tweets";
     private static String tagperm = "gtagperm";
     private static String tags = "tags";
+    // new in 2.6: the ability to make floatzel not be an ass
+    private static String ass = "ass";
     // rethink db!
     private static final RethinkDB r = RethinkDB.r;
     private static Connection thonk;
@@ -508,6 +510,51 @@ public class Database {
         try {
             r.tableCreate(name).run(thonk);
             return true;
+        } catch (ReqlError e){
+            throw new DatabaseException(e.getMessage(), e.getStackTrace());
+        }
+    }
+
+    // check if a server has set floatzel to be an asshole or not
+    public static boolean dbcheckifass(String gid) throws DatabaseException{
+        // check to see if an entry even exists in the table
+        boolean exist = false;
+        try{
+           exist = (boolean) r.table(ass).filter(
+                    r.hashMap("gid", gid)
+            ).count().eq(1).run(thonk);
+        } catch (ReqlError e){
+            throw new DatabaseException(e.getMessage(), e.getStackTrace());
+        }
+        // does it even exist?
+        if (!exist) {
+            System.out.println("no option set for this GUILD!\nSetting option to NO!");
+            try{
+                r.table(ass).insert(r.array(
+                        r.hashMap("gid", gid)
+                                .with("option" , "false")
+                )).run(thonk);
+            } catch (ReqlError e){
+                throw new DatabaseException(e.getMessage(), e.getStackTrace());
+            }
+            // since we just set the option to no, return false
+            return false;
+        }
+        // if we made it here, the guild clearly has the option set, so load that option
+        try {
+            cur = r.table(ass).filter(row -> row.g("gid").eq(gid)).getField("option").run(thonk);
+        } catch (ReqlError e){
+            throw new DatabaseException(e.getMessage(), e.getStackTrace());
+        }
+        // get the value from the cursor + return that
+        return Boolean.valueOf(Utils.getValue(cur));
+    }
+
+    // setting the option
+    public static void dbsetass(String gid, String option) throws DatabaseException{
+        // do the things
+        try {
+            r.table(banktable).filter(row -> row.g("gid").eq(gid)).update(r.hashMap("option", option)).run(thonk);
         } catch (ReqlError e){
             throw new DatabaseException(e.getMessage(), e.getStackTrace());
         }
