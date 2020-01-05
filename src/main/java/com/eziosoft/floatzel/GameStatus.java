@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.TimerTask;
 
+import static com.eziosoft.floatzel.Floatzel.jda;
+
 public class GameStatus extends TimerTask {
 
     public GameStatus() {}
@@ -22,7 +24,8 @@ public class GameStatus extends TimerTask {
             "PyCharm", "Rectangle Gay", "Making the frogs gay", "eirrac", "what the fuck is a hedgehog", "heck you blur", "enitsirhc", "fuck me harder daddy",
             "Intelij", "Smoking weed", "Persona -12 + GAY DLC", "Circles", "Godson is radical", "Ryan is gay", "Java 10", "with Yukari", "Super Dankio Ocyssey",
             "Fucking Mitsuru with a stick", "Persona: Waifu simulator", "Ezio X Yukari", "Yukari is hot", "Ezio is dumb", "Smelling Ralsei's feet", "Licking Ralsei feetz",
-            "Calling 18 a gaylord", "Watching Mitsuru and Ralsei fuck", "DMAN has the largest gay", "TOUHOU", "Nintendo", "Linux, bitch"};
+            "Calling 18 a gaylord", "Watching Mitsuru and Ralsei fuck", "DMAN has the largest gay", "TOUHOU", "Nintendo", "Linux, bitch", "Mozilla Chrome", "Shooting Internet Explorer", "hi esmbot",
+            "Cirno is dumb lol"};
 
     String[] stupid = {"I failed math", "buy my water flavoured ice!", "why does everyone hate me :C", "Ice > weed", "I have -2 iq"};
 
@@ -30,10 +33,19 @@ public class GameStatus extends TimerTask {
     public void run() {
         if (!Floatzel.joke) {
             int index = random.nextInt(games.length);
-            Floatzel.jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.playing(games[index])));
+            int type = random.nextInt(4);
+            if (type == 0) {
+                jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.playing(games[index])));
+            } else if (type == 1){
+                jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.listening(games[index])));
+            } else if (type == 2){
+                jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.streaming(games[index], "https://www.google.com")));
+            } else {
+                jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.watching(games[index])));
+            }
         } else {
             int index = random.nextInt(stupid.length);
-            Floatzel.jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.playing(stupid[index])));
+            jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.playing(stupid[index])));
         }
     }
 }
