@@ -35,13 +35,13 @@ public class GameStatus extends TimerTask {
             int index = random.nextInt(games.length);
             int type = random.nextInt(4);
             if (type == 0) {
-                jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.playing(games[index])));
+                jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.watching(games[index])));
             } else if (type == 1){
                 jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.listening(games[index])));
             } else if (type == 2){
                 jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.streaming(games[index], "https://www.google.com")));
             } else {
-                jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.watching(games[index])));
+                jda.getShards().forEach(jda -> jda.getPresence().setActivity(Activity.playing(games[index])));
             }
         } else {
             int index = random.nextInt(stupid.length);
