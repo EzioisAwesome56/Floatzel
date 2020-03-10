@@ -116,7 +116,7 @@ public class Error {
 
         // send the message
         try {
-            Floatzel.jda.getTextChannelById("512787662344814622").sendMessage("Floatzel ran into a error while tweeting and stopped trying. Check Error report below").addFile(builder.toString().getBytes("UTF-8"), "twittererror.txt").queue();
+            Floatzel.jda.getTextChannelById("512787662344814622").sendMessage("Floatzel ran into an Error somewhere that couldnt be thrown out of. Report below").addFile(builder.toString().getBytes("UTF-8"), "error.txt").queue();
         } catch (UnsupportedEncodingException e) {
             //This will never be thrown, but java won't stop yelling at us if we don't try to catch it.
             e.printStackTrace();
