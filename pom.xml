@@ -90,7 +90,7 @@
         <dependency>
             <groupId>com.github.ricksbrown</groupId>
             <artifactId>cowsay</artifactId>
-            <version>1.0.3</version>
+            <version>1.1.0</version>
         </dependency>
         <!-- shit needed by running a custom lavaplayer -->
         <!--<dependency>
