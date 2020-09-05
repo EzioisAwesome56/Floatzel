@@ -6,7 +6,6 @@ import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.TwitterUtils;
 import com.eziosoft.floatzel.Util.Utils;
-import com.rethinkdb.net.Cursor;
 
 import java.util.List;
 import java.util.Random;
