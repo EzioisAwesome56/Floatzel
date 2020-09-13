@@ -100,7 +100,7 @@ public class Player extends ListenerAdapter {
     public void loadAndPlay(final CommandEvent event, final String trackUrl) {
         GuildMusicManager musicManager = getGuildAudioPlayer(event, 0);
         if (musicManager.getStatus() == 1) {
-            event.getChannel().sendMessage("Faggot, I'm in the middle of busting out a fresh meme. Get the fuck out.").queue();
+            event.getChannel().sendMessage("Idiot, I'm in the middle of busting out a fresh meme. Get the fuck out.").queue();
             return;
         }
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
@@ -124,7 +124,7 @@ public class Player extends ListenerAdapter {
 
             @Override
             public void noMatches() {
-                event.getChannel().sendMessage("`" + trackUrl + "` isn't a URL faggot.").queue();
+                event.getChannel().sendMessage("`" + trackUrl + "` isn't a URL idiot.").queue();
                 if (musicManager.player.getPlayingTrack() == null) killConnection(event.getGuild());
             }
 
@@ -190,7 +190,7 @@ public class Player extends ListenerAdapter {
         if (!audioManager.isConnected() && !audioManager.isAttemptingToConnect()) {
             Optional<VoiceChannel> voiceChannel = event.getGuild().getVoiceChannels().stream().filter(c -> c.getMembers().contains(event.getEvent().getMember())).findFirst();
             if (!voiceChannel.isPresent()) {
-                event.getTextChannel().sendMessage("You're not in a VC you fucking faggot").queue();
+                event.getTextChannel().sendMessage("You're not in a VC you fucking Idiot").queue();
             } else {
                 audioManager.openAudioConnection(voiceChannel.get());
                 announceStart(event, voiceChannel.get());
