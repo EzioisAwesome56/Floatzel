@@ -1,14 +1,17 @@
 package com.eziosoft.floatzel.Util;
 
+import com.eziosoft.floatzel.Exception.GenericException;
+
 public class Brainfuck {
 
     // Eziosoft Brainfuck interpreter
-    public static String ParseBrainFuck(String fuck){
+    public static String ParseBrainFuck(String fuck) throws GenericException {
         // get length of program
         int len = fuck.length();
         // init brainfuck enviroment
         int count = 0;
         int cell = 0;
+        int instructions = 0;
         int[] mem = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         String[] charset = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
         "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
@@ -16,6 +19,10 @@ public class Brainfuck {
         String instruct = "";
         // actually run it
         while (count != len){
+            instructions++;
+            if (instructions > 500){
+                throw new GenericException("brainfuck program contains too many instructions!");
+            }
             instruct = fuck.substring(count, count + 1);
             if (instruct.equals(">")){
                 cell++;
@@ -36,7 +43,13 @@ public class Brainfuck {
                 // is the current cell zero?
                 if (mem[cell] == 0){
                     // find the ]
+                    int temp = 0;
                     while (!fuck.substring(count, count + 1).equals("]")){
+                        temp++;
+                        instructions++;
+                        if (temp > 100){
+                            throw new GenericException("Brainfuck loop is too long!");
+                        }
                         count++;
                     }
                 }
@@ -44,7 +57,13 @@ public class Brainfuck {
                 // is the current cell not zero?
                 if (mem[cell] != 0){
                     // find the [!
+                    int temp = 0;
                     while (!fuck.substring(count, count + 1).equals("[")){
+                        temp++;
+                        instructions++;
+                        if (temp > 100){
+                            throw new GenericException("Brainfuck loop is too long!");
+                        }
                         count--;
                     }
                 }

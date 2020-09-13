@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Util.Brainfuck;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -13,7 +14,7 @@ public class fuck extends FCommand {
         aliases = Utils.makeAlias("exec");
     }
 
-    protected void cmdrun(CommandEvent event){
+    protected void cmdrun(CommandEvent event) throws GenericException{
         event.reply("Parsing brainfuck, please wait...");
         event.getChannel().sendTyping().queue();
         event.reply(Brainfuck.ParseBrainFuck(argsplit[0]));
