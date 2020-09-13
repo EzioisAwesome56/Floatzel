@@ -67,6 +67,8 @@ public class Database {
         r.tableCreate(tagperm).run(thonk);
         r.tableCreate(tags).run(thonk);
         r.tableCreate(stockbuy).run(thonk);
+        // how did i forget this??
+        r.tableCreate(ass).run(thonk);
     }
 
     // check if db entry exists
