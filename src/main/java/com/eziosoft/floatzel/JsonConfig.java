@@ -64,7 +64,6 @@ public class JsonConfig {
         // slack shit
         this.slackbot = "Slack api token (Serves no purpose)";
         this.enslack = false;
-        System.out.println("Default configuration loaded!");
         return;
     }
 

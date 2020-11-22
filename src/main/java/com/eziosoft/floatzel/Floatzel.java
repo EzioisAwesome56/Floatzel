@@ -95,7 +95,7 @@ public class Floatzel {
         twitterManager = new TwitterManager();
 
         // resume everything else
-        version = !isdev ? "2.5.6.3 LTS" : "2.x Developement";
+        version = !isdev ? "2.5.6.4 LTS" : "2.x Developement";
          commandClient = new CommandClientBuilder().setOwnerId(conf.getOwnerid()).useHelpBuilder(false).setPrefix(!isdev ? conf.getPrefix() : conf.getDevprefix()).build();
 
 
@@ -167,10 +167,10 @@ public class Floatzel {
         commandClient.addCommand(new Avatar());
 
 
-        
-        jda = new DefaultShardManagerBuilder().setToken(!isdev ? conf.getToken() : conf.getDevtoken())
+        jda = DefaultShardManagerBuilder.createDefault(!isdev ? conf.getToken() : conf.getDevtoken())
                 .addEventListeners(listener, commandClient, musicPlayer, waiter)
-                .setShardsTotal(2).build();
+                .setShardsTotal(2)
+                .build();
 
         //TwitterManager is now a listener too, which'll do all the work onReady by itself instead of relying on MiscListener
         if (!isdev && Floatzel.conf.getTwitterTog()) Floatzel.jda.addEventListener(twitterManager);
