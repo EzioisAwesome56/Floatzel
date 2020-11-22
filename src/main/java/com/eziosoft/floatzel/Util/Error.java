@@ -42,7 +42,7 @@ public class Error {
         StringBuilder builder = new StringBuilder();
 
         // pick a phrase to slap at the top of the file
-        String[] phrases = { "Aw shit!","Damn it ezio, you suck at coding","Crash party, anyone?","Salty is dumb lol",
+        String[] phrases = { "Aw shit!","Damn it ezio, you suck at coding","Crash party, anyone?","the letter h",
         "how did you find this?","Stop breaking me, damn it!", "fuck off"};
         int index = random.nextInt(phrases.length);
         builder.append(phrases[index]).append(endl+endl);
