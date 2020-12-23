@@ -100,7 +100,7 @@ public class Player extends ListenerAdapter {
     public void loadAndPlay(final CommandEvent event, final String trackUrl) {
         GuildMusicManager musicManager = getGuildAudioPlayer(event, 0);
         if (musicManager.getStatus() == 1) {
-            event.getChannel().sendMessage("Idiot, I'm in the middle of busting out a fresh meme. Get the fuck out.").queue();
+            event.getChannel().sendMessage("Cant play music while playing memes. sorry!").queue();
             return;
         }
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
@@ -119,18 +119,18 @@ public class Player extends ListenerAdapter {
                     } else failed++;
                 }
 
-                event.getChannel().sendMessage(event.getEvent().getAuthor().getName() + " added " + (playlist.getTracks().size() - failed) + " tracks to the queue. (Holy shit)" + (failed > 0 ? " (" + failed + " track(s) could not be added.)" : "")).queue();
+                event.getChannel().sendMessage(event.getEvent().getAuthor().getName() + " added " + (playlist.getTracks().size() - failed) + " tracks to the queue." + (failed > 0 ? " (" + failed + " track(s) could not be added.)" : "")).queue();
             }
 
             @Override
             public void noMatches() {
-                event.getChannel().sendMessage("`" + trackUrl + "` isn't a URL idiot.").queue();
+                event.getChannel().sendMessage("`" + trackUrl + "` isn't a URL, sadly.").queue();
                 if (musicManager.player.getPlayingTrack() == null) killConnection(event.getGuild());
             }
 
             @Override
             public void loadFailed(FriendlyException exception) {
-                event.getChannel().sendMessage("HOLY FUCK AN ERROR: " + exception.getMessage()).queue();
+                event.getChannel().sendMessage("WHOA AN ERROR: " + exception.getMessage()).queue();
                 if (musicManager.player.getPlayingTrack() == null) killConnection(event.getGuild());
             }
         });
@@ -158,7 +158,7 @@ public class Player extends ListenerAdapter {
                                 (musicManager.player.getPlayingTrack().getDuration() - musicManager.player.getPlayingTrack().getPosition() + (totalLength - track.getDuration()))) + " **Queue Position: " + musicManager.scheduler.getRepeatQueue().size() + "**)";
 
             }
-            event.getChannel().sendMessage("Added \"" + track.getInfo().title + "\" to the FUCKING queue." + timeBefore).queue();
+            event.getChannel().sendMessage("Added \"" + track.getInfo().title + "\" to the queue." + timeBefore).queue();
         }
     }
 
@@ -190,7 +190,7 @@ public class Player extends ListenerAdapter {
         if (!audioManager.isConnected() && !audioManager.isAttemptingToConnect()) {
             Optional<VoiceChannel> voiceChannel = event.getGuild().getVoiceChannels().stream().filter(c -> c.getMembers().contains(event.getEvent().getMember())).findFirst();
             if (!voiceChannel.isPresent()) {
-                event.getTextChannel().sendMessage("You're not in a VC you fucking Idiot").queue();
+                event.getTextChannel().sendMessage("You're not in a VC you absolute muffin").queue();
             } else {
                 audioManager.openAudioConnection(voiceChannel.get());
                 announceStart(event, voiceChannel.get());
@@ -204,7 +204,7 @@ public class Player extends ListenerAdapter {
         GuildMusicManager musicManager = musicManagers.get(Long.parseLong(event.getGuild().getId()));
         if (musicManager.isMusic() && !musicManager.scheduler.hasStarted()) {
             musicManagers.get(Long.parseLong(event.getGuild().getId())).scheduler.setStarted();
-            event.getChannel().sendMessage(event.getEvent().getAuthor().getAsMention() + " is playing fucking shitty-ass music in: `" + channel.getName() + "`. ").queue();
+            event.getChannel().sendMessage(event.getEvent().getAuthor().getAsMention() + " is playing fire music in: `" + channel.getName() + "`. ").queue();
             musicManagers.get(Long.parseLong(event.getGuild().getId())).scheduler.currentUser = event.getEvent().getAuthor();
         }
     }
@@ -219,11 +219,11 @@ public class Player extends ListenerAdapter {
 
     public void shutdown(String reason) {
         Set<Long> sessions = new HashSet<>(musicManagers.keySet());
-        sessions.forEach(id -> closeConnection(Floatzel.jda.getGuildById(id), "This music session was ended due to the mother fucking bot exploding with the reason: `" + reason + "`"));
+        sessions.forEach(id -> closeConnection(Floatzel.jda.getGuildById(id), "This music session was ended due to an internal bot error: `" + reason + "`"));
     }
 
     public void closeConnection(Guild guild) {
-        closeConnection(guild, "Annnd we're done with that shitty music.");
+        closeConnection(guild, "Now that the music's over, Ima go take a nap");
     }
 
     public void closeConnection(Guild guild, String reason) {
@@ -259,10 +259,10 @@ public class Player extends ListenerAdapter {
                             int user = random.nextInt(potentialHosts.size());
                             User newHost = potentialHosts.get(user);
                             changeHost(event.getGuild(), newHost);
-                            announceToMusicSession(event.getGuild(), newHost.getName() + " is now the asshole DJ.");
+                            announceToMusicSession(event.getGuild(), newHost.getName() + " is now the  epic DJ!.");
                         }
                     } else {
-                        announceToMusicSession(event.getGuild(), "I get it, you guys abandon me? Fuck you all, assholes.");
+                        announceToMusicSession(event.getGuild(), "I get it, you guys wanna let me sleep. Thats fine by me! cya around");
                         closeConnection(event.getGuild());
                     }
                 }
@@ -282,10 +282,10 @@ public class Player extends ListenerAdapter {
                             int user = random.nextInt(potentialHosts.size());
                             User newHost = potentialHosts.get(user);
                             changeHost(event.getGuild(), newHost);
-                            announceToMusicSession(event.getGuild(), newHost.getName() + " is now the asshole DJ.");
+                            announceToMusicSession(event.getGuild(), newHost.getName() + " is now the epic DJ!");
                         }
                     } else {
-                        announceToMusicSession(event.getGuild(), "I get it, you guys abandon me? Fuck you all, assholes.");
+                        announceToMusicSession(event.getGuild(), "I get it, you guys wanna let me sleep. Thats fine by me! cya around");
                         closeConnection(event.getGuild());
                     }
                 }
