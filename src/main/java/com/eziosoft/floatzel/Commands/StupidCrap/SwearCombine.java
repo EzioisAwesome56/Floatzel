@@ -1,4 +1,4 @@
-package com.eziosoft.floatzel.Commands.Asshole;
+package com.eziosoft.floatzel.Commands.StupidCrap;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Floatzel;

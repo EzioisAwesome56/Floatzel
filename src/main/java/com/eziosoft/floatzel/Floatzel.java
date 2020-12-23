@@ -1,5 +1,5 @@
 package com.eziosoft.floatzel;
-import com.eziosoft.floatzel.Commands.Asshole.SwearCombine;
+import com.eziosoft.floatzel.Commands.StupidCrap.SwearCombine;
 import com.eziosoft.floatzel.Commands.Currency.*;
 import com.eziosoft.floatzel.Commands.Debug.Debug;
 import com.eziosoft.floatzel.Commands.Entertainment.*;
