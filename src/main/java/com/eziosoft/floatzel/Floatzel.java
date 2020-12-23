@@ -23,6 +23,7 @@ import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
+import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
 import com.google.gson.Gson;
@@ -95,6 +96,17 @@ public class Floatzel {
             }
 
         }
+        // start up the mod loader
+        try {
+            loader = new ModLoader("mods");
+            loader.loadAll();
+        } catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Floatzel has encountered an error trying to startup! now shutting down...");
+            System.exit(-1);
+        }
+
+
         // will this work?
         twitterManager = new TwitterManager();
 

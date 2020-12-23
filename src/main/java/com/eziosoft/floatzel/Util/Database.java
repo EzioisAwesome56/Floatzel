@@ -25,8 +25,11 @@ public class Database {
     // put the new Database module here
     private static DatabaseModule dbdriver;
 
-    public void setDbdriver(DatabaseModule db){
+    public static void setDbdriver(DatabaseModule db){
         dbdriver = db;
+    }
+    public static void sendConninfo(String json){
+        dbdriver.sendConninfo(json);
     }
     // tables
     private static String banktable = "bank";
@@ -59,7 +62,7 @@ public class Database {
         if (1 == 2){
             throw new DatabaseException("what", new StackTraceElement[]{new StackTraceElement("gtfo lol", "fuck", "dank", 2)});
         }
-        dbdriver.checkforuser(id);
+        return dbdriver.checkforuser(id);
     }
 
         // funtion to check if a guild has bought the tag command already
@@ -210,6 +213,7 @@ public class Database {
         }
     }
 
+    @Deprecated
     public static void dbinccount(){
        // since rethink db isnt shit like sqlite, we dont need this anymore
         // as such, this function does nothing
@@ -366,13 +370,11 @@ public class Database {
 
     // check if the user has bought a stock yet
     public static boolean dbcheckifstock(String uid) throws DatabaseException{
-        boolean exist = false;
-        try{
-            exist = (boolean) r.table(stockbuy).filter(row -> row.g("uid").eq(uid)).count().eq(1).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
+        if (dbdriver.getProfile(uid).getStockid() == -1){
+            return false;
+        } else {
+            return true;
         }
-        return exist;
     }
 
     // validate a stock id
@@ -388,34 +390,21 @@ public class Database {
 
     // buy a stock
     public static void dbbuystock(String uid, int id) throws DatabaseException{
-        try{
-            r.table(stockbuy).insert(
-                    r.hashMap("uid", uid)
-                    .with("sid", id)
-            ).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
+        User h = dbdriver.getProfile(uid);
+        h.setStockid(id);
+        dbdriver.saveProfile(h);
     }
 
     // get the id of the stock a user bought
     public static int dbloadstockid(String uid) throws DatabaseException{
-        try{
-            cur = r.table(stockbuy).filter(row -> row.g("uid").eq(uid)).getField("sid").run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        int id = Integer.valueOf(Utils.getValue(cur));
-        return id;
+        return dbdriver.getProfile(uid).getStockid();
     }
 
     // deleting a user's entry on the table
     public static void dbdeletestock(String uid) throws DatabaseException{
-        try {
-            r.table(stockbuy).filter(row -> row.g("uid").eq(uid)).delete().run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
+        User h = dbdriver.getProfile(uid);
+        h.setStockid(-1);
+        dbdriver.saveProfile(h);
     }
 
     // get all tweets

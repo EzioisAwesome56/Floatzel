@@ -59,13 +59,13 @@ public abstract class FCommand extends Command {
     @Override
     protected void execute(CommandEvent event){
         // load ass mode
-        try {
+        /*try {
             ass = Database.dbcheckifass(event.getGuild().getId());
         } catch (DatabaseException e){
             Error.Catch(e, event);
             event.reply("Due to critical error, assuming jerk mode is OFF to continue operating");
             ass = false;
-        }
+        }*/
         // is joke mode on?
         if (Floatzel.joke){
             // set the joke name to be the right thing

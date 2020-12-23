@@ -1,9 +1,12 @@
 package com.eziosoft.floatzel.Objects;
 
+import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Util.Database;
 import com.google.gson.Gson;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -64,6 +67,29 @@ public class ModLoader {
 
         this.mods = modlist.toArray(new Mod[]{});
         System.out.println("Eziosoft Modloader Initialization complete!");
+    }
+
+    public void loadAll() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException {
+        boolean dbloaded = false;
+        System.out.println("Eziosoft ModLoader is now loading mod classes...");
+        for (int h = 0; h < mods.length; h++) {
+            if (!dbloaded) {
+                if (mods[h].getType().equals("database")) {
+                    System.out.println("Database mod found! Loading as primary database driver...");
+                    Class classToLoad = Class.forName(mods[h].getMainclass(), true, child);
+                    Object mod = classToLoad.getConstructor().newInstance();
+                    // load it as a genaricDatabase
+                    GenaricDatabase db = (GenaricDatabase) mod;
+                    Database.setDbdriver(new DatabaseModule(db));
+                    Database.sendConninfo(gson.toJson(new ConnInfo("localhost", Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), 6969)));
+                    System.out.println("Database mod loaded!");
+                    dbloaded = true;
+                } else {
+                    System.out.println("Non-Database mods are currently unsupported. sorry about that");
+                }
+            }
+        }
+        System.out.println("All mods have been loaded.");
     }
 
 

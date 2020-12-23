@@ -35,4 +35,8 @@ public class DatabaseModule {
     public boolean checkforuser(String id){
         return driver.checkForUser(id);
     }
+
+    public void sendConninfo(String json){
+        driver.Conninfo(json);
+    }
 }
