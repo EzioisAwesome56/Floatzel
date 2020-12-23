@@ -35,10 +35,6 @@ public class Database {
     private static String bloanperm = "bloan";
     private static String stocktable = "stocks";
     private static String tweets = "tweets";
-    private static String tagperm = "gtagperm";
-    private static String tags = "tags";
-    // new in 2.6: the ability to make floatzel not be an ass
-    private static String ass = "ass";
     // rethink db!
     private static final RethinkDB r = RethinkDB.r;
     private static Connection thonk;
