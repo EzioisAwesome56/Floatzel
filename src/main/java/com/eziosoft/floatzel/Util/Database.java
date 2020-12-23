@@ -46,47 +46,12 @@ public class Database {
 
 
 
-    // check if folder exist
+    // init whatever driver was loaded
     public static void dbinit() {
-        Connection.Builder builder = r.connection().hostname("localhost").port(28015);
-        if (Floatzel.conf.dbUser() != null) {
-            builder.user(Floatzel.conf.dbUser(), Floatzel.conf.dbPass() != null ? Floatzel.conf.dbPass() : "");
-        } else {
-            builder.user("admin", Floatzel.conf.dbPass() != null ? Floatzel.conf.dbPass() : "");
-        }
-
-        thonk = builder.connect();
-        System.out.println("Floatzel is starting RethinkDB...");
-        // first, check if the database file exists
-        if (!(boolean) r.dbList().contains("floatzel").run(thonk)){
-            System.out.println("No database found! Creating a new db!");
-            // okay, it hasnt been initalized yet, so do that
-            r.dbCreate("floatzel").run(thonk);
-            thonk.use("floatzel");
-            System.out.println("Creating tables...");
-            Database.makeTables();
-        } else {
-            // set the default db for rethonk
-            thonk.use("floatzel");
-            System.out.println("ReThinkDB started!");
-        }
-        return;
+        dbdriver.init();
     }
 
-    // create all the tables!
-    private static void makeTables(){
-        // run a bunch of rethink commands
-        r.tableCreate(banktable).run(thonk);
-        r.tableCreate(loantable).run(thonk);
-        r.tableCreate(bloanperm).run(thonk);
-        r.tableCreate(stocktable).run(thonk);
-        r.tableCreate(tweets).run(thonk);
-        r.tableCreate(tagperm).run(thonk);
-        r.tableCreate(tags).run(thonk);
-        r.tableCreate(stockbuy).run(thonk);
-        // how did i forget this??
-        r.tableCreate(ass).run(thonk);
-    }
+
 
     // check if db entry exists
     public static Boolean dbcheckifexist(String id) throws DatabaseException{
