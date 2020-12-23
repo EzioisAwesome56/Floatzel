@@ -169,18 +169,11 @@ public class Database {
 
     // check to see if anything is in the table at all
     public static Boolean dbcheckstock() throws DatabaseException{
-        boolean exist = false;
-        long total;
-        try{
-            total = r.table(stocktable).count().run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
+        if (dbdriver.totalStocks() > 0){
+            return true;
+        } else {
+            return false;
         }
-        int realtotal = Math.toIntExact(total);
-        if (realtotal >= 1){
-            exist = true;
-        }
-        return exist;
     }
 
     // sql fucntion to write a 0 to a new loan entry

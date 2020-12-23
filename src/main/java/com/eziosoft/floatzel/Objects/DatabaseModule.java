@@ -39,4 +39,8 @@ public class DatabaseModule {
     public void sendConninfo(String json){
         driver.Conninfo(json);
     }
+
+    public int totalStocks(){
+        return driver.totalStocks();
+    }
 }
