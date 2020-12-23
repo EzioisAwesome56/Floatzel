@@ -202,24 +202,6 @@ public class Utils {
         }
     }
 
-    // stuff for the joke mode
-    static String[] swears = {"fuck", "shit", "damn"};
-    static String[] insults = {"dumb", "fuckface", "fucktard", "moron", "dumbass"};
-
-    public static String getSwear(int hardcode){
-        // deal with hardcoded values first
-        if (hardcode == 1){
-            return "fucking";
-        }
-        // do stuff here
-        return "";
-    }
-
-    public static String getInsult(){
-        int index = random.nextInt(insults.length);
-        return insults[index];
-    }
-
     static String[] cirnoText = {"I'm so stupid I can't figure out how to use that command! Sorry!", "I accidentally froze this command! whoops!", "I shot a bullet at my hand and now I can't run this command!",
     "I'm too lazy to run this command, sorry!", "Stop trying to run this command before I freeze you!"};
 

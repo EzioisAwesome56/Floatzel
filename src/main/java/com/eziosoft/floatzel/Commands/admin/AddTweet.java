@@ -18,10 +18,10 @@ public class AddTweet extends FCommand {
     protected void cmdrun(CommandEvent event) throws DatabaseException {
         String tweet = event.getArgs();
         if (tweet.length() > 280){
-            event.getChannel().sendMessage("That tweet is too long "+ Utils.getInsult() + "!").queue();
+            event.getChannel().sendMessage("That tweet is too long!").queue();
             return;
         } else if (tweet.isEmpty()){
-            event.getChannel().sendMessage("You didnt give me a tweet"+ Utils.getInsult() +"!").queue();
+            event.getChannel().sendMessage("You didnt give me a tweet!").queue();
             return;
         }
         // save the tweet
