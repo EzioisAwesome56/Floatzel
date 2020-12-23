@@ -264,60 +264,6 @@ public class Database {
 
     }
 
-    // insert the guild into the permission table
-    public static void dbsettagperm(String gid) throws DatabaseException{
-        try{
-            r.table(tagperm).insert(
-                    r.hashMap("gid", gid)
-            ).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-    }
-
-    // checking if a tag exists
-    public static boolean dbchecktag(String gid, String tname) throws DatabaseException{
-        boolean exist = false;
-        try {
-            exist = (boolean) r.table(tags).filter(
-                    row -> row.g("gid").eq(gid).and(
-                            row.g("tname").eq(tname)
-                    )
-            ).distinct().count().gt(0).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        return exist;
-    }
-    // used for saving tags to the database
-    public static void dbsavetag(String gid, String tname, String tcont) throws DatabaseException{
-        try {
-            r.table(tags).insert(r.array(
-                    r.hashMap("gid", gid)
-                    .with("tname", tname)
-                    .with("cont", tcont)
-            )).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-    }
-
-    // used for loading tags
-    public static String dbloadtag(String gid, String tname) throws DatabaseException{
-        String tcont = "";
-        try{
-            cur = r.table(tags).filter(
-                    row -> row.g("gid").eq(gid).and(
-                            row.g("tname").eq(tname)
-                    )
-            ).getField("cont").run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        tcont = Utils.getValue(cur);
-        return tcont;
-    }
-
     // check if the user has bought a stock yet
     public static boolean dbcheckifstock(String uid) throws DatabaseException{
         if (dbdriver.getProfile(uid).getStockid() == -1){
