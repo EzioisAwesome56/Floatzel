@@ -4,6 +4,7 @@ import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Objects.DatabaseModule;
+import com.eziosoft.floatzel.Objects.Stock;
 import com.eziosoft.floatzel.Objects.User;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
@@ -178,19 +179,8 @@ public class Database {
 
     // sql fucntion to write a 0 to a new loan entry
     public static void dbnewstock(int id, String name, int units, int price) throws DatabaseException{
-        try {
-            r.table(stocktable).insert(
-                    r.array(
-                            r.hashMap("sid", id)
-                            .with("name", name)
-                            .with("units", units)
-                            .with("price", price)
-                            .with("diff", 0)
-                    )
-            ).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
+        Stock s = new Stock(id, name, units, price);
+        dbdriver.createNewStock(s);
     }
 
     // HOTFIX: deleting stocks

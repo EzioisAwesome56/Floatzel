@@ -43,4 +43,8 @@ public class DatabaseModule {
     public int totalStocks(){
         return driver.totalStocks();
     }
+
+    public void createNewStock(Stock s){
+        driver.makeNewStock(gson.toJson(s));
+    }
 }

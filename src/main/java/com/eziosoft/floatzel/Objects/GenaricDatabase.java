@@ -12,7 +12,9 @@ public interface GenaricDatabase {
 
     boolean checkForUser(String id);
 
-    int totalStocks(String s);
+    int totalStocks();
+
+    void makeNewStock(String s);
 
 
 }
