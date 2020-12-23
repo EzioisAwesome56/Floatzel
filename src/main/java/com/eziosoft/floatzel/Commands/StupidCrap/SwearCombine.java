@@ -17,8 +17,7 @@ public class SwearCombine extends FCommand {
     protected void cmdrun(CommandEvent event){
         // why did i think the slack support was a good idea? it wasnt.
         Random random = new Random();;
-        String[] words = {"fuck", "ass", "shit", "what", "oof", "fucking", "hecking", "dink", "what", "pingu", "fucktart", "asswipe", "fuckhead", "asshat", "shitface",
-                "assholefuckface", "dickface", "fucktard", "fuckfart", "benis"};
+        String[] words = {"gaming", "dank", "hfjskdlfhaskljdsa", "hhhhhhhh", "what the heck", "mmmmmmmm", "time out", "boring", "the letter h", "dink"};
         int maxnumb = words.length;
         int sentlong = random.nextInt(10) + 1;
         int count = 0;
