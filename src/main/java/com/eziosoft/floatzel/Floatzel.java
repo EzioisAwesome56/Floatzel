@@ -22,6 +22,7 @@ import com.eziosoft.floatzel.Commands.test.TestCommand;
 import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
+import com.eziosoft.floatzel.Objects.ModLoader;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
 import com.google.gson.Gson;
@@ -63,6 +64,9 @@ public class Floatzel {
     public static boolean tweeton = false;
     public static boolean fail = false;
 
+    // new in 3.0: mod loader
+    public static ModLoader loader;
+
     public static void main(String[] args) throws LoginException {
         System.out.println("Floatzel is now starting up...");
         //Checking if shit is dev (which is set by adding --dev to java args, if so, do extra shit.
@@ -95,7 +99,7 @@ public class Floatzel {
         twitterManager = new TwitterManager();
 
         // resume everything else
-        version = !isdev ? "2.5.6.4 LTS" : "2.x Developement";
+        version = !isdev ? "2.5.6.4 LTS" : "3.x Developement";
          commandClient = new CommandClientBuilder().setOwnerId(conf.getOwnerid()).useHelpBuilder(false).setPrefix(!isdev ? conf.getPrefix() : conf.getDevprefix()).build();
 
 
