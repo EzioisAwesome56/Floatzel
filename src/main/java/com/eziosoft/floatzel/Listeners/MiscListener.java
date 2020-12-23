@@ -35,7 +35,7 @@ public class MiscListener extends ListenerAdapter {
                     Error.CatchOld(e);
                 }*/
             }
-            System.out.println("Floatzel is alive you piece of shit, now hope it doesnt start a fight dickface");
+            System.out.println("Floatzel is at your service, sir!");
 
             //Set timer to change "game" every 10 minutes.
             if (timer == null) {
