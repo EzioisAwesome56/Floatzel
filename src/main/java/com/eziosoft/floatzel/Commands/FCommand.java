@@ -23,7 +23,7 @@ public abstract class FCommand extends Command {
     public static Category spam = new Category("Spam");
     public static Category fun = new Category("Entertainment");
     public static Category owner = new Category("Owner Commands");
-    public static Category asshole = new Category("Assholery");
+    public static Category asshole = new Category("Stupid Stuff");
     public static Category sound = new Category("Audio");
     public static Category other = new Category("Other");
     public static Category waifu = new Category("Waifu");
