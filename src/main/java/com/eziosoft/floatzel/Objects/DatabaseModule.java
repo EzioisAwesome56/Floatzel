@@ -47,4 +47,12 @@ public class DatabaseModule {
     public void createNewStock(Stock s){
         driver.makeNewStock(gson.toJson(s));
     }
+
+    public Stock loadStock(int id){
+        return gson.fromJson(driver.getStock(id), Stock.class);
+    }
+
+    public void updateStock(Stock s){
+        driver.updateStock(gson.toJson(s));
+    }
 }

@@ -179,7 +179,7 @@ public class Database {
 
     // sql fucntion to write a 0 to a new loan entry
     public static void dbnewstock(int id, String name, int units, int price) throws DatabaseException{
-        Stock s = new Stock(id, name, units, price);
+        Stock s = new Stock(id, name, units, price, 0);
         dbdriver.createNewStock(s);
     }
 
@@ -199,75 +199,46 @@ public class Database {
         return;
 
     }
+
+    @Deprecated
     public static int dbgetcount() throws DatabaseException{
-        // one of the advatages of rethink: figuring out how many rows are in a table
-        // thank lord!
-        long total = 0;
-        try {
-            total = r.table(stocktable).count().run(thonk);
-      } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        return Math.toIntExact(total);
+        return dbdriver.totalStocks();
     }
     public static void dbupdatestock(int id, boolean isbuy, int price, int diff, int unit) throws DatabaseException {
-        try {
-            if (!isbuy) {
-                r.table(stocktable).filter(row -> row.g("sid").eq(id)).update(
-                                r.hashMap("price", price)
-                ).run(thonk);
-                r.table(stocktable).filter(row -> row.g("sid").eq(id)).update(
-                        r.hashMap("diff", diff)
-                ).run(thonk);
-            } else {
-                r.table(stocktable).filter(row -> row.g("sid").eq(id)).update(
-                        r.hashMap("units", unit)
-                ).run(thonk);
-            }
-        } catch (ReqlError e) {
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
+        Stock s = dbdriver.loadStock(id);
+        int temp;
+        if (isbuy){
+            temp = unit;
+        } else {
+            temp = s.getUnits();
         }
+        s = new Stock(s.getId(), s.getName(), s.getUnits(), s.getPrice(), s.getDiff());
+        dbdriver.updateStock(s);
     }
 
+    @Deprecated
     // methood to get current price
     public static int dbgetprice(int id) throws DatabaseException{
-        try {
-            cur = r.table(stocktable).filter(row -> row.g("sid").eq(id)).getField("price").run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        return Integer.valueOf(Utils.getValue(cur));
+        return dbdriver.loadStock(id).getPrice();
     }
 
+    @Deprecated
     // get the name of a stock
     public static String dbgetname(int id) throws DatabaseException{
-        try {
-            cur = r.table(stocktable).filter(row -> row.g("sid").eq(id)).getField("name").run(thonk);
-        } catch (ReqlError e) {
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        return Utils.getValue(cur);
+        return dbdriver.loadStock(id).getName();
     }
 
 
+    @Deprecated
     // get dif
     public static int dbgetdiff(int id) throws DatabaseException{
-        try{
-            cur = r.table(stocktable).filter(row -> row.g("sid").eq(id)).getField("diff").run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        return Integer.valueOf(Utils.getValue(cur));
+        return dbdriver.loadStock(id).getDiff();
     }
 
+    @Deprecated
     // get units
     public static int dbgetunits(int id) throws DatabaseException{
-        try{
-            cur = r.table(stocktable).filter(row -> row.g("sid").eq(id)).getField("units").run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        return Integer.valueOf(Utils.getValue(cur));
+        return dbdriver.loadStock(id).getUnits();
     }
 
     public static int dbcounttweets() throws DatabaseException{

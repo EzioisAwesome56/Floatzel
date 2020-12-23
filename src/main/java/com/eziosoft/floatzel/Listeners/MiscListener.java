@@ -29,11 +29,11 @@ public class MiscListener extends ListenerAdapter {
             // check to see if the db is setup
             if (event.getJDA().getShardInfo().getShardId() == event.getJDA().getShardInfo().getShardTotal() - 1){
                 Database.dbinit();
-                /*try {
+                try {
                     StockUtil.initStock();
                 } catch (DatabaseException e){
                     Error.CatchOld(e);
-                }*/
+                }
             }
             System.out.println("Floatzel is at your service, sir!");
 
