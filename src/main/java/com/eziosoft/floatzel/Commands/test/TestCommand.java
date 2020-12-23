@@ -13,6 +13,6 @@ public class TestCommand extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent commandEvent) {
-        commandEvent.getChannel().sendMessage("fuck you, this command does jack shit\nbut hey, atleast its not slack'd anymore!").queue();
+        commandEvent.getChannel().sendMessage("test test 1-2-3 can you read this?").queue();
     }
 }
