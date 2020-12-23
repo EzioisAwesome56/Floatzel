@@ -195,9 +195,6 @@ public class Utils {
             BufferedReader br = new BufferedReader(new FileReader("config.json"));
             Floatzel.conf = g.fromJson(br, JsonConfig.class);
             br.close();
-            // minor last second processing: make the text null into real null
-            if (Floatzel.conf.dbPass().equals("null")){ Floatzel.conf.setDbPass(null);}
-            if (Floatzel.conf.dbUser().equals("null")){ Floatzel.conf.setDbUser(null);}
             return true;
         } catch (IOException e){
             e.printStackTrace();
