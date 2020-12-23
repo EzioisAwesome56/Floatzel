@@ -62,17 +62,6 @@ public class Database {
         return dbdriver.checkforuser(id);
     }
 
-        // funtion to check if a guild has bought the tag command already
-    public static boolean dbcheckiftag(String gid) throws DatabaseException{
-        boolean exist = false;
-        try{
-            exist = (boolean) r.table(tagperm).filter(r.hashMap("gid", gid)).count().eq(1).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        return exist;
-    }
-
 
     @Deprecated
     // function to write to a new db file (OLD: DO NOT USE)
