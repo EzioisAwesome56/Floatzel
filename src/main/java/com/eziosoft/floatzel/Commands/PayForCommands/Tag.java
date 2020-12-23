@@ -16,7 +16,12 @@ public class Tag extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event) throws ArrayIndexOutOfBoundsException, DatabaseException {
-        String args = "";
+        event.reply("this command is EOL and will be removed in a future ");
+
+
+
+
+        /*String args = "";
         try {
             args = argsplit[0];
         } catch (ArrayIndexOutOfBoundsException e){
@@ -119,7 +124,7 @@ public class Tag extends FCommand {
             String tag = Database.dbloadtag(event.getGuild().getId(), args);
             event.getChannel().sendMessage(tag).queue();
             return;
-        }
+        }*/
 
     }
 }
