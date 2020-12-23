@@ -310,49 +310,17 @@ public class Database {
         }
     }
 
+    @Deprecated // assume true for the very little implemented code
     // check if a server has set floatzel to be an asshole or not
     public static boolean dbcheckifass(String gid) throws DatabaseException{
-        // check to see if an entry even exists in the table
-        boolean exist = false;
-        try{
-           exist = (boolean) r.table(ass).filter(
-                    r.hashMap("gid", gid)
-            ).count().eq(1).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        // does it even exist?
-        if (!exist) {
-            System.out.println("no option set for this GUILD!\nSetting option to NO!");
-            try{
-                r.table(ass).insert(r.array(
-                        r.hashMap("gid", gid)
-                                .with("option" , "false")
-                )).run(thonk);
-            } catch (ReqlError e){
-                throw new DatabaseException(e.getMessage(), e.getStackTrace());
-            }
-            // since we just set the option to no, return false
-            return false;
-        }
-        // if we made it here, the guild clearly has the option set, so load that option
-        try {
-            cur = r.table(ass).filter(row -> row.g("gid").eq(gid)).getField("option").run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        // get the value from the cursor + return that
-        return Boolean.valueOf(Utils.getValue(cur));
+        return false;
     }
 
+    @Deprecated
     // setting the option
     public static void dbsetass(String gid, String option) throws DatabaseException{
-        // do the things
-        try {
-            r.table(ass).filter(row -> row.g("gid").eq(gid)).update(r.hashMap("option", option)).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
+        // since im censoring floatzel entirely, this does nothing
+        return;
     }
 
 
