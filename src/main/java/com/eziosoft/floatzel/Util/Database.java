@@ -159,11 +159,7 @@ public class Database {
 
     // check to see if anything is in the table at all
     public static Boolean dbcheckstock() throws DatabaseException{
-        if (dbdriver.totalStocks() > 0){
-            return true;
-        } else {
-            return false;
-        }
+        return dbdriver.totalStocks() > 0;
     }
 
     // sql fucntion to write a 0 to a new loan entry
