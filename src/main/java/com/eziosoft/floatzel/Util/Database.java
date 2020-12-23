@@ -3,6 +3,7 @@ package com.eziosoft.floatzel.Util;
 import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Objects.DatabaseModule;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
 import com.rethinkdb.net.Connection;
@@ -10,6 +11,22 @@ import com.rethinkdb.net.Cursor;
 
 
 public class Database {
+    /* a lot of this file is actually just one big compatibility layer
+    instead of like, actually reworking the commands to use a new database layout
+    i just wrote around all the old functions. You can see this a lot with stuff like dbinccount and dbdefaultsave
+    these date all the way back to FloatzelDB days, and god, where those days absolutely horrible
+
+    however, since i am extremely lazy, this will remain a compatibility layer. DatabaseModule may have more of what you're looking for
+
+    I really shouldnt be put in charge of bot dev, huh
+     */
+
+    // put the new Database module here
+    private static DatabaseModule dbdriver;
+
+    public void setDbdriver(DatabaseModule db){
+        dbdriver = db;
+    }
     // tables
     private static String banktable = "bank";
     private static String loantable = "loan";
