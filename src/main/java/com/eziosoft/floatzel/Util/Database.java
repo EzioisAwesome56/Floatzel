@@ -31,12 +31,8 @@ public class Database {
     public static void sendConninfo(String json){
         dbdriver.sendConninfo(json);
     }
-    // tables
-    private static String banktable = "bank";
-    private static String loantable = "loan";
     private static String bloanperm = "bloan";
     private static String stocktable = "stocks";
-    private static String stockbuy = "boughtstock";
     private static String tweets = "tweets";
     private static String tagperm = "gtagperm";
     private static String tags = "tags";
