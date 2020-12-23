@@ -8,9 +8,9 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 
 import java.util.concurrent.TimeUnit;
 
-public class KYS extends FCommand {
+public class Shutdown extends FCommand {
     
-    public KYS() {
+    public Shutdown() {
         name = "shutdown";
         ownerCommand = true;
         description = "Shuts down the bot";
@@ -27,8 +27,8 @@ public class KYS extends FCommand {
                 System.exit(1);
             });
         } else {
-            commandEvent.getChannel().sendMessage("aw man the fucking government took away my gun ;-;").queue();
-            commandEvent.getChannel().sendMessage("Screw this shit, im out, bye").queue(m -> {
+            commandEvent.getChannel().sendMessage("It is time to take a nap").queue();
+            commandEvent.getChannel().sendMessage("Goodbye!").queue(m -> {
                 Floatzel.jda.shutdown();
                 Floatzel.twitterManager.shutdown();
                 System.exit(1);

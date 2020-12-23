@@ -23,7 +23,6 @@ import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
-import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
 import com.google.gson.Gson;
@@ -117,7 +116,7 @@ public class Floatzel {
 
         // change this depending on what token you wanna use
         commandClient.addCommand(new TestCommand());
-        commandClient.addCommand(new KYS());
+        commandClient.addCommand(new Shutdown());
         commandClient.addCommand(new Pi());
         commandClient.addCommand(new Boyfriend());
         commandClient.addCommand(new Girlfriend());
