@@ -73,21 +73,21 @@ public class ModLoader {
         boolean dbloaded = false;
         System.out.println("Eziosoft ModLoader is now loading mod classes...");
         for (int h = 0; h < mods.length; h++) {
-            if (!dbloaded) {
                 if (mods[h].getType().equals("database")) {
-                    System.out.println("Database mod found! Loading as primary database driver...");
-                    Class classToLoad = Class.forName(mods[h].getMainclass(), true, child);
-                    Object mod = classToLoad.getConstructor().newInstance();
-                    // load it as a genaricDatabase
-                    GenaricDatabase db = (GenaricDatabase) mod;
-                    Database.setDbdriver(new DatabaseModule(db));
-                    Database.sendConninfo(gson.toJson(new ConnInfo("localhost", Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), 6969)));
-                    System.out.println("Database mod loaded!");
-                    dbloaded = true;
+                    if (!dbloaded) {
+                        System.out.println("Database mod found! Loading as primary database driver...");
+                        Class classToLoad = Class.forName(mods[h].getMainclass(), true, child);
+                        Object mod = classToLoad.getConstructor().newInstance();
+                        // load it as a genaricDatabase
+                        GenaricDatabase db = (GenaricDatabase) mod;
+                        Database.setDbdriver(new DatabaseModule(db));
+                        Database.sendConninfo(gson.toJson(new ConnInfo("localhost", Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), 6969)));
+                        System.out.println("Database mod loaded!");
+                        dbloaded = true;
+                    }
                 } else {
                     System.out.println("Non-Database mods are currently unsupported. sorry about that");
                 }
-            }
         }
         System.out.println("All mods have been loaded.");
     }
