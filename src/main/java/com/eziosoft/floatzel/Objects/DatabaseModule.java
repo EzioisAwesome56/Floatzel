@@ -24,18 +24,15 @@ public class DatabaseModule {
         return convertUserFromJson(driver.getProfile(uid));
     }
 
-    public int getBalance(String uid){
-        User h = getProfile(uid);
-        return h.getBal();
-    }
-
-    public void saveBalance(String uid, int bal){
-        User h = convertUserFromJson(uid);
-        h.setBal(bal);
-        driver.saveProfile(convertUserToJson(h));
+    public void saveProfile(User dank){
+        driver.saveProfile(convertUserToJson(dank));
     }
 
     public void init(){
         driver.initDatabase();
+    }
+
+    public boolean checkforuser(String id){
+        return driver.checkForUser(id);
     }
 }

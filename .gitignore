@@ -6,3 +6,4 @@ src/main/java/com/eziosoft/floatzel/Config.java
 floatzel.db
 config.json
 plugins/
+mods/

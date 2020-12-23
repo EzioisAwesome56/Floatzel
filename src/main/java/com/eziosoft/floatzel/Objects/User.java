@@ -54,9 +54,9 @@ public class User {
         this.stockid = stockid;
         this.isAdmin = false;
     }
-    public User(String id, boolean isAdmin){
+    public User(String id){
         this.uid = id;
-        this.bal = bal;
+        this.bal = 0;
         this.lastloan = 0L;
         this.perms = new Boolean[]{false, false};
         this.stockid = -1;

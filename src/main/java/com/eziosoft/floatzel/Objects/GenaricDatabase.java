@@ -10,5 +10,7 @@ public interface GenaricDatabase {
 
     void initDatabase();
 
+    boolean checkForUser(String id);
+
 
 }

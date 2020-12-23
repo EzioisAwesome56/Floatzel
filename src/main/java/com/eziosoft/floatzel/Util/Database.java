@@ -4,6 +4,7 @@ import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Objects.DatabaseModule;
+import com.eziosoft.floatzel.Objects.User;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
 import com.rethinkdb.net.Connection;
@@ -55,31 +56,11 @@ public class Database {
 
     // check if db entry exists
     public static Boolean dbcheckifexist(String id) throws DatabaseException{
-            boolean exist = false;
-            // connection shit
-            try {
-                exist = (boolean) r.table(banktable).filter(
-                        r.hashMap("uid", id)
-                ).count().eq(1).run(thonk);
-            } catch (ReqlError e){
-                throw new DatabaseException(e.getMessage(), e.getStackTrace());
-            }
-            if (!exist){
-                // the user does not have a bank account
-                // make one instead!
-                try {
-                    r.table(banktable).insert(r.array(
-                            r.hashMap("uid", id)
-                                    .with("bal", 0)
-                    )).run(thonk);
-                } catch (ReqlError e){
-                    throw new DatabaseException(e.getMessage(), e.getStackTrace());
-                }
-                return exist;
-            } else {
-                return exist;
-            }
+        if (1 == 2){
+            throw new DatabaseException("what", new StackTraceElement[]{new StackTraceElement("gtfo lol", "fuck", "dank", 2)});
         }
+        dbdriver.checkforuser(id);
+    }
 
         // funtion to check if a guild has bought the tag command already
     public static boolean dbcheckiftag(String gid) throws DatabaseException{
@@ -93,6 +74,7 @@ public class Database {
     }
 
 
+    @Deprecated
     // function to write to a new db file (OLD: DO NOT USE)
     public static void dbsave(String id, String data) throws DatabaseException{
        // i dont know why this is still here, but just make it call dbsaveint for laziness
@@ -106,51 +88,34 @@ public class Database {
 
     // function to save to bank accounts as ints
     public static void dbsaveint(String id, int data) throws DatabaseException {
+        // first, load user profile
+        User h = dbdriver.getProfile(id);
+        // run thru old checks
+
         // fix for overflow bug
         if (data < -100){
             data = Integer.MAX_VALUE;
         }
-        // do the things
-        try {
-            r.table(banktable).filter(row -> row.g("uid").eq(id)).update(r.hashMap("bal", data)).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
+
+        // update profile
+        h.setBal(data);
+        // save it to db
+        dbdriver.saveProfile(h);
     }
 
     // load an integer from a db entry
     public static int dbloadint(String id) throws DatabaseException {
-        String result;
-            try {
-                cur = r.table(banktable).filter(row -> row.g("uid").eq(id)).getField("bal").run(thonk);
-            } catch (ReqlError e){
-                throw new DatabaseException(e.getMessage(), e.getStackTrace());
-            }
-            // do json things
-        // return value of bal
-        result = Utils.getValue(cur);
-        return Integer.valueOf(result);
+        return dbdriver.getProfile(id).getBal();
 
-        }
+    }
 
+    @Deprecated
     // check if the user has a loan out
     public static boolean dbcheckifloan(String id) throws DatabaseException{
-        boolean exist = false;
-        // connection shit
-        try {
-            exist = (boolean) r.table(loantable).filter(
-                    r.hashMap("uid", id)
-            ).count().eq(1).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        if (!exist){
-            return exist;
-        } else {
-            return exist;
-        }
-        }
+        return dbdriver.checkforuser(id);
+    }
 
+    @Deprecated
     // default saver
     public static void dbdefaultsave(String id, int location) throws GenericException, DatabaseException {
         //  simplify this function as it serves only 1 purpose
@@ -167,53 +132,29 @@ public class Database {
         }
     }
 
+    @Deprecated
     // sql fucntion to write a 0 to a new loan entry
     private static void sqlblankloan(String id) throws DatabaseException{
-        // insert a thong into the loan table
-        try {
-            r.table(loantable).insert(r.array(
-                    r.hashMap("uid", id)
-                            .with("time", Long.toString(0L))
-            )).run(thonk);
-            return;
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
+        return;
     }
 
     // fucntion for saving time to the loan
     public static void dbsavetime(String id, long time) throws DatabaseException{
-        try {
-            r.table(loantable).filter(row -> row.g("uid").eq(id)).update(r.hashMap("time", Long.toString(time))).run(thonk);
-            return;
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-            }
+        User h = dbdriver.getProfile(id);
+        h.setLastloan(time);
+        dbdriver.saveProfile(h);
+    }
 
     // return a long with the stored nano time
     public static long dbloadtime(String id) throws DatabaseException{
-        String result;
-        try {
-            cur = r.table(loantable).filter(row -> row.g("uid").eq(id)).getField("time").run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        result = Utils.getValue(cur);
-        return Long.valueOf(result);
+        User h = dbdriver.getProfile(id);
+        return h.getLastloan();
     }
 
+    @Deprecated // new permission checker coming soon
     public static boolean dbcheckbloan(String id) throws DatabaseException{
-        // sql statement to check for this shit
-        boolean exist = false;
-        try {
-            exist = (boolean) r.table(bloanperm).filter(row -> row.g("uid").eq(id)).count().eq(1).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        // then just return the result
-            return exist;
-        }
+        return dbdriver.getProfile(id).getPerms()[0];
+    }
 
     public static void dbbuycmd(int cmd, String uid) throws DatabaseException{
         String table = "";
