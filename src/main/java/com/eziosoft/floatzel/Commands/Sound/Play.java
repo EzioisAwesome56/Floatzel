@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Play extends FCommand {
     public Play(){
         name = "play";
-        description = "plays a shitty song someone links too";
+        description = "queue a song to be played by the audio player";
         category = sound;
     }
 
@@ -17,12 +17,12 @@ public class Play extends FCommand {
         String args = event.getArgs();
         // check if thr string is empty
         if (StringUtils.isEmpty(args)){
-            event.getChannel().sendMessage("You didn't give me anything to fucking play bitch!").queue();
+            event.getChannel().sendMessage("You didn't give me anything to play!").queue();
             return;
         }
         // check if there is a space
         if (args.indexOf(" ") != -1){
-            event.getChannel().sendMessage("Fucking urls cant have spaces in them dumbass!").queue();
+            event.getChannel().sendMessage("urls cannot have spaces in them!").queue();
             return;
         }
         // play the music

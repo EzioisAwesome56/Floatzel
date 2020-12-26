@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Spam extends FCommand {
     public Spam() {
         name = "spam";
-        description = "spam one fucking character 2000 times";
+        description = "spam one character 2000 times";
         category = spam;
     }
 
@@ -20,14 +20,14 @@ public class Spam extends FCommand {
         String[] bad = {"`", "*", "_"};
         // main code
         if (character.length() == 0) {
-            event.reply("You didn't fucking give me anything to spam dumbass!");
+            event.reply("You didn't give me anything to spam!");
             return;
         } else if (character.length() > 1) {
-            event.reply("That is not one single character dumbass!");
+            event.reply("That is not one single character!");
             return;
         } else {
             if (Arrays.stream(bad).anyMatch(s -> s.equals(character))) {
-                event.reply("you can't use that fucking character dumbass");
+                event.reply("you can't use that character!");
                 return;
             }
         }
