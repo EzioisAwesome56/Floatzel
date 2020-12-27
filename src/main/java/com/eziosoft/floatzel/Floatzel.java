@@ -15,7 +15,6 @@ import com.eziosoft.floatzel.Commands.Spam.Think;
 import com.eziosoft.floatzel.Commands.Stock.Stock;
 import com.eziosoft.floatzel.Commands.Stock.StockBuy;
 import com.eziosoft.floatzel.Commands.Stock.StockSell;
-import com.eziosoft.floatzel.Commands.test.TestCommand;
 import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
@@ -112,7 +111,6 @@ public class Floatzel {
 
 
         // change this depending on what token you wanna use
-        commandClient.addCommand(new TestCommand());
         commandClient.addCommand(new Shutdown());
         commandClient.addCommand(new Pi());
         commandClient.addCommand(new Boyfriend());

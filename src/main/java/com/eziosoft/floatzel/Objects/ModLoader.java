@@ -101,6 +101,7 @@ public class ModLoader {
             } else if (mod.getType().equals("database")){
                 System.out.println("Skipping reloading of Database plugin...");
             } else if (mod.getType().equals("commands")){
+                System.out.println("--- START BATCH LOAD ---");
                 System.out.println("Batch loading commands as defined by " + mod.getMainclass());
                 // first we need to get the list of commands loaded
                 Class toLoad = Class.forName(mod.getMainclass(), true, child);
@@ -112,6 +113,7 @@ public class ModLoader {
                     loadedclass = toLoad.getConstructor().newInstance();
                     Floatzel.commandClient.addCommand((FCommand) loadedclass);
                 }
+                System.out.println("--- END BATCH LOAD ---");
             }
         }
     }
