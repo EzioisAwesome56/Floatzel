@@ -60,14 +60,10 @@ public class Database {
     // function to write to a new db file (OLD: DO NOT USE)
     public static void dbsave(String id, String data) throws DatabaseException{
        // i dont know why this is still here, but just make it call dbsaveint for laziness
-        try {
-            Database.dbsaveint(id, Integer.valueOf(data));
-        } catch (DatabaseException e){
-            throw e;
-        }
-        return;
+        Database.dbsaveint(id, Integer.parseInt(data));
     }
 
+    @Deprecated
     // function to save to bank accounts as ints
     public static void dbsaveint(String id, int data) throws DatabaseException {
         // first, load user profile
@@ -85,6 +81,7 @@ public class Database {
         dbdriver.saveProfile(h);
     }
 
+    @Deprecated
     // load an integer from a db entry
     public static int dbloadint(String id) throws DatabaseException {
         return dbdriver.getProfile(id).getBal();
@@ -120,6 +117,7 @@ public class Database {
         return;
     }
 
+    @Deprecated
     // fucntion for saving time to the loan
     public static void dbsavetime(String id, long time) throws DatabaseException{
         User h = dbdriver.getProfile(id);
@@ -127,6 +125,7 @@ public class Database {
         dbdriver.saveProfile(h);
     }
 
+    @Deprecated
     // return a long with the stored nano time
     public static long dbloadtime(String id) throws DatabaseException{
         User h = dbdriver.getProfile(id);
@@ -182,15 +181,23 @@ public class Database {
     public static int dbgetcount() throws DatabaseException{
         return dbdriver.totalStocks();
     }
+
+    @Deprecated
     public static void dbupdatestock(int id, boolean isbuy, int price, int diff, int unit) throws DatabaseException {
         Stock s = dbdriver.loadStock(id);
-        int temp;
+        int newunit;
+        int newprice;
+        int newdiff;
         if (isbuy){
-            temp = unit;
+            newunit = unit;
+            newprice = s.getPrice();
+            newdiff = s.getDiff();
         } else {
-            temp = s.getUnits();
+            newunit = s.getUnits();
+            newprice = price;
+            newdiff = diff;
         }
-        s = new Stock(s.getId(), s.getName(), s.getUnits(), s.getPrice(), s.getDiff());
+        s = new Stock(s.getId(), s.getName(), newunit, newprice, newdiff);
         dbdriver.updateStock(s);
     }
 
