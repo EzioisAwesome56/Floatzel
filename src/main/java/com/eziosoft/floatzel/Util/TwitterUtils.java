@@ -16,11 +16,6 @@ public class TwitterUtils {
 
     private static Random random = new Random();
 
-    private static int index = 0;
-    private static String filename = "";
-    private static String msg = "";
-    private static int errorcode = 0;
-
     public static void tweetbot() throws DatabaseException {
         // is the tweetbot on?
         if (!Floatzel.tweeton) {
