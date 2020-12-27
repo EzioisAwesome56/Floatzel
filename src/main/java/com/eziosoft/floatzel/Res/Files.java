@@ -1,28 +1,11 @@
 package com.eziosoft.floatzel.Res;
 
 public class Files {
-    // file names
-    public static String[] yukaris = {"1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg",
-    "9.jpg", "10.jpg", "11.jpg", "12.jpg", "13.jpg", "14.png", "15.jpg", "16.jpg", "17.jpg", "18.jpg", "19.jpg",
-    "20.jpg", "21.jpg", "22.jpg", "23.jpg", "24.png", "25.jpg", "26.jpg", "27.png", "28.jpg", "29.jpeg", "30.jpg",
-    "31.jpg", "32.jpg", "33.png", "34.png", "35.png", "36.jpg", "37.jpg", "38.png", "39.png", "40.png", "41.jpeg",
-    "42.jpg", "43.png", "44.png", "45.png", "46.png"};
 
     // simply put - make a list of all the file names
     public static String[] unocards = {"card1.png", "card2.png", "card3.jpg", "card4.png", "card5.png", "card6.png"};
 
-    // responses
-    public static String[] unorep = {"You just got fucking reversed moron!", "Right back at you dipshit!", "Fuck off nerd!", "Eat reverse fuckface!"};
-
     // make an array of all file names
     public static String[] boxes = {"box1.png", "box2.png", "box3.png", "box4.png"};
 
-    // file names for mitsuru
-    public static String[] mitsurus = {"1.png", "2.jpg", "3.jpg", "4.jpg", "5.jpg"};
-
-    // file names for new thing
-    public static String[] floof = {"1.png", "2.png", "3.png", "4.png", "5.jpg", "6.png", "7.png", "8.png", "9.png", "10.png", "11.jpg", "13.jpg", "14.png", "15.png", "12.png",
-    "16.png", "17.jpg", "18.jpg", "19.jpg", "20.png", "21.jpg", "22.jpg", "23.jpg", "24.jpg", "25.jpg", "26.gif", "27.png", "28.png", "29.jpg", "30.png", "31.jpg", "32.jpg",
-    "33.png", "34.jpg", "35.mp4", "36.jpg", "37.png", "38.gif", "39.png", "40.png", "41.png", "42.jpg", "43.png", "44.jpg", "45.jpg", "46.png", "47.png", "48.jpg",
-    "49.jpg", "50.jpg", "51.jpg", "52.png", "53.jpg", "54.jpg", "55.png", "56.png", "57.png", "58.png", "59.png", "60.gif", "61.jpg", "62.png"};
 }

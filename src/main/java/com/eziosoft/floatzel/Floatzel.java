@@ -142,7 +142,6 @@ public class Floatzel {
         commandClient.addCommand(new Loan());
         commandClient.addCommand(new BetterLoan());
         commandClient.addCommand(new BuyCmd());
-        commandClient.addCommand(new Mitsuru());
         commandClient.addCommand(new Tweet());
         commandClient.addCommand(new Check());
         commandClient.addCommand(new ViewStocks());
@@ -153,7 +152,6 @@ public class Floatzel {
         commandClient.addCommand(new StockBuy());
         commandClient.addCommand(new Stock());
         commandClient.addCommand(new StockSell());
-        commandClient.addCommand(new Floof());
         commandClient.addCommand(new Course());
         commandClient.addCommand(new RandCourse());
         commandClient.addCommand(new Jpeg());
@@ -166,7 +164,6 @@ public class Floatzel {
         commandClient.addCommand(new Ping());
         commandClient.addCommand(new Shrink());
         commandClient.addCommand(new Pixel());
-        commandClient.addCommand(new fuck());
         commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Yukari());
         commandClient.addCommand(new Help());
