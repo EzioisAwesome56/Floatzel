@@ -98,7 +98,7 @@ public class Floatzel {
         // start up the mod loader
         try {
             loader = new ModLoader("mods");
-            loader.loadAll();
+            loader.loadDatabase();
         } catch (Exception e){
             e.printStackTrace();
             System.out.println("Floatzel has encountered an error trying to startup! now shutting down...");
@@ -180,6 +180,15 @@ public class Floatzel {
         commandClient.addCommand(new MakeTable());
         commandClient.addCommand(new SetAss());
         commandClient.addCommand(new Avatar());
+
+        // load rest of mods here
+        try{
+            loader.loadAll();
+        } catch (Exception e){
+            System.err.println("Floatzel modloader has encountered an error during mod loading!");
+            e.printStackTrace();
+            System.exit(-1);
+        }
 
 
         jda = DefaultShardManagerBuilder.createDefault(!isdev ? conf.getToken() : conf.getDevtoken())
