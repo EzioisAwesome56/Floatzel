@@ -1,5 +1,4 @@
 package com.eziosoft.floatzel;
-import com.eziosoft.floatzel.Commands.StupidCrap.SwearCombine;
 import com.eziosoft.floatzel.Commands.Currency.*;
 import com.eziosoft.floatzel.Commands.Debug.Debug;
 import com.eziosoft.floatzel.Commands.Entertainment.*;
@@ -129,7 +128,6 @@ public class Floatzel {
         commandClient.addCommand(new Reverse());
         commandClient.addCommand(new Servers());
         commandClient.addCommand(new ServerInfo());
-        commandClient.addCommand(new SwearCombine());
         commandClient.addCommand(new Stop());
         commandClient.addCommand(new Play());
         commandClient.addCommand(new Repeat());
@@ -165,7 +163,6 @@ public class Floatzel {
         commandClient.addCommand(new Shrink());
         commandClient.addCommand(new Pixel());
         commandClient.addCommand(new LootBox());
-        commandClient.addCommand(new Yukari());
         commandClient.addCommand(new Help());
         commandClient.addCommand(new Expand());
         commandClient.addCommand(new Small());
