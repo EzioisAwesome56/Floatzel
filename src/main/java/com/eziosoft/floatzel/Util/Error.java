@@ -42,8 +42,7 @@ public class Error {
         StringBuilder builder = new StringBuilder();
 
         // pick a phrase to slap at the top of the file
-        String[] phrases = { "Aw shit!","Damn it ezio, you suck at coding","Crash party, anyone?","the letter h",
-        "how did you find this?","Stop breaking me, damn it!", "fuck off"};
+        String[] phrases = {"is this a bug?", "nah nah nah", "COSMIC RADIATION?", "my bread died :C", "brov", "huh, thats weird"};
         int index = random.nextInt(phrases.length);
         builder.append(phrases[index]).append(endl+endl);
         // boring text
@@ -55,7 +54,7 @@ public class Error {
 
         // send the message
         try {
-            event.getChannel().sendMessage("DAH SHIT! Floatzel has encountered an error! Please look at the ereport.txt file for more " +
+            event.getChannel().sendMessage("DAH HECK! Floatzel has encountered an error! Please look at the ereport.txt file for more " +
                     "information!").addFile(builder.toString().getBytes("UTF-8"), "ereport.txt").queue();
         } catch (UnsupportedEncodingException e) {
             //This will never be thrown, but java won't stop yelling at us if we don't try to catch it.
@@ -74,7 +73,7 @@ public class Error {
         StringBuilder builder = new StringBuilder();
 
         // pick a phrase to slap at the top of the file
-        String[] phrases = {"twitter machine broke", "fucking twitter", "twitter my ass", "fucking hell man", "what the shit twitter"};
+        String[] phrases = {"twitter machine broke", "hecking twitter", "twitter sucks", "why", "i hate u twitter"};
         int index = random.nextInt(phrases.length);
         builder.append(phrases[index] + "\n\n");
         // boring text
@@ -104,7 +103,7 @@ public class Error {
         StringBuilder builder = new StringBuilder();
 
         // pick a phrase to slap at the top of the file
-        String[] phrases = {"shit", "damn", "fuck", "oof"};
+        String[] phrases = {"oof", "oof", "oof", "oof", "oof", "oof"};
         int index = random.nextInt(phrases.length);
         builder.append(phrases[index] + "\n\n");
         // boring text
