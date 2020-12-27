@@ -49,6 +49,7 @@ public class Database {
 
 
 
+    @Deprecated
     // check if db entry exists
     public static Boolean dbcheckifexist(String id) throws DatabaseException{
         return dbdriver.checkforuser(id);
@@ -136,16 +137,9 @@ public class Database {
         return dbdriver.getProfile(id).getPerms()[0];
     }
 
+    @Deprecated
     public static void dbbuycmd(int cmd, String uid) throws DatabaseException{
-        String table = "";
-            if (cmd == 1){
-                table = bloanperm;
-            }
-            try {
-                r.table(table).insert(r.hashMap("uid", uid)).run(thonk);
-            } catch (ReqlError e){
-                throw new DatabaseException(e.getMessage(), e.getStackTrace());
-            }
+        dbdriver.setPerm(uid, cmd);
     }
 
     @Deprecated
@@ -162,13 +156,10 @@ public class Database {
         dbdriver.createNewStock(s);
     }
 
+    @Deprecated
     // HOTFIX: deleting stocks
     public static void deletestock(int id) throws DatabaseException{
-        try{
-            r.table(stocktable).filter(row -> row.g("sid").eq(id)).delete().run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
+        dbdriver.deleteStock(id);
     }
 
     @Deprecated
@@ -245,15 +236,10 @@ public class Database {
         return dbdriver.getProfile(uid).getStockid() != -1;
     }
 
+    @Deprecated
     // validate a stock id
     public static boolean dbvalidatestockid(int id) throws DatabaseException{
-        boolean exist = false;
-        try{
-            exist = (boolean) r.table(stocktable).filter(row -> row.g("sid").eq(id)).count().eq(1).run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        return exist;
+        return dbdriver.checkForStock(id);
     }
 
     @Deprecated

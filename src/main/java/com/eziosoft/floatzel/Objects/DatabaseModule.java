@@ -65,4 +65,10 @@ public class DatabaseModule {
     }
 
     public Tweet loadTweet(int id){ return gson.fromJson(driver.loadTweet(id), Tweet.class); }
+
+    public boolean checkForStock(int id){ return driver.checkForStock(id); }
+
+    public void deleteStock(int id){ driver.deleteStock(id); }
+
+    public void setPerm(String uid, int id){ driver.setPerm(uid, id); }
 }
