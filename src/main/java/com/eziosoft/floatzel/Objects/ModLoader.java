@@ -80,7 +80,7 @@ public class ModLoader {
                 Object mod = classToLoad.getConstructor().newInstance();
                 // load it as a genaricDatabase
                 GenaricDatabase db = (GenaricDatabase) mod;
-                Database.setDbdriver(new DatabaseModule(db));
+                Database.dbdriver = new DatabaseModule(db);
                 Database.sendConninfo(gson.toJson(new ConnInfo("localhost", Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), 6969)));
                 System.out.println("Database mod loaded!");
                 dbloaded = true;

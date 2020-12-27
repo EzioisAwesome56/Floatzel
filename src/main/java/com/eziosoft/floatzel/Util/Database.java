@@ -13,7 +13,15 @@ import com.rethinkdb.net.Cursor;
 
 
 public class Database {
-    /* a lot of this file is actually just one big compatibility layer
+    // most of this file is Deprecated, old code. Do not use it
+    // instead, interface with the provided dbdriver object to get what you need from the database
+    public static DatabaseModule dbdriver;
+
+    public static void sendConninfo(String json){
+        dbdriver.sendConninfo(json);
+    }
+
+    /* all of whats left of this file is actually just one big compatibility layer
     instead of like, actually reworking the commands to use a new database layout
     i just wrote around all the old functions. You can see this a lot with stuff like dbinccount and dbdefaultsave
     these date all the way back to FloatzelDB days, and god, where those days absolutely horrible
@@ -22,16 +30,6 @@ public class Database {
 
     I really shouldnt be put in charge of bot dev, huh
      */
-
-    // put the new Database module here
-    private static DatabaseModule dbdriver;
-
-    public static void setDbdriver(DatabaseModule db){
-        dbdriver = db;
-    }
-    public static void sendConninfo(String json){
-        dbdriver.sendConninfo(json);
-    }
     private static String bloanperm = "bloan";
     private static String stocktable = "stocks";
     private static String tweets = "tweets";
@@ -147,13 +145,16 @@ public class Database {
             } catch (ReqlError e){
                 throw new DatabaseException(e.getMessage(), e.getStackTrace());
             }
-        }
+    }
 
+    @Deprecated
     // check to see if anything is in the table at all
     public static Boolean dbcheckstock() throws DatabaseException{
         return dbdriver.totalStocks() > 0;
     }
 
+
+    @Deprecated
     // sql fucntion to write a 0 to a new loan entry
     public static void dbnewstock(int id, String name, int units, int price) throws DatabaseException{
         Stock s = new Stock(id, name, units, price, 0);
@@ -226,14 +227,9 @@ public class Database {
         return dbdriver.loadStock(id).getUnits();
     }
 
+    @Deprecated
     public static int dbcounttweets() throws DatabaseException{
-        long total;
-        try{
-            total = r.table(tweets).count().run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-        return Math.toIntExact(total);
+        return dbdriver.totalTweets();
     }
 
     public static boolean dbsavetweet(String text, int id) throws DatabaseException{
@@ -249,6 +245,7 @@ public class Database {
 
     }
 
+    @Deprecated
     // check if the user has bought a stock yet
     public static boolean dbcheckifstock(String uid) throws DatabaseException{
         return dbdriver.getProfile(uid).getStockid() != -1;
@@ -279,6 +276,7 @@ public class Database {
         return dbdriver.getProfile(uid).getStockid();
     }
 
+    @Deprecated
     // deleting a user's entry on the table
     public static void dbdeletestock(String uid) throws DatabaseException{
         User h = dbdriver.getProfile(uid);
@@ -286,6 +284,7 @@ public class Database {
         dbdriver.saveProfile(h);
     }
 
+    @Deprecated
     // get all tweets
     public static Cursor dbgetalltweets() throws DatabaseException{
         try{

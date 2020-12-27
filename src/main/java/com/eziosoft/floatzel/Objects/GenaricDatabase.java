@@ -22,5 +22,7 @@ public interface GenaricDatabase {
 
     void makeTable(String name, String key);
 
+    int totalTweets();
+
 
 }

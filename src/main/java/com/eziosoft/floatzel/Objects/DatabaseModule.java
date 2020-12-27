@@ -57,4 +57,6 @@ public class DatabaseModule {
     }
 
     public void makeTable(String name, String key){ driver.makeTable(name, key); }
+
+    public int totalTweets() {return driver.totalTweets(); }
 }
