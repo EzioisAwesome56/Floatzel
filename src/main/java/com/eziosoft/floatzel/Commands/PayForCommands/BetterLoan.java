@@ -10,10 +10,9 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class BetterLoan extends FCommand {
-    private final Random random = new Random();
     public BetterLoan(){
         name = "betterloan";
-        description = "Go to a better fucking bank and take out a loan";
+        description = "Higher payout for loans";
         category = buyshit;
     }
 
@@ -23,7 +22,7 @@ public class BetterLoan extends FCommand {
         //check if they havent bought the command yet
         try {
             if (!Database.dbcheckbloan(uid)) {
-                event.getChannel().sendMessage("You didnt fucking buy this command yet jackass!").queue();
+                event.getChannel().sendMessage("You didn't buy this command yet!").queue();
                 return;
             }
         } catch (DatabaseException e){
@@ -31,7 +30,6 @@ public class BetterLoan extends FCommand {
         }
         // lets be lazy as shit!
         // copy pasta'a from loan.java
-        Random random = new Random();
         // check to see if the user doesnt have a db entry, if they dont, make one
         try {
             if (!Database.dbcheckifexist(uid)) {
@@ -63,11 +61,11 @@ public class BetterLoan extends FCommand {
         if (System.currentTimeMillis() != prevloan + day && prevloan != 0 && System.currentTimeMillis() > prevloan && seconds >= 0L){
             String rentime = "";
             rentime = Long.toString(hours) + " hours, " + Long.toString(minutes) + " minutes and " + Long.toString(seconds) + " seconds ";
-            event.getChannel().sendMessage("Error: You must fucking wait "+rentime+"longer to get another loan jackass").queue();
+            event.getChannel().sendMessage("Error: You must wait "+rentime+"longer to get another loan").queue();
             return;
         }
         int payout = random.nextInt(500) + 67;
-        event.getChannel().sendMessage("You fucking took out a loan of fucking "+Integer.toString(payout)+"\uD83E\uDD56 !").queue();
+        event.getChannel().sendMessage("You took out a loan of "+Integer.toString(payout)+"\uD83E\uDD56 !").queue();
         int bal = Database.dbloadint(uid);
         bal = bal + payout;
         Database.dbsave(uid, Integer.toString(bal));

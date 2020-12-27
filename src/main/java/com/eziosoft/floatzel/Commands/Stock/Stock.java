@@ -23,7 +23,7 @@ public class Stock extends FCommand {
         }
         // check if they even have a stock
         if (!Database.dbcheckifstock(uid)){
-            event.getChannel().sendMessage("Error: you have no stocks asshole!").queue();
+            event.getChannel().sendMessage("Error: you have no stocks!").queue();
             return;
         }
         StringBuilder builder = new StringBuilder();

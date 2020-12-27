@@ -19,13 +19,13 @@ public class Cow extends FCommand {
         int length;
         int tick = 0;
         if (StringUtils.isEmpty(event.getArgs())){
-            event.reply("What the fuck man, you gave me no arguments!!!!!!!!!!!!!!!!!");
+            event.reply("you gave me no arguments!");
             return;
         }
         // check to see if -f was provided
         if (argsplit[0].equals("-f")){
             if (argsplit.length == 1 || argsplit.length == 2){
-                event.reply("Fuckface, you didnt provide enough arguments!");
+                event.reply("you didn't provide enough arguments!");
                 return;
             }
             // okay so clearly we have something

@@ -7,7 +7,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 public class Starman extends FCommand {
     public Starman(){
         name = "starman";
-        description = "fucking peter";
+        description = "peter";
         category = sound;
     }
 

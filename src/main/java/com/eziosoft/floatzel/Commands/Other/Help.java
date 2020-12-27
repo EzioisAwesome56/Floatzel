@@ -60,7 +60,7 @@ public class Help extends FCommand {
                 eBuilder.setTitle(c.getName());
                 eBuilder.setDescription(StringUtils.join(currentPage.stream().map(cmd -> (Floatzel.isdev ? Floatzel.conf.getDevprefix() : Floatzel.conf.getPrefix()) + cmd.getName() + " - " + cmd.getHelp()).collect(Collectors.toList()), "\n"));
                 eBuilder.setFooter("Floatzel v" + Floatzel.version, null);
-                eBuilder.setAuthor("Fuck you, I'm floatzel.", null, event.getSelfUser().getAvatarUrl());
+                eBuilder.setAuthor("Floatzel, that one bot", null, event.getSelfUser().getAvatarUrl());
                 builder.addItems(eBuilder.build());
             }
         });
@@ -83,7 +83,7 @@ public class Help extends FCommand {
 
         if (found) {
             event.getChannel().sendMessage(getCommandHelp(event, command.get())).queue();
-        } else event.getChannel().sendMessage("That is not a mother fucking command!").queue();
+        } else event.getChannel().sendMessage("That is not a command!").queue();
     }
 
     private MessageEmbed getCommandHelp(CommandEvent event, Command command) {
@@ -93,8 +93,8 @@ public class Help extends FCommand {
         if (command.getAliases().length > 0) builder.addField("Aliases:", StringUtils.join(command.getAliases(), ", "), false);
         builder.addField("Description:", command.getHelp(), false);
         //builder.addField("Usage (<> Required, {} Optional):", StringUtils.join(command.getUsage().stream().map(usage -> event.getPrefix() + usage).collect(Collectors.toList()), "\n"), false);
-        builder.setFooter("Fuckin' Floatzel " + Floatzel.version, null);
-        builder.setAuthor("Fuck you, I'm Floatzel", null, event.getSelfUser().getAvatarUrl());
+        builder.setFooter("Floatzel " + Floatzel.version, null);
+        builder.setAuthor("Floatzel, that one bot", null, event.getSelfUser().getAvatarUrl());
         return builder.build();
     }
 }

@@ -19,8 +19,8 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
 
-public class Resize extends FImageCommand {
-    public Resize() {
+public class Jpeg extends FImageCommand {
+    public Jpeg() {
         name = "jpeg";
         description = "jpeg-ifys your image";
         category = FCommand.image;
@@ -98,7 +98,7 @@ public class Resize extends FImageCommand {
             op.addImage("jpg:-");
             cmd.run(op, ImageIO.read(source));
             stream.flush();
-            event.getChannel().sendFile(stream.toByteArray(), "wat.jpg").queue();
+            event.getChannel().sendFile(stream.toByteArray(), "jpeg.jpg").queue();
             stream.close();
             source.close();
         } catch (IOException | InterruptedException | IM4JavaException | NullPointerException e){

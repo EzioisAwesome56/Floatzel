@@ -23,7 +23,7 @@ public class Course extends FCommand {
         try {
             id = argsplit[0];
         } catch (ArrayIndexOutOfBoundsException e){
-            event.getChannel().sendMessage("Error: you didn't give me a fucking level id!").queue();
+            event.getChannel().sendMessage("Error: you didn't give me a level id!").queue();
             return;
         }
         try {

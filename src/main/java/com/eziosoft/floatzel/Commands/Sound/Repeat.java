@@ -17,7 +17,7 @@ public class Repeat extends FCommand {
     @Override
     protected void cmdrun(CommandEvent event){
         if (!event.getGuild().getAudioManager().isConnected()){
-            event.getChannel().sendMessage("Im not fucking playing anything to repeat moron").queue();
+            event.getChannel().sendMessage("Im not playing anything to repeat!").queue();
             return;
         } else {
             Floatzel.musicPlayer.repeat(event);

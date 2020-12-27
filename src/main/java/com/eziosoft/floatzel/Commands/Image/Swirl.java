@@ -40,7 +40,7 @@ public class Swirl extends FImageCommand {
         op.addImage("png:-");
         cmd.run(op, what);
         stream.flush();
-        event.getChannel().sendFile(stream.toByteArray(), "small.jpg").queue();
+        event.getChannel().sendFile(stream.toByteArray(), "swirl.png").queue();
         stream.close();
         source.close();
     }

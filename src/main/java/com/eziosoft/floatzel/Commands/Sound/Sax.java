@@ -7,7 +7,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 public class Sax extends FCommand {
     public Sax(){
         name = "sax";
-        description = "busts out a fucking awesome sax solo";
+        description = "busts out an awesome sax solo";
         category = sound;
     }
 

@@ -36,7 +36,7 @@ public class ImageTest extends FCommand {
             stream.flush();
             ImageIO.setUseCache(false);
             ImageIO.write(picture, "png", stream);
-            event.getChannel().sendFile(stream.toByteArray(), "fuckinimage.png").queue();
+            event.getChannel().sendFile(stream.toByteArray(), "image.png").queue();
             stream.close();
         } catch (IOException e) {
             e.printStackTrace();

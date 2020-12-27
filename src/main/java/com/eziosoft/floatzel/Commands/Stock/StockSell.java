@@ -24,7 +24,7 @@ public class StockSell extends FCommand {
         String uid = event.getAuthor().getId();
         boolean exist = Database.dbcheckifstock(uid);
         if (!exist){
-            event.getChannel().sendMessage("Error: you do not have a stock to sell fuckwit!").queue();
+            event.getChannel().sendMessage("Error: you do not have a stock to sell!").queue();
             return;
         }
         // then get the stock id

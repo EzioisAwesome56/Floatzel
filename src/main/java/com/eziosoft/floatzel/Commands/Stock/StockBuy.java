@@ -26,7 +26,7 @@ public class StockBuy extends FCommand {
         String uid = event.getAuthor().getId();
         boolean hasstocks = Database.dbcheckifstock(uid);
         if (hasstocks){
-            event.getChannel().sendMessage("You cant buy more then 1 stock dumbass!").queue();
+            event.getChannel().sendMessage("You cant buy more then 1 stock!").queue();
             return;
         }
         // then start checking for the id
@@ -34,7 +34,7 @@ public class StockBuy extends FCommand {
         try {
             id = Integer.valueOf(argsplit[0]);
         } catch (NumberFormatException e){
-            event.getChannel().sendMessage("Error: you didnt provide an id you moron!\nyou can get the id by running the viewstocks command!").queue();
+            event.getChannel().sendMessage("Error: you didnt provide an id!!\nyou can get the id by running the viewstocks command!").queue();
             return;
         }
         if (id == 0){
@@ -50,7 +50,7 @@ public class StockBuy extends FCommand {
         // is there any stock left to buy?
         int units = Database.dbgetunits(id);
         if (units == 0){
-            event.getChannel().sendMessage("Sorry fucker, but everyone else already bought all of this stock!").queue();
+            event.getChannel().sendMessage("Sorry, this stock has run out of units to sell").queue();
             return;
         }
         // check if they can afford a stock

@@ -19,7 +19,7 @@ import java.io.InputStream;
 public class Explode extends FImageCommand {
     public Explode(){
         name = "explode";
-        description = "Explode your dumbass images!";
+        description = "Explode your images!";
         category = image;
         aliases = Utils.makeAlias("bang");
     }

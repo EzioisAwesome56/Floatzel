@@ -18,7 +18,7 @@ import java.io.InputStream;
 public class Implode extends FImageCommand {
     public Implode(){
         name = "implode";
-        description = "Fucking explosions but REVERSE!";
+        description = "explosions but REVERSE!";
         category = image;
     }
 
