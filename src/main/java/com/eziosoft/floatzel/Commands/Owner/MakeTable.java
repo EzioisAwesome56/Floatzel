@@ -20,7 +20,7 @@ public class MakeTable extends FCommand {
             return;
         }
         // otherwise just make the table
-        boolean result = Database.dbmaketable(argsplit[0]);
+        boolean result = Database.dbmaketable(argsplit[0], argsplit[1]);
         event.reply("Did the table making complete? "+ Boolean.toString(result));
     }
 }

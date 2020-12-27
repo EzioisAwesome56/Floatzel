@@ -55,4 +55,6 @@ public class DatabaseModule {
     public void updateStock(Stock s){
         driver.updateStock(gson.toJson(s));
     }
+
+    public void makeTable(String name, String key){ driver.makeTable(name, key); }
 }

@@ -296,14 +296,11 @@ public class Database {
         return cur;
     }
 
+    @Deprecated
     // this is a command ment to be used by EVAL
-    public static boolean dbmaketable(String name) throws DatabaseException{
-        try {
-            r.tableCreate(name).run(thonk);
-            return true;
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
+    public static boolean dbmaketable(String name, String key) throws DatabaseException{
+       dbdriver.makeTable(name, key);
+       return true;
     }
 
     @Deprecated // assume true for the very little implemented code

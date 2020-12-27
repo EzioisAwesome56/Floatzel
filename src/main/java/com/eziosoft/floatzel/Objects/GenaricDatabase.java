@@ -20,5 +20,7 @@ public interface GenaricDatabase {
 
     String getStock(int id);
 
+    void makeTable(String name, String key);
+
 
 }
