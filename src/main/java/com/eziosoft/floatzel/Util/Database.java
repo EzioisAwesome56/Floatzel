@@ -300,13 +300,13 @@ public class Database {
     // this is a command ment to be used by EVAL
     public static boolean dbmaketable(String name, String key) throws DatabaseException{
        dbdriver.makeTable(name, key);
-       return true;
+       return false;
     }
 
     @Deprecated // assume true for the very little implemented code
     // check if a server has set floatzel to be an asshole or not
     public static boolean dbcheckifass(String gid) throws DatabaseException{
-        return false;
+        return true;
     }
 
     @Deprecated
