@@ -24,5 +24,9 @@ public interface GenaricDatabase {
 
     int totalTweets();
 
+    void saveTweet(String s);
+
+    String loadTweet(int id);
+
 
 }

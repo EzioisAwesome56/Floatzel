@@ -5,6 +5,7 @@ import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Objects.DatabaseModule;
 import com.eziosoft.floatzel.Objects.Stock;
+import com.eziosoft.floatzel.Objects.Tweet;
 import com.eziosoft.floatzel.Objects.User;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlError;
@@ -232,17 +233,10 @@ public class Database {
         return dbdriver.totalTweets();
     }
 
+    @Deprecated
     public static boolean dbsavetweet(String text, int id) throws DatabaseException{
-        try {
-            r.table(tweets).insert(r.array(
-                    r.hashMap("tid", id)
-                    .with("txt", text)
-            )).run(thonk);
-            return true;
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-        }
-
+        dbdriver.saveTweet(new Tweet(text, id));
+        return true;
     }
 
     @Deprecated
@@ -284,17 +278,10 @@ public class Database {
         dbdriver.saveProfile(h);
     }
 
-    @Deprecated
-    // get all tweets
-    public static Cursor dbgetalltweets() throws DatabaseException{
-        try{
-            cur = r.table(tweets).getField("txt").run(thonk);
-        } catch (ReqlError e){
-            throw new DatabaseException(e.getMessage(), e.getStackTrace());
-            //Floatzel.fail = true;
-            //return cur;
-        }
-        return cur;
+    @Deprecated // this method totally fucking sucks
+    // so we'll fix the one method that actually calls it directly
+    public static Cursor dbgetalltweets() throws DatabaseException, NoSuchMethodException {
+        throw new NoSuchMethodException("Method is deprecated!");
     }
 
     @Deprecated

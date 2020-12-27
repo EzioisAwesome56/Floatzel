@@ -59,4 +59,10 @@ public class DatabaseModule {
     public void makeTable(String name, String key){ driver.makeTable(name, key); }
 
     public int totalTweets() {return driver.totalTweets(); }
+
+    public void saveTweet(Tweet t){
+        driver.saveTweet(gson.toJson(t, Tweet.class));
+    }
+
+    public Tweet loadTweet(int id){ return gson.fromJson(driver.loadTweet(id), Tweet.class); }
 }
