@@ -92,12 +92,7 @@ public class LootBox extends FCommand {
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
-
-                if (ass) {
-                    event.getChannel().sendMessage("Take this shitty **level 1** box!").addFile(stream.toByteArray(), "box.png").queue();
-                } else {
-                    event.getChannel().sendMessage("Take this awful **level 1** box!").addFile(stream.toByteArray(), "box.png").queue();
-                }
+                event.getChannel().sendMessage("Take this awful **level 1** box!").addFile(stream.toByteArray(), "box.png").queue();
                 // generate reward
                 reward = random.nextInt(5) + 50;
             } else if (ok.contains(box)) {
@@ -105,11 +100,7 @@ public class LootBox extends FCommand {
                 ImageIO.setUseCache(false);
                 stream.flush();
                 ImageIO.write(boximg, "png", stream);
-                if (ass) {
-                    event.getChannel().sendMessage("have this fucking AVERAGE **level 2** box").addFile(stream.toByteArray(), "box.png").queue();
-                } else {
-                    event.getChannel().sendMessage("have this alright **level 2** box").addFile(stream.toByteArray(), "box.png").queue();
-                }
+                event.getChannel().sendMessage("have this alright **level 2** box").addFile(stream.toByteArray(), "box.png").queue();
                 // generate reward
                 reward = random.nextInt(20) + 75;
             } else if (best.contains(box)) {

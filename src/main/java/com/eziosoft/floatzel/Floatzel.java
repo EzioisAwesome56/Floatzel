@@ -180,6 +180,7 @@ public class Floatzel {
         commandClient.addCommand(new MakeTable());
         commandClient.addCommand(new SetAss());
         commandClient.addCommand(new Avatar());
+        commandClient.addCommand(new DiceRoll());
 
         // load rest of mods here
         try{

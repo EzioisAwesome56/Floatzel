@@ -16,7 +16,7 @@ public class Reverse extends FCommand {
 
     public Reverse(){
         name = "reverse";
-        description = "Pull out everyone's favorite fucking uno card";
+        description = "Pull out everyone's favorite uno card";
         category = fun;
     }
 

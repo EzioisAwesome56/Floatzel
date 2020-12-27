@@ -49,15 +49,11 @@ public class Loan extends FCommand {
         if (System.currentTimeMillis() != prevloan + day && prevloan != 0 && System.currentTimeMillis() > prevloan && seconds >= 0L ){
             String rentime = "";
             rentime = Long.toString(hours) + " hours, " + Long.toString(minutes) + " minutes and " + Long.toString(seconds) + " seconds ";
-            event.getChannel().sendMessage("Error: You must fucking wait "+rentime+"longer to get another loan jackass").queue();
+            event.getChannel().sendMessage("Error: You must wait "+rentime+"longer to get another loan").queue();
             return;
         }
         int payout = random.nextInt(50) + 1;
-        if (ass) {
-            event.getChannel().sendMessage("You fucking took out a loan of fucking " + Integer.toString(payout) + "\uD83E\uDD56 !").queue();
-        } else {
-            event.reply("you took out a loan of " + Integer.toString(payout) + moneyicon+ "!");
-        }
+        event.reply("you took out a loan of " + Integer.toString(payout) + moneyicon+ "!");
         int bal = Database.dbloadint(uid);
         bal = bal + payout;
         Database.dbsave(uid, Integer.toString(bal));

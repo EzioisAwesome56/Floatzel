@@ -14,6 +14,7 @@ public class DiceRoll extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event){
-        Random random = new Random();
+        int h = random.nextInt(6) + 1;
+        event.reply(Integer.toString(h));
     }
 }
