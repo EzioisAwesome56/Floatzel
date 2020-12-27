@@ -71,7 +71,8 @@ public class ModLoader {
     }
 
     public void loadDatabase() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException {
-        System.out.println("Eziosoft ModLoader is now loading mod classes...");
+        boolean dbloaded = false;
+        System.out.println("Eziosoft ModLoader is now looking for a database mod...");
         for (Mod value : mods) {
             if (value.getType().equals("database")) {
                 System.out.println("Database mod found! Loading as primary database driver...");
@@ -82,10 +83,12 @@ public class ModLoader {
                 Database.setDbdriver(new DatabaseModule(db));
                 Database.sendConninfo(gson.toJson(new ConnInfo("localhost", Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), 6969)));
                 System.out.println("Database mod loaded!");
-                break;
+                dbloaded = true;
             }
         }
-        System.out.println("All mods have been loaded.");
+        if (!dbloaded){
+            throw new NullPointerException("No Database mod found!");
+        }
     }
 
     public void loadAll() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
