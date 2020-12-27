@@ -18,11 +18,12 @@ public class BuyCmd extends FCommand {
         String uid = event.getAuthor().getId();
         int bal = Database.dbloadint(uid);
         if (args.length() < 1){
-            event.getChannel().sendMessage("You didnt fucking tell me what you wanna buy?!").queue();
+            event.getChannel().sendMessage("You didnt tell me what command you wanna buy!").queue();
             return;
         }
         if (args.equals("list")){
             // make this list better later dumbfuck
+            // no, i dont think i will past-self
             event.getChannel().sendMessage("```md\n#Commands for sale\n[betterloan](gives you better loans)\n#Price: 850 ```").queue();
             return;
         }
@@ -33,11 +34,7 @@ public class BuyCmd extends FCommand {
                 return;
             }
             if (Database.dbcheckbloan(uid)){
-                if (ass) {
-                    event.getChannel().sendMessage("You already fucking bought this command, don't fucking throw more money at me dumbass!").queue();
-                } else {
-                    event.reply("You already bought this command, no need to buy it again");
-                }
+                event.reply("You already bought this command, no need to buy it again");
                 return;
             }
             // subtract the amount of money from the user's bank account and then save it
@@ -45,7 +42,7 @@ public class BuyCmd extends FCommand {
             Database.dbsave(uid, Integer.toString(bal));
             // write te fact the user has the command now
             Database.dbbuycmd(1, uid);
-            event.getChannel().sendMessage("You fucking wasted your money and bought betterloan!").queue();
+            event.getChannel().sendMessage("You have purchased betterloan!").queue();
             return;
         }
     }
