@@ -52,9 +52,6 @@ public class Database {
 
     // check if db entry exists
     public static Boolean dbcheckifexist(String id) throws DatabaseException{
-        if (1 == 2){
-            throw new DatabaseException("what", new StackTraceElement[]{new StackTraceElement("gtfo lol", "fuck", "dank", 2)});
-        }
         return dbdriver.checkforuser(id);
     }
 
@@ -247,11 +244,7 @@ public class Database {
 
     // check if the user has bought a stock yet
     public static boolean dbcheckifstock(String uid) throws DatabaseException{
-        if (dbdriver.getProfile(uid).getStockid() == -1){
-            return false;
-        } else {
-            return true;
-        }
+        return dbdriver.getProfile(uid).getStockid() != -1;
     }
 
     // validate a stock id
@@ -265,6 +258,7 @@ public class Database {
         return exist;
     }
 
+    @Deprecated
     // buy a stock
     public static void dbbuystock(String uid, int id) throws DatabaseException{
         User h = dbdriver.getProfile(uid);
@@ -272,6 +266,7 @@ public class Database {
         dbdriver.saveProfile(h);
     }
 
+    @Deprecated
     // get the id of the stock a user bought
     public static int dbloadstockid(String uid) throws DatabaseException{
         return dbdriver.getProfile(uid).getStockid();
