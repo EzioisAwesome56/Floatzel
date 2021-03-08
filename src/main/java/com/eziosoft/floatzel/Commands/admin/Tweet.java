@@ -17,6 +17,6 @@ public class Tweet extends FCommand {
         // i guess just try sending whatever the args are
         String args = event.getArgs();
         TwitterManager.tweet(args);
-        event.reply("TWeet should have been sent. If it wasnt, check <#512787662344814622>!");
+        event.reply("Tweet should have been sent. If it wasnt, check <#512787662344814622>!");
     }
 }
