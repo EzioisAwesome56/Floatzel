@@ -6,6 +6,7 @@ import com.eziosoft.floatzel.Commands.Image.*;
 import com.eziosoft.floatzel.Commands.Other.*;
 import com.eziosoft.floatzel.Commands.Owner.Eval;
 import com.eziosoft.floatzel.Commands.Owner.MakeTable;
+import com.eziosoft.floatzel.Commands.Owner.TweetUtils;
 import com.eziosoft.floatzel.Commands.PayForCommands.BetterLoan;
 import com.eziosoft.floatzel.Commands.Smm.Course;
 import com.eziosoft.floatzel.Commands.Smm.RandCourse;
@@ -167,6 +168,7 @@ public class Floatzel {
         commandClient.addCommand(new MakeTable());
         commandClient.addCommand(new Avatar());
         commandClient.addCommand(new DiceRoll());
+        commandClient.addCommand(new TweetUtils());
 
         // load rest of mods here
         try{
