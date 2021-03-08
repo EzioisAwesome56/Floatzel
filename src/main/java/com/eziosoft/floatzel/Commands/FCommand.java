@@ -85,6 +85,7 @@ public abstract class FCommand extends Command {
                 // just set to normal nick
                 event.getGuild().getSelfMember().modifyNickname(Floatzel.normalname).queue();
             }
+
         }
         // split the arguments
         argsplit = event.getArgs().split("\\s+");

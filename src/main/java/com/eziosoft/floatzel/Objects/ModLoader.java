@@ -70,28 +70,8 @@ public class ModLoader {
         System.out.println("Eziosoft Modloader Initialization complete!");
     }
 
-    public void loadDatabase() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException {
-        boolean dbloaded = false;
-        System.out.println("Eziosoft ModLoader is now looking for a database mod...");
-        for (Mod value : mods) {
-            if (value.getType().equals("database")) {
-                System.out.println("Database mod found! Loading as primary database driver...");
-                Class classToLoad = Class.forName(value.getMainclass(), true, child);
-                Object mod = classToLoad.getConstructor().newInstance();
-                // load it as a genaricDatabase
-                GenaricDatabase db = (GenaricDatabase) mod;
-                Database.dbdriver = new DatabaseModule(db);
-                Database.sendConninfo(gson.toJson(new ConnInfo("localhost", Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), 6969)));
-                System.out.println("Database mod loaded!");
-                dbloaded = true;
-            }
-        }
-        if (!dbloaded){
-            throw new NullPointerException("No Database mod found!");
-        }
-    }
-
     public void loadAll() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        boolean dbloaded = false;
         for (Mod mod : mods){
             if (mod.getType().equals("command")){
                 System.out.println("Loading mod mainclass " + mod.getMainclass());
@@ -99,7 +79,17 @@ public class ModLoader {
                 Object loadedMod = toLoad.getConstructor().newInstance();
                 Floatzel.commandClient.addCommand((FCommand) loadedMod);
             } else if (mod.getType().equals("database")){
-                System.out.println("Skipping reloading of Database plugin...");
+                if (dbloaded){
+                    System.out.println("Database already loaded! skipping loading class " + mod.getMainclass());
+                } else {
+                    System.out.println("Now Loading Database plugin from main class " + mod.getMainclass() +"...");
+                    Class toLoad = Class.forName(mod.getMainclass(), true, child);
+                    Object dbc = toLoad.getConstructor().newInstance();
+                    // load it as a db module
+                    Database.dbdriver = new DatabaseModule((GenaricDatabase) dbc);
+                    Database.sendConninfo(gson.toJson(new ConnInfo("localhost", Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), 6969)));
+                    dbloaded = true;
+                }
             } else if (mod.getType().equals("commands")){
                 System.out.println("--- START BATCH LOAD ---");
                 System.out.println("Batch loading commands as defined by " + mod.getMainclass());
@@ -115,6 +105,9 @@ public class ModLoader {
                 }
                 System.out.println("--- END BATCH LOAD ---");
             }
+        }
+        if (!dbloaded){
+            throw new ClassNotFoundException("No database plugin found!");
         }
     }
 

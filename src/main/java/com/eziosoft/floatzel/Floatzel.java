@@ -94,7 +94,6 @@ public class Floatzel {
         // start up the mod loader
         try {
             loader = new ModLoader("mods");
-            loader.loadDatabase();
         } catch (Exception e){
             e.printStackTrace();
             System.out.println("Floatzel has encountered an error trying to startup! now shutting down...");
