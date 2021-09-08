@@ -110,6 +110,9 @@ public class ModLoader {
             if (!Floatzel.fallback) {
                 throw new ClassNotFoundException("No database plugin found!");
             } else {
+                System.out.println("Mo database mod was found, however you have chosen to run with the fallback driver.\n" +
+                        "this will not allow saving of any information, such as user profiles, and should not be used for production.\n" +
+                        "you have been warned!");
                 System.out.println("loading fallback database driver...");
                 Database.dbdriver = new DatabaseModule(new FallbackDB());
             }
