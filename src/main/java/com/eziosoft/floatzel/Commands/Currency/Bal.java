@@ -5,7 +5,6 @@ import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Util.Database;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import com.rethinkdb.gen.exc.ReqlError;
 
 import javax.xml.crypto.Data;
 

@@ -5,7 +5,6 @@ import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Objects.Tweet;
 import com.eziosoft.floatzel.Res.Files;
 import com.eziosoft.floatzel.Res.Phrase;
-import com.rethinkdb.net.Cursor;
 
 import javax.xml.crypto.Data;
 import java.io.File;

@@ -2,7 +2,6 @@ package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Floatzel;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import com.rethinkdb.gen.exc.ReqlError;
 import org.codehaus.plexus.util.ExceptionUtils;
 import twitter4j.TwitterException;
 

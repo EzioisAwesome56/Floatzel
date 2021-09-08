@@ -107,7 +107,12 @@ public class ModLoader {
             }
         }
         if (!dbloaded){
-            throw new ClassNotFoundException("No database plugin found!");
+            if (!Floatzel.fallback) {
+                throw new ClassNotFoundException("No database plugin found!");
+            } else {
+                System.out.println("loading fallback database driver...");
+                Database.dbdriver = new DatabaseModule(new FallbackDB());
+            }
         }
     }
 

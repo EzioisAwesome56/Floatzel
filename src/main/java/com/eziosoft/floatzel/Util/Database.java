@@ -7,10 +7,6 @@ import com.eziosoft.floatzel.Objects.DatabaseModule;
 import com.eziosoft.floatzel.Objects.Stock;
 import com.eziosoft.floatzel.Objects.Tweet;
 import com.eziosoft.floatzel.Objects.User;
-import com.rethinkdb.RethinkDB;
-import com.rethinkdb.gen.exc.ReqlError;
-import com.rethinkdb.net.Connection;
-import com.rethinkdb.net.Cursor;
 
 
 public class Database {
@@ -34,10 +30,7 @@ public class Database {
     private static String bloanperm = "bloan";
     private static String stocktable = "stocks";
     private static String tweets = "tweets";
-    // rethink db!
-    private static final RethinkDB r = RethinkDB.r;
-    private static Connection thonk;
-    private static Cursor cur = null;
+
 
 
 
@@ -262,12 +255,6 @@ public class Database {
         User h = dbdriver.getProfile(uid);
         h.setStockid(-1);
         dbdriver.saveProfile(h);
-    }
-
-    @Deprecated // this method totally fucking sucks
-    // so we'll fix the one method that actually calls it directly
-    public static Cursor dbgetalltweets() throws DatabaseException, NoSuchMethodException {
-        throw new NoSuchMethodException("Method is deprecated!");
     }
 
     @Deprecated

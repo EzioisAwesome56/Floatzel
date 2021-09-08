@@ -7,8 +7,6 @@ import com.eziosoft.smm4j.Level;
 import com.eziosoft.smm4j.Util;
 import com.google.gson.Gson;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import com.rethinkdb.gen.ast.Json;
-import com.rethinkdb.net.Cursor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -87,15 +85,10 @@ public class Utils {
         return convertMillisToHMmSs(current) + "/" + convertMillisToHMmSs(length);
     }
 
+    @Deprecated
     // get the first entire from a cursor list
-    public static String getValue(Cursor cur) throws IndexOutOfBoundsException{
-        try {
-            List curlist = cur.toList();
-            String value = curlist.get(0).toString();
-            return value;
-        } catch (IndexOutOfBoundsException e){
-            throw e;
-        }
+    public static String getValue(Cursor cur) throws IndexOutOfBoundsException, NoSuchMethodException {
+        throw new NoSuchMethodException("this method is deprecated!");
     }
 
     public static MessageEmbed buildSmm(Level lvl){

@@ -45,6 +45,7 @@ public class Floatzel {
 
 
     public static boolean isdev = false;
+    public static boolean fallback = false;
     // version shit
     public static String version;
 
@@ -71,6 +72,10 @@ public class Floatzel {
             if (arg.equalsIgnoreCase("--dev")) {
                 isdev = true;
                 System.out.println("RUNNING IN DEVELOPMENT MODE!");
+            }
+            if (arg.equalsIgnoreCase("--fallback")){
+                fallback = true;
+                System.out.println("Running with fallback database");
             }
         }
 
