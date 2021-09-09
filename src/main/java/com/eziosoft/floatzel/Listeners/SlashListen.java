@@ -30,7 +30,7 @@ public class SlashListen extends ListenerAdapter {
                 boolean found = false;
                 for (Command c : s){
                     if (c.getIdLong() == event.getCommandIdLong()){
-                        c.delete().queue(d -> System.out.println("command with id " + c.getId() + " deleted from server!"));
+                        c.delete().queue(d -> System.out.println("command with id " + c.getId() + " deleted from global!"));
                         found = !found;
                     }
                 }
