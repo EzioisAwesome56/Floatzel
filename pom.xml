@@ -23,6 +23,11 @@
             <name>m2-dv8tion</name>
             <url>https://m2.dv8tion.net/releases</url>
         </repository>
+        <repository>
+            <id>ezio</id>
+            <name>ezio-m2</name>
+            <url>https://dankmemeitthefrog.github.io/maven-repo</url>
+        </repository>
 
 
     </repositories>
@@ -66,11 +71,11 @@
             <artifactId>lavaplayer</artifactId>
             <version>1.3.78</version>
         </dependency>
-        <!--<dependency>
-            <groupId>com.eziosoft.uo</groupId>
-            <artifactId>lavaplayer</artifactId>
-            <version>1.3.11</version>
-        </dependency>-->
+        <dependency>
+            <groupId>com.sedmelluq</groupId>
+            <artifactId>lavaplayer-ext-format-xm</artifactId>
+            <version>0.1.0</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -92,22 +97,6 @@
             <artifactId>cowsay</artifactId>
             <version>1.1.0</version>
         </dependency>
-        <!-- shit needed by running a custom lavaplayer -->
-        <!--<dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.9.8</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.9.8</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sedmelluq</groupId>
-            <artifactId>lava-common</artifactId>
-            <version>1.1.0</version>
-        </dependency>-->
     </dependencies>
 
     <properties>
