@@ -18,8 +18,13 @@ import com.eziosoft.floatzel.Commands.Stock.StockBuy;
 import com.eziosoft.floatzel.Commands.Stock.StockSell;
 import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
+import com.eziosoft.floatzel.Listeners.SlashListen;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
+import com.eziosoft.floatzel.SlashCommands.FSlashCommand;
+import com.eziosoft.floatzel.SlashCommands.SlashCommandManager;
+import com.eziosoft.floatzel.SlashCommands.SlashDataContainer;
+import com.eziosoft.floatzel.SlashCommands.prefix;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
 import com.google.gson.Gson;
@@ -27,10 +32,12 @@ import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
+import java.util.HashMap;
 import java.util.concurrent.Executors;
 
 
@@ -61,6 +68,9 @@ public class Floatzel {
     //thing for the tweet bot
     public static boolean tweeton = false;
     public static boolean fail = false;
+
+    // slash commands
+    public static SlashCommandManager scm = new SlashCommandManager();
 
     // new in 3.0: mod loader
     public static ModLoader loader;
@@ -184,11 +194,14 @@ public class Floatzel {
             System.exit(-1);
         }
 
+        scm.addGuildCmd(new SlashDataContainer("prefix", "338840594572902401"), new prefix());
+
 
         jda = DefaultShardManagerBuilder.createDefault(!isdev ? conf.getToken() : conf.getDevtoken())
-                .addEventListeners(listener, commandClient, musicPlayer, waiter)
+                .addEventListeners(listener, commandClient, musicPlayer, waiter, new SlashListen())
                 .setShardsTotal(2)
                 .build();
+
 
         //TwitterManager is now a listener too, which'll do all the work onReady by itself instead of relying on MiscListener
         if (!isdev && Floatzel.conf.getTwitterTog()) Floatzel.jda.addEventListener(twitterManager);
