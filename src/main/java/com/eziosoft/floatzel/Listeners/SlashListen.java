@@ -26,11 +26,11 @@ public class SlashListen extends ListenerAdapter {
             event.reply("this command is invalid and will be removed from the command list.").setEphemeral(true).queue();
             // find and deleted that mf
             event.getJDA().retrieveCommands().queue(s -> {
-                System.out.println("started command deletion search...");
+                System.err.println("started command deletion search...");
                 boolean found = false;
                 for (Command c : s){
                     if (c.getIdLong() == event.getCommandIdLong()){
-                        c.delete().queue(d -> System.out.println("command with id " + c.getId() + " deleted from global!"));
+                        c.delete().queue(d -> System.err.println("command with id " + c.getId() + " deleted from global!"));
                         found = !found;
                     }
                 }
@@ -38,7 +38,7 @@ public class SlashListen extends ListenerAdapter {
                     event.getGuild().retrieveCommands().queue(ss -> {
                         for (Command c : ss){
                             if (c.getIdLong() == event.getCommandIdLong()){
-                                c.delete().queue(d -> System.out.println("command with id " + c.getId() + " deleted from server!"));
+                                c.delete().queue(d -> System.err.println("command with id " + c.getId() + " deleted from server!"));
                         }
                     }});
                 }

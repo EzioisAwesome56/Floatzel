@@ -22,7 +22,6 @@ public class SlashCommandManager {
 
     public void addGuildCmd(SlashDataContainer data, FSlashCommand fsc){
         guildmap.put(data, fsc);
-        System.out.println(guildmap);
     }
 
     public HashMap<String, FSlashCommand> getGlobalmap() {
