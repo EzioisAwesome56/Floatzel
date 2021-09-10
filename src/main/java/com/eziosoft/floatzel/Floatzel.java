@@ -4,7 +4,6 @@ import com.eziosoft.floatzel.Commands.Debug.Debug;
 import com.eziosoft.floatzel.Commands.Entertainment.*;
 import com.eziosoft.floatzel.Commands.Image.*;
 import com.eziosoft.floatzel.Commands.Other.*;
-import com.eziosoft.floatzel.Commands.Owner.Eval;
 import com.eziosoft.floatzel.Commands.Owner.MakeTable;
 import com.eziosoft.floatzel.Commands.Owner.TweetUtils;
 import com.eziosoft.floatzel.Commands.PayForCommands.BetterLoan;
@@ -21,7 +20,6 @@ import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Listeners.SlashListen;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
-import com.eziosoft.floatzel.SlashCommands.FSlashCommand;
 import com.eziosoft.floatzel.SlashCommands.SlashCommandManager;
 import com.eziosoft.floatzel.SlashCommands.SlashDataContainer;
 import com.eziosoft.floatzel.SlashCommands.prefix;
@@ -32,12 +30,10 @@ import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
-import java.util.HashMap;
 import java.util.concurrent.Executors;
 
 
@@ -159,7 +155,6 @@ public class Floatzel {
         commandClient.addCommand(new Force());
         commandClient.addCommand(new Debug());
         commandClient.addCommand(new AddTweet());
-        commandClient.addCommand(new Eval());
         commandClient.addCommand(new StockBuy());
         commandClient.addCommand(new Stock());
         commandClient.addCommand(new StockSell());
