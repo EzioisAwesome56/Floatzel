@@ -25,6 +25,7 @@ import com.eziosoft.floatzel.SlashCommands.SlashDataContainer;
 import com.eziosoft.floatzel.SlashCommands.prefix;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
+import com.eziosoft.floatzel.kekbot.KekGlue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandClient;
@@ -193,7 +194,7 @@ public class Floatzel {
 
 
         jda = DefaultShardManagerBuilder.createDefault(!isdev ? conf.getToken() : conf.getDevtoken())
-                .addEventListeners(listener, commandClient, musicPlayer, waiter, new SlashListen())
+                .addEventListeners(listener, commandClient, musicPlayer, waiter, new SlashListen(), KekGlue.KekBot.gamesManager)
                 .setShardsTotal(2)
                 .build();
 
