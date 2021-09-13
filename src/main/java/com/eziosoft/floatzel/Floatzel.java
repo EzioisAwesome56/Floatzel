@@ -4,7 +4,6 @@ import com.eziosoft.floatzel.Commands.Debug.Debug;
 import com.eziosoft.floatzel.Commands.Entertainment.*;
 import com.eziosoft.floatzel.Commands.Image.*;
 import com.eziosoft.floatzel.Commands.Other.*;
-import com.eziosoft.floatzel.Commands.Owner.Eval;
 import com.eziosoft.floatzel.Commands.Owner.MakeTable;
 import com.eziosoft.floatzel.Commands.Owner.TweetUtils;
 import com.eziosoft.floatzel.Commands.PayForCommands.BetterLoan;
@@ -18,12 +17,14 @@ import com.eziosoft.floatzel.Commands.Stock.StockBuy;
 import com.eziosoft.floatzel.Commands.Stock.StockSell;
 import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
+import com.eziosoft.floatzel.Listeners.SlashListen;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
+import com.eziosoft.floatzel.SlashCommands.SlashCommandManager;
+import com.eziosoft.floatzel.SlashCommands.SlashDataContainer;
+import com.eziosoft.floatzel.SlashCommands.prefix;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
-import com.eziosoft.floatzel.kekbot.Commands.GameCommand;
-import com.eziosoft.floatzel.kekbot.KekGlue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandClient;
@@ -63,6 +64,9 @@ public class Floatzel {
     //thing for the tweet bot
     public static boolean tweeton = false;
     public static boolean fail = false;
+
+    // slash commands
+    public static SlashCommandManager scm = new SlashCommandManager();
 
     // new in 3.0: mod loader
     public static ModLoader loader;
@@ -113,7 +117,7 @@ public class Floatzel {
         twitterManager = new TwitterManager();
 
         // resume everything else
-        version = !isdev ? "2.6.1" : "2.x Developement";
+        version = !isdev ? "2.7" : "2.x Developement";
          commandClient = new CommandClientBuilder().setOwnerId(conf.getOwnerid()).useHelpBuilder(false).setPrefix(!isdev ? conf.getPrefix() : conf.getDevprefix()).build();
 
 
@@ -151,7 +155,6 @@ public class Floatzel {
         commandClient.addCommand(new Force());
         commandClient.addCommand(new Debug());
         commandClient.addCommand(new AddTweet());
-        commandClient.addCommand(new Eval());
         commandClient.addCommand(new StockBuy());
         commandClient.addCommand(new Stock());
         commandClient.addCommand(new StockSell());
@@ -176,7 +179,6 @@ public class Floatzel {
         commandClient.addCommand(new Avatar());
         commandClient.addCommand(new DiceRoll());
         commandClient.addCommand(new TweetUtils());
-        commandClient.addCommand(new GameCommand());
 
         // load rest of mods here
         try{
@@ -187,11 +189,14 @@ public class Floatzel {
             System.exit(-1);
         }
 
+        scm.addGuildCmd(new SlashDataContainer("prefix", "338840594572902401"), new prefix());
+
 
         jda = DefaultShardManagerBuilder.createDefault(!isdev ? conf.getToken() : conf.getDevtoken())
-                .addEventListeners(listener, commandClient, musicPlayer, waiter, KekGlue.KekBot.gamesManager)
+                .addEventListeners(listener, commandClient, musicPlayer, waiter, new SlashListen())
                 .setShardsTotal(2)
                 .build();
+
 
         //TwitterManager is now a listener too, which'll do all the work onReady by itself instead of relying on MiscListener
         if (!isdev && Floatzel.conf.getTwitterTog()) Floatzel.jda.addEventListener(twitterManager);

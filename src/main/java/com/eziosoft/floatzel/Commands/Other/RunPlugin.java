@@ -1,17 +1,10 @@
 package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.Commands.FCommand;
-import com.eziosoft.floatzel.Commands.Plugin.BasePlugin;
 import com.eziosoft.floatzel.Exception.GenericException;
-import com.eziosoft.floatzel.Exception.LoadPluginException;
 import com.eziosoft.floatzel.Floatzel;
-import com.eziosoft.floatzel.Util.Error;
-import com.eziosoft.floatzel.Util.Plugin;
 import com.eziosoft.floatzel.Util.Utils;
-import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-
-import java.io.FileNotFoundException;
 
 public class RunPlugin extends FCommand {
     public RunPlugin(){
@@ -23,50 +16,14 @@ public class RunPlugin extends FCommand {
     }
 
     @Override
-    protected void cmdrun(CommandEvent event) throws LoadPluginException, GenericException {
+    protected void cmdrun(CommandEvent event) throws GenericException {
         // check to make sure they gave arguments
         if (event.getArgs().length() < 1) {
             event.getChannel().sendMessage("You didn't provide the function you want to preform!").queue();
             return;
         }
         if (argsplit[0].equals("plugin")) {
-            if (argsplit[1].equals("load")) {
-                // check to make sure the user provided a file name
-                try {
-                    if (argsplit[2].isEmpty()) {
-                        event.getChannel().sendMessage("you didnt provide a plugin filename for me to register!").queue();
-                        return;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e){
-                    event.reply("You didnt provide a plugin filename for me to load!");
-                    return;
-                }
-                String[] info;
-                try {
-                    info = Plugin.getPluginInfo(argsplit[2]);
-                } catch (FileNotFoundException e) {
-                    event.getChannel().sendMessage("Error: that plugin doesn't exist!").queue();
-                    return;
-                } catch (LoadPluginException e) {
-                    throw e;
-                } catch (ArrayIndexOutOfBoundsException e){
-                    event.reply("You didnt tell me what plugin you wanted to load!");
-                    return;
-                }
-                // then register it
-                Floatzel.commandClient.addCommand(new BasePlugin(info[0], argsplit[2], info[1]));
-                event.getChannel().sendMessage("Plugin has been fucking loaded!").queue();
-                return;
-            } else if (argsplit[1].equals("run")) {
-                try {
-                    Plugin.runPlugin(event, argsplit[2]);
-                } catch (ArrayIndexOutOfBoundsException e){
-                    event.reply("You didnt tell me what to run!");
-                    return;
-                } catch (GenericException e){
-                    throw e;
-                }
-            }
+            event.reply("this feature has been moved to the floatzel-nashorn mod.");
         } else if (argsplit[0].equals("unload")){
             // try to unload the command given
             try{
