@@ -25,6 +25,7 @@ import com.eziosoft.floatzel.SlashCommands.SlashDataContainer;
 import com.eziosoft.floatzel.SlashCommands.prefix;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
+import com.eziosoft.floatzel.kekbot.Commands.GameCommand;
 import com.eziosoft.floatzel.kekbot.KekGlue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -180,6 +181,7 @@ public class Floatzel {
         commandClient.addCommand(new Avatar());
         commandClient.addCommand(new DiceRoll());
         commandClient.addCommand(new TweetUtils());
+        commandClient.addCommand(new GameCommand());
 
         // load rest of mods here
         try{

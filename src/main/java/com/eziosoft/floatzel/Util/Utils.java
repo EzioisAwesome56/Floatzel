@@ -107,8 +107,12 @@ public class Utils {
         return builder.build();
     }
 
-    public static InputStream getResourse(String path, String filename){
+    public static InputStream getResource(String path, String filename){
         return Files.class.getResourceAsStream(path + filename);
+    }
+
+    public static InputStream getResource(String path){
+        return Files.class.getResourceAsStream(path.startsWith("/") ? path : "/" + path);
     }
 
     public static String getFileType(String filename){

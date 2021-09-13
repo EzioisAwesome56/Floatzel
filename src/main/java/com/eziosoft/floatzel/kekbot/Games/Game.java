@@ -14,7 +14,7 @@ import java.util.Map;
 import com.eziosoft.floatzel.kekbot.KekGlue.LocaleUtils;
 import com.eziosoft.floatzel.kekbot.KekGlue.KekBot;
 
-public abstract class BaseGame {
+public abstract class Game {
     private String gameName;
     private int minNumberOfPlayers = 0;
     private int maxNumberOfPlayers;
@@ -30,7 +30,7 @@ public abstract class BaseGame {
     public TextChannel channel;
     // bets removed because we wont need them lol
 
-    public BaseGame(int minNumberOfPlayers, int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean betsEnabled) {
+    public Game(int minNumberOfPlayers, int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean betsEnabled) {
         this.minNumberOfPlayers = minNumberOfPlayers;
         this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.hasAI = hasAI;
@@ -40,7 +40,7 @@ public abstract class BaseGame {
         //bets = new BetManager(betsEnabled, betsEnabled);
     }
 
-    public BaseGame(int minNumberOfPlayers, int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean playerBetsEnabled, boolean spectatorBetsEnabled) {
+    public Game(int minNumberOfPlayers, int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean playerBetsEnabled, boolean spectatorBetsEnabled) {
         this.minNumberOfPlayers = minNumberOfPlayers;
         this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.hasAI = hasAI;
@@ -50,7 +50,7 @@ public abstract class BaseGame {
         //bets = new BetManager(playerBetsEnabled, spectatorBetsEnabled);
     }
 
-    public BaseGame(int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean betsEnabled) {
+    public Game(int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean betsEnabled) {
         this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.hasAI = hasAI;
         this.channel = channel;
@@ -59,7 +59,7 @@ public abstract class BaseGame {
         //bets = new BetManager(betsEnabled, betsEnabled);
     }
 
-    public BaseGame(int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean playerBetsEnabled, boolean spectatorBetsEnabled) {
+    public Game(int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean playerBetsEnabled, boolean spectatorBetsEnabled) {
         this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.hasAI = hasAI;
         this.channel = channel;

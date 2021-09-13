@@ -3,7 +3,6 @@ package com.eziosoft.floatzel.kekbot.Games;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -21,12 +20,13 @@ import com.eziosoft.floatzel.kekbot.KekGlue.Profile;
 import com.eziosoft.floatzel.kekbot.KekGlue.Token;
 import com.eziosoft.floatzel.kekbot.KekGlue.LocaleUtils;
 import com.eziosoft.floatzel.kekbot.KekGlue.KekBot;
+import com.eziosoft.floatzel.kekbot.KekGlue.ImageIO;
 
 // other crap
 import net.dv8tion.jda.api.entities.User;
 
 
-public class TicTacToe extends BaseGame{
+public class TicTacToe extends Game {
     private int[] board = {0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int turn;
     private Random random = new Random();

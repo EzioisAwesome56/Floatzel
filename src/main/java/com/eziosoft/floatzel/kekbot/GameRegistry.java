@@ -1,8 +1,7 @@
 package com.eziosoft.floatzel.kekbot;
 
-import com.eziosoft.floatzel.kekbot.Games.BaseGame;
+import com.eziosoft.floatzel.kekbot.Games.Game;
 import net.dv8tion.jda.api.entities.TextChannel;
-import org.jsoup.Connection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +43,7 @@ public class GameRegistry {
      * @param channel The channel where the game will be played.
      * @return The game object that will be played.
      */
-    public BaseGame getGame(String name, TextChannel channel) {
+    public Game getGame(String name, TextChannel channel) {
         if (hasGame(name)) {
             int gameID = registeredGames.get(name);
             switch (gameID) {

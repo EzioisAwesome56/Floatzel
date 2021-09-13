@@ -1,6 +1,6 @@
 package com.eziosoft.floatzel.kekbot;
 
-import com.eziosoft.floatzel.kekbot.Games.BaseGame;
+import com.eziosoft.floatzel.kekbot.Games.Game;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent;
@@ -19,16 +19,16 @@ import java.util.stream.Collectors;
 // code lifted from kekbot 1.6.1, then glued to work with floatzel
 
 public class GamesManager extends ListenerAdapter {
-    private Map<Long, BaseGame> activeGames = new HashMap<>();
+    private Map<Long, Game> activeGames = new HashMap<>();
     private GameRegistry gameRegistry = new GameRegistry();
 
-    public BaseGame getGame(TextChannel channel) {
+    public Game getGame(TextChannel channel) {
         return activeGames.get(Long.valueOf(channel.getId()));
     }
 
     public void joinGame(TextChannel channel, User player) {
         if (activeGames.containsKey(Long.valueOf(channel.getId()))) {
-            BaseGame game = activeGames.get(Long.valueOf(channel.getId()));
+            Game game = activeGames.get(Long.valueOf(channel.getId()));
             if (game.hasRoomForPlayers()) {
                 game.addPlayer(player);
                 String joinMessage = "**" + LocaleUtils.getString("game.playerjoined", KekBot.getGuildLocale(channel.getGuild()), player.getName(), "(" + game.players.size() + "/" + game.getMaxNumberOfPlayers() + ")") + "**";
@@ -46,7 +46,7 @@ public class GamesManager extends ListenerAdapter {
             if (!gameRegistry.hasGame(gameName)) {
                 return;
             }
-            BaseGame game = gameRegistry.getGame(gameName, channel);
+            Game game = gameRegistry.getGame(gameName, channel);
             if (!game.isTranslatable() && !KekBot.getCommandClient().getDefaultLocale().equals(KekBot.getGuildLocale(channel.getGuild()))) {
                 // TODO: add/remove/idk this
                 /*Questionnaire.newQuestionnaire(channel.getGuild(), channel, host)
@@ -63,7 +63,7 @@ public class GamesManager extends ListenerAdapter {
             prepareGame(channel, game, host);
 
         } else {
-            BaseGame game = getGame(channel);
+            Game game = getGame(channel);
             User otherHost = game.players.get(0);
             if (otherHost == host) {
                 channel.sendMessage("You're already hosting a game of " + game.getGameName() + " in this channel!").queue();
@@ -74,7 +74,7 @@ public class GamesManager extends ListenerAdapter {
         }
     }
 
-    private void prepareGame(TextChannel channel, BaseGame game, User host) {
+    private void prepareGame(TextChannel channel, Game game, User host) {
         game.addPlayer(host);
         activeGames.put(Long.valueOf(channel.getId()), game);
         channel.sendMessage(game.getGameName() + " lobby created! (If you don't know how to play, you can use `" + KekBot.getGuildPrefix(channel.getGuild()) + "game rules` to view the rules and instructions.)" +
@@ -113,11 +113,11 @@ public class GamesManager extends ListenerAdapter {
     }
 
     public void shutdown(String reason) {
-        Iterator<Map.Entry<Long, BaseGame>> itr = activeGames.entrySet().iterator();
+        Iterator<Map.Entry<Long, Game>> itr = activeGames.entrySet().iterator();
 
         while(itr.hasNext())
         {
-            Map.Entry<Long, BaseGame> entry = itr.next();
+            Map.Entry<Long, Game> entry = itr.next();
             entry.getValue().channel.sendMessage("This game was ended due to KekBot shutting down with the reason: `" + reason + "` (Don't worry, any bets made were all returned.)").queue();
         }
     }
@@ -127,11 +127,11 @@ public class GamesManager extends ListenerAdapter {
     }
 
     public void shutdownShard(int shard, String reason) {
-        Iterator<Map.Entry<Long, BaseGame>> itr = activeGames.entrySet().stream().filter((e -> KekBot.jda.getShards().get(shard).getGuilds().stream().anyMatch(g -> g.getId().equalsIgnoreCase(e.getKey().toString())))).iterator();
+        Iterator<Map.Entry<Long, Game>> itr = activeGames.entrySet().stream().filter((e -> KekBot.jda.getShards().get(shard).getGuilds().stream().anyMatch(g -> g.getId().equalsIgnoreCase(e.getKey().toString())))).iterator();
 
         while(itr.hasNext())
         {
-            Map.Entry<Long, BaseGame> entry = itr.next();
+            Map.Entry<Long, Game> entry = itr.next();
             entry.getValue().channel.sendMessage("This game was ended due to KekBot shutting down with the reason: `" + reason + "` (Don't worry, any bets made were all returned.)").queue();
         }
     }
@@ -139,7 +139,7 @@ public class GamesManager extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         if (activeGames.containsKey(Long.valueOf(event.getChannel().getId()))) {
-            BaseGame game = activeGames.get(Long.valueOf(event.getChannel().getId()));
+            Game game = activeGames.get(Long.valueOf(event.getChannel().getId()));
             if (game.players.contains(event.getAuthor())) {
                 if (game.isReady()) {
                     game.acceptInputFromMessage(event.getMessage());
