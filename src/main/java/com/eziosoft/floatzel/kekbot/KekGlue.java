@@ -1,15 +1,22 @@
 package com.eziosoft.floatzel.kekbot;
 
+import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Floatzel;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Invite;
-import net.dv8tion.jda.api.entities.User;
+import com.eziosoft.floatzel.Util.Utils;
+import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.sharding.ShardManager;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.GregorianCalendar;
 
 public class KekGlue {
     // general glue code for supporting kekbot features & commands
@@ -17,7 +24,7 @@ public class KekGlue {
     // glue code for localization utils
     public static class LocaleUtils {
         public static String getString(String raw, String ignore, Object... objects){
-            return raw;
+            return getString(raw);
         }
 
         public static String getString(String e){
@@ -73,6 +80,7 @@ public class KekGlue {
         }
     }
 
+    // token compatibility
     public enum Token {
         GRAND_DAD("GRAND DAD", "granddad.png");
 
@@ -85,7 +93,74 @@ public class KekGlue {
         }
 
         public BufferedImage drawToken() throws IOException {
-            return ImageIO.read(new File(file));
+            return javax.imageio.ImageIO.read(Utils.getResource("/" + "resources/profile/token/" + file));
+        }
+    }
+
+    // kekbot 1.6.1 commandevent compatibility
+    public static class CommandEvent {
+        private com.jagrosh.jdautilities.command.CommandEvent e;
+        private String[] args;
+
+        public CommandEvent(com.jagrosh.jdautilities.command.CommandEvent e, String[] args){
+            this.e = e;
+            this.args = args;
+        }
+
+        public TextChannel getTextChannel(){
+            return e.getTextChannel();
+        }
+
+        public String[] getArgs() {
+            return this.args;
+        }
+
+        public String combineArgs(int start, int end) {
+            if (end > args.length) throw new IllegalArgumentException("End value specified is longer than the arguments provided.");
+            return StringUtils.join(Arrays.copyOfRange(args, start, end), " ");
+        }
+
+        public User getAuthor(){
+            return e.getAuthor();
+        }
+
+        public String getString(String raw, Object... objects){
+            return LocaleUtils.getString(raw);
+        }
+
+        public String getLocale(){
+            return "N/A";
+        }
+
+        public TextChannel getChannel(){
+            return e.getTextChannel();
+        }
+
+        public Member getMember(){
+            return e.getMember();
+        }
+
+        public String getPrefix(){
+            return Floatzel.isdev ? Floatzel.conf.getDevprefix() : Floatzel.conf.getPrefix();
+        }
+    }
+
+    public static class ImageIO {
+
+        public static BufferedImage read(File e) throws IOException{
+            return javax.imageio.ImageIO.read(Utils.getResource(e.getPath().replace("\\", "/")));
+        }
+
+        public static BufferedImage read(InputStream in) throws IOException{
+            return javax.imageio.ImageIO.read(in);
+        }
+
+        public static void setUseCache(boolean set){
+            javax.imageio.ImageIO.setUseCache(set);
+        }
+
+        public static void write(BufferedImage g, String format, ByteArrayOutputStream out) throws IOException{
+            javax.imageio.ImageIO.write(g, format, out);
         }
     }
 }
