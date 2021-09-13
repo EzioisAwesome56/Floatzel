@@ -22,6 +22,8 @@ import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
+import com.eziosoft.floatzel.kekbot.Commands.GameCommand;
+import com.eziosoft.floatzel.kekbot.KekGlue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandClient;
@@ -174,6 +176,7 @@ public class Floatzel {
         commandClient.addCommand(new Avatar());
         commandClient.addCommand(new DiceRoll());
         commandClient.addCommand(new TweetUtils());
+        commandClient.addCommand(new GameCommand());
 
         // load rest of mods here
         try{
@@ -186,7 +189,7 @@ public class Floatzel {
 
 
         jda = DefaultShardManagerBuilder.createDefault(!isdev ? conf.getToken() : conf.getDevtoken())
-                .addEventListeners(listener, commandClient, musicPlayer, waiter)
+                .addEventListeners(listener, commandClient, musicPlayer, waiter, KekGlue.KekBot.gamesManager)
                 .setShardsTotal(2)
                 .build();
 
