@@ -25,7 +25,10 @@ public abstract class FCommand extends Command {
     public static Category owner = new Category("Owner Commands");
     public static Category sound = new Category("Audio");
     public static Category other = new Category("Other");
+
+    @Deprecated
     public static Category asshole = other;
+
     public static Category waifu = new Category("Waifu");
     public static Category buyshit = new Category("Purchasable Commands");
     public static Category stocks =  new Category("Stock Market");
