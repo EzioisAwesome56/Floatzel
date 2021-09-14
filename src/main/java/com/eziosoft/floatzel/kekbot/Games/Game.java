@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.kekbot.Games;
 
+import com.eziosoft.floatzel.kekbot.KekGlue;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -8,11 +9,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.math3.util.Precision;
 // code lifted from kekbot 1.6.1, but with parted changed to work with Floatzel
 
 // import gluecode to convince this shit to actually work lol
 import com.eziosoft.floatzel.kekbot.KekGlue.LocaleUtils;
 import com.eziosoft.floatzel.kekbot.KekGlue.KekBot;
+import com.eziosoft.floatzel.kekbot.KekGlue.Profile;
+import com.eziosoft.floatzel.kekbot.KekGlue.BetManager;
+import com.eziosoft.floatzel.kekbot.KekGlue.CustomEmote;
+
 
 public abstract class Game {
     private String gameName;
@@ -28,7 +34,8 @@ public abstract class Game {
     private List<Integer> winnerIDs = new ArrayList<>();
     private Map<User, Integer> playerNumber = new HashMap<>();
     public TextChannel channel;
-    // bets removed because we wont need them lol
+    private BetManager bets;
+    double multiplier = 1;
 
     public Game(int minNumberOfPlayers, int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean betsEnabled) {
         this.minNumberOfPlayers = minNumberOfPlayers;
@@ -109,22 +116,12 @@ public abstract class Game {
     }
 
     public void endGame(User winner) {
-        // TODO: make this work somehow. Also, why is winning commented out
-        /*for (User player : players) {
-            Profile profile = Profile.getProfile(player);
-            if (player.equals(winner)) {
-                //profile.wonGame();
-            } else {
-                //profile.lostGame();
-            }
-            profile.save();
-        }
-        KekBot.gamesManager.closeGame(channel);*/
+        KekBot.gamesManager.closeGame(channel);
     }
 
     public void endGame(User winner, double topkeks, int KXP) {
         // TODO: figure out how to reimpliment this.
-        /*StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         for (User player : players) {
             Profile profile = Profile.getProfile(player);
             if (player.equals(winner)) {
@@ -144,8 +141,7 @@ public abstract class Game {
                 //profile.save();
             }
         }
-        channel.sendMessage(builder.toString()).queue();*/
-        channel.sendMessage("(WIP) " + winner.getName() + " has won this game!").queue();
+        channel.sendMessage(builder.toString()).queue();
         KekBot.gamesManager.closeGame(channel);
     }
 
@@ -157,8 +153,7 @@ public abstract class Game {
      * @param baseKXP The base amount of KXP to give.
      */
     public void endGame(List<User> winners, double baseTopkeks, int baseKXP) {
-        // TODO: remove bets, give rewards, etc
-        /*StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         //Setting this up for the "lose count" later.
         for (User player : players) {
             //Get player's profile.
@@ -187,8 +182,7 @@ public abstract class Game {
             }
             profile.save();
         }
-        if (!builder.toString().isEmpty()) channel.sendMessage(builder.toString()).queue();*/
-        channel.sendMessage("(WIP) people have won the game! wow!").queue();
+        if (!builder.toString().isEmpty()) channel.sendMessage(builder.toString()).queue();
         KekBot.gamesManager.closeGame(channel);
     }
 
@@ -197,8 +191,7 @@ public abstract class Game {
     }
 
     public void endTie(double topkeks, int KXP) {
-        // TODO: handle ties with the very basic floatzel profiles
-        /*StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         if (topkeks > 0 && KXP > 0) {
             for (User player : players) {
                 Profile profile = Profile.getProfile(player);
@@ -208,14 +201,26 @@ public abstract class Game {
             }
             channel.sendMessage(builder.toString()).queue();
         }
-        if (betsEnabled) bets.declareTie();*/
-        channel.sendMessage("whoa! a tie! amazing! you win nothing").queue();
+        if (betsEnabled) bets.declareTie();
         KekBot.gamesManager.closeGame(channel);
     }
 
-    protected String stateEarnings(User user, double topkeks, int KXP) {
-        // TODO: redo this to remove kekxp or something like that
-        return user.getAsMention() + ", you've earned " + topkeks + "\uD83E\uDD56";
+    private String stateEarnings(User user, double topkeks, int KXP, Bonus... bonuses) {
+        StringBuilder builder = new StringBuilder();
+        double total = 0;
+        builder.append(user.getAsMention() + ", you've earned " +
+                (topkeks > 0 ? CustomEmote.printPrice(topkeks) : "") +
+                (topkeks > 0 && KXP > 0 ? ", and " : "") +
+                (KXP > 0 ? KXP + " KXP" : "") +
+                (KXP <= 0 && topkeks <= 0 ? "nothing" : "") + "!");
+        for (Bonus bonus : bonuses) {
+            if (bonus == null) continue;
+            builder.append(" (" + bonus.reason + "! +" + CustomEmote.printPrice(bonus.amount) + ") ");
+            total += bonus.amount;
+        }
+        if (total > 0) builder.append("\nTotal Earnings: " + CustomEmote.printPrice(topkeks + total));
+
+        return builder.toString();
     }
 
     public void endGame() {
@@ -312,5 +317,15 @@ public abstract class Game {
 
     public String getString(String unlocalizedMessage, Object... objects) {
         return LocaleUtils.getString(unlocalizedMessage, KekBot.getCommandClient().getLocale(channel.getGuild().getId()), objects);
+    }
+
+    protected class Bonus {
+        private double amount;
+        private String reason;
+
+        Bonus(double amount, String reason) {
+            this.amount = amount;
+            this.reason = reason;
+        }
     }
 }

@@ -192,6 +192,9 @@ public class Floatzel {
             System.exit(-1);
         }
 
+        // prepare words for kekglue
+        KekGlue.initWords();
+
         scm.addGuildCmd(new SlashDataContainer("prefix", "338840594572902401"), new prefix());
 
 

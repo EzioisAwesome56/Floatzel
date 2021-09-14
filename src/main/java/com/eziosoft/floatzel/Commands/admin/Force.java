@@ -38,14 +38,14 @@ public class Force extends FCommand {
         } else if (arg == 3){
             Floatzel.joke = true;
             // load the pfp while we are here
-            Icon jokeicon = Icon.from(Utils.getResourse("/pfps/", "cirno.png"));
+            Icon jokeicon = Icon.from(Utils.getResource("/pfps/", "cirno.png"));
             Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(jokeicon).queue();
             // also set the name
             event.getSelfMember().modifyNickname(Floatzel.jokename).queue();
         } else if (arg == 4){
             Floatzel.joke = false;
             // set it back to normal
-            Icon normalicon = Icon.from(Utils.getResourse("/pfps/", Floatzel.isdev ? "floatdev.png" : "float.png"));
+            Icon normalicon = Icon.from(Utils.getResource("/pfps/", Floatzel.isdev ? "floatdev.png" : "float.png"));
             Floatzel.jda.getShards().get(0).getSelfUser().getManager().setAvatar(normalicon).queue();
             event.getSelfMember().modifyNickname(Floatzel.isdev ? Floatzel.normalname + "Dev" : Floatzel.normalname).queue();
         } else if (arg == 5){

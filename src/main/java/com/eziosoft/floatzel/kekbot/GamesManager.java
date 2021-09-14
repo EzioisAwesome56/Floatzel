@@ -47,19 +47,6 @@ public class GamesManager extends ListenerAdapter {
                 return;
             }
             Game game = gameRegistry.getGame(gameName, channel);
-            if (!game.isTranslatable() && !KekBot.getCommandClient().getDefaultLocale().equals(KekBot.getGuildLocale(channel.getGuild()))) {
-                // TODO: add/remove/idk this
-                /*Questionnaire.newQuestionnaire(channel.getGuild(), channel, host)
-                        .addYesNoQuestion(LocaleUtils.getString("game.nottranslatable", KekBot.getGuildLocale(channel.getGuild())))
-                        .execute(results -> {
-                            if (results.getAnswerAsType(0, boolean.class)) {
-                                prepareGame(channel, game, host);
-                            } else {
-                                channel.sendMessage("Lobby closed.").queue();
-                            }
-                        });*/
-                return;
-            }
             prepareGame(channel, game, host);
 
         } else {
@@ -85,9 +72,7 @@ public class GamesManager extends ListenerAdapter {
     }
 
     public void closeGame(TextChannel channel) {
-        if (activeGames.containsKey(Long.valueOf(channel.getId()))) {
-            activeGames.remove(Long.valueOf(channel.getId()));
-        }
+        activeGames.remove(Long.valueOf(channel.getId()));
     }
 
     public void killGame(TextChannel channel) {
