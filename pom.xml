@@ -92,12 +92,6 @@
             <version>2.11.0</version>
         </dependency>
         <dependency>
-            <groupId>com.github.EzioisAwesome56</groupId>
-            <artifactId>smm4j</artifactId>
-            <!-- God damn it jitpack stop being broken-->
-            <version>93ef1de</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.ricksbrown</groupId>
             <artifactId>cowsay</artifactId>
             <version>1.1.0</version>

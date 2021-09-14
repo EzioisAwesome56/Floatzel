@@ -7,8 +7,6 @@ import com.eziosoft.floatzel.Commands.Other.*;
 import com.eziosoft.floatzel.Commands.Owner.MakeTable;
 import com.eziosoft.floatzel.Commands.Owner.TweetUtils;
 import com.eziosoft.floatzel.Commands.PayForCommands.BetterLoan;
-import com.eziosoft.floatzel.Commands.Smm.Course;
-import com.eziosoft.floatzel.Commands.Smm.RandCourse;
 import com.eziosoft.floatzel.Commands.Sound.*;
 import com.eziosoft.floatzel.Commands.Spam.Spam;
 import com.eziosoft.floatzel.Commands.Spam.Think;
@@ -160,8 +158,6 @@ public class Floatzel {
         commandClient.addCommand(new StockBuy());
         commandClient.addCommand(new Stock());
         commandClient.addCommand(new StockSell());
-        commandClient.addCommand(new Course());
-        commandClient.addCommand(new RandCourse());
         commandClient.addCommand(new Jpeg());
         commandClient.addCommand(new Cow());
         commandClient.addCommand(new Explode());
