@@ -3,8 +3,6 @@ package com.eziosoft.floatzel.Util;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.JsonConfig;
 import com.eziosoft.floatzel.Res.Files;
-import com.eziosoft.smm4j.Level;
-import com.eziosoft.smm4j.Util;
 import com.google.gson.Gson;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -91,7 +89,7 @@ public class Utils {
         throw new NoSuchMethodException("this method is deprecated!");
     }
 
-    public static MessageEmbed buildSmm(Level lvl){
+    /*public static MessageEmbed buildSmm(Level lvl){
         EmbedBuilder builder = new EmbedBuilder();
         builder.setThumbnail(lvl.imgURL());
         builder.setAuthor(lvl.name(), Util.makeUrl(lvl.id()));
@@ -105,7 +103,7 @@ public class Utils {
         builder.addField("Upload Date", lvl.date(), true);
         builder.setImage(lvl.fullimgURL());
         return builder.build();
-    }
+    }*/
 
     public static InputStream getResource(String path, String filename){
         return Files.class.getResourceAsStream(path + filename);
