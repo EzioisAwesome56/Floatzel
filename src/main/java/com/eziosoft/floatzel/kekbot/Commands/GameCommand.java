@@ -14,6 +14,7 @@ import com.eziosoft.floatzel.kekbot.KekGlue.CommandEvent;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class GameCommand extends KekCommand {
@@ -120,11 +121,10 @@ public class GameCommand extends KekCommand {
                                     event.getChannel().sendMessage("You're not allowed to quit this game!").queue();
                                     return;
                                 }
-                                // TODO: write compatibility layer for profiles
-                                /*Profile profile = Profile.getProfile(event.getAuthor());
+                                Profile profile = Profile.getProfile(event.getAuthor());
                                 profile.spendTopKeks(ThreadLocalRandom.current().nextInt(1, 15));
                                 profile.takeKXP(ThreadLocalRandom.current().nextInt(5, 20));
-                                profile.save();*/
+                                profile.save();
                                 KekBot.gamesManager.killGame(channel);
                                 channel.sendMessage(event.getString("command.fun.game.quit.existing", event.getAuthor().getAsMention())).queue();
                             } else channel.sendMessage(event.getString("command.fun.game.quit.existingerror")).queue();

@@ -110,9 +110,9 @@ public class KekGlue {
         public Profile(){}
 
         public Profile(User e){
-            com.eziosoft.floatzel.Objects.User u = Database.dbdriver.getProfile(e.getId());
+            com.eziosoft.floatzel.Objects.User u = Database.dbdriver.getProfile(id);
             bal = u.getBal();
-            id = u.getUid();
+            id = e.getId();
         }
 
         public static Profile getProfile(User e){
@@ -145,6 +145,17 @@ public class KekGlue {
 
         public Token getToken(){
             return Token.GRAND_DAD;
+        }
+
+        public void spendTopKeks(double topkek){
+            com.eziosoft.floatzel.Objects.User u = Database.dbdriver.getProfile(id);
+            // save new bal
+            u.setBal(u.getBal() - (int) topkek);
+            Database.dbdriver.saveProfile(u);
+        }
+
+        public void takeKXP(int kxp){
+            return;
         }
     }
 
