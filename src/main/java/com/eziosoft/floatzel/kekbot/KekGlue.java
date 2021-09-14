@@ -9,6 +9,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import com.sun.beans.editors.DoubleEditor;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.sharding.ShardManager;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.imageio.ImageIO;
@@ -18,9 +19,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class KekGlue {
     public static HashMap<String, String> text = new HashMap<>();
@@ -259,6 +263,12 @@ public class KekGlue {
         public static String getTrophy(int place) {
             if (place < 0 || place > TROPHIES.length) return TROPHIES[0];
             else return TROPHIES[place];
+        }
+    }
+
+    public static class FileUtils {
+        public static List<String> readLines(File e, String trash) throws IOException{
+            return IOUtils.readLines(Utils.getResource(e.getPath()), StandardCharsets.UTF_8);
         }
     }
 }
