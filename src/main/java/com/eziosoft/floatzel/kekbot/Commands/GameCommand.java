@@ -28,14 +28,14 @@ public class GameCommand extends KekCommand {
         usage.add("game lobby - Gives you info on the current game lobby. (This requires you to create a lobby for the game first.)");
         usage.add("game quit - Quits the game, ending it early. (This will have consequences.)");
         usage.add("game cancel - Cancels/Closes the game lobby before it has started.");
-        usage.add("game bet <amount> - Places a bet in favor of you winning. (When in a game lobby.)");
-        usage.add("game bet <@player> <amount> - Places a bet in favor or someone else winning. (When watching a game.)");
+        //usage.add("game bet <amount> - Places a bet in favor of you winning. (When in a game lobby.)");
+        //usage.add("game bet <@player> <amount> - Places a bet in favor or someone else winning. (When watching a game.)");
         extendedDescription = "Keep in mind, you cannot have more than one lobby in a single channel." +
                 "\n\nAvailable Games:" +
                 "\nTic-Tac-Toe (or \"ttt\" for short.)" +
                 "\nSnail Race (or \"sr\" for short.)" +
                 "\nHangman" +
-                "\nTrivia" +
+                //"\nTrivia" +
                 "\nRussian Roulette (or \"rr\" for short.)";
         exDescPos = ExtendedPosition.AFTER;
         category = new Category("Fun");
