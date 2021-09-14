@@ -88,7 +88,7 @@ public class GameCommand extends KekCommand {
                     if (!KekBot.gamesManager.isChannelFree(channel)) {
                         Game game = KekBot.gamesManager.getGame(channel);
                         EmbedBuilder embed = new EmbedBuilder();
-                        embed.setTitle("Current Game:")
+                        embed.setTitle("Current Active Lobby:")
                                 .addBlankField(false)
                                 .addField(event.getString("command.fun.game.lobby.currentgame"), game.getGameName(), false);
                         if (game.hasMinimum()) embed.addField(event.getString("command.fun.game.lobby.minplayers"), String.valueOf(game.getMinNumberOfPlayers()), true);

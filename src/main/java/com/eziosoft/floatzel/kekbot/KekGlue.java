@@ -45,6 +45,16 @@ public class KekGlue {
         text.put("game.multiplier", "x multiplyer is active!");
         text.put("game.snailrace.end", "The race is over!");
         text.put("game.rules.snailrace", "It's a race to the finish! As soon as the game starts, everyone will have a snail trying to race for the finish line. Players don't have to do anything to win, snails move automatically, making this a game of chance!\n\nFirst snail to reach the finish wins!\nDepending on how many players are playing, there can also be second and third place winners!");
+        text.put("command.fun.game.readystatus", "Game ready to play!");
+        text.put("command.fun.game.awaitingstatus", "Waiting for more players...");
+        text.put("command.fun.game.start.error", "Only the player who opened the lobby can start the game!");
+        text.put("command.fun.game.lobby.currentgame", "Current game:");
+        text.put("command.fun.game.lobby.minplayers", "Minimum Players Required:");
+        text.put("command.fun.game.lobby.maxplayers", "Maximum Players:");
+        text.put("command.fun.game.lobby.numplayers", "Players in lobby:");
+        text.put("command.fun.game.lobby.status", "Current lobby status:");
+        text.put("command.fun.game.lobby.players", "Current list of players");
+        text.put("command.noargs", "No arguments provided!");
     }
     // general glue code for supporting kekbot features & commands
 
