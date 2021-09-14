@@ -26,6 +26,7 @@ public abstract class KekCommand extends FCommand {
     public String getRequiredRole(){
         StringBuilder b = new StringBuilder();
         b.append("```\n");
+        b.append("Usage (<> Required, {} Optional):\n");
         for (String u : usage){
             b.append(u).append("\n");
         }
