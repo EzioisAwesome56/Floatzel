@@ -67,7 +67,6 @@ public class KekGlue {
         }
 
         public static String getString(String e) {
-            if (Floatzel.isdev) System.err.println(e);
             return text.getOrDefault(e, "Fatal String Delocalization error!\n" + e);
         }
     }

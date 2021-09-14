@@ -1,14 +1,10 @@
 package com.eziosoft.floatzel.kekbot;
 
-import com.eziosoft.floatzel.kekbot.Games.Game;
-import com.eziosoft.floatzel.kekbot.Games.Hangman;
-import com.eziosoft.floatzel.kekbot.Games.SnailRace;
+import com.eziosoft.floatzel.kekbot.Games.*;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.eziosoft.floatzel.kekbot.Games.TicTacToe;
 
 public class GameRegistry {
     // more code imported from kekbot
@@ -21,8 +17,8 @@ public class GameRegistry {
         registerGame(0,"tictactoe", "ttt", "tic-tac-toe", "tic tac toe");
         registerGame(1, "snail race", "sr", "snailrace");
         registerGame(2, "hangman", "hm");
-        /*registerGame(3, "trivia");
-        registerGame(4, "russian roulette", "rr", "russianroulette");*/
+        //registerGame(3, "trivia");
+        registerGame(4, "russian roulette", "rr", "russianroulette");
     }
 
     /**
@@ -52,8 +48,8 @@ public class GameRegistry {
                 case 0: return new TicTacToe(channel);
                 case 1: return new SnailRace(channel);
                 case 2: return new Hangman(channel);
-                /*case 3: return new Trivia(channel);
-                case 4: return new RussianRoulette(channel);*/
+                //case 3: return new Trivia(channel);
+                case 4: return new RussianRoulette(channel);
                 default: throw new NullPointerException("No game found with this ID. How'd you manage to get this error anyway?");
             }
         } else throw new NullPointerException("No game found with this alias.");

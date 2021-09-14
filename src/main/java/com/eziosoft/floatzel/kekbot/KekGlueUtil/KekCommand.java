@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.kekbot.KekGlueUtil;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.kekbot.KekGlue.CommandEvent;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public abstract class KekCommand extends FCommand {
 
     @Override
     protected void cmdrun(com.jagrosh.jdautilities.command.CommandEvent event) throws Exception {
-        event.getChannel().sendMessage("Running command in KekBot Compatibility Mode...").queue();
+        if ( Floatzel.isdev) event.getChannel().sendMessage("Running command in KekBot Compatibility Mode...").queue();
         onExecuted(new CommandEvent(event, argsplit));
     }
 
