@@ -4,7 +4,6 @@ import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.Games.Game;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import org.apache.commons.io.IOUtils;
