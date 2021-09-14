@@ -4,6 +4,7 @@ import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.Games.Game;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import org.apache.commons.io.IOUtils;
@@ -112,8 +113,6 @@ public class KekGlue {
         public Profile(){}
 
         public Profile(User e){
-            com.eziosoft.floatzel.Objects.User u = Database.dbdriver.getProfile(id);
-            bal = u.getBal();
             id = e.getId();
         }
 
@@ -122,19 +121,22 @@ public class KekGlue {
         }
 
         public void wonGame(double keks, int kxp){
-            // load profile
-            com.eziosoft.floatzel.Objects.User u = Database.dbdriver.getProfile(id);
+            // FILTHY HACK: use old methods to save shit
             // save new bal
-            u.setBal(u.getBal() + (int) keks);
-            Database.dbdriver.saveProfile(u);
+            System.out.println(id);
+            com.eziosoft.floatzel.Objects.User ur = Database.dbdriver.getProfile(id);
+            int newbal = ur.getBal() + (int) keks;
+            ur.setBal(newbal);
+            Database.dbdriver.saveProfile(ur);
         }
 
         public void tieGame(double topkeks, int KXP) {
             // load profile
-            com.eziosoft.floatzel.Objects.User u = Database.dbdriver.getProfile(id);
-            // save new bal
-            u.setBal(u.getBal() + (int) topkeks);
-            Database.dbdriver.saveProfile(u);
+            System.out.println(id);
+            com.eziosoft.floatzel.Objects.User ur = Database.dbdriver.getProfile(id);
+            int newbal = ur.getBal() + (int) topkeks;
+            ur.setBal(newbal);
+            Database.dbdriver.saveProfile(ur);
         }
 
         public void save(){
