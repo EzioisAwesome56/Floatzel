@@ -37,6 +37,10 @@ public class KekGlue {
         text.put("game.tictactoe.win", " has won the game!");
         text.put("game.rules.tictactoe", "A board game classic! As soon as the game starts, players have to take turns trying to create a line. It's exactly what you'd expect from TicTacToe. Players are able to place their piece down by typing the number representing a space on the board in chat. The player who finishes their line first wins!");
         text.put("command.fun.game.nolobby", "There is no open game lobby in this text channel.");
+        text.put("game.snailrace.start", "The race has begun!");
+        text.put("game.multiplier", "x multiplyer is active!");
+        text.put("game.snailrace.end", "The race is over!");
+        text.put("game.rules.snailrace", "It's a race to the finish! As soon as the game starts, everyone will have a snail trying to race for the finish line. Players don't have to do anything to win, snails move automatically, making this a game of chance!\n\nFirst snail to reach the finish wins!\nDepending on how many players are playing, there can also be second and third place winners!");
     }
     // general glue code for supporting kekbot features & commands
 
@@ -51,6 +55,8 @@ public class KekGlue {
                 return objects[0] + text.get(raw) + " " + objects[1];
             } else if (raw.equals("command.fun.game.quit.lobby")){
                 return objects[0] + text.get(raw) + " " + objects[1];
+            } else if (raw.equals("game.multiplier")){
+                return objects[0] + text.get(raw);
             } else {
                 return getString(raw);
             }
@@ -223,7 +229,10 @@ public class KekGlue {
         }
     }
 
-    public class BetManager {
+    public static class BetManager {
+
+        public BetManager(boolean betsEnabled, boolean betsEnabled1) {
+        }
 
         public Double declareWinners(Game game, Object... shit) {
             // we dont give a fuck about bets, so lets just give them 1 or something
@@ -243,6 +252,13 @@ public class KekGlue {
         public static String printPrice(double price) {
             if (price % 1 == 0) return (int) price + TOPKEK;
             else return price + TOPKEK;
+        }
+
+        private final static String[] TROPHIES = {"\uD83D\uDCA3", "\uD83D\uDDD1", "\uD83D\uDC1F"};
+
+        public static String getTrophy(int place) {
+            if (place < 0 || place > TROPHIES.length) return TROPHIES[0];
+            else return TROPHIES[place];
         }
     }
 }

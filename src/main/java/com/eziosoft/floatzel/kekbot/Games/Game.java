@@ -44,7 +44,7 @@ public abstract class Game {
         this.channel = channel;
         this.gameName = gameName;
         this.betsEnabled = betsEnabled;
-        //bets = new BetManager(betsEnabled, betsEnabled);
+        bets = new BetManager(betsEnabled, betsEnabled);
     }
 
     public Game(int minNumberOfPlayers, int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean playerBetsEnabled, boolean spectatorBetsEnabled) {
@@ -54,7 +54,7 @@ public abstract class Game {
         this.channel = channel;
         this.gameName = gameName;
         if (playerBetsEnabled || spectatorBetsEnabled) betsEnabled = true;
-        //bets = new BetManager(playerBetsEnabled, spectatorBetsEnabled);
+        bets = new BetManager(playerBetsEnabled, spectatorBetsEnabled);
     }
 
     public Game(int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean betsEnabled) {
@@ -63,7 +63,7 @@ public abstract class Game {
         this.channel = channel;
         this.gameName = gameName;
         this.betsEnabled = betsEnabled;
-        //bets = new BetManager(betsEnabled, betsEnabled);
+        bets = new BetManager(betsEnabled, betsEnabled);
     }
 
     public Game(int maxNumberOfPlayers, boolean hasAI, TextChannel channel, String gameName, boolean playerBetsEnabled, boolean spectatorBetsEnabled) {
@@ -72,7 +72,7 @@ public abstract class Game {
         this.channel = channel;
         this.gameName = gameName;
         if (playerBetsEnabled || spectatorBetsEnabled) betsEnabled = true;
-        //bets = new BetManager(playerBetsEnabled, spectatorBetsEnabled);
+        bets = new BetManager(playerBetsEnabled, spectatorBetsEnabled);
     }
 
     public abstract void startGame();
@@ -169,7 +169,7 @@ public abstract class Game {
                     profile.wonGame(topkeks * multiplier, KXP);
                     if (!(topkeks == 0 && KXP == 0)) builder.append(stateEarnings(winners.get(i), topkeks, KXP, (multiplier > 1 ? new Bonus(Precision.round(topkeks * (multiplier - 1), 2), multiplier + "x Multiplier") : null))).append("\n");
                 } else {
-                    double betEarnings = bets.declareWinners(this, winnerIDs);
+                    double betEarnings = 1D;
                     profile.wonGame((baseTopkeks * multiplier) + (players.size() - i) + betEarnings, KXP);
                     //if (bets.hasPlayerBets()) builder.append(stateEarnings(winners.get(i), topkeks, KXP, betEarnings, "Won Bet")).append("\n");
                     //else builder.append(stateEarnings(winners.get(i), topkeks, KXP)).append("\n");
