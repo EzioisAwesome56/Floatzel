@@ -223,6 +223,10 @@ public class KekGlue {
         public String getPrefix(){
             return Floatzel.isdev ? Floatzel.conf.getDevprefix() : Floatzel.conf.getPrefix();
         }
+
+        public Message getMessage(){
+            return e.getMessage();
+        }
     }
 
     public static class ImageIO {
