@@ -122,7 +122,6 @@ public class KekGlue {
         public void wonGame(double keks, int kxp){
             // FILTHY HACK: use old methods to save shit
             // save new bal
-            System.out.println(id);
             com.eziosoft.floatzel.Objects.User ur = Database.dbdriver.getProfile(id);
             int newbal = ur.getBal() + (int) keks;
             ur.setBal(newbal);
@@ -131,7 +130,6 @@ public class KekGlue {
 
         public void tieGame(double topkeks, int KXP) {
             // load profile
-            System.out.println(id);
             com.eziosoft.floatzel.Objects.User ur = Database.dbdriver.getProfile(id);
             int newbal = ur.getBal() + (int) topkeks;
             ur.setBal(newbal);
