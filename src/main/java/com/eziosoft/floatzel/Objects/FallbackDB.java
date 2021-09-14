@@ -1,6 +1,11 @@
 package com.eziosoft.floatzel.Objects;
 
+import com.google.gson.Gson;
+import org.omg.CORBA.PRIVATE_MEMBER;
+
 public class FallbackDB implements GenaricDatabase{
+
+    private Gson g = new Gson();
 
     @Override
     public void Conninfo(String info) {
@@ -9,7 +14,7 @@ public class FallbackDB implements GenaricDatabase{
 
     @Override
     public String getProfile(String id) {
-        return null;
+        return g.toJson(new User("2", 12));
     }
 
     @Override
