@@ -32,11 +32,11 @@ public class ConnectFour extends Game{
 
     private int lastCol = -1, lastTop = -1;
 
-    public String horizontal() {
+    private String horizontal() {
         return new String(grid[lastTop]);
     }
 
-    public String slashDiagonal() {
+    private String slashDiagonal() {
         StringBuilder sb = new StringBuilder(6);
 
         for (int h = 0; h < 6; h++) {
@@ -50,7 +50,7 @@ public class ConnectFour extends Game{
         return sb.toString();
     }
 
-    public String backslashDiagonal() {
+    private String backslashDiagonal() {
         StringBuilder sb = new StringBuilder(6);
 
         for (int h = 0; h < 6; h++) {
@@ -64,7 +64,7 @@ public class ConnectFour extends Game{
         return sb.toString();
     }
 
-    public boolean isWinningPlay() {
+    private boolean isWinningPlay() {
         if (lastCol == -1) {
             System.err.println("No move has been made yet");
             return false;
@@ -81,11 +81,11 @@ public class ConnectFour extends Game{
                 contains(backslashDiagonal(), streak);
     }
 
-    public static boolean contains(String str, String substring) {
+    private static boolean contains(String str, String substring) {
         return str.indexOf(substring) >= 0;
     }
 
-    public String vertical() {
+    private String vertical() {
         StringBuilder sb = new StringBuilder(6);
 
         for (int h = 0; h < 6; h++) {
