@@ -25,6 +25,7 @@ import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.Commands.GameCommand;
 import com.eziosoft.floatzel.kekbot.KekGlue;
+import com.eziosoft.floatzel.kekbot.KekLoader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandClient;
@@ -130,7 +131,13 @@ public class Floatzel {
         commandClient.addCommand(new Spam());
         commandClient.addCommand(new Eat());
         commandClient.addCommand(new ImageTest());
-        commandClient.addCommand(new Invite());
+        //commandClient.addCommand(new Invite());
+        try {
+            commandClient.addCommand(KekLoader.LoadKek());
+        } catch (Exception e){
+            e.printStackTrace();
+            System.exit(-2);
+        }
         commandClient.addCommand(new SoundTest());
         commandClient.addCommand(new Shit8ball());
         commandClient.addCommand(new Stats());

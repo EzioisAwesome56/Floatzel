@@ -72,6 +72,11 @@
             <version>1.3.78</version>
         </dependency>
         <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.28.0-GA</version>
+        </dependency>
+        <dependency>
             <groupId>com.sedmelluq</groupId>
             <artifactId>lavaplayer-ext-format-xm</artifactId>
             <version>0.1.0</version>
