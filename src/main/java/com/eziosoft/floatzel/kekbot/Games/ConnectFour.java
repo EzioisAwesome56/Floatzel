@@ -114,15 +114,26 @@ public class ConnectFour extends Game{
         // decide who goes first
         turn = random.nextInt(2);
         if (players.size() < getMaxNumberOfPlayers()){
-            channel.sendMessage("The ai doesnt work yet, therefore, you win!").queue();
-            endGame(players.get(0), -1D, -1);
-            return;
+            multiplier = 1.1D;
+            channel.sendMessage("You are " + tiles[1] + "\n" +
+                    "Floatzel is " + tiles[2]).queue();
+            if (turn == 1){
+                channel.sendMessage("**Floatzel gets the first move!**").queue();
+                doAi();
+            } else {
+                channel.sendMessage("**" + players.get(turn).getName() + " gets the first move!**").queue();
+            }
         } else {
             // set a multiplyer of 1.5 because this isnt a bot xd
             multiplier = 1.5D;
             channel.sendMessage("**" + players.get(turn).getName() + " gets the first move!**").queue();
         }
-        channel.sendMessage(makeBoard()).queue();
+        if (players.size() < getMaxNumberOfPlayers()){
+            channel.sendMessage(makeBoard() + "\n" + players.get(0).getName() + ", your turn!").queue();
+        } else {
+            channel.sendMessage(makeBoard()).queue();
+        }
+
     }
 
     private String makeBoard(){
@@ -158,21 +169,83 @@ public class ConnectFour extends Game{
                 channel.sendMessage("That row is full! Please select a different row!").queue();
                 return;
             }
-            lastCol = move;
-            lastTop = y;
-            grid[lastTop][lastCol] = tileschar[turn];
             putChip(move, y, turn + 1);
             if (isWinningPlay()){
-                channel.sendMessage("**" + players.get(turn).getName() + " has won the game!**").queue();
-                endGame(players.get(turn), Double.parseDouble(Integer.toString(random.nextInt(27))), -1);
+                channel.sendMessage(makeBoard() + "\n**" + players.get(turn).getName() + " has won the game!**").queue();
+                endGame(players.get(turn), Double.parseDouble(Integer.toString(random.nextInt(27))), 1);
                 return;
             }
             turn++;
+            // run the ai if needed
+            if (players.size() < getMaxNumberOfPlayers()){
+                doAi();
+                // check if that was a winnning play
+                if (isWinningPlay()){
+                    channel.sendMessage("**Floatzel has won the game! Somehow!**").queue();
+                    endGame();
+                    return;
+                }
+            }
             if (turn > 1) turn = 0;
             channel.sendMessage(makeBoard() + "\n" + players.get(turn).getName() + ", your turn!").queue();
         } else {
             if (message.getContentRaw().length() < 3) channel.sendMessage("It is not your turn!").queue();
         }
+    }
+
+    private void doAi(){
+        channel.sendMessage("**Floatzel is thinking...**").queue();
+        channel.sendTyping().queue();
+        // has the play even played any chips yet lmao?
+        if (lastCol == -1){
+            // randomly pick a place to put a chip
+            int e = random.nextInt(7);
+            putChip(e, getY(e), turn + 1);
+            turn--;
+            return;
+        } else {
+            // pick a random direction to place the chip (either left, above, or right of the player's chip)
+            int act = random.nextInt(4);
+            switch (act){
+                case 0:
+                    try {
+                        putChip(lastCol + 1, getY(lastCol + 1), turn + 1);
+                    } catch (ArrayIndexOutOfBoundsException e){
+                        // randomly pick a fallback between putting it ontop or a random position
+                        int dank = random.nextInt(8);
+                        if (dank == 5){
+                            putChip(lastCol - 1, getY(lastCol - 1), turn + 1);
+                        } else {
+                            dank = random.nextInt(7);
+                            putChip(dank, getY(dank), turn + 1);
+                        }
+                    }
+                    break;
+                case 1:
+                    try {
+                        putChip(lastCol, getY(lastCol), turn + 1);
+                    } catch (ArrayIndexOutOfBoundsException e){
+                        // randomly pick a fallback between putting it ontop or a random position
+                        int dank = random.nextInt(8);
+                        if (dank == 5){
+                            putChip(lastCol - 1, getY(lastCol - 1), turn + 1);
+                        } else {
+                            dank = random.nextInt(7);
+                            putChip(dank, getY(dank), turn + 1);
+                        }
+                    }
+                    break;
+                case 2:
+                    putChip(lastCol, getY(lastCol), turn + 1);
+                    break;
+                case 3:
+                    int dank = random.nextInt(7);
+                    putChip(dank, getY(dank), turn + 1);
+                    break;
+            }
+        }
+        // add 1 to turn
+        turn++;
     }
 
     private int getY(int row){
@@ -187,6 +260,9 @@ public class ConnectFour extends Game{
     }
 
     private void putChip(int x, int y, int turn){
+        lastCol = x;
+        lastTop = y;
+        grid[lastTop][lastCol] = tileschar[turn - 1];
         board[y][x] = turn;
     }
 
