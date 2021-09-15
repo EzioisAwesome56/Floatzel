@@ -47,24 +47,27 @@ public class KekGlue {
         text.put("command.fun.game.lobby.status", "Current lobby status:");
         text.put("command.fun.game.lobby.players", "Current list of players");
         text.put("command.noargs", "No arguments provided!");
+        text.put("command.fun.game.cancel", "This game of %s has been cancelled.");
+        text.put("command.fun.game.cancel.error", "Only Player 1 or someone with the %s permission can cancel a game.");
     }
     // general glue code for supporting kekbot features & commands
 
     // glue code for localization utils
     public static class LocaleUtils {
         public static String getString(String raw, String ignore, Object... objects){
-            if (raw.equals("game.tictactoe.win")){
-                return objects[0] + text.get(raw);
-            } else if (raw.equals("game.tictactoe.playerfirst")){
-                return objects[0] + text.get(raw);
-            } else if (raw.equals("game.playerjoined")) {
-                return objects[0] + text.get(raw) + " " + objects[1];
-            } else if (raw.equals("command.fun.game.quit.lobby")){
-                return objects[0] + text.get(raw) + " " + objects[1];
-            } else if (raw.equals("game.multiplier")){
-                return objects[0] + text.get(raw);
-            } else {
-                return getString(raw);
+            switch (raw) {
+                case "game.tictactoe.win":
+                case "game.multiplier":
+                case "game.tictactoe.playerfirst":
+                    return objects[0] + text.get(raw);
+                case "game.playerjoined":
+                case "command.fun.game.quit.lobby":
+                    return objects[0] + text.get(raw) + " " + objects[1];
+                case "command.fun.game.cancel":
+                case "command.fun.game.cancel.error":
+                    return text.get(raw).replace("%s", (CharSequence) objects[0]);
+                default:
+                    return getString(raw);
             }
         }
 
@@ -205,7 +208,7 @@ public class KekGlue {
         }
 
         public String getString(String raw, Object... objects){
-            return LocaleUtils.getString(raw);
+            return LocaleUtils.getString(raw, "fuck", objects);
         }
 
         public String getLocale(){
