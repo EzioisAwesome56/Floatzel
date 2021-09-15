@@ -114,7 +114,7 @@ public class ConnectFour extends Game{
         // decide who goes first
         turn = random.nextInt(2);
         if (players.size() < getMaxNumberOfPlayers()){
-            multiplier = 1.1D;
+            multiplier = 0.8D;
             channel.sendMessage("You are " + tiles[1] + "\n" +
                     "Floatzel is " + tiles[2]).queue();
             if (turn == 1){
@@ -260,6 +260,7 @@ public class ConnectFour extends Game{
     }
 
     private void putChip(int x, int y, int turn){
+
         lastCol = x;
         lastTop = y;
         grid[lastTop][lastCol] = tileschar[turn - 1];
