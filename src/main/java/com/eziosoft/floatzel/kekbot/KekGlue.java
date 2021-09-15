@@ -276,7 +276,7 @@ public class KekGlue {
             else return price + TOPKEK;
         }
 
-        private final static String[] TROPHIES = {"\uD83D\uDCA3", "\uD83D\uDDD1", "\uD83D\uDC1F"};
+        private final static String[] TROPHIES = {"\uD83C\uDFC6", "\uD83D\uDDD1", "\uD83D\uDC1F"};
 
         public static String getTrophy(int place) {
             if (place < 0 || place > TROPHIES.length) return TROPHIES[0];

@@ -19,6 +19,7 @@ public class GameRegistry {
         registerGame(2, "hangman", "hm");
         registerGame(3, "russian roulette", "rr", "russianroulette");
         registerGame(4, "connect four", "c4", "cf");
+        registerGame(5, "truck race", "tr");
     }
 
     /**
@@ -50,6 +51,7 @@ public class GameRegistry {
                 case 2: return new Hangman(channel);
                 case 3: return new RussianRoulette(channel);
                 case 4: return new ConnectFour(channel);
+                case 5: return new TruckRace(channel);
                 default: throw new NullPointerException("No game found with this ID. How'd you manage to get this error anyway?");
             }
         } else throw new NullPointerException("No game found with this alias.");

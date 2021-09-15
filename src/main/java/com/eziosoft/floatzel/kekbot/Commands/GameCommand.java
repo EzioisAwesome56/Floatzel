@@ -36,7 +36,8 @@ public class GameCommand extends KekCommand {
                 "\nSnail Race (or \"sr\" for short.)" +
                 "\nHangman" +
                 "\nConnect Four (or \"c4\" for short)" +
-                "\nRussian Roulette (or \"rr\" for short.)";
+                "\nRussian Roulette (or \"rr\" for short.)" +
+                "\nTruck Race (or \"tr\" for short)";
         exDescPos = ExtendedPosition.AFTER;
         category = new Category("Fun");
     }
