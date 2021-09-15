@@ -115,7 +115,7 @@ public class ConnectFour extends Game{
         turn = random.nextInt(2);
         if (players.size() < getMaxNumberOfPlayers()){
             channel.sendMessage("The ai doesnt work yet, therefore, you win!").queue();
-            endGame(players.get(0), 1D, 1);
+            endGame(players.get(0), -1D, -1);
             return;
         } else {
             // set a multiplyer of 1.5 because this isnt a bot xd
@@ -164,7 +164,7 @@ public class ConnectFour extends Game{
             putChip(move, y, turn + 1);
             if (isWinningPlay()){
                 channel.sendMessage("**" + players.get(turn).getName() + " has won the game!**").queue();
-                endGame(players.get(turn), Double.parseDouble(Integer.toString(random.nextInt(27))), 420);
+                endGame(players.get(turn), Double.parseDouble(Integer.toString(random.nextInt(27))), -1);
                 return;
             }
             turn++;

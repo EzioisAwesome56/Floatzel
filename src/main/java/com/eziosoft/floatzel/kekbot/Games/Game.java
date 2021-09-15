@@ -141,6 +141,7 @@ public abstract class Game {
                 //profile.save();
             }
         }
+        if (builder.length() == 0){ builder.append("**" + winner.getName() + " must've cheated or caused a bug, as they gained " + CustomEmote.printPrice(topkeks) + " and " + KXP + " KXP**"); }
         channel.sendMessage(builder.toString()).queue();
         KekBot.gamesManager.closeGame(channel);
     }
