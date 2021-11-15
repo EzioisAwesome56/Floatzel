@@ -17,13 +17,13 @@ import java.util.jar.JarFile;
 
 public class ModLoader {
 
-    private File[] mfolder;
+    private final File[] mfolder;
 
-    private Mod[] mods;
+    private final Mod[] mods;
 
-    private URLClassLoader child;
+    private final URLClassLoader child;
 
-    private static Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
     public int getTotalMods(){
         return mfolder.length;
@@ -104,6 +104,11 @@ public class ModLoader {
                     Floatzel.commandClient.addCommand((FCommand) loadedclass);
                 }
                 System.out.println("--- END BATCH LOAD ---");
+            } else if (mod.getType().equals("customInit")){
+                System.out.println("Mod has requested custom init routine, loading and running...");
+                Class toload = Class.forName(mod.getMainclass(), true, child);
+                Object loadedclass = toload.getConstructor().newInstance();
+                toload.getDeclaredMethod("customInit").invoke(loadedclass);
             }
         }
         if (!dbloaded){
