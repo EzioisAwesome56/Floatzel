@@ -5,6 +5,7 @@ import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.EmbedPaginator;
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.kekbot.KekGlueUtil.KekCommand;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import com.jagrosh.jdautilities.command.Command;
@@ -92,10 +93,9 @@ public class Help extends FCommand {
         builder.addField("Category:", command.getCategory().getName(), true);
         if (command.getAliases().length > 0) builder.addField("Aliases:", StringUtils.join(command.getAliases(), ", "), false);
         builder.addField("Description:", command.getHelp(), false);
-        if (command.getRequiredRole() != null){
-            builder.addField("Extended Description:", command.getRequiredRole(), false);
+        if (command instanceof KekCommand){
+            builder.addField("Extended Description:", ((KekCommand) command).getExtendedDescription(), false);
         }
-        //builder.addField("Usage (<> Required, {} Optional):", StringUtils.join(command.getUsage().stream().map(usage -> event.getPrefix() + usage).collect(Collectors.toList()), "\n"), false);
         builder.setFooter("Floatzel " + Floatzel.version, null);
         builder.setAuthor("Floatzel, that one bot", null, event.getSelfUser().getAvatarUrl());
         return builder.build();

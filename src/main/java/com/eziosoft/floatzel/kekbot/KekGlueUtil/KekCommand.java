@@ -22,11 +22,10 @@ public abstract class KekCommand extends FCommand {
 
     public abstract void onExecuted(CommandEvent e);
 
-    @Override
-    public String getRequiredRole(){
+    public String getExtendedDescription(){
         StringBuilder b = new StringBuilder();
         b.append("```\n");
-        b.append("Usage (<> Required, {} Optional):\n");
+        b.append("Usage (<> Required, {} Optional):\n\n");
         for (String u : usage){
             b.append(u).append("\n");
         }
@@ -38,7 +37,7 @@ public abstract class KekCommand extends FCommand {
         return b.toString();
     }
 
-    // this will do fucking nothing
+    // this isnt really used, but it has to be here anyway
     protected enum ExtendedPosition {
         //Before usage.
         BEFORE,
