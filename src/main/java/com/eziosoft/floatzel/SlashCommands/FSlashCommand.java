@@ -12,12 +12,13 @@ public abstract class FSlashCommand {
     boolean needsServerAdmin = false;
     boolean needsManageMessages =  false;
     boolean hasoptions = false;
+    boolean ephemeral = false;
     OptionType optiontype;
     String optionHelp = "no help";
     String optionName;
 
     public void run(SlashCommandEvent e){
-        e.deferReply().queue();
+        e.deferReply(ephemeral).queue();
         // check if the user has server admin
         if (needsServerAdmin){
             if (!e.getGuild().getMember(e.getUser()).isOwner()){

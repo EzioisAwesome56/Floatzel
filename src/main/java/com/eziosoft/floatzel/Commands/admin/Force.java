@@ -5,6 +5,9 @@ import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Exception.DatabaseException;
 import com.eziosoft.floatzel.Exception.GenericException;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.SlashCommands.SlashDataContainer;
+import com.eziosoft.floatzel.SlashCommands.debug;
+import com.eziosoft.floatzel.SlashCommands.prefix;
 import com.eziosoft.floatzel.Util.StockUtil;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -20,7 +23,8 @@ public class Force extends FCommand {
                 "2- trigger error handler\n" +
                 "3- enable joke mode\n" +
                 "4- disable joke mode\n" +
-                "5- enable tweetbot";
+                "5- enable tweetbot\n" +
+                "6- register prefix slash command";
         category = owner;
         ownerCommand = true;
         aliases = Utils.makeAlias("event");
@@ -28,7 +32,7 @@ public class Force extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event) throws GenericException, DatabaseException, IOException {
-        int arg = Integer.valueOf(event.getArgs());
+        int arg = Integer.parseInt(event.getArgs());
         if (arg == 1){
             // force a stock update
             StockUtil.updateStock();
@@ -50,6 +54,9 @@ public class Force extends FCommand {
             event.getSelfMember().modifyNickname(Floatzel.isdev ? Floatzel.normalname + "Dev" : Floatzel.normalname).queue();
         } else if (arg == 5){
             event.reply(Boolean.toString(Admin.tweettog()));
+        } else if (arg == 6){
+            Floatzel.scm.addGuildCmd(new SlashDataContainer("debug", event.getGuild().getId()), new debug());
+            Floatzel.scm.RegisterGuildCommands();
         }
 
 
