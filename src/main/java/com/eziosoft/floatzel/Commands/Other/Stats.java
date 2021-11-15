@@ -4,6 +4,9 @@ import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Floatzel;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Stats extends FCommand {
     public Stats(){
         name = "stats";
@@ -11,37 +14,44 @@ public class Stats extends FCommand {
         category = other;
     }
 
+    public static List<String> ext = new ArrayList<String>();
+
     @Override
     protected void cmdrun(CommandEvent event){
         // put this shit back where it belongs!
         // start forming the stats message
-        String stats = "```";
-        stats = stats + "Floatzel Stats\n";
+        StringBuilder stats = new StringBuilder("```");
+        stats.append("Floatzel Stats\n");
         // version
-        stats = stats + "Version: " + Floatzel.version + "\n";
+        if (!ext.isEmpty()) {
+            for (String s : ext) {
+                stats.append(s).append("\n");
+            }
+        }
+        stats.append("Version: ").append(Floatzel.version).append("\n");
         // java vendor
-        stats = stats + "Java Vendor: " + System.getProperty("java.vendor") + "\n";
+        stats.append("Java Vendor: ").append(System.getProperty("java.vendor")).append("\n");
         // java version
-        stats = stats + "Java Version: " + System.getProperty("java.version") + "\n";
+        stats.append("Java Version: ").append(System.getProperty("java.version")).append("\n");
         // operating system
-        stats = stats + "Host OS: " + System.getProperty("os.name") + "\n";
+        stats.append("Host OS: ").append(System.getProperty("os.name")).append("\n");
         // operating system version
-        stats = stats + "OS Version: " + System.getProperty("os.version") + "\n";
+        stats.append("OS Version: ").append(System.getProperty("os.version")).append("\n");
         // operating system architechure
-        stats = stats + "OS Artchitecture: " + System.getProperty("os.arch") + "\n";
+        stats.append("OS Artchitecture: ").append(System.getProperty("os.arch")).append("\n");
         // RAMMMMMM
-        stats = stats + "Total RAM: "+ Double.toString(((double)Runtime.getRuntime().totalMemory() / (double)(1024.0 * 1024.0))) + " MB\n";
+        stats.append("Total RAM: ").append(Double.toString(((double) Runtime.getRuntime().totalMemory() / (double) (1024.0 * 1024.0)))).append(" MB\n");
         // free mem
-        stats = stats + "Free RAM: "+ Double.toString(((double)Runtime.getRuntime().freeMemory() / (double)(1024.0 * 1024.0))) + " MB\n";
+        stats.append("Free RAM: ").append(Double.toString(((double) Runtime.getRuntime().freeMemory() / (double) (1024.0 * 1024.0)))).append(" MB\n");
         // used ram
-        stats = stats + "Used RAM: "+ Double.toString(((double)(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())) / (double)(1024.0 * 1024)) + " MB\n";
+        stats.append("Used RAM: ").append(Double.toString(((double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())) / (double) (1024.0 * 1024))).append(" MB\n");
         // max ram
-        stats = stats + "Max RAM: " + Double.toString(((double)Runtime.getRuntime().maxMemory() / (double)(1024.0 * 1024.0))) + " MB\n";
+        stats.append("Max RAM: ").append(Double.toString(((double) Runtime.getRuntime().maxMemory() / (double) (1024.0 * 1024.0)))).append(" MB\n");
         // processors
-        stats = stats + "Accessible Processors: "+ Integer.toString(Runtime.getRuntime().availableProcessors()) + "\n";
+        stats.append("Accessible Processors: ").append(Integer.toString(Runtime.getRuntime().availableProcessors())).append("\n");
         // end it
-        stats = stats + "```";
+        stats.append("```");
         // return the completed message
-        event.getChannel().sendMessage(stats).queue();
+        event.getChannel().sendMessage(stats.toString()).queue();
     }
 }
