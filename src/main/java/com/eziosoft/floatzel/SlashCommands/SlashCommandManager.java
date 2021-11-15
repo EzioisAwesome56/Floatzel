@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.SlashCommands;
 
 import com.eziosoft.floatzel.Floatzel;
+import net.dv8tion.jda.api.requests.restaction.CommandCreateAction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +38,14 @@ public class SlashCommandManager {
             FSlashCommand c = e.getValue();
             SlashDataContainer info = e.getKey();
             if (c.hasoptions){
-                Floatzel.jda.getGuildById(info.getGuildid()).upsertCommand(info.getName(), c.help).addOption(c.optiontype, c.optionName, c.optionHelp).queue();
+                CommandCreateAction cca;
+                cca = Floatzel.jda.getGuildById(info.getGuildid()).upsertCommand(info.getName(), c.help);
+                for (SlashOption so : e.getValue().optlist){
+                    // iterate thru every slashoption and add it
+                    cca = cca.addOption(so.getOptype(), so.getName(), so.getHelp(), so.isRequired());
+                }
+                // then queue it
+                cca.queue();
             } else {
                 Floatzel.jda.getGuildById(info.getGuildid()).upsertCommand(info.getName(), c.help).queue();
             }

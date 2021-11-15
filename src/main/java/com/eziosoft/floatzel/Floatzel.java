@@ -18,9 +18,10 @@ import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Listeners.SlashListen;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
+import com.eziosoft.floatzel.SlashCommands.Globals.GManage;
 import com.eziosoft.floatzel.SlashCommands.SlashCommandManager;
 import com.eziosoft.floatzel.SlashCommands.SlashDataContainer;
-import com.eziosoft.floatzel.SlashCommands.prefix;
+import com.eziosoft.floatzel.SlashCommands.Local.prefix;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.Commands.GameCommand;
@@ -191,7 +192,8 @@ public class Floatzel {
         // prepare words for kekglue
         KekGlue.initWords();
 
-        scm.addGuildCmd(new SlashDataContainer("prefix", "338840594572902401"), new prefix());
+        // add the one global cmd we have to the global list
+        //scm.addGlobalCmd("gmanage", new GManage());
 
 
         jda = DefaultShardManagerBuilder.createDefault(!isdev ? conf.getToken() : conf.getDevtoken())

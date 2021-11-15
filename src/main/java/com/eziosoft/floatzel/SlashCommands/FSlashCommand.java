@@ -5,20 +5,20 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class FSlashCommand {
 
-    String name;
-    String help = "no help";
-    boolean needsServerAdmin = false;
-    boolean needsManageMessages =  false;
-    boolean hasoptions = false;
-    boolean ephemeral = false;
-    OptionType optiontype;
-    String optionHelp = "no help";
-    String optionName;
+    public String name;
+    public String help = "no help";
+    public boolean needsServerAdmin = false;
+    public boolean needsManageMessages =  false;
+    public boolean hasoptions = false;
+    public boolean ephemeral = false;
+    public List<SlashOption> optlist = new ArrayList<SlashOption>();
 
     public void run(SlashCommandEvent e){
-        e.deferReply(ephemeral).queue();
         // check if the user has server admin
         if (needsServerAdmin){
             if (!e.getGuild().getMember(e.getUser()).isOwner()){
@@ -28,6 +28,7 @@ public abstract class FSlashCommand {
                 }
             }
         }
+        e.deferReply(ephemeral).queue();
         execute(e);
     }
 
