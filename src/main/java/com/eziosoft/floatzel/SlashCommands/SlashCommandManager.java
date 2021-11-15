@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.SlashCommands;
 
 import com.eziosoft.floatzel.Floatzel;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction;
 
 import java.util.ArrayList;
@@ -31,6 +32,23 @@ public class SlashCommandManager {
 
     public Map<SlashDataContainer, FSlashCommand> getGuildmap() {
         return guildmap;
+    }
+
+    public boolean RemoveGluildCommand(SlashDataContainer sdc){
+        // is the commmand even registered?
+        if (!guildmap.containsKey(sdc)){
+            return false;
+        }
+        guildmap.remove(sdc);
+        Floatzel.jda.getGuildById(sdc.getGuildid()).retrieveCommands().queue(scs -> {
+            for(Command sc : scs){
+                if (sc.getName().equals(sdc.getName())){
+                    sc.delete().queue();
+                    break;
+                }
+            }
+        });
+        return true;
     }
 
     public void RegisterGuildCommands(){
