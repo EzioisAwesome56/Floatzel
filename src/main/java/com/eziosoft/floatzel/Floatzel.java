@@ -134,7 +134,7 @@ public class Floatzel {
         dualRegister(new Invite());
         commandClient.addCommand(new SoundTest());
         commandClient.addCommand(new Shit8ball());
-        commandClient.addCommand(new Stats());
+        dualRegister(new Stats());
         commandClient.addCommand(new Reverse());
         commandClient.addCommand(new Servers());
         commandClient.addCommand(new ServerInfo());

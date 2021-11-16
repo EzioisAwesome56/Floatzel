@@ -1,34 +1,40 @@
 package com.eziosoft.floatzel.Commands.Other;
 
-import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
+import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Stats extends FCommand {
+public class Stats extends FSlashableCommand {
     public Stats(){
         name = "stats";
         description = "Displays stats about the bot";
         category = other;
+        sag = SlashActionGroup.OTHER;
     }
 
     public static List<String> ext = new ArrayList<String>();
 
     @Override
     protected void cmdrun(CommandEvent event){
-        // put this shit back where it belongs!
+        event.getChannel().sendMessage(genMsg()).queue();
+    }
+
+    private String genMsg(){
         // start forming the stats message
         StringBuilder stats = new StringBuilder("```");
         stats.append("Floatzel Stats\n");
         // version
+        stats.append("Version: ").append(Floatzel.version).append("\n");
         if (!ext.isEmpty()) {
             for (String s : ext) {
                 stats.append(s).append("\n");
             }
         }
-        stats.append("Version: ").append(Floatzel.version).append("\n");
         // java vendor
         stats.append("Java Vendor: ").append(System.getProperty("java.vendor")).append("\n");
         // java version
@@ -52,6 +58,11 @@ public class Stats extends FCommand {
         // end it
         stats.append("```");
         // return the completed message
-        event.getChannel().sendMessage(stats.toString()).queue();
+        return stats.toString();
+    }
+
+    @Override
+    public void SlashCmdRun(SlashCommandEvent event) {
+        event.getHook().sendMessage(genMsg()).queue();
     }
 }
