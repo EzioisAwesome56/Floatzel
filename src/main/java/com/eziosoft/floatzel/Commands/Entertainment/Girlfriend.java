@@ -1,20 +1,35 @@
 package com.eziosoft.floatzel.Commands.Entertainment;
 
-import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
+import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
-import java.util.Random;
 
-public class Girlfriend extends FCommand {
+public class Girlfriend extends FSlashableCommand {
     public Girlfriend(){
         name = "gf";
         description = "Rates your girlfriend";
         category = fun;
+        sag = SlashActionGroup.FUN;
     }
 
     @Override
     protected void cmdrun(CommandEvent event){
+        String name = event.getArgs();
+        if (name.length() < 1){
+            event.reply("you forgot to enter a name!");
+            return;
+        } else if (name.length() > 1500 || name.length() == 1500){
+            event.reply("that name is far too long");
+            return;
+        }
+
+        event.reply(genMsg(name));
+    }
+
+    private String genMsg(String in){
         // ratings
         String[] notassrate = {"Words cannot describe how bad this person is",
                 "I don't think that's a girl, yo",
@@ -30,23 +45,25 @@ public class Girlfriend extends FCommand {
                 "HOLY SHIT IT'S GOD"};
         // generate a rating score
         int rating = random.nextInt(12);
-        String name = event.getArgs();
         String bad = rating > 0 ? "\uD83D\uDC80" : "\uD83D\uDCA3";
         String good = "❤";
         // checks to see if someone is trying to be dumb
-        if (name.length() < 1){
-            event.reply("you forgot to enter a name!");
-            return;
-        } else if (name.length() > 1500 || name.length() == 1500){
-            event.reply("that name is far too long");
-            return;
-        }
         // start making the bar
         String bar = Utils.genBar(good, bad, 10, rating < 11 ? rating : 10);
         // next, form the message itself
         String msg;
-        msg = "**Girl: **"+name+"\n**Rating: **"+bar+"\n**Thoughts: **"+notassrate[rating];
-        //event.getChannel().sendMessage(msg).queue();
-        event.reply(msg);
+        msg = "**Girl: **"+in+"\n**Rating: **"+bar+"\n**Thoughts: **"+notassrate[rating];
+        return msg;
+    }
+
+    @Override
+    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
+        if (stuff.length < 1){
+            event.getHook().sendMessage("You did not provide anything for me to rate!").queue();
+        } else if (stuff[0].length() > 200){
+            event.getHook().sendMessage("that is simply too  long for me to rate!").queue();
+        } else {
+            event.getHook().sendMessage(genMsg(stuff[0])).queue();
+        }
     }
 }

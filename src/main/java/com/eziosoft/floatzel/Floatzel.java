@@ -126,11 +126,11 @@ public class Floatzel {
         // change this depending on what token you wanna use
         commandClient.addCommand(new Shutdown());
         dualRegister(new Pi());
-        commandClient.addCommand(new Boyfriend());
-        commandClient.addCommand(new Girlfriend());
+        dualRegister(new Boyfriend());
+        dualRegister(new Girlfriend());
         commandClient.addCommand(new Think());
         commandClient.addCommand(new Spam());
-        commandClient.addCommand(new Eat());
+        dualRegister(new Eat());
         commandClient.addCommand(new ImageTest());
         dualRegister(new Invite());
         commandClient.addCommand(new SoundTest());
@@ -177,7 +177,7 @@ public class Floatzel {
         commandClient.addCommand(new Swirl());
         commandClient.addCommand(new MakeTable());
         commandClient.addCommand(new Avatar());
-        commandClient.addCommand(new DiceRoll());
+        dualRegister(new DiceRoll());
         commandClient.addCommand(new TweetUtils());
         commandClient.addCommand(new GameCommand());
 
