@@ -5,8 +5,6 @@ import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
-import java.lang.Math.*;
-
 public class Pi extends FSlashableCommand {
 
     public Pi() {
@@ -18,7 +16,6 @@ public class Pi extends FSlashableCommand {
 
     @Override
     protected void cmdrun(CommandEvent commandEvent) {
-        String pi = Double.toString(Math.PI);
         commandEvent.getChannel().sendMessage(genMsg()).queue();
   }
 
