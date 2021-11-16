@@ -89,14 +89,14 @@ public class KekGlue {
             return Floatzel.isdev ? Floatzel.conf.getDevprefix() : Floatzel.conf.getPrefix();
         }
 
-        public static ComamndClient getCommandClient(){
-            return new ComamndClient();
+        public static CommandClient getCommandClient(){
+            return new CommandClient();
         }
     }
     // basically gluecode for getting locale via command client
-    public static class ComamndClient {
+    public static class CommandClient {
 
-        public ComamndClient(){}
+        public CommandClient(){}
 
         public String getLocale(String e){
             return "N/A";
