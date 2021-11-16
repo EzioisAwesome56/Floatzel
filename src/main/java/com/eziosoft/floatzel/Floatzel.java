@@ -18,6 +18,9 @@ import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
+import com.eziosoft.floatzel.SlashCommands.Local.OtherPorts;
+import com.eziosoft.floatzel.SlashCommands.Local.debug;
+import com.eziosoft.floatzel.SlashCommands.Local.prefix;
 import com.eziosoft.floatzel.SlashCommands.SlashCommandManager;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
@@ -176,6 +179,11 @@ public class Floatzel {
         commandClient.addCommand(new DiceRoll());
         commandClient.addCommand(new TweetUtils());
         commandClient.addCommand(new GameCommand());
+
+        // load registerable slash commands
+        scm.addRegisterable("other", new OtherPorts());
+        scm.addRegisterable("prefix", new prefix());
+        scm.addRegisterable("debug", new debug());
 
         // load rest of mods here
         try{

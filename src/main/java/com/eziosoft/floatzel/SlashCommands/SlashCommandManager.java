@@ -17,6 +17,18 @@ import java.util.Map;
 
 public class SlashCommandManager extends ListenerAdapter {
 
+    // map of registerable slash commands; allows for mods to add slash commands without force-registering them
+    private Map<String, FSlashCommand> registerable = new HashMap<>();
+    public void addRegisterable(String name, FSlashCommand fsc){
+        this.registerable.put(name, fsc);
+    }
+    public boolean hasRegisterable(String name){
+        return this.registerable.containsKey(name);
+    }
+    public FSlashCommand getRegisterable(String name){
+        return this.registerable.get(name);
+    }
+
     // actual slash commands go here
     private HashMap<String, FSlashCommand> globalmap = new HashMap<>();
     private Map<SlashDataContainer, FSlashCommand> guildmap = new HashMap<>();

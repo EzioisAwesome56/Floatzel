@@ -28,24 +28,15 @@ public class GManage extends FSlashCommand {
                 e.getHook().sendMessage("no command name provided! You can use the \"list\" action to see all valid command names!").queue();
                 return;
             }
-            switch (e.getOption("arg1").getAsString()){
-                case "prefix":
-                    Floatzel.scm.addGuildCmd(new SlashDataContainer("prefix", e.getGuild().getId()), new prefix());
-                    break;
-                case "debug":
-                    if (e.getGuild().getMember(e.getUser()).isOwner()){
-                        Floatzel.scm.addGuildCmd(new SlashDataContainer("debug", e.getGuild().getId()), new debug());
-                    } else {
-                        e.getHook().sendMessage("Error: only bot owner can register this command!").queue();
-                        return;
-                    }
-                    break;
-                default:
-                    e.getHook().sendMessage("Invalid command name!").queue();
-                    return;
+            String input = e.getOption("arg1").getAsString();
+            if (!Floatzel.scm.hasRegisterable(input)){
+                e.getHook().sendMessage("That is not a registerable slash command!").queue();
+                return;
             }
+            FSlashCommand cmd = Floatzel.scm.getRegisterable(input);
+            Floatzel.scm.addGuildCmd(new SlashDataContainer(cmd.name, e.getGuild().getId()), cmd);
             Floatzel.scm.RegisterGuildCommands();
-            e.getHook().sendMessage("Registered command " + e.getOption("arg1").getAsString()).queue();
+            e.getHook().sendMessage("Registered command " + cmd.name).queue();
         } else if (action.equals("remove")) {
             if (e.getOption("arg1") == null){
                 e.getHook().sendMessage("no command name provided!").queue();
