@@ -32,7 +32,13 @@ public class Force extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event) throws GenericException, DatabaseException, IOException {
-        int arg = Integer.parseInt(event.getArgs());
+        int arg;
+        try {
+            arg = Integer.parseInt(event.getArgs());
+        } catch (NumberFormatException e){
+            event.getChannel().sendMessage("that is not a number! Please only input a number!").queue();
+            return;
+        }
         if (arg == 1){
             // force a stock update
             StockUtil.updateStock();
@@ -61,7 +67,7 @@ public class Force extends FCommand {
 
 
         else {
-            event.getChannel().sendMessage("Unknown argument!").queue();
+            event.replyWarning("invalid command argument!");
         }
     }
 }
