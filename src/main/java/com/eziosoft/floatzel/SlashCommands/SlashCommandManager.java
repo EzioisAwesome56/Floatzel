@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class SlashCommandManager extends ListenerAdapter {
         return guildmap;
     }
 
-    public boolean RemoveGluildCommand(SlashDataContainer sdc){
+    public boolean RemoveGuildCommand(SlashDataContainer sdc){
         // is the commmand even registered?
         if (!guildmap.containsKey(sdc)){
             return false;
@@ -109,7 +110,7 @@ public class SlashCommandManager extends ListenerAdapter {
     }
 
     @Override
-    public void onReady(ReadyEvent e){
+    public void onReady(@NotNull ReadyEvent e){
         Floatzel.scm.RegisterGuildCommands();
     }
 }

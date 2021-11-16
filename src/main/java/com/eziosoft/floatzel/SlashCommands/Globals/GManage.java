@@ -42,7 +42,7 @@ public class GManage extends FSlashCommand {
                 e.getHook().sendMessage("no command name provided!").queue();
                 return;
             }
-            boolean win = Floatzel.scm.RemoveGluildCommand(new SlashDataContainer(e.getOption("arg1").getAsString(), e.getGuild().getId()));
+            boolean win = Floatzel.scm.RemoveGuildCommand(new SlashDataContainer(e.getOption("arg1").getAsString(), e.getGuild().getId()));
             if (!win){
                 e.getHook().sendMessage("Command failed to remove. Are you sure it was registered?").queue();
             } else {
