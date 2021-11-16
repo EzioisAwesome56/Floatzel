@@ -16,6 +16,7 @@ public class OtherPorts extends FSlashCommand {
         ephemeral = false;
         hasoptions = true;
         optlist.add(new SlashOption(OptionType.STRING, "name of command to run", "cmdname", true));
+        optlist.add(new SlashOption(OptionType.STRING, "optional argument if required for commands", "cmdarg1"));
     }
     @Override
     protected void execute(SlashCommandEvent e) {
