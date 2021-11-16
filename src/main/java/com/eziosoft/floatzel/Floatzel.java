@@ -17,6 +17,7 @@ import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
+import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
 import com.eziosoft.floatzel.SlashCommands.SlashCommandManager;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
@@ -120,8 +121,7 @@ public class Floatzel {
 
         // change this depending on what token you wanna use
         commandClient.addCommand(new Shutdown());
-        commandClient.addCommand(new Pi());
-        scm.addSlashableAction("pi", new Pi());
+        dualRegister(new Pi());
         commandClient.addCommand(new Boyfriend());
         commandClient.addCommand(new Girlfriend());
         commandClient.addCommand(new Think());
@@ -201,5 +201,10 @@ public class Floatzel {
 
         //TwitterManager is now a listener too, which'll do all the work onReady by itself instead of relying on MiscListener
         if (!isdev && Floatzel.conf.getTwitterTog()) Floatzel.jda.addEventListener(twitterManager);
+    }
+
+    public static void dualRegister(FSlashableCommand c){
+        commandClient.addCommand(c);
+        scm.addSlashableAction(c.getName(), c);
     }
 }
