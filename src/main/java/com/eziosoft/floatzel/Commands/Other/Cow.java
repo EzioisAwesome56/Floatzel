@@ -51,12 +51,15 @@ public class Cow extends FSlashableCommand {
     @Override
     public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
         if (stuff.length < 1){
-            event.getHook().sendMessage(Cowsay.say(new String[]{"moooooo"})).queue();
+            event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{"moooooo"}) + "\n```").queue();
         } else if (stuff[0].length() > 200){
-            event.getHook().sendMessage(Cowsay.say(new String[]{"that is tooooooo long!"})).queue();
+            event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{"that is tooooooo long!"}) + "\n```").queue();
         } else {
-            // TODO: make using different cows work
-            event.getHook().sendMessage(Cowsay.say(new String[]{stuff[0]})).queue();
+            if (event.getOption("cow") != null){
+                event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{"-f", event.getOption("cow").getAsString(), stuff[0]}) + "\n```").queue();
+            } else {
+                event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{stuff[0]}) + "\n```").queue();
+            }
         }
     }
 }

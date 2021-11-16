@@ -17,6 +17,7 @@ public class FunPorts extends FSlashCommand {
         hasoptions = true;
         optlist.add(new SlashOption(OptionType.STRING, "name of command to run", "cmdname", true));
         optlist.add(new SlashOption(OptionType.STRING, "additional arguments for command", "arg"));
+        optlist.add(new SlashOption(OptionType.STRING, "name of cowfile for use with cowsay", "cow"));
     }
     @Override
     protected void execute(SlashCommandEvent e) {
