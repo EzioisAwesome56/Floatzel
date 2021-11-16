@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.SlashCommands;
 
+import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -20,7 +21,7 @@ public abstract class FSlashCommand {
     public void run(SlashCommandEvent e){
         // check if the user has server admin
         if (needsServerAdmin){
-            if (!e.getGuild().getMember(e.getUser()).isOwner()){
+            if (!(e.getUser().getId().equals(Floatzel.conf.getOwnerid()))){
                 if (!e.getGuild().getMember(e.getUser()).hasPermission(Permission.ADMINISTRATOR)){
                     e.reply("You can't run this command!").setEphemeral(true).queue();
                     return;
