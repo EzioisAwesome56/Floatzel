@@ -24,27 +24,27 @@ public class SlashCommandManager extends ListenerAdapter {
 
 
     public void addGlobalCmd(String name, FSlashCommand fsc){
-        globalmap.put(name, fsc);
+        this.globalmap.put(name, fsc);
     }
 
     public void addGuildCmd(SlashDataContainer data, FSlashCommand fsc){
-        guildmap.put(data, fsc);
+        this.guildmap.put(data, fsc);
     }
 
     public HashMap<String, FSlashCommand> getGlobalmap() {
-        return globalmap;
+        return this.globalmap;
     }
 
     public Map<SlashDataContainer, FSlashCommand> getGuildmap() {
-        return guildmap;
+        return this.guildmap;
     }
 
     public boolean RemoveGuildCommand(SlashDataContainer sdc){
         // is the commmand even registered?
-        if (!guildmap.containsKey(sdc)){
+        if (!this.guildmap.containsKey(sdc)){
             return false;
         }
-        guildmap.remove(sdc);
+        this.guildmap.remove(sdc);
         Floatzel.jda.getGuildById(sdc.getGuildid()).retrieveCommands().queue(scs -> {
             for(Command sc : scs){
                 if (sc.getName().equals(sdc.getName())){
@@ -57,7 +57,7 @@ public class SlashCommandManager extends ListenerAdapter {
     }
 
     public void RegisterGuildCommands(){
-        for (Map.Entry<SlashDataContainer, FSlashCommand> e : guildmap.entrySet()){
+        for (Map.Entry<SlashDataContainer, FSlashCommand> e : this.guildmap.entrySet()){
             FSlashCommand c = e.getValue();
             SlashDataContainer info = e.getKey();
             if (c.hasoptions){
@@ -111,6 +111,8 @@ public class SlashCommandManager extends ListenerAdapter {
 
     @Override
     public void onReady(@NotNull ReadyEvent e){
-        Floatzel.scm.RegisterGuildCommands();
+        // TODO: reload guild registered commands...probably store them in the database
+        System.out.println("SlashCommandManager ready!");
+        //Floatzel.scm.RegisterGuildCommands();
     }
 }
