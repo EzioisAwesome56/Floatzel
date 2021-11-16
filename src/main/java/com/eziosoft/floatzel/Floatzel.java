@@ -15,13 +15,9 @@ import com.eziosoft.floatzel.Commands.Stock.StockBuy;
 import com.eziosoft.floatzel.Commands.Stock.StockSell;
 import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
-import com.eziosoft.floatzel.Listeners.SlashListen;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
-import com.eziosoft.floatzel.SlashCommands.Globals.GManage;
 import com.eziosoft.floatzel.SlashCommands.SlashCommandManager;
-import com.eziosoft.floatzel.SlashCommands.SlashDataContainer;
-import com.eziosoft.floatzel.SlashCommands.Local.prefix;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.Commands.GameCommand;
@@ -197,7 +193,7 @@ public class Floatzel {
 
 
         jda = DefaultShardManagerBuilder.createDefault(!isdev ? conf.getToken() : conf.getDevtoken())
-                .addEventListeners(listener, commandClient, musicPlayer, waiter, new SlashListen(), KekGlue.KekBot.gamesManager)
+                .addEventListeners(listener, commandClient, musicPlayer, waiter, scm, KekGlue.KekBot.gamesManager)
                 .setShardsTotal(2)
                 .build();
 
