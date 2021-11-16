@@ -1,17 +1,20 @@
 package com.eziosoft.floatzel.Commands.Other;
 
-import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
+import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Utils;
 import com.github.ricksbrown.cowsay.Cowsay;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.apache.commons.lang3.StringUtils;
 
-public class Cow extends FCommand {
+public class Cow extends FSlashableCommand {
     public Cow(){
         name = "cowsay";
         description = "provide a cowfile after -f for a custom cow. ex cowsay -f tux for tux instead of cow\nsee here for list of cows:\nhttps://github.com/schacon/cowsay/tree/master/cows";
         aliases = Utils.makeAlias("cow");
         category = fun;
+        sag = SlashActionGroup.FUN;
     }
 
     @Override
@@ -43,7 +46,17 @@ public class Cow extends FCommand {
         }
         String[] wat = {event.getArgs()};
         event.reply("```\n"+Cowsay.say(wat)+"\n```");
+    }
 
-
+    @Override
+    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
+        if (stuff.length < 1){
+            event.getHook().sendMessage(Cowsay.say(new String[]{"moooooo"})).queue();
+        } else if (stuff[0].length() > 200){
+            event.getHook().sendMessage(Cowsay.say(new String[]{"that is tooooooo long!"})).queue();
+        } else {
+            // TODO: make using different cows work
+            event.getHook().sendMessage(Cowsay.say(new String[]{stuff[0]})).queue();
+        }
     }
 }

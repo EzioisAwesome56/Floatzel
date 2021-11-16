@@ -1,15 +1,19 @@
 package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
+import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
-public class Avatar extends FCommand {
+public class Avatar extends FSlashableCommand {
     public Avatar(){
         name = "avatar";
         aliases = Utils.makeAlias("ava");
         description = "get the avatar of a mentioned user!";
         category = other;
+        sag = SlashActionGroup.OTHER;
     }
 
 
@@ -21,5 +25,10 @@ public class Avatar extends FCommand {
             return;
         }
         event.reply(event.getMessage().getMentionedUsers().get(0).getAvatarUrl());
+    }
+
+    @Override
+    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
+        event.getHook().sendMessage(event.getOption("user").getAsUser().getAvatarUrl()).queue();
     }
 }

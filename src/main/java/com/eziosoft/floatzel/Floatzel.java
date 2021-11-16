@@ -161,12 +161,12 @@ public class Floatzel {
         commandClient.addCommand(new Stock());
         commandClient.addCommand(new StockSell());
         commandClient.addCommand(new Jpeg());
-        commandClient.addCommand(new Cow());
+        dualRegister(new Cow());
         commandClient.addCommand(new Explode());
         commandClient.addCommand(new Implode());
         commandClient.addCommand(new Wall());
         commandClient.addCommand(new RunPlugin());
-        commandClient.addCommand(new Random());
+        dualRegister(new Random());
         dualRegister(new Ping());
         commandClient.addCommand(new Shrink());
         commandClient.addCommand(new Pixel());
@@ -176,7 +176,7 @@ public class Floatzel {
         commandClient.addCommand(new Small());
         commandClient.addCommand(new Swirl());
         commandClient.addCommand(new MakeTable());
-        commandClient.addCommand(new Avatar());
+        dualRegister(new Avatar());
         dualRegister(new DiceRoll());
         commandClient.addCommand(new TweetUtils());
         commandClient.addCommand(new GameCommand());

@@ -5,6 +5,8 @@ import com.eziosoft.floatzel.SlashCommands.FSlashCommand;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashableCommandEntry;
 import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 
@@ -16,6 +18,7 @@ public class OtherPorts extends FSlashCommand {
         ephemeral = false;
         hasoptions = true;
         optlist.add(new SlashOption(OptionType.STRING, "name of command to run", "cmdname", true));
+        optlist.add(new SlashOption(OptionType.USER, "mention required for certain commands", "user"));
     }
     @Override
     protected void execute(SlashCommandEvent e) {
