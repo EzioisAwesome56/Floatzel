@@ -8,20 +8,25 @@ import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 
-public class OtherPorts extends FSlashCommand {
+public class FunPorts extends FSlashCommand {
 
-    public OtherPorts(){
-        name = "other";
-        help = "Runs floatzel's normal commands from the \"other\" category";
+    public FunPorts(){
+        name = "fun";
+        help = "Runs floatzel's normal commands from the \"fun\" category";
         ephemeral = false;
         hasoptions = true;
         optlist.add(new SlashOption(OptionType.STRING, "name of command to run", "cmdname", true));
+        optlist.add(new SlashOption(OptionType.STRING, "additional arguments for command", "arg"));
     }
     @Override
     protected void execute(SlashCommandEvent e) {
-        SlashableCommandEntry sce = new SlashableCommandEntry(SlashActionGroup.OTHER, e.getOption("cmdname").getAsString());
+        SlashableCommandEntry sce = new SlashableCommandEntry(SlashActionGroup.FUN, e.getOption("cmdname").getAsString());
         if (Floatzel.scm.hasSlashAction(sce)){
-            Floatzel.scm.getSlashAction(sce).SlashCmdRun(e);
+            if (e.getOption("arg") != null){
+                Floatzel.scm.getSlashAction(sce).SlashCmdRun(e, e.getOption("arg").getAsString());
+            } else {
+                Floatzel.scm.getSlashAction(sce).SlashCmdRun(e);
+            }
         } else {
             e.getHook().sendMessage("Error: that command does not exist!").queue();
         }

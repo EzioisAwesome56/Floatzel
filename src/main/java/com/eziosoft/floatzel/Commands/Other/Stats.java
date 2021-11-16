@@ -62,7 +62,7 @@ public class Stats extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event) {
+    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
         event.getHook().sendMessage(genMsg()).queue();
     }
 }

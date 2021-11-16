@@ -25,7 +25,7 @@ public class Ping extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event) {
+    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
         event.getHook().sendMessage("Pinging...").queue(m -> m.editMessage("\uD83C\uDFD3 Pong! `" + event.getTimeCreated().until(m.getTimeCreated(), ChronoUnit.MILLIS)+ "ms`" +
         "\n\uD83D\uDC93 Heartbeat: `" + event.getJDA().getGatewayPing() + "ms`\n" +
                 "Command totally not stolen from kekbot nope").queue());

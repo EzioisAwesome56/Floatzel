@@ -18,6 +18,7 @@ import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
+import com.eziosoft.floatzel.SlashCommands.Local.FunPorts;
 import com.eziosoft.floatzel.SlashCommands.Local.OtherPorts;
 import com.eziosoft.floatzel.SlashCommands.Local.debug;
 import com.eziosoft.floatzel.SlashCommands.Local.prefix;
@@ -133,9 +134,9 @@ public class Floatzel {
         commandClient.addCommand(new ImageTest());
         dualRegister(new Invite());
         commandClient.addCommand(new SoundTest());
-        commandClient.addCommand(new Shit8ball());
+        dualRegister(new Shit8ball());
         dualRegister(new Stats());
-        commandClient.addCommand(new Reverse());
+        dualRegister(new Reverse());
         commandClient.addCommand(new Servers());
         commandClient.addCommand(new ServerInfo());
         commandClient.addCommand(new Stop());
@@ -182,6 +183,7 @@ public class Floatzel {
 
         // load registerable slash commands
         scm.addRegisterable("other", new OtherPorts());
+        scm.addRegisterable("fun", new FunPorts());
         scm.addRegisterable("prefix", new prefix());
         scm.addRegisterable("debug", new debug());
 
