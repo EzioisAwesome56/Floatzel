@@ -131,7 +131,7 @@ public class Floatzel {
         commandClient.addCommand(new Spam());
         commandClient.addCommand(new Eat());
         commandClient.addCommand(new ImageTest());
-        commandClient.addCommand(new Invite());
+        dualRegister(new Invite());
         commandClient.addCommand(new SoundTest());
         commandClient.addCommand(new Shit8ball());
         commandClient.addCommand(new Stats());
@@ -166,7 +166,7 @@ public class Floatzel {
         commandClient.addCommand(new Wall());
         commandClient.addCommand(new RunPlugin());
         commandClient.addCommand(new Random());
-        commandClient.addCommand(new Ping());
+        dualRegister(new Ping());
         commandClient.addCommand(new Shrink());
         commandClient.addCommand(new Pixel());
         commandClient.addCommand(new LootBox());

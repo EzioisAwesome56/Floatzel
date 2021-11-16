@@ -1,20 +1,32 @@
 package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
+import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
-public class Invite extends FCommand {
+public class Invite extends FSlashableCommand {
     public Invite(){
         name = "invite";
         description = "Self-explanitory";
         category = other;
+        sag = SlashActionGroup.OTHER;
     }
 
     @Override
     protected void cmdrun(CommandEvent event){
-        // TODO: don't hardcode this. very bad. why would i do this?
-        String msg = "**Support Server:**\nhttps://discord.gg/VGeACAw\n**Bot invite link:**\nhttps://discordapp.com/oauth2/authorize?&client_id=339614400526942218&scope=bot&permissions=0";
-        event.getChannel().sendMessage(msg).queue();
+        event.getChannel().sendMessage(genMsg()).queue();
+    }
+
+    private String genMsg(){
+        // TODO: do this
+        return "this command is getting a rewrite";
+    }
+
+    @Override
+    public void SlashCmdRun(SlashCommandEvent event) {
+        event.getHook().sendMessage(genMsg()).queue();
     }
 }
