@@ -1,4 +1,4 @@
-package com.eziosoft.floatzel.SlashCommands;
+package com.eziosoft.floatzel.SlashCommands.Objects;
 
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 

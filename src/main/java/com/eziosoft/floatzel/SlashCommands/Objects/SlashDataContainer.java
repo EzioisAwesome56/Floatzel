@@ -1,4 +1,4 @@
-package com.eziosoft.floatzel.SlashCommands;
+package com.eziosoft.floatzel.SlashCommands.Objects;
 
 import java.util.Objects;
 

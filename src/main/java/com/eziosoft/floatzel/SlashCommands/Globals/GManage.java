@@ -2,9 +2,10 @@ package com.eziosoft.floatzel.SlashCommands.Globals;
 
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.SlashCommands.FSlashCommand;
+import com.eziosoft.floatzel.SlashCommands.Local.debug;
 import com.eziosoft.floatzel.SlashCommands.Local.prefix;
-import com.eziosoft.floatzel.SlashCommands.SlashDataContainer;
-import com.eziosoft.floatzel.SlashCommands.SlashOption;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashDataContainer;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 
@@ -30,6 +31,14 @@ public class GManage extends FSlashCommand {
             switch (e.getOption("arg1").getAsString()){
                 case "prefix":
                     Floatzel.scm.addGuildCmd(new SlashDataContainer("prefix", e.getGuild().getId()), new prefix());
+                    break;
+                case "debug":
+                    if (e.getGuild().getMember(e.getUser()).isOwner()){
+                        Floatzel.scm.addGuildCmd(new SlashDataContainer("debug", e.getGuild().getId()), new debug());
+                    } else {
+                        e.getHook().sendMessage("Error: only bot owner can register this command!").queue();
+                        return;
+                    }
                     break;
                 default:
                     e.getHook().sendMessage("Invalid command name!").queue();

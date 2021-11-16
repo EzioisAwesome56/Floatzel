@@ -121,6 +121,7 @@ public class Floatzel {
         // change this depending on what token you wanna use
         commandClient.addCommand(new Shutdown());
         commandClient.addCommand(new Pi());
+        scm.addSlashableAction("pi", new Pi());
         commandClient.addCommand(new Boyfriend());
         commandClient.addCommand(new Girlfriend());
         commandClient.addCommand(new Think());

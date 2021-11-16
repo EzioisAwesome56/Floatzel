@@ -1,9 +1,8 @@
 package com.eziosoft.floatzel.SlashCommands;
 
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,5 +31,5 @@ public abstract class FSlashCommand {
         execute(e);
     }
 
-    public abstract void execute(SlashCommandEvent e);
+    protected abstract void execute(SlashCommandEvent e);
 }

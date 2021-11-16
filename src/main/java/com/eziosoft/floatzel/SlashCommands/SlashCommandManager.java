@@ -1,6 +1,9 @@
 package com.eziosoft.floatzel.SlashCommands;
 
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashDataContainer;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashableCommandEntry;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -8,16 +11,32 @@ import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 public class SlashCommandManager extends ListenerAdapter {
 
-    // slash command bullshavick here
+    // actual slash commands go here
     private HashMap<String, FSlashCommand> globalmap = new HashMap<>();
     private Map<SlashDataContainer, FSlashCommand> guildmap = new HashMap<>();
+
+    /* slashable commands, which are normal commands with slash functionality,
+     will be placed into a hashmap of commands, to be called by the bigger slash commands
+     as some form of like "command action" system
+     */
+    private Map<SlashableCommandEntry, FSlashableCommand> actions = new HashMap<>();
+
+    // getting and checking for actions
+    public void addSlashableAction(String name, FSlashableCommand fsc){
+        this.actions.put(new SlashableCommandEntry(fsc.sag, name), fsc);
+    }
+    public boolean hasSlashAction(SlashableCommandEntry sce){
+        return this.actions.containsKey(sce);
+    }
+    public FSlashableCommand getSlashAction(SlashableCommandEntry sce){
+        return this.actions.get(sce);
+    }
 
 
     public SlashCommandManager(){}
@@ -111,8 +130,10 @@ public class SlashCommandManager extends ListenerAdapter {
 
     @Override
     public void onReady(@NotNull ReadyEvent e){
-        // TODO: reload guild registered commands...probably store them in the database
-        System.out.println("SlashCommandManager ready!");
-        //Floatzel.scm.RegisterGuildCommands();
+        if (e.getJDA().getShardInfo().getShardId() == 1) {
+            // TODO: reload guild registered commands...probably store them in the database
+            System.out.println("SlashCommandManager ready!");
+            //Floatzel.scm.RegisterGuildCommands();
+        }
     }
 }
