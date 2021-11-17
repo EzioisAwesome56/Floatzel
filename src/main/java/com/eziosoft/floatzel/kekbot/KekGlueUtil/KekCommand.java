@@ -20,7 +20,7 @@ public abstract class KekCommand extends FCommand {
         onExecuted(new CommandEvent(event, argsplit));
     }
 
-    public abstract void onExecuted(CommandEvent e);
+    protected abstract void onExecuted(CommandEvent e);
 
     public String getExtendedDescription(){
         StringBuilder b = new StringBuilder();

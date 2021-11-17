@@ -57,7 +57,7 @@ public class GameCommand extends KekCommand {
     }
 
     @Override
-    public void onExecuted(CommandEvent event) {
+    protected void onExecuted(CommandEvent event) {
         TextChannel channel = event.getTextChannel();
         if (event.getArgs().length >= 1) {
             switch (event.getArgs()[0].toLowerCase()) {
