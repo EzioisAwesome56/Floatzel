@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.SlashCommands.Objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuildSlashSettings {
@@ -8,6 +9,7 @@ public class GuildSlashSettings {
     private List<String> registered;
 
     public GuildSlashSettings(String gid){
+        this.registered = new ArrayList<String>();
         this.guildid = gid;
     }
 

@@ -61,7 +61,6 @@ public class Force extends FCommand {
             event.reply(Boolean.toString(Admin.tweettog()));
         } else if (arg == 6){
             Floatzel.scm.addGuildCmd(new SlashDataContainer("devmanage", event.getGuild().getId()), new GManage());
-            Floatzel.scm.RegisterGuildCommands();
         }
 
 
