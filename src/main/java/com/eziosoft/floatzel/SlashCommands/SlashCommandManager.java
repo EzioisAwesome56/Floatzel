@@ -38,6 +38,8 @@ public class SlashCommandManager extends ListenerAdapter {
      as some form of like "command action" system
      */
     private Map<SlashableCommandEntry, FSlashableCommand> actions = new HashMap<>();
+    // images need a different map because i can't extend 2 classes in java
+    private Map<SlashableCommandEntry, FSlashableImageCommand> imageActions = new HashMap<>();
 
     // getting and checking for actions
     public void addSlashableAction(String name, FSlashableCommand fsc){
@@ -49,6 +51,16 @@ public class SlashCommandManager extends ListenerAdapter {
     public FSlashableCommand getSlashAction(SlashableCommandEntry sce){
         return this.actions.get(sce);
     }
+    public void addSlashableImageAction(String name, FSlashableImageCommand fsic){
+        this.imageActions.put(new SlashableCommandEntry(fsic.sag, name), fsic);
+    }
+    public boolean hasSlashableImageAction(SlashableCommandEntry sce){
+        return this.imageActions.containsKey(sce);
+    }
+    public FSlashableImageCommand getSlashImageAction(SlashableCommandEntry sce){
+        return this.imageActions.get(sce);
+    }
+
 
 
     public SlashCommandManager(){}

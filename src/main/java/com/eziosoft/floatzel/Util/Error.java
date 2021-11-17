@@ -2,6 +2,7 @@ package com.eziosoft.floatzel.Util;
 
 import com.eziosoft.floatzel.Floatzel;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.codehaus.plexus.util.ExceptionUtils;
 import twitter4j.TwitterException;
 
@@ -19,6 +20,10 @@ public class Error {
         Error.Handle(a, b, event);
     }
     public static void Catch(Throwable e, CommandEvent event){
+        Error.Handle(ExceptionUtils.getStackTrace(e), e.getMessage(), event);
+    }
+
+    public static void CatchSlash(Throwable e, SlashCommandEvent event){
         Error.Handle(ExceptionUtils.getStackTrace(e), e.getMessage(), event);
     }
 
@@ -54,6 +59,37 @@ public class Error {
         // send the message
         try {
             event.getChannel().sendMessage("DAH HECK! Floatzel has encountered an error! Please look at the ereport.txt file for more " +
+                    "information!").addFile(builder.toString().getBytes("UTF-8"), "ereport.txt").queue();
+        } catch (UnsupportedEncodingException e) {
+            //This will never be thrown, but java won't stop yelling at us if we don't try to catch it.
+            e.printStackTrace();
+        }
+        return;
+
+    }
+
+    // slash commands use a different event
+    // so we have to make a new error catcher
+    private static void Handle(String stacktrace, String msg, SlashCommandEvent event){
+        // New line character, dependant on OS.
+        String endl = System.getProperty("line.separator");
+
+        StringBuilder builder = new StringBuilder();
+
+        // pick a phrase to slap at the top of the file
+        String[] phrases = {"is this a bug?", "nah nah nah", "COSMIC RADIATION?", "my bread died :C", "brov", "huh, thats weird"};
+        int index = random.nextInt(phrases.length);
+        builder.append(phrases[index]).append(endl+endl);
+        // boring text
+        builder.append("Floatzel has ecountered an error. Detailed error information will be provided below").append(endl+endl);
+        // add the error details
+        builder.append("Error message:"+endl+msg+endl+endl+"Stack Trace:"+endl);
+        builder.append(stacktrace);
+        // the error report is done being made.
+
+        // send the message
+        try {
+            event.getHook().sendMessage("DAH HECK! Floatzel has encountered an error! Please look at the ereport.txt file for more " +
                     "information!").addFile(builder.toString().getBytes("UTF-8"), "ereport.txt").queue();
         } catch (UnsupportedEncodingException e) {
             //This will never be thrown, but java won't stop yelling at us if we don't try to catch it.

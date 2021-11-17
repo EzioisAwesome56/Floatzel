@@ -18,10 +18,8 @@ import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.ModLoader;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
-import com.eziosoft.floatzel.SlashCommands.Local.FunPorts;
-import com.eziosoft.floatzel.SlashCommands.Local.OtherPorts;
-import com.eziosoft.floatzel.SlashCommands.Local.debug;
-import com.eziosoft.floatzel.SlashCommands.Local.prefix;
+import com.eziosoft.floatzel.SlashCommands.FSlashableImageCommand;
+import com.eziosoft.floatzel.SlashCommands.Local.*;
 import com.eziosoft.floatzel.SlashCommands.SlashCommandManager;
 import com.eziosoft.floatzel.Util.TwitterManager;
 import com.eziosoft.floatzel.Util.Utils;
@@ -162,7 +160,7 @@ public class Floatzel {
         commandClient.addCommand(new StockSell());
         commandClient.addCommand(new Jpeg());
         dualRegister(new Cow());
-        commandClient.addCommand(new Explode());
+        dualRegisterImage(new Explode());
         commandClient.addCommand(new Implode());
         commandClient.addCommand(new Wall());
         commandClient.addCommand(new RunPlugin());
@@ -172,7 +170,7 @@ public class Floatzel {
         commandClient.addCommand(new Pixel());
         commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Help());
-        commandClient.addCommand(new Expand());
+        dualRegisterImage(new Expand());
         commandClient.addCommand(new Small());
         commandClient.addCommand(new Swirl());
         commandClient.addCommand(new MakeTable());
@@ -186,6 +184,7 @@ public class Floatzel {
         scm.addRegisterable("fun", new FunPorts());
         scm.addRegisterable("prefix", new prefix());
         scm.addRegisterable("debug", new debug());
+        scm.addRegisterable("image", new ImagePorts());
 
         // load rest of mods here
         try{
@@ -216,5 +215,10 @@ public class Floatzel {
     public static void dualRegister(FSlashableCommand c){
         commandClient.addCommand(c);
         scm.addSlashableAction(c.getName(), c);
+    }
+
+    public static void dualRegisterImage(FSlashableImageCommand c){
+        commandClient.addCommand(c);
+        scm.addSlashableImageAction(c.getName(), c);
     }
 }
