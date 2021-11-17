@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.SlashCommands;
 
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.SlashCommands.Objects.GuildSlashSettings;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashDataContainer;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashableCommandEntry;
@@ -11,9 +12,7 @@ import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class SlashCommandManager extends ListenerAdapter {
 
@@ -32,6 +31,16 @@ public class SlashCommandManager extends ListenerAdapter {
     // actual slash commands go here
     private HashMap<String, FSlashCommand> globalmap = new HashMap<>();
     private Map<SlashDataContainer, FSlashCommand> guildmap = new HashMap<>();
+
+    /*
+    this array will be used for saving and loading the per-guild slash command settings
+    basically, just which commands are enabled and which commands are not enabled
+    TODO: write database implimentation for it
+    side note: these functions are private because they get automatically
+    called by the functions to un/re-register slash commands for ease of coding it.
+     */
+    private final Map<String, GuildSlashSettings> settings = new HashMap<String, GuildSlashSettings>();
+
 
     /* slashable commands, which are normal commands with slash functionality,
      will be placed into a hashmap of commands, to be called by the bigger slash commands
@@ -72,6 +81,16 @@ public class SlashCommandManager extends ListenerAdapter {
 
     public void addGuildCmd(SlashDataContainer data, FSlashCommand fsc){
         this.guildmap.put(data, fsc);
+        if (this.settings.containsKey(data.getGuildid())){
+            // get the command array, add new command
+            this.settings.get(data.getGuildid()).addRegistered(data.getName());
+        } else {
+            List<String> blank = new ArrayList<>();
+            blank.add(data.getName());
+            GuildSlashSettings tempslash = new GuildSlashSettings(data.getGuildid());
+            tempslash.addRegistered(data.getName());
+            this.settings.put(data.getGuildid(), tempslash);
+        }
     }
 
     public HashMap<String, FSlashCommand> getGlobalmap() {
@@ -96,6 +115,8 @@ public class SlashCommandManager extends ListenerAdapter {
                 }
             }
         });
+        // remove it from the saved settings thing
+        this.settings.get(sdc.getGuildid()).getRegistered().remove(sdc.getName());
         return true;
     }
 
