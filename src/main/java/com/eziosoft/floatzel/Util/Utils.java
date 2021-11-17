@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Util;
 
+import com.eziosoft.floatzel.Exception.ImageDownloadException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.JsonConfig;
 import com.eziosoft.floatzel.Res.Files;
@@ -9,11 +10,14 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpException;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
@@ -209,20 +213,24 @@ public class Utils {
 
     // code borrowed from stackoverflow as always
     // https://stackoverflow.com/questions/5882005/how-to-download-image-from-any-web-page-in-java
-    public static InputStream downloadImageAsHuman(String url) throws Exception{
-        // This will get input data from the server
-        InputStream inputStream = null;
-        // This will read the data from the server;
-        OutputStream outputStream = null;
+    // modified to use httpurlconnection to support status codes (404, 403, etc)
+    public static InputStream downloadImageAsHuman(String url) throws ImageDownloadException, MalformedURLException {
         // This will open a socket from client to server
         URL dank = new URL(url);
         // This user agent is for if the server wants real humans to visit
         String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36";
         // This socket type will allow to set user_agent
-        URLConnection con = dank.openConnection();
-        // Setting the user agent
-        con.setRequestProperty("User-Agent", USER_AGENT);
-        // Requesting input data from server
-        return con.getInputStream();
+        try {
+            HttpURLConnection con = (HttpURLConnection) dank.openConnection();
+            // Setting the user agent
+            con.setRequestProperty("User-Agent", USER_AGENT);
+            if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new ImageDownloadException(con.getResponseCode(), con.getResponseMessage());
+            }
+            // Requesting input data from server
+            return con.getInputStream();
+        } catch (IOException io){
+            throw new ImageDownloadException(-69, "An error occured while downloading image!", io);
+        }
     }
 }
