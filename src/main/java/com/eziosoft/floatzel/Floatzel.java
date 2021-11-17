@@ -161,7 +161,7 @@ public class Floatzel {
         commandClient.addCommand(new Jpeg());
         dualRegister(new Cow());
         dualRegisterImage(new Explode());
-        commandClient.addCommand(new Implode());
+        dualRegisterImage(new Implode());
         commandClient.addCommand(new Wall());
         commandClient.addCommand(new RunPlugin());
         dualRegister(new Random());
