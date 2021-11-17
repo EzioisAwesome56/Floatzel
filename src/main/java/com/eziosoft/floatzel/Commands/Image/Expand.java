@@ -18,7 +18,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 public class Expand extends FSlashableImageCommand {
     public Expand(){
@@ -56,11 +55,9 @@ public class Expand extends FSlashableImageCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
+    public void SlashCmdRun(SlashCommandEvent event, BufferedImage stuff) {
         try {
-            ByteArrayOutputStream stream = genImage(ImageIO.read(Utils.downloadImageAsHuman(event.getOption("image").getAsString())));
-            event.getHook().sendFile(stream.toByteArray(), "big.jpg").queue();
-            stream.close();
+            event.getHook().sendFile(genImage(stuff).toByteArray(), "big.jpg").queue();
         } catch (Exception e){
             Error.CatchSlash(e, event);
         }

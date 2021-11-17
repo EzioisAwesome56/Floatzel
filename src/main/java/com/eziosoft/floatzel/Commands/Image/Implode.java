@@ -1,6 +1,5 @@
 package com.eziosoft.floatzel.Commands.Image;
 
-import com.eziosoft.floatzel.Commands.FImageCommand;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.SlashCommands.FSlashableImageCommand;
 import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
@@ -56,9 +55,9 @@ public class Implode extends FSlashableImageCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
+    public void SlashCmdRun(SlashCommandEvent event, BufferedImage stuff) {
         try {
-            event.getHook().sendFile(genImage(ImageIO.read(Utils.downloadImageAsHuman(event.getOption("image").getAsString()))).toByteArray(), "implode.png").queue();
+            event.getHook().sendFile(genImage(stuff).toByteArray(), "implode.png").queue();
         } catch  (Exception e){
             Error.CatchSlash(e, event);
         }

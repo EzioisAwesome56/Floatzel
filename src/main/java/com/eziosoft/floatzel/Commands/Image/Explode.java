@@ -55,11 +55,9 @@ public class Explode extends FSlashableImageCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
+    public void SlashCmdRun(SlashCommandEvent event, BufferedImage stuff) {
         try {
-            ByteArrayOutputStream stream = genImage(ImageIO.read(Utils.downloadImageAsHuman(event.getOption("image").getAsString())));
-            event.getHook().sendFile(stream.toByteArray(), "explode.png").queue();
-            stream.close();
+            event.getHook().sendFile(genImage(stuff).toByteArray(), "explode.png").queue();
         } catch (Exception e){
             Error.CatchSlash(e, event);
         }

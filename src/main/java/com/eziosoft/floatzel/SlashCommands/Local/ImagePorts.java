@@ -21,7 +21,7 @@ public class ImagePorts extends FSlashCommand {
     protected void execute(SlashCommandEvent e) {
         SlashableCommandEntry sce = new SlashableCommandEntry(SlashActionGroup.IMAGE, e.getOption("cmdname").getAsString());
         if (Floatzel.scm.hasSlashableImageAction(sce)){
-            Floatzel.scm.getSlashImageAction(sce).SlashCmdRun(e);
+            Floatzel.scm.getSlashImageAction(sce).SlashImageCmdRun(e);
         } else {
             e.getHook().sendMessage("Error: that command does not exist!").queue();
         }

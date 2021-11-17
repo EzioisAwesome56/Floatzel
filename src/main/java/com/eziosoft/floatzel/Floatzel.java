@@ -158,7 +158,7 @@ public class Floatzel {
         commandClient.addCommand(new StockBuy());
         commandClient.addCommand(new Stock());
         commandClient.addCommand(new StockSell());
-        commandClient.addCommand(new Jpeg());
+        dualRegisterImage(new Jpeg());
         dualRegister(new Cow());
         dualRegisterImage(new Explode());
         dualRegisterImage(new Implode());
