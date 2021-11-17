@@ -73,42 +73,50 @@ public class ModLoader {
     public void loadAll() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         boolean dbloaded = false;
         for (Mod mod : mods){
-            if (mod.getType().equals("command")){
-                System.out.println("Loading mod mainclass " + mod.getMainclass());
-                Class toLoad = Class.forName(mod.getMainclass(), true, child);
-                Object loadedMod = toLoad.getConstructor().newInstance();
-                Floatzel.commandClient.addCommand((FCommand) loadedMod);
-            } else if (mod.getType().equals("database")){
-                if (dbloaded){
-                    System.out.println("Database already loaded! skipping loading class " + mod.getMainclass());
-                } else {
-                    System.out.println("Now Loading Database plugin from main class " + mod.getMainclass() +"...");
+            switch (mod.getType()) {
+                case "command": {
+                    System.out.println("Loading mod mainclass " + mod.getMainclass());
                     Class toLoad = Class.forName(mod.getMainclass(), true, child);
-                    Object dbc = toLoad.getConstructor().newInstance();
-                    // load it as a db module
-                    Database.dbdriver = new DatabaseModule((GenaricDatabase) dbc);
-                    Database.sendConninfo(gson.toJson(new ConnInfo("localhost", Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), 6969)));
-                    dbloaded = true;
+                    Object loadedMod = toLoad.getConstructor().newInstance();
+                    Floatzel.commandClient.addCommand((FCommand) loadedMod);
+                    break;
                 }
-            } else if (mod.getType().equals("commands")){
-                System.out.println("--- START BATCH LOAD ---");
-                System.out.println("Batch loading commands as defined by " + mod.getMainclass());
-                // first we need to get the list of commands loaded
-                Class toLoad = Class.forName(mod.getMainclass(), true, child);
-                Object loadedclass = toLoad.getConstructor().newInstance();
-                String[] clases = (String[]) toLoad.getDeclaredMethod("getClasses").invoke(loadedclass);
-                for (String mainclass : clases){
-                    System.out.println("Loading " + mainclass);
-                    toLoad = Class.forName(mainclass, true, child);
-                    loadedclass = toLoad.getConstructor().newInstance();
-                    Floatzel.commandClient.addCommand((FCommand) loadedclass);
+                case "database":
+                    if (dbloaded) {
+                        System.out.println("Database already loaded! skipping loading class " + mod.getMainclass());
+                    } else {
+                        System.out.println("Now Loading Database plugin from main class " + mod.getMainclass() + "...");
+                        Class toLoad = Class.forName(mod.getMainclass(), true, child);
+                        Object dbc = toLoad.getConstructor().newInstance();
+                        // load it as a db module
+                        Database.dbdriver = new DatabaseModule((GenaricDatabase) dbc);
+                        Database.sendConninfo(gson.toJson(new ConnInfo("localhost", Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), 6969)));
+                        dbloaded = true;
+                    }
+                    break;
+                case "commands": {
+                    System.out.println("--- START BATCH LOAD ---");
+                    System.out.println("Batch loading commands as defined by " + mod.getMainclass());
+                    // first we need to get the list of commands loaded
+                    Class toLoad = Class.forName(mod.getMainclass(), true, child);
+                    Object loadedclass = toLoad.getConstructor().newInstance();
+                    String[] clases = (String[]) toLoad.getDeclaredMethod("getClasses").invoke(loadedclass);
+                    for (String mainclass : clases) {
+                        System.out.println("Loading " + mainclass);
+                        toLoad = Class.forName(mainclass, true, child);
+                        loadedclass = toLoad.getConstructor().newInstance();
+                        Floatzel.commandClient.addCommand((FCommand) loadedclass);
+                    }
+                    System.out.println("--- END BATCH LOAD ---");
+                    break;
                 }
-                System.out.println("--- END BATCH LOAD ---");
-            } else if (mod.getType().equals("customInit")){
-                System.out.println("Mod has requested custom init routine, loading and running...");
-                Class toload = Class.forName(mod.getMainclass(), true, child);
-                Object loadedclass = toload.getConstructor().newInstance();
-                toload.getDeclaredMethod("customInit").invoke(loadedclass);
+                case "customInit": {
+                    System.out.println("Mod has requested custom init routine, loading and running...");
+                    Class toload = Class.forName(mod.getMainclass(), true, child);
+                    Object loadedclass = toload.getConstructor().newInstance();
+                    toload.getDeclaredMethod("customInit").invoke(loadedclass);
+                    break;
+                }
             }
         }
         if (!dbloaded){
