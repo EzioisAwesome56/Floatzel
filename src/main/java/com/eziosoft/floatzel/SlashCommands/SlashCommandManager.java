@@ -91,6 +91,7 @@ public class SlashCommandManager extends ListenerAdapter {
             tempslash.addRegistered(data.getName());
             this.settings.put(data.getGuildid(), tempslash);
         }
+        upsertGuildCmd(data, fsc);
     }
 
     public HashMap<String, FSlashCommand> getGlobalmap() {
@@ -136,6 +137,43 @@ public class SlashCommandManager extends ListenerAdapter {
             } else {
                 Floatzel.jda.getGuildById(info.getGuildid()).upsertCommand(info.getName(), c.help).queue();
             }
+        }
+    }
+
+    // could maybe be used to force a command update if something is wrong
+    public void updateGuildCommandsForGuild(String id){
+        for (Map.Entry<SlashDataContainer, FSlashCommand> ent : this.guildmap.entrySet()){
+            if (!ent.getKey().getGuildid().equals(id)){
+                // not the guild we care about
+                continue;
+            }
+            FSlashCommand c = ent.getValue();
+            if (c.hasoptions){
+                CommandCreateAction cca = Floatzel.jda.getGuildById(id).upsertCommand(ent.getKey().getName(), c.help);
+                for (SlashOption so : c.optlist){
+                    cca = cca.addOption(so.getOptype(), so.getName(), so.getHelp(), so.isRequired());
+                }
+                cca.queue();
+            } else {
+                Floatzel.jda.getGuildById(ent.getKey().getGuildid()).upsertCommand(ent.getKey().getName(), c.help).queue();
+            }
+        }
+    }
+
+    /* i feel like its a bad idea to run thru every guild cmd in the main map when we just need to register a single command
+    this is the fix for that
+    called from addGuildCmd, it just registers the single command with discord, without looping thru all of the
+    other commands in the array.
+     */
+    private void upsertGuildCmd(SlashDataContainer sdc, FSlashCommand fsc){
+        if (fsc.hasoptions){
+            CommandCreateAction cca = Floatzel.jda.getGuildById(sdc.getGuildid()).upsertCommand(sdc.getName(), fsc.help);
+            for (SlashOption so : fsc.optlist){
+                cca = cca.addOption(so.getOptype(), so.getName(), so.getHelp(), so.isRequired());
+            }
+            cca.queue();
+        } else {
+            Floatzel.jda.getGuildById(sdc.getGuildid()).upsertCommand(sdc.getName(), fsc.help).queue();
         }
     }
 

@@ -2,8 +2,6 @@ package com.eziosoft.floatzel.SlashCommands.Globals;
 
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.SlashCommands.FSlashCommand;
-import com.eziosoft.floatzel.SlashCommands.Local.debug;
-import com.eziosoft.floatzel.SlashCommands.Local.prefix;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashDataContainer;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -35,7 +33,6 @@ public class GManage extends FSlashCommand {
             }
             FSlashCommand cmd = Floatzel.scm.getRegisterable(input);
             Floatzel.scm.addGuildCmd(new SlashDataContainer(cmd.name, e.getGuild().getId()), cmd);
-            Floatzel.scm.RegisterGuildCommands();
             e.getHook().sendMessage("Registered command " + cmd.name).queue();
         } else if (action.equals("remove")) {
             if (e.getOption("arg1") == null){
