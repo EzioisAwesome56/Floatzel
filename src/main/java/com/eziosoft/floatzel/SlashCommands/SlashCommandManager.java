@@ -121,6 +121,7 @@ public class SlashCommandManager extends ListenerAdapter {
         });
         // remove it from the saved settings thing
         this.settings.get(sdc.getGuildid()).getRegistered().remove(sdc.getName());
+        Database.dbdriver.saveGuildSlashSettings(this.settings.get(sdc.getGuildid()));
         return true;
     }
 
