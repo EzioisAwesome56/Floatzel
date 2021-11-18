@@ -10,6 +10,8 @@ public class JsonConfig {
     // db config
     private String dbUser;
     private String dbPass;
+    private String hostname;
+    private int port;
     // twitter stuff
     private String key;
     private String secretkey;
@@ -42,6 +44,8 @@ public class JsonConfig {
         // db
         this.dbUser = "null";
         this.dbPass = "null";
+        this.hostname = "localhost";
+        this.port = 2;
         // twitter
         this.key = "Twitter api key";
         this.secretkey = "Twitter api secret key";
@@ -80,6 +84,13 @@ public class JsonConfig {
     public void setDbPass(String h){
         this.dbPass = h;
     }
+    public int getPort() {
+        return port;
+    }
+    public String getHostname() {
+        return hostname;
+    }
+
     // get everything else
     public String getOwnerid() {
         return ownerid;

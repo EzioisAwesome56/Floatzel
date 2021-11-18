@@ -90,7 +90,7 @@ public class ModLoader {
                         Object dbc = toLoad.getConstructor().newInstance();
                         // load it as a db module
                         Database.dbdriver = new DatabaseModule((GenaricDatabase) dbc);
-                        Database.sendConninfo(gson.toJson(new ConnInfo("localhost", Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), 6969)));
+                        Database.sendConninfo(gson.toJson(new ConnInfo(Floatzel.conf.getHostname(), Floatzel.conf.dbUser(), Floatzel.conf.dbPass(), Floatzel.conf.getPort())));
                         dbloaded = true;
                     }
                     break;
