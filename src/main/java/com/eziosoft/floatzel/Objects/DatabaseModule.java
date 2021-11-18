@@ -152,6 +152,10 @@ public class DatabaseModule {
         this.driver.saveSlashGuildSettings(gss);
     }
 
+    /**
+     * loads all slashsettings from the database
+     * @return guildslashsettings array
+     */
     public GuildSlashSettings[] loadAllSlashSettings(){
         return this.driver.loadAllSlashSettings();
     }
