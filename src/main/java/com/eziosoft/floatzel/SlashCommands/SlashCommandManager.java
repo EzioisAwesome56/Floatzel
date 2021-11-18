@@ -36,7 +36,6 @@ public class SlashCommandManager extends ListenerAdapter {
     /*
     this array will be used for saving and loading the per-guild slash command settings
     basically, just which commands are enabled and which commands are not enabled
-    TODO: write database implimentation for it
     side note: these functions are private because they get automatically
     called by the functions to un/re-register slash commands for ease of coding it.
      */
@@ -234,7 +233,6 @@ public class SlashCommandManager extends ListenerAdapter {
     @Override
     public void onReady(@NotNull ReadyEvent e){
         if (e.getJDA().getShardInfo().getShardId() == 1) {
-            // TODO: reload guild registered commands...probably store them in the database
             loadAllRegisteredSlashCommands();
             System.out.println("SlashCommandManager ready!");
             //Floatzel.scm.RegisterGuildCommands();
