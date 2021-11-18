@@ -5,6 +5,7 @@ import com.eziosoft.floatzel.SlashCommands.Objects.GuildSlashSettings;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashDataContainer;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashableCommandEntry;
+import com.eziosoft.floatzel.Util.Database;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -81,15 +82,18 @@ public class SlashCommandManager extends ListenerAdapter {
 
     public void addGuildCmd(SlashDataContainer data, FSlashCommand fsc){
         this.guildmap.put(data, fsc);
-        if (this.settings.containsKey(data.getGuildid())){
-            // get the command array, add new command
-            this.settings.get(data.getGuildid()).addRegistered(data.getName());
-        } else {
-            List<String> blank = new ArrayList<>();
-            blank.add(data.getName());
-            GuildSlashSettings tempslash = new GuildSlashSettings(data.getGuildid());
-            tempslash.addRegistered(data.getName());
-            this.settings.put(data.getGuildid(), tempslash);
+        if (!data.getName().equals("devmanage")) {
+            if (this.settings.containsKey(data.getGuildid())) {
+                // get the command array, add new command
+                this.settings.get(data.getGuildid()).addRegistered(data.getName());
+            } else {
+                List<String> blank = new ArrayList<>();
+                blank.add(data.getName());
+                GuildSlashSettings tempslash = new GuildSlashSettings(data.getGuildid());
+                tempslash.addRegistered(data.getName());
+                this.settings.put(data.getGuildid(), tempslash);
+            }
+            Database.dbdriver.saveGuildSlashSettings(this.settings.get(data.getGuildid()));
         }
         upsertGuildCmd(data, fsc);
     }
@@ -211,10 +215,27 @@ public class SlashCommandManager extends ListenerAdapter {
 
     }
 
+    public void loadAllRegisteredSlashCommands(){
+        System.out.println("Loading saved slash command settings...");
+        // first get the list
+        GuildSlashSettings[] gss = Database.dbdriver.loadAllSlashSettings();
+        for (GuildSlashSettings dank : gss){
+            String gid = dank.getGuildid();
+            // first add it to the settings hashmap
+            this.settings.put(gid, dank);
+            // now we have to add them to the guildcmd hashmap
+            for (String s : dank.getRegistered()){
+                this.guildmap.put(new SlashDataContainer(s, gid), this.getRegisterable(s));
+            }
+        }
+        System.out.println("Done loading!");
+    }
+
     @Override
     public void onReady(@NotNull ReadyEvent e){
         if (e.getJDA().getShardInfo().getShardId() == 1) {
             // TODO: reload guild registered commands...probably store them in the database
+            loadAllRegisteredSlashCommands();
             System.out.println("SlashCommandManager ready!");
             //Floatzel.scm.RegisterGuildCommands();
         }
