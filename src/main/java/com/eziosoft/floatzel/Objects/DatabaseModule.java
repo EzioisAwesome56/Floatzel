@@ -1,5 +1,6 @@
 package com.eziosoft.floatzel.Objects;
 
+import com.eziosoft.floatzel.SlashCommands.Objects.GuildSlashSettings;
 import com.google.gson.Gson;
 
 public class DatabaseModule {
@@ -27,7 +28,7 @@ public class DatabaseModule {
      * @return User
      */
     public User getProfile(String uid){
-        return convertUserFromJson(driver.getProfile(uid));
+        return convertUserFromJson(this.driver.getProfile(uid));
     }
 
     /**
@@ -35,14 +36,14 @@ public class DatabaseModule {
      * @param dank- user object to save
      */
     public void saveProfile(User dank){
-        driver.saveProfile(convertUserToJson(dank));
+        this.driver.saveProfile(convertUserToJson(dank));
     }
 
     /**
      * inits the database driver that was loaded (duh)
      */
     public void init(){
-        driver.initDatabase();
+        this.driver.initDatabase();
     }
 
     /**
@@ -51,7 +52,7 @@ public class DatabaseModule {
      * @return
      */
     public boolean checkforuser(String id){
-        return driver.checkForUser(id);
+        return this.driver.checkForUser(id);
     }
 
     /**
@@ -59,7 +60,7 @@ public class DatabaseModule {
      * @param json
      */
     public void sendConninfo(String json){
-        driver.Conninfo(json);
+        this.driver.Conninfo(json);
     }
 
     /**
@@ -67,7 +68,7 @@ public class DatabaseModule {
      * @return int
      */
     public int totalStocks(){
-        return driver.totalStocks();
+        return this.driver.totalStocks();
     }
 
     /**
@@ -75,7 +76,7 @@ public class DatabaseModule {
      * @param s- stock object that you would like to store
      */
     public void createNewStock(Stock s){
-        driver.makeNewStock(gson.toJson(s));
+        this.driver.makeNewStock(gson.toJson(s));
     }
 
     /**
@@ -84,7 +85,7 @@ public class DatabaseModule {
      * @return stock object
      */
     public Stock loadStock(int id){
-        return gson.fromJson(driver.getStock(id), Stock.class);
+        return gson.fromJson(this.driver.getStock(id), Stock.class);
     }
 
     /**
@@ -92,7 +93,7 @@ public class DatabaseModule {
      * @param s- stock object to update
      */
     public void updateStock(Stock s){
-        driver.updateStock(gson.toJson(s));
+        this.driver.updateStock(gson.toJson(s));
     }
 
     /**
@@ -100,20 +101,20 @@ public class DatabaseModule {
      * @param name- table name
      * @param key- primary key-may be optional depending on the driver
      */
-    public void makeTable(String name, String key){ driver.makeTable(name, key); }
+    public void makeTable(String name, String key){ this.driver.makeTable(name, key); }
 
     /**
      * gets the total number of tweets currently stored in the database
      * @return int
      */
-    public int totalTweets() {return driver.totalTweets(); }
+    public int totalTweets() {return this.driver.totalTweets(); }
 
     /**
      * saves a tweet to the database
      * @param t- tweet to store in the database
      */
     public void saveTweet(Tweet t){
-        driver.saveTweet(gson.toJson(t, Tweet.class));
+        this.driver.saveTweet(gson.toJson(t, Tweet.class));
     }
 
     /**
@@ -121,25 +122,37 @@ public class DatabaseModule {
      * @param id- tweet id, must be int
      * @return tweet
      */
-    public Tweet loadTweet(int id){ return gson.fromJson(driver.loadTweet(id), Tweet.class); }
+    public Tweet loadTweet(int id){ return gson.fromJson(this.driver.loadTweet(id), Tweet.class); }
 
     /**
      * checks to see if a stock exists in the database
      * @param id- stock id int
      * @return boolean
      */
-    public boolean checkForStock(int id){ return driver.checkForStock(id); }
+    public boolean checkForStock(int id){ return this.driver.checkForStock(id); }
 
     /**
      * deletes a stock from the database
      * @param id- stock id int
      */
-    public void deleteStock(int id){ driver.deleteStock(id); }
+    public void deleteStock(int id){ this.driver.deleteStock(id); }
 
     /**
      * sets a permission in the database for a user
      * @param uid- user id for who you're setting permissions for
      * @param id- permission id
      */
-    public void setPerm(String uid, int id){ driver.setPerm(uid, id); }
+    public void setPerm(String uid, int id){ this.driver.setPerm(uid, id); }
+
+    /**
+     * save a guild's registered slash commands
+     * @param gss- guildslashsettings object
+     */
+    public void saveGuildSlashSettings(GuildSlashSettings gss){
+        this.driver.saveSlashGuildSettings(gss);
+    }
+
+    public GuildSlashSettings[] loadAllSlashSettings(){
+        return this.driver.loadAllSlashSettings();
+    }
 }
