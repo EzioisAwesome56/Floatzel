@@ -1,5 +1,7 @@
 package com.eziosoft.floatzel.Objects;
 
+import com.eziosoft.floatzel.SlashCommands.Objects.GuildSlashSettings;
+
 public interface GenaricDatabase {
 
     void Conninfo(String info);
@@ -34,5 +36,7 @@ public interface GenaricDatabase {
 
     void setPerm (String uid, int id);
 
+    void saveSlashGuildSettings(GuildSlashSettings gss);
 
+    GuildSlashSettings[] loadAllSlashSettings();
 }

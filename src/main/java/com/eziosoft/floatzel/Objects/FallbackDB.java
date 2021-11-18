@@ -1,7 +1,7 @@
 package com.eziosoft.floatzel.Objects;
 
+import com.eziosoft.floatzel.SlashCommands.Objects.GuildSlashSettings;
 import com.google.gson.Gson;
-import org.omg.CORBA.PRIVATE_MEMBER;
 
 public class FallbackDB implements GenaricDatabase{
 
@@ -85,5 +85,15 @@ public class FallbackDB implements GenaricDatabase{
     @Override
     public void setPerm(String uid, int id) {
         return;
+    }
+
+    @Override
+    public void saveSlashGuildSettings(GuildSlashSettings gss) {
+        return;
+    }
+
+    @Override
+    public GuildSlashSettings[] loadAllSlashSettings() {
+        return new GuildSlashSettings[0];
     }
 }
