@@ -230,7 +230,7 @@ public class Utils {
             // Requesting input data from server
             return con.getInputStream();
         } catch (IOException io){
-            throw new ImageDownloadException(-69, "An error occured while downloading image!", io);
+            throw new ImageDownloadException(-69, "An error occurred while downloading image!", io);
         }
     }
 }
