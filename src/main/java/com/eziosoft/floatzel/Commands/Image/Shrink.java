@@ -3,8 +3,12 @@ package com.eziosoft.floatzel.Commands.Image;
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Commands.FImageCommand;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.SlashCommands.FSlashableImageCommand;
+import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
+import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
@@ -15,19 +19,22 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
-public class Shrink extends FImageCommand {
+public class Shrink extends FSlashableImageCommand {
     public Shrink(){
         name = "shrink";
         help = "shrinks an image";
         category = FCommand.image;
         aliases = Utils.makeAlias("resize");
+        sag = SlashActionGroup.IMAGE;
     }
 
     protected void imageRun(CommandEvent event, byte[] dink) throws IOException, InterruptedException, IM4JavaException {
-        // make a var for this
-        InputStream source = new ByteArrayInputStream(dink);
+        event.getChannel().sendFile(genImage(ImageIO.read(new ByteArrayInputStream(dink))), "small.jpg").queue();
+
+    }
+
+    private byte[] genImage(BufferedImage in) throws IOException, InterruptedException, IM4JavaException {
         BufferedImage what;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Pipe pipeOut = new Pipe(null, stream);
@@ -36,17 +43,23 @@ public class Shrink extends FImageCommand {
         ConvertCmd cmd = new ConvertCmd();
         if (Floatzel.isdev) cmd.setSearchPath("C:\\magick");
         cmd.setOutputConsumer(pipeOut);
-        what = ImageIO.read(source);
+        what = in;
         op.addImage();
         op.format("jpg");
         op.resize(25,25);
         op.addImage("jpg:-");
         cmd.run(op, what);
         stream.flush();
-        event.getChannel().sendFile(stream.toByteArray(), "small.jpg").queue();
-        stream.close();
-        source.close();
+        return stream.toByteArray();
     }
 
 
+    @Override
+    protected void SlashCmdRun(SlashCommandEvent event, BufferedImage stuff) {
+        try {
+            event.getHook().sendFile(genImage(stuff), "small.jpg").queue();
+        } catch (Exception e){
+            Error.CatchSlash(e, event);
+        }
+    }
 }

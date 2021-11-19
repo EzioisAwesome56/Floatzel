@@ -1,4 +1,5 @@
 package com.eziosoft.floatzel;
+
 import com.eziosoft.floatzel.Commands.Currency.*;
 import com.eziosoft.floatzel.Commands.Debug.Debug;
 import com.eziosoft.floatzel.Commands.Entertainment.*;
@@ -162,17 +163,17 @@ public class Floatzel {
         dualRegister(new Cow());
         dualRegisterImage(new Explode());
         dualRegisterImage(new Implode());
-        commandClient.addCommand(new Wall());
+        dualRegisterImage(new Wall());
         commandClient.addCommand(new RunPlugin());
         dualRegister(new Random());
         dualRegister(new Ping());
-        commandClient.addCommand(new Shrink());
-        commandClient.addCommand(new Pixel());
+        dualRegisterImage(new Shrink());
+        dualRegisterImage(new Pixel());
         commandClient.addCommand(new LootBox());
         commandClient.addCommand(new Help());
         dualRegisterImage(new Expand());
-        commandClient.addCommand(new Small());
-        commandClient.addCommand(new Swirl());
+        dualRegisterImage(new Small());
+        dualRegisterImage(new Swirl());
         commandClient.addCommand(new MakeTable());
         dualRegister(new Avatar());
         dualRegister(new DiceRoll());

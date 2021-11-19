@@ -17,7 +17,7 @@ import java.util.*;
 
 public class SlashCommandManager extends ListenerAdapter {
 
-    // map of registerable slash commands; allows for mods to add slash commands without force-registering them
+    // map of registrable slash commands; allows for mods to add slash commands without force-registering them
     private Map<String, FSlashCommand> registerable = new HashMap<>();
     public void addRegisterable(String name, FSlashCommand fsc){
         this.registerable.put(name, fsc);
@@ -215,7 +215,7 @@ public class SlashCommandManager extends ListenerAdapter {
 
     }
 
-    public void loadAllRegisteredSlashCommands(){
+    private void loadAllRegisteredSlashCommands(){
         System.out.println("Loading saved slash command settings...");
         // first get the list
         GuildSlashSettings[] gss = Database.dbdriver.loadAllSlashSettings();
@@ -228,7 +228,7 @@ public class SlashCommandManager extends ListenerAdapter {
                 this.guildmap.put(new SlashDataContainer(s, gid), this.getRegisterable(s));
             }
         }
-        System.out.println("Done loading!");
+        System.out.println("Done loading slash command settings!");
     }
 
     @Override
