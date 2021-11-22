@@ -5,17 +5,14 @@ import com.eziosoft.floatzel.SlashCommands.FSlashCommand;
 import com.eziosoft.floatzel.SlashCommands.Objects.GuildSlashSettings;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashDataContainer;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
+import com.eziosoft.floatzel.Util.Utils;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.components.Button;
-import net.dv8tion.jda.api.interactions.components.Component;
-import net.dv8tion.jda.api.interactions.components.ComponentLayout;
 import net.dv8tion.jda.api.interactions.components.selections.SelectionMenu;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -70,41 +67,49 @@ public class GManage extends FSlashCommand {
                     .setRequiredRange(1, 1)
                     .build();
             e.getHook().sendMessage("Please select an action").addActionRow(menu).queue();
-            Floatzel.waiter.waitForEvent(Event.class, c -> (c instanceof SelectionMenuEvent) && ((SelectionMenuEvent) c).getInteraction().getMember().getUser().getId().equals(e.getMember().getUser().getId()),
-                    act -> {
-                        SelectionMenuEvent sce = (SelectionMenuEvent) act;
-                        if (sce.getInteraction().getValues().size() == 1) {
-                            if (sce.getInteraction().getValues().contains("register")) {
-                                sce.deferEdit().queue();
-                                SelectionMenu.Builder b = SelectionMenu.create("manage:register");
-                                // get the current guild slash settings
-                                GuildSlashSettings gss = Floatzel.scm.getGuildSlashSettings(e.getGuild().getId());
-                                for (Map.Entry<String, FSlashCommand> ent : Floatzel.scm.getAllRegisterables().entrySet()) {
-                                    if (gss.getRegistered().contains(ent.getKey())) {
-                                        // this command is already registered, dont let them register it again!
-                                        continue;
-                                    }
-                                    b.addOption(ent.getValue().name + ": " + ent.getValue().help, ent.getKey());
-                                }
-                                b.setPlaceholder("list of commands");
-                                b.setRequiredRange(1, 1);
-                                sce.getHook().editOriginalComponents(ActionRow.of(b.build())).queue();
-                                sce.getHook().editOriginal("Please pick a command to enable!").queue();
-                                Floatzel.waiter.waitForEvent(Event.class, c -> (c instanceof SelectionMenuEvent) && ((SelectionMenuEvent) c).getInteraction().getMember().getUser().getId().equals(e.getMember().getUser().getId()),
-                                        act2 -> {
-                                            // TODO: handle the command selection and enabling it
-                                            e.getHook().editOriginal("you picked " + ((SelectionMenuEvent) act2).getInteraction().getValues().get(1)).queue();
-                                        }, 1, TimeUnit.MINUTES, () -> {});
-                            }
-                        } else {
-                            sce.editSelectionMenu(null).queue();
-                            sce.getHook().editOriginal("Error: you're not supposed to choose more then 1 option! Did you break your client?").queue();
-                        }
-                    }, 1, TimeUnit.MINUTES,
+            Floatzel.waiter.waitForEvent(Event.class, c -> checkUserAndGuildOrigin(e, c),
+                    act -> { doSelectionAction(e, act); }, 1, TimeUnit.MINUTES,
                     () -> {
-                       e.getHook().deleteOriginal().queue();
-                       e.getHook().setEphemeral(true).sendMessage("You took too long to pick an option!").queue();
+                        Utils.defaultTimeoutAction(e);
                     });
+        }
+    }
+
+    private boolean checkUserAndGuildOrigin(SlashCommandEvent e, Event et){
+        return (et instanceof SelectionMenuEvent) &&
+                ((SelectionMenuEvent) et).getInteraction().getMember().getUser().getId().equals(e.getMember().getUser().getId())
+                && ((SelectionMenuEvent) et).getGuild().getId().equals(e.getGuild().getId());
+    }
+
+    private void doSelectionAction(SlashCommandEvent e, Event act){
+        SelectionMenuEvent sce = (SelectionMenuEvent) act;
+        if (sce.getInteraction().getValues().size() == 1) {
+            if (sce.getInteraction().getValues().contains("register")) {
+                sce.deferEdit().queue();
+                SelectionMenu.Builder b = SelectionMenu.create("manage:register");
+                // get the current guild slash settings
+                GuildSlashSettings gss = Floatzel.scm.getGuildSlashSettings(e.getGuild().getId());
+                for (Map.Entry<String, FSlashCommand> ent : Floatzel.scm.getAllRegisterables().entrySet()) {
+                    if (gss.getRegistered().contains(ent.getKey())) {
+                        // this command is already registered, dont let them register it again!
+                        continue;
+                    }
+                    b.addOption(ent.getValue().name + ": " + ent.getValue().help, ent.getKey());
+                }
+                b.setPlaceholder("list of commands");
+                b.setRequiredRange(1, 1);
+                sce.getHook().editOriginalComponents(ActionRow.of(b.build())).queue();
+                sce.getHook().editOriginal("Please pick a command to enable!").queue();
+                Floatzel.waiter.waitForEvent(Event.class, c -> checkUserAndGuildOrigin(e, c),
+                        act2 -> {
+                            // TODO: handle the command selection and enabling it
+                            sce.editSelectionMenu(null).queue();
+                            sce.getHook().editOriginal("you picked " + ((SelectionMenuEvent) act2).getInteraction().getValues().get(0)).queue();
+                        }, 1, TimeUnit.MINUTES, () -> Utils.defaultTimeoutAction(e));
+            }
+        } else {
+            sce.editSelectionMenu(null).queue();
+            sce.getHook().editOriginal("Error: you're not supposed to choose more then 1 option! Did you break your client?").queue();
         }
     }
 }
