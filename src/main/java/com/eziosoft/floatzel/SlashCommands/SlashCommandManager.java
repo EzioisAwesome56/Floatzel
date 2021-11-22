@@ -28,6 +28,7 @@ public class SlashCommandManager extends ListenerAdapter {
     public FSlashCommand getRegisterable(String name){
         return this.registerable.get(name);
     }
+    public Map<String, FSlashCommand> getAllRegisterables(){ return this.registerable; }
 
     // actual slash commands go here
     private HashMap<String, FSlashCommand> globalmap = new HashMap<>();
@@ -40,6 +41,7 @@ public class SlashCommandManager extends ListenerAdapter {
     called by the functions to un/re-register slash commands for ease of coding it.
      */
     private final Map<String, GuildSlashSettings> settings = new HashMap<String, GuildSlashSettings>();
+    public GuildSlashSettings getGuildSlashSettings(String id){ return this.settings.get(id); }
 
 
     /* slashable commands, which are normal commands with slash functionality,
