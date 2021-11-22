@@ -6,11 +6,13 @@ import com.eziosoft.floatzel.SlashCommands.Objects.SlashableCommandEntry;
 import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
+import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.components.Button;
 import net.dv8tion.jda.api.interactions.components.Component;
+import net.dv8tion.jda.api.interactions.components.selections.SelectionMenu;
 
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
@@ -26,21 +28,29 @@ public class debug extends FSlashCommand {
 
     @Override
     public void execute(SlashCommandEvent e) {
-        e.getHook().sendMessage("test button").addActionRow(
-                Button.primary("gamer", "test button")
-        ).queue();
+        SelectionMenu menu = SelectionMenu.create("menu:test")
+                .setPlaceholder("pick a button...")
+                .setRequiredRange(1, 1)
+                .addOption("dank", "dank")
+                        .addOption("not dank", "bad")
+                                .build();
+        e.getHook().sendMessage("pick an option!").addActionRow(menu).queue();
         Floatzel.waiter.waitForEvent(Event.class, p -> {
-            if (p instanceof ButtonClickEvent){
-                boolean a = ((ButtonClickEvent) p).getInteraction().getMember().getUser().getId().equals(e.getMember().getUser().getId());
-                System.out.println(a);
-                return a;
+            if (p instanceof SelectionMenuEvent){
+                return ((SelectionMenuEvent) p).getInteraction().getMember().getUser().getId().equals(e.getMember().getUser().getId());
             } else {
                 return false;
             }
         }, a -> {
-            ButtonClickEvent bce = (ButtonClickEvent) a;
-            bce.editButton(null).queue();
-            bce.getHook().editOriginal("You are a pirate!").queue();
+            SelectionMenuEvent bce = (SelectionMenuEvent) a;
+            String msg;
+            if (bce.getInteraction().getValues().contains("dank")){
+                msg = "you have selected: dank";
+            } else {
+                msg = "you have not selected dank. bruh.";
+            }
+            bce.editSelectionMenu(null).queue();
+            bce.getHook().editOriginal(msg).queue();
         }, 1, TimeUnit.MINUTES, () -> {
             e.getHook().deleteOriginal().queue();
             e.getHook().setEphemeral(true).sendMessage("You took too long!").queue();
