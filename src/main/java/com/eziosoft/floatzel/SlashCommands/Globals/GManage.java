@@ -73,7 +73,7 @@ public class GManage extends FSlashCommand {
             Floatzel.waiter.waitForEvent(Event.class, c -> (c instanceof SelectionMenuEvent) && ((SelectionMenuEvent) c).getInteraction().getMember().getUser().getId().equals(e.getMember().getUser().getId()),
                     act -> {
                         SelectionMenuEvent sce = (SelectionMenuEvent) act;
-                        if (sce.getInteraction().getValues().size() != 1) {
+                        if (sce.getInteraction().getValues().size() == 1) {
                             if (sce.getInteraction().getValues().contains("register")) {
                                 sce.deferEdit().queue();
                                 SelectionMenu.Builder b = SelectionMenu.create("manage:register");
@@ -90,7 +90,11 @@ public class GManage extends FSlashCommand {
                                 b.setRequiredRange(1, 1);
                                 sce.getHook().editOriginalComponents(ActionRow.of(b.build())).queue();
                                 sce.getHook().editOriginal("Please pick a command to enable!").queue();
-                                // TODO: handle the command selection and enabling it
+                                Floatzel.waiter.waitForEvent(Event.class, c -> (c instanceof SelectionMenuEvent) && ((SelectionMenuEvent) c).getInteraction().getMember().getUser().getId().equals(e.getMember().getUser().getId()),
+                                        act2 -> {
+                                            // TODO: handle the command selection and enabling it
+                                            e.getHook().editOriginal("you picked " + ((SelectionMenuEvent) act2).getInteraction().getValues().get(1)).queue();
+                                        }, 1, TimeUnit.MINUTES, () -> {});
                             }
                         } else {
                             sce.editSelectionMenu(null).queue();
