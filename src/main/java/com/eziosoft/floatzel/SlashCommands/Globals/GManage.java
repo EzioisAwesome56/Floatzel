@@ -120,7 +120,8 @@ public class GManage extends FSlashCommand {
                 // build the menu
                 SelectionMenu.Builder b = SelectionMenu.create("manage:remove");
                 for (String s : gss.getRegistered()){
-                    b.addOption(s, Floatzel.scm.getRegisterable(s).help);
+                    FSlashCommand c = Floatzel.scm.getRegisterable(s);
+                    b.addOption(c.name + ": " + c.help, s);
                 }
                 b.setPlaceholder("List of currently active commands");
                 b.setRequiredRange(1, 1);
