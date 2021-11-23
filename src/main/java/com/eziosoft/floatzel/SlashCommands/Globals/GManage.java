@@ -112,7 +112,6 @@ public class GManage extends FSlashCommand {
                 b.setRequiredRange(1, 1);
                 sce.getHook().editOriginalComponents(ActionRow.of(b.build())).queue();
                 sce.getHook().editOriginal("Please pick a command to enable!").queue();
-                System.out.println(sce.getInteraction().getId());
                 Floatzel.waiter.waitForEvent(Event.class, c -> checkUserAndGuildOrigin(e, c),
                         act2 -> { doRegisterAction(e, act2); }, 1, TimeUnit.MINUTES, () -> Utils.defaultTimeoutAction(sce));
             } else if (sce.getInteraction().getValues().contains("remove")){
