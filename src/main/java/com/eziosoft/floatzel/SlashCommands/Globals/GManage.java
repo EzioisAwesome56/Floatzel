@@ -106,7 +106,7 @@ public class GManage extends FSlashCommand {
                         // this command is already registered, dont let them register it again!
                         continue;
                     }
-                    b.addOption(ent.getValue().name + ": " + ent.getValue().help, ent.getKey());
+                    b.addOption(ent.getValue().name, ent.getKey(), ent.getValue().help);
                 }
                 b.setPlaceholder("list of commands");
                 b.setRequiredRange(1, 1);
@@ -121,17 +121,38 @@ public class GManage extends FSlashCommand {
                 SelectionMenu.Builder b = SelectionMenu.create("manage:remove");
                 for (String s : gss.getRegistered()){
                     FSlashCommand c = Floatzel.scm.getRegisterable(s);
-                    b.addOption(c.name + ": " + c.help, s);
+                    b.addOption(c.name, s, c.help);
                 }
+                b.addOption("Cancel", "cancel", "Cancel this operation");
                 b.setPlaceholder("List of currently active commands");
                 b.setRequiredRange(1, 1);
                 sce.getHook().editOriginalComponents(ActionRow.of(b.build())).queue();
                 sce.getHook().editOriginal("Please pick a command to remove from this list").queue();
-                // TODO: event-wait for the result
+                Floatzel.waiter.waitForEvent(Event.class, c -> checkUserAndGuildOrigin(e, c), act2 -> doRemoveSelectionAction(e, act2),
+                        1, TimeUnit.MINUTES, () -> Utils.defaultTimeoutAction(sce));
             }
         } else {
             sce.editSelectionMenu(null).queue();
             sce.getHook().editOriginal("Error: you're not supposed to choose more then 1 option! Did you break your client?").queue();
+        }
+    }
+
+    private void doRemoveSelectionAction(SlashCommandEvent e, Event ent){
+        SelectionMenuEvent sce = (SelectionMenuEvent) ent;
+        if (sce.getInteraction().getValues().size() == 1){
+            sce.deferEdit().queue();
+            if (sce.getInteraction().getValues().get(0).equals("cancel")){
+                e.getHook().editOriginalComponents().queue();
+                e.getHook().editOriginal("Operation cancelled.").queue();
+            } else {
+                e.getHook().editOriginalComponents().queue();
+                // try to unregister the command
+                boolean win = Floatzel.scm.RemoveGuildCommand(new SlashDataContainer(sce.getInteraction().getValues().get(0), sce.getGuild().getId()));
+                e.getHook().editOriginal(win ? "Command has been removed successfully!" : "Command failed to remove, was it enabled in the first place?").queue();
+            }
+        } else {
+            e.getHook().editOriginalComponents().queue();
+            e.getHook().editOriginal("Error: you're not supposed to choose more then 1 option! Did you break your client?").queue();
         }
     }
 }
