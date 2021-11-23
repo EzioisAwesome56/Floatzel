@@ -62,8 +62,9 @@ public class GManage extends FSlashCommand {
         } else {
             // first, present the user with an option of what action they wish to preform
             SelectionMenu menu = SelectionMenu.create("manage:action")
-                    .addOption("Register: used to enable slash commands", "register")
-                    .addOption("Remove: disable slash commands for this server", "remove")
+                    .addOption("Register", "register", "used to enable slash commands")
+                    .addOption("Remove", "remove", "disable slash commands for this server")
+                    .addOption("Cancel", "cancel", "Cancel this operation")
                     .setRequiredRange(1, 1)
                     .build();
             e.getHook().sendMessage("Please select an action").addActionRow(menu).queue();
@@ -84,6 +85,10 @@ public class GManage extends FSlashCommand {
     private void doRegisterAction(SlashCommandEvent e, Event act){
         SelectionMenuEvent sce = (SelectionMenuEvent) act;
         sce.editSelectionMenu(null).queue();
+        if (sce.getInteraction().getValues().contains("cancel")){
+            e.getHook().editOriginal("Operation cancelled").queue();
+            return;
+        }
         if (sce.getInteraction().getValues().size() > 1){
             sce.getHook().editOriginal("Error: you're not supposed to choose more then 1 option! Did you break your client?").queue();
             return;
@@ -108,6 +113,7 @@ public class GManage extends FSlashCommand {
                     }
                     b.addOption(ent.getValue().name, ent.getKey(), ent.getValue().help);
                 }
+                b.addOption("Cancel", "cancel", "Cancel this operation");
                 b.setPlaceholder("list of commands");
                 b.setRequiredRange(1, 1);
                 sce.getHook().editOriginalComponents(ActionRow.of(b.build())).queue();
@@ -130,6 +136,9 @@ public class GManage extends FSlashCommand {
                 sce.getHook().editOriginal("Please pick a command to remove from this list").queue();
                 Floatzel.waiter.waitForEvent(Event.class, c -> checkUserAndGuildOrigin(e, c), act2 -> doRemoveSelectionAction(e, act2),
                         1, TimeUnit.MINUTES, () -> Utils.defaultTimeoutAction(sce));
+            } else if (sce.getInteraction().getValues().contains("cancel")){
+                e.getHook().editOriginalComponents().queue();
+                e.getHook().editOriginal("Operation cancelled").queue();
             }
         } else {
             sce.editSelectionMenu(null).queue();
