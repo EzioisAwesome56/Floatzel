@@ -9,7 +9,12 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.interactions.components.ActionRow;
+import net.dv8tion.jda.api.interactions.components.Button;
+import net.dv8tion.jda.api.interactions.components.ComponentLayout;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpException;
 
@@ -235,8 +240,14 @@ public class Utils {
         }
     }
 
-    public static void defaultTimeoutAction(SlashCommandEvent e){
-        e.getHook().deleteOriginal().queue();
-        e.getHook().setEphemeral(true).sendMessage("You took too long to pick an option!").queue();
+    public static void defaultTimeoutAction(Event event){
+        String error = "Error: you took too long to respond!";
+        if (event instanceof SelectionMenuEvent){
+            ((SelectionMenuEvent) event).getInteraction().editSelectionMenu(null).queue();
+            ((SelectionMenuEvent) event).getHook().editOriginal(error).queue();
+        } else if (event instanceof SlashCommandEvent){
+            ((SlashCommandEvent) event).getHook().editOriginalComponents().queue();
+            ((SlashCommandEvent) event).getHook().editOriginal(error).queue();
+        }
     }
 }

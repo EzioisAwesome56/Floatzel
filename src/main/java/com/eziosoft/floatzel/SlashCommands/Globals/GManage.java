@@ -81,14 +81,26 @@ public class GManage extends FSlashCommand {
                 && ((SelectionMenuEvent) et).getGuild().getId().equals(e.getGuild().getId());
     }
 
+    private void doRegisterAction(SlashCommandEvent e, Event act){
+        SelectionMenuEvent sce = (SelectionMenuEvent) act;
+        sce.editSelectionMenu(null).queue();
+        if (sce.getInteraction().getValues().size() > 1){
+            sce.getHook().editOriginal("Error: you're not supposed to choose more then 1 option! Did you break your client?").queue();
+            return;
+        }
+        // just call the register function
+        Floatzel.scm.addGuildCmd(new SlashDataContainer(sce.getInteraction().getValues().get(0), sce.getGuild().getId()), Floatzel.scm.getRegisterable(sce.getInteraction().getValues().get(0)));
+        sce.getHook().editOriginal("Command registered successfully!").queue();
+    }
+
     private void doSelectionAction(SlashCommandEvent e, Event act){
+        // get the current guild slash settings
+        GuildSlashSettings gss = Floatzel.scm.getGuildSlashSettings(e.getGuild().getId());
         SelectionMenuEvent sce = (SelectionMenuEvent) act;
         if (sce.getInteraction().getValues().size() == 1) {
             if (sce.getInteraction().getValues().contains("register")) {
                 sce.deferEdit().queue();
                 SelectionMenu.Builder b = SelectionMenu.create("manage:register");
-                // get the current guild slash settings
-                GuildSlashSettings gss = Floatzel.scm.getGuildSlashSettings(e.getGuild().getId());
                 for (Map.Entry<String, FSlashCommand> ent : Floatzel.scm.getAllRegisterables().entrySet()) {
                     if (gss.getRegistered().contains(ent.getKey())) {
                         // this command is already registered, dont let them register it again!
@@ -100,12 +112,22 @@ public class GManage extends FSlashCommand {
                 b.setRequiredRange(1, 1);
                 sce.getHook().editOriginalComponents(ActionRow.of(b.build())).queue();
                 sce.getHook().editOriginal("Please pick a command to enable!").queue();
+                System.out.println(sce.getInteraction().getId());
                 Floatzel.waiter.waitForEvent(Event.class, c -> checkUserAndGuildOrigin(e, c),
-                        act2 -> {
-                            // TODO: handle the command selection and enabling it
-                            sce.editSelectionMenu(null).queue();
-                            sce.getHook().editOriginal("you picked " + ((SelectionMenuEvent) act2).getInteraction().getValues().get(0)).queue();
-                        }, 1, TimeUnit.MINUTES, () -> Utils.defaultTimeoutAction(e));
+                        act2 -> { doRegisterAction(e, act2); }, 1, TimeUnit.MINUTES, () -> Utils.defaultTimeoutAction(sce));
+            } else if (sce.getInteraction().getValues().contains("remove")){
+                // do remove gui here
+                sce.deferEdit().queue();
+                // build the menu
+                SelectionMenu.Builder b = SelectionMenu.create("manage:remove");
+                for (String s : gss.getRegistered()){
+                    b.addOption(s, Floatzel.scm.getRegisterable(s).help);
+                }
+                b.setPlaceholder("List of currently active commands");
+                b.setRequiredRange(1, 1);
+                sce.getHook().editOriginalComponents(ActionRow.of(b.build())).queue();
+                sce.getHook().editOriginal("Please pick a command to remove from this list").queue();
+                // TODO: event-wait for the result
             }
         } else {
             sce.editSelectionMenu(null).queue();
