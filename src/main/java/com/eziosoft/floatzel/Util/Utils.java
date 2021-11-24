@@ -3,30 +3,20 @@ package com.eziosoft.floatzel.Util;
 import com.eziosoft.floatzel.Exception.ImageDownloadException;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.JsonConfig;
+import com.eziosoft.floatzel.Objects.gameTexts;
 import com.eziosoft.floatzel.Res.Files;
 import com.google.gson.Gson;
-import com.jagrosh.jdautilities.command.CommandEvent;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.components.ActionRow;
-import net.dv8tion.jda.api.interactions.components.Button;
-import net.dv8tion.jda.api.interactions.components.ComponentLayout;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpException;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -101,22 +91,6 @@ public class Utils {
         throw new NoSuchMethodException("this method is deprecated!");
     }
 
-    /*public static MessageEmbed buildSmm(Level lvl){
-        EmbedBuilder builder = new EmbedBuilder();
-        builder.setThumbnail(lvl.imgURL());
-        builder.setAuthor(lvl.name(), Util.makeUrl(lvl.id()));
-        builder.setTitle("Level by: "+lvl.author());
-        builder.addField("Difficulty", lvl.difficulty(), true);
-        builder.addField("Level ID", lvl.id(), true);
-        builder.addField("Stars", Integer.toString(lvl.liked()), true);
-        builder.addField("Total Players", Integer.toString(lvl.played()), true);
-        builder.addField("Total Attempts", Integer.toString(lvl.attempts()), true);
-        builder.addField("Total Clears", Integer.toString(lvl.clears()), true);
-        builder.addField("Upload Date", lvl.date(), true);
-        builder.setImage(lvl.fullimgURL());
-        return builder.build();
-    }*/
-
     public static InputStream getResource(String path, String filename){
         return Files.class.getResourceAsStream(path + filename);
     }
@@ -170,9 +144,44 @@ public class Utils {
     // check if the config file exists
     public static boolean configExist(){
         File config = new File("config.json");
-        if (config.exists()){
+        return config.exists();
+    }
+
+    // check to see if the game text file exists
+    public static boolean gameTextExist(){
+        File file = new File("games.json");
+        return file.exists();
+    }
+
+    // make default games.json file
+    public static void makeGames(Gson g){
+        // load defaults
+        Floatzel.gameTexts.loadDefaults();
+        // convert to string
+        String json = g.toJson(Floatzel.gameTexts);
+        // save file
+        try {
+            FileWriter writer = new FileWriter("games.json");
+            writer.write(json);
+            writer.close();
+        } catch (IOException e){
+            System.err.println("ERROR WHILE SAVING GAMES");
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            System.exit(2);
+        }
+    }
+
+    // load the games to play from the file
+    public static boolean loadGames(Gson g){
+        System.out.println("Now loading games file...");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("games.json"));
+            Floatzel.gameTexts = g.fromJson(br, gameTexts.class);
+            br.close();
             return true;
-        } else {
+        } catch (IOException e){
+            e.printStackTrace();
             return false;
         }
     }
@@ -188,8 +197,8 @@ public class Utils {
             writer.write(json);
             writer.close();
         } catch (IOException e){
-            System.out.println("ERROR WHILE SAVING CONFIG");
-            System.out.println(e.getMessage());
+            System.err.println("ERROR WHILE SAVING CONFIG");
+            System.err.println(e.getMessage());
             e.printStackTrace();
             System.exit(2);
         }
