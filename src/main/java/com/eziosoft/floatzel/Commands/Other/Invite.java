@@ -27,6 +27,6 @@ public class Invite extends FSlashableCommand {
 
     @Override
     public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
-        event.getHook().sendMessage(genMsg()).queue();
+        event.getHook().editOriginal(genMsg()).queue();
     }
 }

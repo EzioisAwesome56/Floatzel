@@ -22,6 +22,6 @@ public class Random extends FSlashableCommand {
 
     @Override
     public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
-        event.getHook().sendMessage(Integer.toString(random.nextInt())).queue();
+        event.getHook().editOriginal(Integer.toString(random.nextInt())).queue();
     }
 }
