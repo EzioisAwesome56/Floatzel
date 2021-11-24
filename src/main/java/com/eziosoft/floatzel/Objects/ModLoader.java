@@ -2,6 +2,9 @@ package com.eziosoft.floatzel.Objects;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.SlashCommands.FSlashCommand;
+import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
+import com.eziosoft.floatzel.SlashCommands.FSlashableImageCommand;
 import com.eziosoft.floatzel.Util.Database;
 import com.google.gson.Gson;
 import org.apache.commons.io.FilenameUtils;
@@ -28,6 +31,7 @@ public class ModLoader {
     public int getTotalMods(){
         return mfolder.length;
     }
+
 
     public ModLoader(String path) throws IOException {
         System.out.println("Eziosoft Modloader now starting up...");
@@ -76,17 +80,17 @@ public class ModLoader {
             switch (mod.getType()) {
                 case "command": {
                     System.out.println("Loading mod mainclass " + mod.getMainclass());
-                    Class toLoad = Class.forName(mod.getMainclass(), true, child);
+                    Class<?> toLoad = Class.forName(mod.getMainclass(), true, child);
                     Object loadedMod = toLoad.getConstructor().newInstance();
                     Floatzel.commandClient.addCommand((FCommand) loadedMod);
                     break;
                 }
-                case "database":
+                case "database": {
                     if (dbloaded) {
                         System.out.println("Database already loaded! skipping loading class " + mod.getMainclass());
                     } else {
                         System.out.println("Now Loading Database plugin from main class " + mod.getMainclass() + "...");
-                        Class toLoad = Class.forName(mod.getMainclass(), true, child);
+                        Class<?> toLoad = Class.forName(mod.getMainclass(), true, child);
                         Object dbc = toLoad.getConstructor().newInstance();
                         // load it as a db module
                         Database.dbdriver = new DatabaseModule((GenaricDatabase) dbc);
@@ -94,13 +98,24 @@ public class ModLoader {
                         dbloaded = true;
                     }
                     break;
+                }
                 case "commands": {
                     System.out.println("--- START BATCH LOAD ---");
-                    System.out.println("Batch loading commands as defined by " + mod.getMainclass());
-                    // first we need to get the list of commands loaded
-                    Class toLoad = Class.forName(mod.getMainclass(), true, child);
-                    Object loadedclass = toLoad.getConstructor().newInstance();
-                    String[] clases = (String[]) toLoad.getDeclaredMethod("getClasses").invoke(loadedclass);
+                    String[] clases;
+                    Class<?> toLoad;
+                    Object loadedclass;
+                    if (mod.getMainclasses() == null){
+                        System.err.println("WARNING: Providing main classes via a function call will be removed in a future release!");
+                        System.err.println("Please update your mod to include the main classes in an array in the modinfo.json file!");
+                        System.out.println("[LEGACY COMPAT] Batch loading commands as defined by " + mod.getMainclass());
+                        // first we need to get the list of commands loaded
+                        toLoad = Class.forName(mod.getMainclass(), true, child);
+                        loadedclass = toLoad.getConstructor().newInstance();
+                        clases = (String[]) toLoad.getDeclaredMethod("getClasses").invoke(loadedclass);
+                    } else {
+                        System.out.println("Loading commands as defined in modinfo.json");
+                        clases = mod.getMainclasses().toArray(new String[]{});
+                    }
                     for (String mainclass : clases) {
                         System.out.println("Loading " + mainclass);
                         toLoad = Class.forName(mainclass, true, child);
@@ -110,9 +125,46 @@ public class ModLoader {
                     System.out.println("--- END BATCH LOAD ---");
                     break;
                 }
+                case "slashactions": {
+                    System.out.println("--- START BATCH LOAD ---");
+                    // start loading them
+                    if (mod.getMainclasses() == null){
+                        System.err.println("No mainclass array defined for mod! skipping!");
+                        break;
+                    }
+                    Class<?> toLoad;
+                    Object loadedClass;
+                    for (String classname : mod.getMainclasses()){
+                        System.out.println("Loading " + classname);
+                        toLoad = Class.forName(classname, true, child);
+                        loadedClass = toLoad.getConstructor().newInstance();
+                        // check what kind of action it is
+                        if (loadedClass instanceof FSlashableCommand){
+                            Floatzel.dualRegister((FSlashableCommand) loadedClass);
+                        } else if (loadedClass instanceof FSlashableImageCommand){
+                            Floatzel.dualRegisterImage((FSlashableImageCommand) loadedClass);
+                        } else {
+                            System.err.println("ERROR: class " + classname + " is not of a supported action type, skipping...");
+                        }
+                    }
+                    System.out.println("--- END BATCH LOAD ---");
+                    break;
+                }
+                case "slashcommand": {
+                    System.out.println("Loading registerable slashcommand from " + mod.getMainclass());
+                    Class<?> toLoad = Class.forName(mod.getMainclass(), true, child);
+                    Object loadedClass = toLoad.getConstructor().newInstance();
+                    if (!(loadedClass instanceof FSlashCommand)){
+                        System.err.println("ERROR: loaded class is not a valid slash command! skipping...");
+                    } else {
+                        FSlashCommand cmd = (FSlashCommand) loadedClass;
+                        Floatzel.scm.addRegisterable(cmd.name, cmd);
+                    }
+                    break;
+                }
                 case "customInit": {
                     System.out.println("Mod has requested custom init routine, loading and running...");
-                    Class toload = Class.forName(mod.getMainclass(), true, child);
+                    Class<?> toload = Class.forName(mod.getMainclass(), true, child);
                     Object loadedclass = toload.getConstructor().newInstance();
                     toload.getDeclaredMethod("customInit").invoke(loadedclass);
                     break;
@@ -131,8 +183,4 @@ public class ModLoader {
             }
         }
     }
-
-
-
-
 }
