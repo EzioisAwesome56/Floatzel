@@ -1,10 +1,14 @@
 package com.eziosoft.floatzel.Objects;
 
+import com.google.gson.annotations.Expose;
 import net.dv8tion.jda.api.entities.Emoji;
 
 public class SimpleEmoji {
+    @Expose
     private String name;
+    @Expose
     private Long id;
+    @Expose
     private boolean animated;
 
     public SimpleEmoji(String oof) {

@@ -7,9 +7,6 @@ import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashableCommandEntry;
 import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Utils;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Emoji;
-import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -17,7 +14,6 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.components.selections.SelectionMenu;
 
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class ImagePorts extends FSlashCommand {
@@ -34,8 +30,7 @@ public class ImagePorts extends FSlashCommand {
         if (e.getOption("cmdname") != null) {
             SlashableCommandEntry sce = new SlashableCommandEntry(SlashActionGroup.IMAGE, e.getOption("cmdname").getAsString());
             if (Floatzel.scm.hasSlashableImageAction(sce)) {
-                int index = new Random().nextInt(Floatzel.conf.getLoadEmotes().size());
-                e.getHook().sendMessage(Floatzel.conf.getLoadEmotes().get(index).getEmoji() + " now processing image...").queue();
+                e.getHook().sendMessage(Floatzel.emojiManager.getRandomLoadEmote() + " now processing image...").queue();
                 Floatzel.scm.getSlashImageAction(sce).SlashImageCmdRun(e);
             } else {
                 e.getHook().sendMessage("Error: that command does not exist!").queue();
@@ -76,8 +71,7 @@ public class ImagePorts extends FSlashCommand {
             return;
         }
         // get a random emote for loading gif thing
-        int index = new Random().nextInt(Floatzel.conf.getLoadEmotes().size());
-        sce.getHook().editOriginal(Floatzel.conf.getLoadEmotes().get(index).getEmoji() + " now processing image...").queue();
+        sce.getHook().editOriginal(Floatzel.emojiManager.getRandomLoadEmote() + " now processing image...").queue();
         Floatzel.scm.getSlashImageAction(new SlashableCommandEntry(SlashActionGroup.IMAGE, sce.getInteraction().getValues().get(0))).SlashImageCmdRun(e);
     }
 }

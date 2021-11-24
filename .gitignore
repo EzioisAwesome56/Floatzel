@@ -6,5 +6,6 @@ src/main/java/com/eziosoft/floatzel/Config.java
 floatzel.db
 config.json
 games.json
+emoji.json
 plugins/
 mods/

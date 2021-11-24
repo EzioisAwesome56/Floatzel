@@ -17,6 +17,7 @@ import com.eziosoft.floatzel.Commands.Stock.StockSell;
 import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
+import com.eziosoft.floatzel.Objects.EmojiManager;
 import com.eziosoft.floatzel.Objects.ModLoader;
 import com.eziosoft.floatzel.Objects.gameTexts;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
@@ -44,6 +45,7 @@ public class Floatzel {
     public static JsonConfig conf = new JsonConfig();
     public static gameTexts gameTexts = new gameTexts();
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    public static EmojiManager emojiManager = new EmojiManager();
 
     public static boolean joke = false;
     public static String jokename = "Cirno";
@@ -120,6 +122,9 @@ public class Floatzel {
                 System.out.println("Games loaded!");
             }
         }
+
+        // init the emoji manager
+        emojiManager.initilize();
 
         // start up the mod loader
         try {
