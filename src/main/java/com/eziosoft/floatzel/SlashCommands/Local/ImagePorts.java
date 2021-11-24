@@ -34,6 +34,8 @@ public class ImagePorts extends FSlashCommand {
         if (e.getOption("cmdname") != null) {
             SlashableCommandEntry sce = new SlashableCommandEntry(SlashActionGroup.IMAGE, e.getOption("cmdname").getAsString());
             if (Floatzel.scm.hasSlashableImageAction(sce)) {
+                int index = new Random().nextInt(Floatzel.conf.getLoadEmotes().size());
+                e.getHook().sendMessage(Floatzel.conf.getLoadEmotes().get(index).getEmoji() + " now processing image...").queue();
                 Floatzel.scm.getSlashImageAction(sce).SlashImageCmdRun(e);
             } else {
                 e.getHook().sendMessage("Error: that command does not exist!").queue();
@@ -48,7 +50,8 @@ public class ImagePorts extends FSlashCommand {
             men.addOption("Cancel", "cancel", "Cancel this operation");
             men.setPlaceholder("image effects...");
             men.setRequiredRange(1, 1);
-            e.getHook().sendMessage("Please select what effect you want to apply to your image").addActionRow(men.build()).queue();
+            e.getHook().sendMessage("Please select what effect you want to apply to your image\n" +
+                    "Protip: if you dont like this menu, you can supply the effect name to the option \"cmdname\" on this command!").addActionRow(men.build()).queue();
             Floatzel.waiter.waitForEvent(Event.class, c -> doInteractionChecks(c, e), act -> doImageAction(e, act), 1, TimeUnit.MINUTES, () -> Utils.defaultTimeoutAction(e));
         }
     }
