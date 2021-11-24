@@ -20,6 +20,7 @@ public class ImageTest extends FCommand {
 
     @Override
     protected void cmdrun(CommandEvent event) throws InterruptedException, ExecutionException {
+        event.reply("Notice: this command has not been updated in a very long time. it will probably be removed in a future update");
         if (event.getMessage().getAttachments().size() < 1) {
             return;
         }
