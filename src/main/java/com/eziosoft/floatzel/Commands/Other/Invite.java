@@ -22,7 +22,7 @@ public class Invite extends FSlashableCommand {
     }
 
     private String genMsg(){
-        return "https://discord.com/api/oauth2/authorize?client_id=" + Floatzel.conf.getClientid() + "&permissions=0&scope=bot%20applications.commands";
+        return "https://discord.com/api/oauth2/authorize?client_id=" + Floatzel.conf.getClientid() + "&permissions=277096033280&scope=bot%20applications.commands";
     }
 
     @Override
