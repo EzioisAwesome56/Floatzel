@@ -38,8 +38,8 @@ public class Reverse extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
+    public void SlashCmdRun(SlashCommandEvent event) {
         String card = getFileName();
-        event.getHook().sendFile(getCard(card), "reverse." + Utils.getFileType(card)).queue();
+        event.getHook().editOriginal(getCard(card), "reverse." + Utils.getFileType(card)).queue();
     }
 }

@@ -49,16 +49,20 @@ public class Cow extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
-        if (stuff.length < 1){
-            event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{"moooooo"}) + "\n```").queue();
-        } else if (stuff[0].length() > 200){
-            event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{"that is tooooooo long!"}) + "\n```").queue();
+    public void SlashCmdRun(SlashCommandEvent event) {
+        if (event.getOption("arg") == null){
+            event.getHook().editOriginal("```\n" + Cowsay.say(new String[]{"moooooo"}) + "\n```").queue();
+        } else if (event.getOption("arg").getAsString().length() > 200){
+            event.getHook().editOriginal("```\n" + Cowsay.say(new String[]{"that is tooooooo long!"}) + "\n```").queue();
         } else {
             if (event.getOption("cow") != null){
-                event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{"-f", event.getOption("cow").getAsString(), stuff[0]}) + "\n```").queue();
+                if (event.getOption("arg") != null) {
+                    event.getHook().editOriginal("```\n" + Cowsay.say(new String[]{"-f", event.getOption("cow").getAsString(), event.getOption("arg").getAsString()}) + "\n```").queue();
+                } else {
+                    event.getHook().editOriginal("```\n" + Cowsay.say(new String[]{"-f", event.getOption("cow").getAsString(), "moo, you didn't tell me what to say in the \"arg\" option!"}) + "\n```").queue();
+                }
             } else {
-                event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{stuff[0]}) + "\n```").queue();
+                event.getHook().editOriginal("```\n" + Cowsay.say(new String[]{event.getOption("arg").getAsString()}) + "\n```").queue();
             }
         }
     }

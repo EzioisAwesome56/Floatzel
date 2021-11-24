@@ -29,12 +29,11 @@ public class Shit8ball extends FSlashableCommand {
     }
 
     private String genMsg(String q){
+        q = q.replace("@everyone", "stupid ping").replace("@here", "stupid ping");
         Random random = new Random();
         // yes responses
         String[] notassball = {"sure!", "no", "heck off and try again", "I don't care mate", "go away", "yes, now leave", "no no no no no no",
                 "damn right", "nope!", "fbi's at my door, please try again", "why are you asking me???????"};
-        // generate a random number
-        int thonk = random.nextInt(16)+1;
         // get the response
         String shit;
         String response;
@@ -46,14 +45,14 @@ public class Shit8ball extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
-        if (stuff.length < 1){
-            event.getHook().sendMessage("You did not ask me a question!").queue();
+    public void SlashCmdRun(SlashCommandEvent event) {
+        if (event.getOption("arg") == null){
+            event.getHook().editOriginal("You did not ask me a question!").queue();
             return;
-        }  else if (stuff[0].length() > 200){
-            event.getHook().sendMessage("Error: that message is too long!").queue();
+        }  else if (event.getOption("arg").getAsString().length() > 200){
+            event.getHook().editOriginal("Error: that message is too long!").queue();
             return;
         }
-        event.getHook().sendMessage(genMsg(stuff[0])).queue();
+        event.getHook().editOriginal(genMsg(event.getOption("arg").getAsString())).queue();
     }
 }

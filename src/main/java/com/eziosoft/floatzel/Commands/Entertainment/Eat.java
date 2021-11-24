@@ -32,6 +32,7 @@ public class Eat extends FSlashableCommand {
     }
 
     private String genMsg(String food){
+        food = food.replace("@everyone", "stupid ping").replace("@here", "stupid ping");
         String[] notassthonk = {"Hey wait this is your foot!",
                 "This tastes like a horse on some heavy drugs",
                 "You may want to consider hiring a better chef",
@@ -61,14 +62,14 @@ public class Eat extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
+    public void SlashCmdRun(SlashCommandEvent event) {
         // do stuff here
-        if (stuff.length < 1){
-            event.getHook().sendMessage("You did not provide any food!").queue();
-        } else if (stuff[0].length() > 200){
-            event.getHook().sendMessage("whoa, this is too long to be food").queue();
+        if (event.getOption("arg") == null){
+            event.getHook().editOriginal("You did not provide any food!").queue();
+        } else if (event.getOption("arg").getAsString().length() > 200){
+            event.getHook().editOriginal("whoa, this is too long to be food").queue();
         } else {
-            event.getHook().sendMessage(genMsg(stuff[0])).queue();
+            event.getHook().editOriginal(genMsg(event.getOption("arg").getAsString())).queue();
         }
     }
 }

@@ -30,6 +30,7 @@ public class Girlfriend extends FSlashableCommand {
     }
 
     private String genMsg(String in){
+        in = in.replace("@everyone", "stupid ping").replace("@here", "stupid ping");
         // ratings
         String[] notassrate = {"Words cannot describe how bad this person is",
                 "I don't think that's a girl, yo",
@@ -57,13 +58,13 @@ public class Girlfriend extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
-        if (stuff.length < 1){
-            event.getHook().sendMessage("You did not provide anything for me to rate!").queue();
-        } else if (stuff[0].length() > 200){
-            event.getHook().sendMessage("that is simply too  long for me to rate!").queue();
+    public void SlashCmdRun(SlashCommandEvent event) {
+        if (event.getOption("arg") == null){
+            event.getHook().editOriginal("You did not provide anything for me to rate!").queue();
+        } else if (event.getOption("arg").getAsString().length() > 200){
+            event.getHook().editOriginal("that is simply too  long for me to rate!").queue();
         } else {
-            event.getHook().sendMessage(genMsg(stuff[0])).queue();
+            event.getHook().editOriginal(genMsg(event.getOption("arg").getAsString())).queue();
         }
     }
 }

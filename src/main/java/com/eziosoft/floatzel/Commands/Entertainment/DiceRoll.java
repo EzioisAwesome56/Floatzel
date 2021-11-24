@@ -23,8 +23,8 @@ public class DiceRoll extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
+    public void SlashCmdRun(SlashCommandEvent event) {
         int h = random.nextInt(6) + 1;
-        event.getHook().sendMessage(Integer.toString(h)).queue();
+        event.getHook().editOriginal(Integer.toString(h)).queue();
     }
 }

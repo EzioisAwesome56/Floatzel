@@ -15,7 +15,7 @@ public class FunPorts extends FSlashCommand {
         help = "Runs floatzel's normal commands from the \"fun\" category";
         ephemeral = false;
         hasoptions = true;
-        optlist.add(new SlashOption(OptionType.STRING, "name of command to run", "cmdname", true));
+        optlist.add(new SlashOption(OptionType.STRING, "name of command to run", "cmdname"));
         optlist.add(new SlashOption(OptionType.STRING, "additional arguments for command", "arg"));
         optlist.add(new SlashOption(OptionType.STRING, "name of cowfile for use with cowsay", "cow"));
     }
@@ -23,11 +23,7 @@ public class FunPorts extends FSlashCommand {
     protected void execute(SlashCommandEvent e) {
         SlashableCommandEntry sce = new SlashableCommandEntry(SlashActionGroup.FUN, e.getOption("cmdname").getAsString());
         if (Floatzel.scm.hasSlashAction(sce)){
-            if (e.getOption("arg") != null){
-                Floatzel.scm.getSlashAction(sce).SlashCmdRun(e, e.getOption("arg").getAsString());
-            } else {
-                Floatzel.scm.getSlashAction(sce).SlashCmdRun(e);
-            }
+            Floatzel.scm.getSlashAction(sce).SlashCmdRun(e);
         } else {
             e.getHook().sendMessage("Error: that command does not exist!").queue();
         }
