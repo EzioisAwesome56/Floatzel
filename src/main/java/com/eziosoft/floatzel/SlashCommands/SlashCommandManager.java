@@ -53,24 +53,19 @@ public class SlashCommandManager extends ListenerAdapter {
     private Map<SlashableCommandEntry, FSlashableImageCommand> imageActions = new HashMap<>();
 
     // getting and checking for actions
-    public void addSlashableAction(String name, FSlashableCommand fsc){
-        this.actions.put(new SlashableCommandEntry(fsc.sag, name), fsc);
-    }
+    public void addSlashableAction(String name, FSlashableCommand fsc){this.actions.put(new SlashableCommandEntry(fsc.sag, name), fsc);}
     public boolean hasSlashAction(SlashableCommandEntry sce){
         return this.actions.containsKey(sce);
     }
     public FSlashableCommand getSlashAction(SlashableCommandEntry sce){
         return this.actions.get(sce);
     }
-    public void addSlashableImageAction(String name, FSlashableImageCommand fsic){
-        this.imageActions.put(new SlashableCommandEntry(fsic.sag, name), fsic);
-    }
+    public void addSlashableImageAction(String name, FSlashableImageCommand fsic){this.imageActions.put(new SlashableCommandEntry(fsic.sag, name), fsic);}
     public boolean hasSlashableImageAction(SlashableCommandEntry sce){
         return this.imageActions.containsKey(sce);
     }
-    public FSlashableImageCommand getSlashImageAction(SlashableCommandEntry sce){
-        return this.imageActions.get(sce);
-    }
+    public FSlashableImageCommand getSlashImageAction(SlashableCommandEntry sce){return this.imageActions.get(sce);}
+    public Set<Map.Entry<SlashableCommandEntry, FSlashableImageCommand>> getImageActions(){ return this.imageActions.entrySet(); }
 
 
 

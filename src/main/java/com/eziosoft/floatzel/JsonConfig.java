@@ -1,5 +1,7 @@
 package com.eziosoft.floatzel;
 
+import com.eziosoft.floatzel.Objects.SimpleEmoji;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,6 +37,8 @@ public class JsonConfig {
     // slack shit
     private String slackbot;
     private boolean enslack;
+    // custom emoji shit
+    private List<SimpleEmoji> loadEmotes;
 
     public void loadDefaults(){
         System.out.println("Loading default configuration data...");
@@ -68,6 +72,8 @@ public class JsonConfig {
         // slack shit
         this.slackbot = "Slack api token (Serves no purpose)";
         this.enslack = false;
+        // emote shit
+        this.loadEmotes = Arrays.asList(new SimpleEmoji("put some cool animated emotes here!"));
         return;
     }
 
@@ -145,4 +151,6 @@ public class JsonConfig {
     public boolean getTwitterTog(){
         return this.twittertog;
     }
+    // load emotes
+    public List<SimpleEmoji> getLoadEmotes(){ return this.loadEmotes;}
 }

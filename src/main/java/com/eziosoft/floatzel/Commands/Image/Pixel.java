@@ -69,7 +69,7 @@ public class Pixel extends FSlashableImageCommand {
     @Override
     protected void SlashCmdRun(SlashCommandEvent event, BufferedImage stuff) {
         try {
-            event.getHook().sendFile(genImage(stuff), "single_pixel_big.png").queue();
+            event.getHook().editOriginal(genImage(stuff), "single_pixel_big.png").queue();
         } catch (Exception e){
             Error.CatchSlash(e, event);
         }
