@@ -6,6 +6,7 @@ import com.eziosoft.floatzel.SlashCommands.Objects.SlashDataContainer;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashableCommandEntry;
 import com.eziosoft.floatzel.Util.Database;
+import com.eziosoft.floatzel.Util.Error;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -42,6 +43,7 @@ public class SlashCommandManager extends ListenerAdapter {
      */
     private final Map<String, GuildSlashSettings> settings = new HashMap<String, GuildSlashSettings>();
     public GuildSlashSettings getGuildSlashSettings(String id){ return this.settings.get(id); }
+    public boolean hasSlashSettings(String id){ return  this.settings.containsKey(id); }
 
 
     /* slashable commands, which are normal commands with slash functionality,
@@ -172,9 +174,17 @@ public class SlashCommandManager extends ListenerAdapter {
             for (SlashOption so : fsc.optlist){
                 cca = cca.addOption(so.getOptype(), so.getName(), so.getHelp(), so.isRequired());
             }
-            cca.queue();
+            try {
+                cca.queue();
+            } catch (Exception e){
+                Error.CatchOld(e);
+            }
         } else {
-            Floatzel.jda.getGuildById(sdc.getGuildid()).upsertCommand(sdc.getName(), fsc.help).queue();
+            try {
+                Floatzel.jda.getGuildById(sdc.getGuildid()).upsertCommand(sdc.getName(), fsc.help).queue();
+            } catch (Exception e){
+                Error.CatchOld(e);
+            }
         }
     }
 

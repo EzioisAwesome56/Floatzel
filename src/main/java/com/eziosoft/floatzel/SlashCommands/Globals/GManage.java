@@ -100,16 +100,22 @@ public class GManage extends FSlashCommand {
 
     private void doSelectionAction(SlashCommandEvent e, Event act){
         // get the current guild slash settings
-        GuildSlashSettings gss = Floatzel.scm.getGuildSlashSettings(e.getGuild().getId());
+        boolean hasSettings = Floatzel.scm.hasSlashSettings(e.getGuild().getId());
+        GuildSlashSettings gss = null;
+        if (hasSettings){
+            gss = Floatzel.scm.getGuildSlashSettings(e.getGuild().getId());
+        }
         SelectionMenuEvent sce = (SelectionMenuEvent) act;
         if (sce.getInteraction().getValues().size() == 1) {
             if (sce.getInteraction().getValues().contains("register")) {
                 sce.deferEdit().queue();
                 SelectionMenu.Builder b = SelectionMenu.create("manage:register");
                 for (Map.Entry<String, FSlashCommand> ent : Floatzel.scm.getAllRegisterables().entrySet()) {
-                    if (gss.getRegistered().contains(ent.getKey())) {
-                        // this command is already registered, dont let them register it again!
-                        continue;
+                    if (hasSettings) {
+                        if (gss.getRegistered().contains(ent.getKey())) {
+                            // this command is already registered, dont let them register it again!
+                            continue;
+                        }
                     }
                     b.addOption(ent.getValue().name, ent.getKey(), ent.getValue().help);
                 }
@@ -124,18 +130,27 @@ public class GManage extends FSlashCommand {
                 // do remove gui here
                 sce.deferEdit().queue();
                 // build the menu
-                SelectionMenu.Builder b = SelectionMenu.create("manage:remove");
-                for (String s : gss.getRegistered()){
-                    FSlashCommand c = Floatzel.scm.getRegisterable(s);
-                    b.addOption(c.name, s, c.help);
+                if (hasSettings) {
+                    SelectionMenu.Builder b = SelectionMenu.create("manage:remove");
+                    if (gss.getRegistered().size() < 1){
+                        sce.getHook().editOriginal("This guild has no commands to disable!").queue();
+                        return;
+                    }
+                    for (String s : gss.getRegistered()) {
+                        FSlashCommand c = Floatzel.scm.getRegisterable(s);
+                        b.addOption(c.name, s, c.help);
+                    }
+                    b.addOption("Cancel", "cancel", "Cancel this operation");
+                    b.setPlaceholder("List of currently active commands");
+                    b.setRequiredRange(1, 1);
+                    sce.getHook().editOriginalComponents(ActionRow.of(b.build())).queue();
+                    sce.getHook().editOriginal("Please pick a command to remove from this list").queue();
+                    Floatzel.waiter.waitForEvent(Event.class, c -> checkUserAndGuildOrigin(e, c), act2 -> doRemoveSelectionAction(e, act2),
+                            1, TimeUnit.MINUTES, () -> Utils.defaultTimeoutAction(sce));
+                } else {
+                    sce.getHook().editOriginal("This guild has no commands to disable!").queue();
+                    return;
                 }
-                b.addOption("Cancel", "cancel", "Cancel this operation");
-                b.setPlaceholder("List of currently active commands");
-                b.setRequiredRange(1, 1);
-                sce.getHook().editOriginalComponents(ActionRow.of(b.build())).queue();
-                sce.getHook().editOriginal("Please pick a command to remove from this list").queue();
-                Floatzel.waiter.waitForEvent(Event.class, c -> checkUserAndGuildOrigin(e, c), act2 -> doRemoveSelectionAction(e, act2),
-                        1, TimeUnit.MINUTES, () -> Utils.defaultTimeoutAction(sce));
             } else if (sce.getInteraction().getValues().contains("cancel")){
                 e.getHook().editOriginalComponents().queue();
                 e.getHook().editOriginal("Operation cancelled").queue();
