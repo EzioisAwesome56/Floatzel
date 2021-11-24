@@ -68,6 +68,7 @@ public class SlashCommandManager extends ListenerAdapter {
     }
     public FSlashableImageCommand getSlashImageAction(SlashableCommandEntry sce){return this.imageActions.get(sce);}
     public Set<Map.Entry<SlashableCommandEntry, FSlashableImageCommand>> getImageActions(){ return this.imageActions.entrySet(); }
+    public Set<Map.Entry<SlashableCommandEntry, FSlashableCommand>> getActions(){ return this.actions.entrySet(); }
 
 
 
