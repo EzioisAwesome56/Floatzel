@@ -22,6 +22,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class TwitterManager extends ListenerAdapter {
+    // TODO: go and yeet a lot of this; some of shit hasnt worked in y e a r s
 
     // stuff from kekbot we probably need
     private static Instant lastTweet;
