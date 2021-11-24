@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Cow extends FSlashableCommand {
     public Cow(){
         name = "cowsay";
-        description = "provide a cowfile after -f for a custom cow. ex cowsay -f tux for tux instead of cow\nsee here for list of cows:\nhttps://github.com/schacon/cowsay/tree/master/cows";
+        description = "make a ascii cow say something";
         aliases = Utils.makeAlias("cow");
         category = fun;
         sag = SlashActionGroup.FUN;
