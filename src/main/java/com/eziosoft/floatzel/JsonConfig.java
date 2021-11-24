@@ -39,6 +39,7 @@ public class JsonConfig {
     private boolean enslack;
     // custom emoji shit
     private List<SimpleEmoji> loadEmotes;
+    private String clientid;
 
     public void loadDefaults(){
         System.out.println("Loading default configuration data...");
@@ -74,6 +75,7 @@ public class JsonConfig {
         this.enslack = false;
         // emote shit
         this.loadEmotes = Arrays.asList(new SimpleEmoji("put some cool animated emotes here!"));
+        this.clientid = "put your bot account client id here";
         return;
     }
 
@@ -153,4 +155,6 @@ public class JsonConfig {
     }
     // load emotes
     public List<SimpleEmoji> getLoadEmotes(){ return this.loadEmotes;}
+    // get client id
+    public String getClientid() { return clientid; }
 }

@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.Commands.FCommand;
+import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
 import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
 import com.jagrosh.jdautilities.command.Command;
@@ -21,8 +22,7 @@ public class Invite extends FSlashableCommand {
     }
 
     private String genMsg(){
-        // TODO: do this
-        return "this command is getting a rewrite";
+        return "https://discord.com/api/oauth2/authorize?client_id=" + Floatzel.conf.getClientid() + "&permissions=0&scope=bot%20applications.commands";
     }
 
     @Override
