@@ -40,7 +40,7 @@ public interface GenaricDatabase {
 
     GuildSlashSettings[] loadAllSlashSettings();
 
-    void LowLevelDB_Save(Object in, Class<?> type, String table, String pkey);
+    void LowLevelDB_Save(Object in, Class<?> type, String table);
 
     Object LowLevelDB_Load(String table, String pkey, Class<?> type);
 }

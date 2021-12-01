@@ -98,7 +98,7 @@ public class FallbackDB implements GenaricDatabase{
     }
 
     @Override
-    public void LowLevelDB_Save(Object in, Class<?> type, String table, String pkey) {
+    public void LowLevelDB_Save(Object in, Class<?> type, String table) {
         return;
     }
 
