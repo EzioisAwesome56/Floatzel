@@ -159,4 +159,10 @@ public class DatabaseModule {
     public GuildSlashSettings[] loadAllSlashSettings(){
         return this.driver.loadAllSlashSettings();
     }
+
+    /**
+     * Get the driver directly for advanced operations
+     * @return database driver class
+     */
+    public GenaricDatabase getDriver(){ return this.driver; }
 }

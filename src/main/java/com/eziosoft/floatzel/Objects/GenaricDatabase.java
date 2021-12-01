@@ -39,4 +39,8 @@ public interface GenaricDatabase {
     void saveSlashGuildSettings(GuildSlashSettings gss);
 
     GuildSlashSettings[] loadAllSlashSettings();
+
+    void LowLevelDB_Save(Object in, Class<?> type, String table, String pkey);
+
+    Object LowLevelDB_Load(String table, String pkey, Class<?> type);
 }

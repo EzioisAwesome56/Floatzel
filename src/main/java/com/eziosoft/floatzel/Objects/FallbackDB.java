@@ -96,4 +96,14 @@ public class FallbackDB implements GenaricDatabase{
     public GuildSlashSettings[] loadAllSlashSettings() {
         return new GuildSlashSettings[0];
     }
+
+    @Override
+    public void LowLevelDB_Save(Object in, Class<?> type, String table, String pkey) {
+        return;
+    }
+
+    @Override
+    public Object LowLevelDB_Load(String table, String pkey, Class<?> type) {
+        return null;
+    }
 }
