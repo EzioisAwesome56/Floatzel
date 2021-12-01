@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 public class Boyfriend extends FSlashableCommand {
     public Boyfriend(){
         name = "bf";
-        description = "Rates your a boyfriend";
+        description = "Rates your boyfriend";
         category = fun;
         sag = SlashActionGroup.FUN;
     }
@@ -30,6 +30,7 @@ public class Boyfriend extends FSlashableCommand {
     }
 
     private String genMsg(String in){
+        in = in.replace("@everyone", "stupid ping").replace("@here", "stupid ping");
         // rattings for if asshole mode is off
         String[] notassrate = {"I don't think this is a boy...",
                 "This guy, well, isn't great",
@@ -57,13 +58,13 @@ public class Boyfriend extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
-        if (stuff.length < 1){
-            event.getHook().sendMessage("You did not provide anything for me to rate!").queue();
-        } else if (stuff[0].length() > 200){
-            event.getHook().sendMessage("That is far to long for me to rate!").queue();
+    public void SlashCmdRun(SlashCommandEvent event) {
+        if (event.getOption("arg") == null){
+            event.getHook().editOriginal("You did not provide anything for me to rate!").queue();
+        } else if (event.getOption("arg").getAsString().length() > 200){
+            event.getHook().editOriginal("That is far to long for me to rate!").queue();
         } else {
-            event.getHook().sendMessage(genMsg(stuff[0])).queue();
+            event.getHook().editOriginal(genMsg(event.getOption("arg").getAsString())).queue();
         }
     }
 }

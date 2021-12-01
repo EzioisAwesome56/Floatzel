@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Cow extends FSlashableCommand {
     public Cow(){
         name = "cowsay";
-        description = "provide a cowfile after -f for a custom cow. ex cowsay -f tux for tux instead of cow\nsee here for list of cows:\nhttps://github.com/schacon/cowsay/tree/master/cows";
+        description = "make a ascii cow say something";
         aliases = Utils.makeAlias("cow");
         category = fun;
         sag = SlashActionGroup.FUN;
@@ -49,16 +49,20 @@ public class Cow extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
-        if (stuff.length < 1){
-            event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{"moooooo"}) + "\n```").queue();
-        } else if (stuff[0].length() > 200){
-            event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{"that is tooooooo long!"}) + "\n```").queue();
+    public void SlashCmdRun(SlashCommandEvent event) {
+        if (event.getOption("arg") == null){
+            event.getHook().editOriginal("```\n" + Cowsay.say(new String[]{"moooooo, you forgot to tell me what to say in the \"arg\" option!"}) + "\n```").queue();
+        } else if (event.getOption("arg").getAsString().length() > 200){
+            event.getHook().editOriginal("```\n" + Cowsay.say(new String[]{"that is tooooooo long!"}) + "\n```").queue();
         } else {
             if (event.getOption("cow") != null){
-                event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{"-f", event.getOption("cow").getAsString(), stuff[0]}) + "\n```").queue();
+                if (event.getOption("arg") != null) {
+                    event.getHook().editOriginal("```\n" + Cowsay.say(new String[]{"-f", event.getOption("cow").getAsString(), event.getOption("arg").getAsString()}) + "\n```").queue();
+                } else {
+                    event.getHook().editOriginal("```\n" + Cowsay.say(new String[]{"-f", event.getOption("cow").getAsString(), "moo, you didn't tell me what to say in the \"arg\" option!"}) + "\n```").queue();
+                }
             } else {
-                event.getHook().sendMessage("```\n" + Cowsay.say(new String[]{stuff[0]}) + "\n```").queue();
+                event.getHook().editOriginal("```\n" + Cowsay.say(new String[]{event.getOption("arg").getAsString()}) + "\n```").queue();
             }
         }
     }

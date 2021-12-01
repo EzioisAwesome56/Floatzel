@@ -35,7 +35,6 @@ public class Pixel extends FSlashableImageCommand {
 
     private byte[] genImage(BufferedImage in) throws IOException, InterruptedException, IM4JavaException {
         BufferedImage what;
-        InputStream source;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Pipe pipeOut = new Pipe(null, stream);
         IMOperation op = new IMOperation();
@@ -50,26 +49,13 @@ public class Pixel extends FSlashableImageCommand {
         op.addImage("png:-");
         cmd.run(op, what);
         stream.flush();
-        // make it big so people can actually see it
-        source = new ByteArrayInputStream(stream.toByteArray());
-        stream.reset();
-        cmd = new ConvertCmd();
-        if (Floatzel.isdev) cmd.setSearchPath("C:\\magick");
-        cmd.setOutputConsumer(pipeOut);
-        op = new IMOperation();
-        op.addImage();
-        op.resize(100, 100);
-        op.addImage("png:-");
-        cmd.run(op, ImageIO.read(source));
-        stream.flush();
-        source.close();
         return stream.toByteArray();
     }
 
     @Override
     protected void SlashCmdRun(SlashCommandEvent event, BufferedImage stuff) {
         try {
-            event.getHook().sendFile(genImage(stuff), "single_pixel_big.png").queue();
+            event.getHook().editOriginal(genImage(stuff), "single_pixel_big.png").queue();
         } catch (Exception e){
             Error.CatchSlash(e, event);
         }

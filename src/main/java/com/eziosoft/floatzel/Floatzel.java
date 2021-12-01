@@ -17,7 +17,9 @@ import com.eziosoft.floatzel.Commands.Stock.StockSell;
 import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
+import com.eziosoft.floatzel.Objects.EmojiManager;
 import com.eziosoft.floatzel.Objects.ModLoader;
+import com.eziosoft.floatzel.Objects.gameTexts;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
 import com.eziosoft.floatzel.SlashCommands.FSlashableImageCommand;
 import com.eziosoft.floatzel.SlashCommands.Local.*;
@@ -41,7 +43,9 @@ import java.util.concurrent.Executors;
 public class Floatzel {
     // json configuration file
     public static JsonConfig conf = new JsonConfig();
+    public static gameTexts gameTexts = new gameTexts();
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    public static EmojiManager emojiManager = new EmojiManager();
 
     public static boolean joke = false;
     public static String jokename = "Cirno";
@@ -88,7 +92,7 @@ public class Floatzel {
 
         // does the configuration file exist??!!?!??!?!!
         if (!Utils.configExist()){
-            System.out.println("Floatzel was unable to find configuration data!");
+            System.err.println("Floatzel was unable to find configuration data!");
             // we assume it doesnt exist and generate fresh config data
             Utils.makeConfig(gson);
             // then just exit the software!
@@ -97,13 +101,31 @@ public class Floatzel {
             // it exists, load it!
             boolean a = Utils.loadConfig(gson);
             if (!a){
-                System.out.println("there was a error loading config. Floatzel shutting down...");
+                System.err.println("there was a error loading config. Floatzel shutting down...");
                 System.exit(1);
             } else {
                 System.out.println("Configuration data loaded!");
             }
 
         }
+
+        // load the game texts
+        if (!Utils.gameTextExist()){
+            System.err.println("Error: games.json does not exist! Creating a blank one and saving it");
+            Utils.makeGames(gson);
+            System.err.println("Done! bot will operate normally but without any cool games. consider editing games.json to add your own!");
+        } else {
+            if (!Utils.loadGames(gson)){
+                System.err.println("Error loading the games.json file!");
+                System.exit(-1);
+            } else {
+                System.out.println("Games loaded!");
+            }
+        }
+
+        // init the emoji manager
+        emojiManager.initilize();
+
         // start up the mod loader
         try {
             loader = new ModLoader("mods");
@@ -118,7 +140,7 @@ public class Floatzel {
         twitterManager = new TwitterManager();
 
         // resume everything else
-        version = !isdev ? "2.7" : "2.x Developement";
+        version = !isdev ? "2.7" : "2.x Development";
          commandClient = new CommandClientBuilder().setOwnerId(conf.getOwnerid()).useHelpBuilder(false).setPrefix(!isdev ? conf.getPrefix() : conf.getDevprefix()).build();
 
 

@@ -57,7 +57,7 @@ public class Shrink extends FSlashableImageCommand {
     @Override
     protected void SlashCmdRun(SlashCommandEvent event, BufferedImage stuff) {
         try {
-            event.getHook().sendFile(genImage(stuff), "small.jpg").queue();
+            event.getHook().editOriginal(genImage(stuff), "small.jpg").queue();
         } catch (Exception e){
             Error.CatchSlash(e, event);
         }

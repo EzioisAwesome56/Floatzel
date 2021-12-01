@@ -57,7 +57,7 @@ public class Implode extends FSlashableImageCommand {
     @Override
     public void SlashCmdRun(SlashCommandEvent event, BufferedImage stuff) {
         try {
-            event.getHook().sendFile(genImage(stuff).toByteArray(), "implode.png").queue();
+            event.getHook().editOriginal(genImage(stuff).toByteArray(), "implode.png").queue();
         } catch  (Exception e){
             Error.CatchSlash(e, event);
         }

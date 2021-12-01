@@ -6,6 +6,7 @@ import com.eziosoft.floatzel.SlashCommands.Objects.SlashDataContainer;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashableCommandEntry;
 import com.eziosoft.floatzel.Util.Database;
+import com.eziosoft.floatzel.Util.Error;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -42,6 +43,7 @@ public class SlashCommandManager extends ListenerAdapter {
      */
     private final Map<String, GuildSlashSettings> settings = new HashMap<String, GuildSlashSettings>();
     public GuildSlashSettings getGuildSlashSettings(String id){ return this.settings.get(id); }
+    public boolean hasSlashSettings(String id){ return  this.settings.containsKey(id); }
 
 
     /* slashable commands, which are normal commands with slash functionality,
@@ -53,24 +55,20 @@ public class SlashCommandManager extends ListenerAdapter {
     private Map<SlashableCommandEntry, FSlashableImageCommand> imageActions = new HashMap<>();
 
     // getting and checking for actions
-    public void addSlashableAction(String name, FSlashableCommand fsc){
-        this.actions.put(new SlashableCommandEntry(fsc.sag, name), fsc);
-    }
+    public void addSlashableAction(String name, FSlashableCommand fsc){this.actions.put(new SlashableCommandEntry(fsc.sag, name), fsc);}
     public boolean hasSlashAction(SlashableCommandEntry sce){
         return this.actions.containsKey(sce);
     }
     public FSlashableCommand getSlashAction(SlashableCommandEntry sce){
         return this.actions.get(sce);
     }
-    public void addSlashableImageAction(String name, FSlashableImageCommand fsic){
-        this.imageActions.put(new SlashableCommandEntry(fsic.sag, name), fsic);
-    }
+    public void addSlashableImageAction(String name, FSlashableImageCommand fsic){this.imageActions.put(new SlashableCommandEntry(fsic.sag, name), fsic);}
     public boolean hasSlashableImageAction(SlashableCommandEntry sce){
         return this.imageActions.containsKey(sce);
     }
-    public FSlashableImageCommand getSlashImageAction(SlashableCommandEntry sce){
-        return this.imageActions.get(sce);
-    }
+    public FSlashableImageCommand getSlashImageAction(SlashableCommandEntry sce){return this.imageActions.get(sce);}
+    public Set<Map.Entry<SlashableCommandEntry, FSlashableImageCommand>> getImageActions(){ return this.imageActions.entrySet(); }
+    public Set<Map.Entry<SlashableCommandEntry, FSlashableCommand>> getActions(){ return this.actions.entrySet(); }
 
 
 
@@ -177,9 +175,17 @@ public class SlashCommandManager extends ListenerAdapter {
             for (SlashOption so : fsc.optlist){
                 cca = cca.addOption(so.getOptype(), so.getName(), so.getHelp(), so.isRequired());
             }
-            cca.queue();
+            try {
+                cca.queue();
+            } catch (Exception e){
+                Error.CatchOld(e);
+            }
         } else {
-            Floatzel.jda.getGuildById(sdc.getGuildid()).upsertCommand(sdc.getName(), fsc.help).queue();
+            try {
+                Floatzel.jda.getGuildById(sdc.getGuildid()).upsertCommand(sdc.getName(), fsc.help).queue();
+            } catch (Exception e){
+                Error.CatchOld(e);
+            }
         }
     }
 

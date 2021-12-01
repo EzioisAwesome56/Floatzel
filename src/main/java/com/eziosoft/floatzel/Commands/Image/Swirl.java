@@ -52,7 +52,7 @@ public class Swirl extends FSlashableImageCommand {
     @Override
     protected void SlashCmdRun(SlashCommandEvent event, BufferedImage stuff) {
         try {
-            event.getHook().sendFile(genImage(stuff), "swirl.png").queue();
+            event.getHook().editOriginal(genImage(stuff), "swirl.png").queue();
         } catch (Exception e){
             Error.CatchSlash(e, event);
         }

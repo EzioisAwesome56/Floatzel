@@ -28,7 +28,11 @@ public class Avatar extends FSlashableCommand {
     }
 
     @Override
-    public void SlashCmdRun(SlashCommandEvent event, String... stuff) {
-        event.getHook().sendMessage(event.getOption("user").getAsUser().getAvatarUrl()).queue();
+    public void SlashCmdRun(SlashCommandEvent event) {
+        if (event.getOption("user") == null){
+            event.getHook().editOriginal("Error: you need to mention a user using \"user\" option!").queue();
+            return;
+        }
+        event.getHook().editOriginal(event.getOption("user").getAsUser().getAvatarUrl()).queue();
     }
 }

@@ -7,5 +7,5 @@ public abstract class FSlashableCommand extends FCommand {
 
     public SlashActionGroup sag;
 
-    public abstract void SlashCmdRun(SlashCommandEvent event, String... stuff);
+    public abstract void SlashCmdRun(SlashCommandEvent event);
 }

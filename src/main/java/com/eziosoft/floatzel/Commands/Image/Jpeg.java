@@ -95,7 +95,7 @@ public class Jpeg extends FSlashableImageCommand {
     @Override
     public void SlashCmdRun(SlashCommandEvent event, BufferedImage stuff) {
         try {
-            event.getHook().sendFile(resizeImage(stuff).toByteArray(), "jpeg.jpg").queue();
+            event.getHook().editOriginal(resizeImage(stuff).toByteArray(), "jpeg.jpg").queue();
         } catch (Exception e){
             Error.CatchSlash(e, event);
         }

@@ -140,7 +140,6 @@ public class KekGlue {
         }
 
         public void save(){
-            return;
         }
 
         public boolean hasTokenEquipped(){

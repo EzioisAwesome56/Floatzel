@@ -35,6 +35,7 @@ public class JsonConfig {
     // slack shit
     private String slackbot;
     private boolean enslack;
+    private String clientid;
 
     public void loadDefaults(){
         System.out.println("Loading default configuration data...");
@@ -68,6 +69,8 @@ public class JsonConfig {
         // slack shit
         this.slackbot = "Slack api token (Serves no purpose)";
         this.enslack = false;
+        // emote shit
+        this.clientid = "put your bot account client id here";
         return;
     }
 
@@ -145,4 +148,6 @@ public class JsonConfig {
     public boolean getTwitterTog(){
         return this.twittertog;
     }
+    // get client id
+    public String getClientid() { return clientid; }
 }
