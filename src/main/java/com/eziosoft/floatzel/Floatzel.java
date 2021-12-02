@@ -22,6 +22,7 @@ import com.eziosoft.floatzel.Objects.ModLoader;
 import com.eziosoft.floatzel.Objects.gameTexts;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
 import com.eziosoft.floatzel.SlashCommands.FSlashableImageCommand;
+import com.eziosoft.floatzel.SlashCommands.Globals.GManage;
 import com.eziosoft.floatzel.SlashCommands.Local.*;
 import com.eziosoft.floatzel.SlashCommands.SlashCommandManager;
 import com.eziosoft.floatzel.Util.TwitterManager;
@@ -222,7 +223,7 @@ public class Floatzel {
         KekGlue.initWords();
 
         // add the one global cmd we have to the global list
-        //scm.addGlobalCmd("gmanage", new GManage());
+        if (!isdev) scm.addGlobalCmd("gmanage", new GManage());
 
 
         jda = DefaultShardManagerBuilder.createDefault(!isdev ? conf.getToken() : conf.getDevtoken())
