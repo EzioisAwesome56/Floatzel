@@ -189,6 +189,23 @@ public class SlashCommandManager extends ListenerAdapter {
         }
     }
 
+    // call this function to upsert all registered global cmds
+    private void upsertGlobalCmds(){
+        if (!Floatzel.isdev) {
+            System.out.println("Now upserting all global slash commands...");
+            for (Map.Entry<String, FSlashCommand> ent : this.globalmap.entrySet()) {
+                Floatzel.jda.getShards().forEach(jda -> {
+                    jda.upsertCommand(ent.getKey(), ent.getValue().help).queue();
+                });
+                System.out.println("Upserted " + ent.getKey());
+            }
+            System.out.println("All done!");
+        } else {
+            System.err.println("Error: global commands are not used in development mode.\n" +
+                    "if you need the manage command, use force 6 to register it guild-side");
+        }
+    }
+
     // this doesn't really need its own listener class, so we move it inside
     // of the slash command manager
     @Override
@@ -243,6 +260,7 @@ public class SlashCommandManager extends ListenerAdapter {
     public void onReady(@NotNull ReadyEvent e){
         if (e.getJDA().getShardInfo().getShardId() == 1) {
             loadAllRegisteredSlashCommands();
+            upsertGlobalCmds();
             System.out.println("SlashCommandManager ready!");
             //Floatzel.scm.RegisterGuildCommands();
         }
