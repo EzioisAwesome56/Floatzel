@@ -2,6 +2,7 @@ package com.eziosoft.floatzel.SlashCommands;
 
 import com.eziosoft.floatzel.Commands.FImageCommand;
 import com.eziosoft.floatzel.Exception.ImageDownloadException;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;

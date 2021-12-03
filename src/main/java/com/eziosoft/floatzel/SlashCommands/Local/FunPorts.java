@@ -5,7 +5,7 @@ import com.eziosoft.floatzel.SlashCommands.FSlashCommand;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashableCommandEntry;
-import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Utils;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;

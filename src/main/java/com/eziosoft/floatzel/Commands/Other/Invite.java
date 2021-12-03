@@ -1,10 +1,8 @@
 package com.eziosoft.floatzel.Commands.Other;
 
-import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
-import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
-import com.jagrosh.jdautilities.command.Command;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashActionGroup;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 

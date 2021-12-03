@@ -1,9 +1,8 @@
 package com.eziosoft.floatzel.Commands.Image;
 
-import com.eziosoft.floatzel.Commands.FImageCommand;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.SlashCommands.FSlashableImageCommand;
-import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Error;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -17,7 +16,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class Wall extends FSlashableImageCommand {
     public Wall(){

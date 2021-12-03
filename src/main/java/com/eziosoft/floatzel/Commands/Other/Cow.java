@@ -1,7 +1,7 @@
 package com.eziosoft.floatzel.Commands.Other;
 
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
-import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Utils;
 import com.github.ricksbrown.cowsay.Cowsay;
 import com.jagrosh.jdautilities.command.CommandEvent;

@@ -1,10 +1,9 @@
 package com.eziosoft.floatzel.Commands.Image;
 
 import com.eziosoft.floatzel.Commands.FCommand;
-import com.eziosoft.floatzel.Commands.FImageCommand;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.SlashCommands.FSlashableImageCommand;
-import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;

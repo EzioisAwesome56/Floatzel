@@ -2,9 +2,8 @@ package com.eziosoft.floatzel.Commands.Image;
 
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.SlashCommands.FSlashableImageCommand;
-import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Error;
-import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.im4java.core.ConvertCmd;

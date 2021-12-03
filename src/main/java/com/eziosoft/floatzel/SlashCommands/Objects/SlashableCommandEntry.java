@@ -1,15 +1,12 @@
 package com.eziosoft.floatzel.SlashCommands.Objects;
 
-import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
-import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
-
 import java.util.Objects;
 
 public class SlashableCommandEntry {
-    private SlashActionGroup group;
+    private BaseActionGroups group;
     private String name;
 
-    public SlashableCommandEntry(SlashActionGroup g, String n){
+    public SlashableCommandEntry(BaseActionGroups g, String n){
         this.group = g;
         this.name = n;
     }
@@ -18,7 +15,7 @@ public class SlashableCommandEntry {
         return name;
     }
 
-    public SlashActionGroup getGroup() {
+    public BaseActionGroups getGroup() {
         return group;
     }
 

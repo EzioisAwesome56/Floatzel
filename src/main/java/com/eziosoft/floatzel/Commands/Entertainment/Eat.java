@@ -1,13 +1,10 @@
 package com.eziosoft.floatzel.Commands.Entertainment;
 
-import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
-import com.eziosoft.floatzel.SlashCommands.SlashActionGroup;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashActionGroup;
 import com.eziosoft.floatzel.Util.Utils;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-
-import java.util.Random;
 
 public class Eat extends FSlashableCommand {
     public Eat(){
