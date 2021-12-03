@@ -2,6 +2,8 @@ package com.eziosoft.floatzel.Objects;
 
 import com.eziosoft.floatzel.SlashCommands.Objects.GuildSlashSettings;
 
+import javax.annotation.Nullable;
+
 public interface GenaricDatabase {
 
     void Conninfo(String info);
@@ -42,5 +44,6 @@ public interface GenaricDatabase {
 
     void LowLevelDB_Save(Object in, Class<?> type, String table);
 
+    @Nullable
     Object LowLevelDB_Load(String table, String pkey, Class<?> type);
 }
