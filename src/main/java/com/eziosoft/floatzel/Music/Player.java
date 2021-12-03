@@ -44,12 +44,26 @@ public class Player extends ListenerAdapter {
         return musicManagers.get(guildId).host;
     }
 
+    // TODO: stop duplicating all this friggin code lmao
     private synchronized GuildMusicManager getGuildAudioPlayer(CommandEvent event, int status) {
         long guildId = Long.parseLong(event.getGuild().getId());
         GuildMusicManager musicManager = musicManagers.get(guildId);
 
         if (musicManager == null || (musicManager.getStatus() == 2 && status < 2)) {
             musicManager = new GuildMusicManager(playerManager, event, status).setHost(event.getEvent().getAuthor());
+            event.getGuild().getAudioManager().setSendingHandler(musicManager.getSendHandler());
+            musicManagers.put(guildId, musicManager);
+        }
+
+        return musicManager;
+    }
+
+    private synchronized GuildMusicManager getGuildAudioPlayer(SlashCommandEvent event, int status){
+        long guildId = Long.parseLong(event.getGuild().getId());
+        GuildMusicManager musicManager = musicManagers.get(guildId);
+
+        if (musicManager == null || (musicManager.getStatus() == 2 && status < 2)) {
+            musicManager = new GuildMusicManager(playerManager, event, status).setHost(event.getUser());
             event.getGuild().getAudioManager().setSendingHandler(musicManager.getSendHandler());
             musicManagers.put(guildId, musicManager);
         }
