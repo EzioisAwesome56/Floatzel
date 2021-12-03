@@ -2,14 +2,18 @@ package com.eziosoft.floatzel.Commands.Sound;
 
 import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
+import com.eziosoft.floatzel.SlashCommands.Objects.SlashActionGroup;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.apache.commons.lang3.StringUtils;
 
-public class Play extends FCommand {
+public class Play extends FSlashableCommand {
     public Play(){
         name = "play";
         description = "queue a song to be played by the audio player";
         category = sound;
+        sag = SlashActionGroup.AUDIO;
     }
 
     @Override
@@ -27,5 +31,18 @@ public class Play extends FCommand {
         }
         // play the music
         Floatzel.musicPlayer.loadAndPlay(event, args);
+    }
+
+    @Override
+    public void SlashCmdRun(SlashCommandEvent event) {
+        if (event.getOption("url") == null){
+            event.getHook().editOriginal("Error: you did not provide a url to play via the \"url\" option!").queue();
+            return;
+        }
+        String url = event.getOption("url").getAsString();
+        if (url.contains(" ")){
+            event.getHook().editOriginal("Error: urls cannot have spaces in them!").queue();
+            return;
+        }
     }
 }

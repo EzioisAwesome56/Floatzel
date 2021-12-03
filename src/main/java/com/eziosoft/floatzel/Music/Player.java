@@ -6,7 +6,6 @@ import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.lavaHack.AudioSourceHack;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
@@ -19,6 +18,7 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.channel.voice.VoiceChannelDeleteEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
 import net.dv8tion.jda.internal.utils.tuple.Pair;
@@ -95,6 +95,10 @@ public class Player extends ListenerAdapter {
             public void loadFailed(FriendlyException exception) {
             }
         });
+    }
+
+    public void loadAndPlaySlash(final SlashCommandEvent event, final String trackUrl){
+        // TODO: do stuff here
     }
 
     public void loadAndPlay(final CommandEvent event, final String trackUrl) {
