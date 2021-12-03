@@ -1,9 +1,8 @@
 package com.eziosoft.floatzel.Music;
 
 import com.eziosoft.floatzel.Floatzel;
-import com.eziosoft.floatzel.Util.Error;
 import com.eziosoft.floatzel.Util.Utils;
-import com.eziosoft.floatzel.lavaHack.AudioSourceHack;
+import com.eziosoft.floatzel.LibraryHacks.LavaPlayer.AudioSourceHack;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -58,7 +57,7 @@ public class Player extends ListenerAdapter {
         return musicManager;
     }
 
-    private synchronized GuildMusicManager getGuildAudioPlayer(SlashCommandEvent event, int status){
+    /*private synchronized GuildMusicManager getGuildAudioPlayer(SlashCommandEvent event, int status){
         long guildId = Long.parseLong(event.getGuild().getId());
         GuildMusicManager musicManager = musicManagers.get(guildId);
 
@@ -69,7 +68,7 @@ public class Player extends ListenerAdapter {
         }
 
         return musicManager;
-    }
+    }*/
 
     public int getActivePlayerCount() {
         return musicManagers.size();

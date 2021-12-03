@@ -1,4 +1,4 @@
-package com.eziosoft.floatzel.lavaHack;
+package com.eziosoft.floatzel.LibraryHacks.LavaPlayer;
 
 import com.sedmelluq.discord.lavaplayer.container.MediaContainerProbe;
 import com.sedmelluq.discord.lavaplayer.container.MediaContainerRegistry;

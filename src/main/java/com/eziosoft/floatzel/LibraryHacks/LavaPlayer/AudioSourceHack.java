@@ -1,4 +1,4 @@
-package com.eziosoft.floatzel.lavaHack;
+package com.eziosoft.floatzel.LibraryHacks.LavaPlayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;

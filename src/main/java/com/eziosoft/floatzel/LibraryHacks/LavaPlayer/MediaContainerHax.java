@@ -1,4 +1,4 @@
-package com.eziosoft.floatzel.lavaHack;
+package com.eziosoft.floatzel.LibraryHacks.LavaPlayer;
 
 /* Unfortunately I can't extend enums, so this code is entirely borrowed from lavaplayer itself.
 I Believe in order to be license compatible, I have to provide links to the original source code and the license
