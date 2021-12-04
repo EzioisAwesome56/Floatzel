@@ -86,7 +86,7 @@ public class KekGlue {
         }
 
         public static String getGuildPrefix(Guild g){
-            return Floatzel.isdev ? Floatzel.conf.getDevprefix() : Floatzel.conf.getPrefix();
+            return Floatzel.guildSettingsManager.getPrefix(g.getId());
         }
 
         public static CommandClient getCommandClient(){
