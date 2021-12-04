@@ -18,6 +18,7 @@ import com.eziosoft.floatzel.Commands.admin.*;
 import com.eziosoft.floatzel.Listeners.MiscListener;
 import com.eziosoft.floatzel.Music.Player;
 import com.eziosoft.floatzel.Objects.EmojiManager;
+import com.eziosoft.floatzel.Objects.GuildSettingsManager;
 import com.eziosoft.floatzel.Objects.ModLoader;
 import com.eziosoft.floatzel.Objects.gameTexts;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
@@ -47,6 +48,7 @@ public class Floatzel {
     public static gameTexts gameTexts = new gameTexts();
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     public static EmojiManager emojiManager = new EmojiManager();
+    public static GuildSettingsManager guildSettingsManager = new GuildSettingsManager();
 
     public static boolean joke = false;
     public static String jokename = "Cirno";
@@ -142,7 +144,7 @@ public class Floatzel {
 
         // resume everything else
         version = !isdev ? "2.7" : "2.x Development";
-         commandClient = new CommandClientBuilder().setOwnerId(conf.getOwnerid()).useHelpBuilder(false).setPrefix(!isdev ? conf.getPrefix() : conf.getDevprefix()).build();
+         commandClient = new CommandClientBuilder().setPrefixFunction(event -> guildSettingsManager.getPrefix(event.getGuild().getId())).setOwnerId(conf.getOwnerid()).useHelpBuilder(false).build();
 
 
         // change this depending on what token you wanna use
