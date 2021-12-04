@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.kekbot;
 
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Objects.KekbotFunctionHooks;
 import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.Games.Game;
@@ -20,6 +21,9 @@ import java.util.List;
 
 public class KekGlue {
     public static HashMap<String, String> text = new HashMap<>();
+
+    // hook for future mods/plugins/idk
+    public static KekbotFunctionHooks hook = null;
 
     public static void initWords(){
         text.put("game.tictactoe.aifirst", "Floatzel got the first turn");
@@ -129,6 +133,11 @@ public class KekGlue {
             int newbal = ur.getBal() + (int) keks;
             ur.setBal(newbal);
             Database.dbdriver.saveProfile(ur);
+            // do we have a hook? if so, run it
+            if (hook != null){
+                hook.saveKekXP(kxp);
+            }
+
         }
 
         public void tieGame(double topkeks, int KXP) {
@@ -137,6 +146,10 @@ public class KekGlue {
             int newbal = ur.getBal() + (int) topkeks;
             ur.setBal(newbal);
             Database.dbdriver.saveProfile(ur);
+            // do we have a hook? if so, run it
+            if (hook != null){
+                hook.saveKekXP(KXP);
+            }
         }
 
         public void save(){
@@ -158,6 +171,10 @@ public class KekGlue {
         }
 
         public void takeKXP(int kxp){
+            // do we have a hook loaded? if so, run it
+            if (hook != null){
+                hook.saveKekXP(hook.loadKxp(this.id) - kxp);
+            }
             return;
         }
     }
