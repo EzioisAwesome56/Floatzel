@@ -71,7 +71,7 @@ public class KekGlue {
                 case "command.fun.game.cancel.error":
                     return text.get(raw).replace("%s", (CharSequence) objects[0]);
                 default:
-                    return getString(raw);
+                    return hook != null ? hook.isRegisteredWord(raw) ? hook.getLocalizedString(raw, objects) : getString(raw) : getString(raw);
             }
         }
 
@@ -127,7 +127,6 @@ public class KekGlue {
         }
 
         public void wonGame(double keks, int kxp){
-            // FILTHY HACK: use old methods to save shit
             // save new bal
             com.eziosoft.floatzel.Objects.User ur = Database.dbdriver.getProfile(id);
             int newbal = ur.getBal() + (int) keks;
