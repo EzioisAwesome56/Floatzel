@@ -223,7 +223,7 @@ public class KekGlue {
         }
 
         public String getPrefix(){
-            return Floatzel.isdev ? Floatzel.conf.getDevprefix() : Floatzel.conf.getPrefix();
+            return Floatzel.guildSettingsManager.getPrefix(e.getGuild().getId());
         }
 
         public Message getMessage(){
