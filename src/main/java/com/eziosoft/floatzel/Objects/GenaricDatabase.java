@@ -46,4 +46,8 @@ public interface GenaricDatabase {
 
     @Nullable
     Object LowLevelDB_Load(String table, String pkey, Class<?> type);
+
+    int LowLevelDB_Count(String table);
+
+    void LowLevelDB_Delete(String table, String pkey);
 }
