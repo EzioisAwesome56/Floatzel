@@ -1,6 +1,5 @@
 package com.eziosoft.floatzel.Commands.Sound;
 
-import com.eziosoft.floatzel.Commands.FCommand;
 import com.eziosoft.floatzel.Floatzel;
 import com.eziosoft.floatzel.SlashCommands.FSlashableCommand;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashActionGroup;
@@ -44,5 +43,6 @@ public class Play extends FSlashableCommand {
             event.getHook().editOriginal("Error: urls cannot have spaces in them!").queue();
             return;
         }
+        Floatzel.musicPlayer.loadAndPlaySlash(event, event.getOption("url").getAsString());
     }
 }

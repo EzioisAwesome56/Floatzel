@@ -163,9 +163,9 @@ public class Floatzel {
         dualRegister(new Reverse());
         commandClient.addCommand(new Servers());
         commandClient.addCommand(new ServerInfo());
-        commandClient.addCommand(new Stop());
-        commandClient.addCommand(new Play());
-        commandClient.addCommand(new Repeat());
+        dualRegister(new Stop());
+        dualRegister(new Play());
+        dualRegister(new Repeat());
         commandClient.addCommand(new Sax());
         commandClient.addCommand(new Starman());
         commandClient.addCommand(new Bal());
@@ -211,6 +211,7 @@ public class Floatzel {
         scm.addRegisterable("prefix", new prefix());
         scm.addRegisterable("debug", new debug());
         scm.addRegisterable("image", new ImagePorts());
+        scm.addRegisterable("audio", new Audio());
 
         // load rest of mods here
         try{

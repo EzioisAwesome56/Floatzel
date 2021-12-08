@@ -1,9 +1,12 @@
 package com.eziosoft.floatzel.Music;
 
+import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Objects.MusicPlayerIDs;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.concurrent.Executors;
@@ -20,19 +23,20 @@ public class GuildMusicManager {
      */
     public final TrackScheduler scheduler;
     public final MemeScheduler memeScheduler;
-    public final MessageChannel channel;
+    public final String msgchannel;
     public final int status;
-    public User host;
+    public String hostid;
 
     /**
      * Creates a player and a track scheduler.
      * @param manager Audio player manager to use for creating the player.
+     * @param mpid object with all the ids in it
      */
-    public GuildMusicManager(AudioPlayerManager manager, CommandEvent event, int status) {
+    public GuildMusicManager(AudioPlayerManager manager, MusicPlayerIDs mpid, int status) {
         player = manager.createPlayer();
-        scheduler = new TrackScheduler(player, event);
-        memeScheduler = new MemeScheduler(player, event.getGuild());
-        channel = event.getChannel();
+        scheduler = new TrackScheduler(player, mpid);
+        memeScheduler = new MemeScheduler(player, Long.toString(mpid.getGuildid()));
+        msgchannel = mpid.getMessagechannelid();
         this.status = status;
         switch (status) {
             case 0: player.addListener(scheduler);
@@ -42,8 +46,8 @@ public class GuildMusicManager {
         }
     }
 
-    public GuildMusicManager setHost(User host) {
-        this.host = host;
+    public GuildMusicManager setHost(String host) {
+        this.hostid = host;
         return this;
     }
 
@@ -60,5 +64,9 @@ public class GuildMusicManager {
      */
     public AudioPlayerSendHandler getSendHandler() {
         return new AudioPlayerSendHandler(player);
+    }
+
+    public TextChannel getChannel(){
+        return Floatzel.jda.getTextChannelById(msgchannel);
     }
 }

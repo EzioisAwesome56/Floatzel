@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Music;
 
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Objects.MusicPlayerIDs;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
@@ -21,8 +22,8 @@ public class TrackScheduler extends AudioEventAdapter {
 
     private final AudioPlayer player;
     private final BlockingQueue<Pair<AudioTrack, User>> queue;
-    private final Guild guild;
-    private final TextChannel channel;
+    private final long guild;
+    private final String textchannel;
     public User currentUser;
     public int repeat = 0;
     private final List<Pair<AudioTrack, User>> repeatQueue = new ArrayList<>();
@@ -31,13 +32,13 @@ public class TrackScheduler extends AudioEventAdapter {
 
     /**
      * @param player The audio player the scheduler manages.
-     * @param event The CommandEvent containing guild and channel info.
+     * @param mpid object with all the ids you need in it
      */
-    public TrackScheduler(AudioPlayer player, CommandEvent event) {
+    public TrackScheduler(AudioPlayer player, MusicPlayerIDs mpid) {
         this.player = player;
         this.queue = new LinkedBlockingQueue<>();
-        this.guild = event.getGuild();
-        this.channel = event.getTextChannel();
+        this.guild = mpid.getGuildid();
+        this.textchannel = mpid.getTextchannelid();
     }
 
     private Pair<AudioTrack, User> getCurrentRepeatTrack() {
@@ -67,7 +68,7 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     private void nextTrack() {
         if (repeat != 2) {
-            channel.sendMessage("Now playing: `" + queue.element().getLeft().getInfo().title
+            Floatzel.jda.getTextChannelById(textchannel).sendMessage("Now playing: `" + queue.element().getLeft().getInfo().title
                     + "` (Queued by: " + queue.element().getRight().getName() + ")").queue();
             Pair<AudioTrack, User> pair = queue.poll();
             AudioTrack track = pair.getLeft();
@@ -77,7 +78,7 @@ public class TrackScheduler extends AudioEventAdapter {
             if (currentRepeatTrack < repeatQueue.size() - 1) ++currentRepeatTrack;
             else currentRepeatTrack = 0;
             player.startTrack(getCurrentRepeatTrack().getLeft().makeClone(), false);
-            channel.sendMessage("Now playing: `" + getCurrentRepeatTrack().getLeft().getInfo().title
+            Floatzel.jda.getTextChannelById(textchannel).sendMessage("Now playing: `" + getCurrentRepeatTrack().getLeft().getInfo().title
                     + "` (Queued by: " + getCurrentRepeatTrack().getRight().getName() + ")").queue();
         }
     }
@@ -112,7 +113,7 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
     private void closeConnection() {
-        new Thread(() -> Floatzel.musicPlayer.closeConnection(guild)).start();
+        new Thread(() -> Floatzel.musicPlayer.closeConnection(Floatzel.jda.getGuildById(guild))).start();
     }
 
     public boolean hasStarted() {

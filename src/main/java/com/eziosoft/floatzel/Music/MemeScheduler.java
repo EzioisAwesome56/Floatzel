@@ -12,15 +12,16 @@ import java.util.concurrent.*;
 public class MemeScheduler extends AudioEventAdapter {
     private final AudioPlayer player;
     private final BlockingQueue<AudioTrack> queue;
-    private final Guild guild;
+    private final String guildid;
 
     /**
      * @param player The audio player this scheduler uses
+     * @param guild ID of the guild you wish to create this object for
      */
-    public MemeScheduler(AudioPlayer player, Guild guild) {
+    public MemeScheduler(AudioPlayer player, String guild) {
         this.player = player;
         this.queue = new LinkedBlockingQueue<>();
-        this.guild = guild;
+        this.guildid = guild;
     }
 
     /**
@@ -56,6 +57,6 @@ public class MemeScheduler extends AudioEventAdapter {
     }
 
     private void closeConnection() {
-        new Thread(() -> Floatzel.musicPlayer.closeConnection(guild)).start();
+        new Thread(() -> Floatzel.musicPlayer.closeConnection(Floatzel.jda.getGuildById(guildid))).start();
     }
 }

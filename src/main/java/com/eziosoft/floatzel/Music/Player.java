@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.Music;
 
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Objects.MusicPlayerIDs;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.LibraryHacks.LavaPlayer.AudioSourceHack;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -40,35 +41,20 @@ public class Player extends ListenerAdapter {
 
     public User getHost(Guild guild) {
         long guildId = Long.parseLong(guild.getId());
-        return musicManagers.get(guildId).host;
+        return Floatzel.jda.getUserById(musicManagers.get(guildId).hostid);
     }
 
-    // TODO: stop duplicating all this friggin code lmao
-    private synchronized GuildMusicManager getGuildAudioPlayer(CommandEvent event, int status) {
-        long guildId = Long.parseLong(event.getGuild().getId());
-        GuildMusicManager musicManager = musicManagers.get(guildId);
+    private synchronized GuildMusicManager getGuildAudioPlayer(MusicPlayerIDs mpid, int status) {
+        GuildMusicManager musicManager = musicManagers.get(mpid.getGuildid());
 
         if (musicManager == null || (musicManager.getStatus() == 2 && status < 2)) {
-            musicManager = new GuildMusicManager(playerManager, event, status).setHost(event.getEvent().getAuthor());
-            event.getGuild().getAudioManager().setSendingHandler(musicManager.getSendHandler());
-            musicManagers.put(guildId, musicManager);
+            musicManager = new GuildMusicManager(playerManager, mpid, status).setHost(mpid.getUserid());
+            mpid.getGuild().getAudioManager().setSendingHandler(musicManager.getSendHandler());
+            musicManagers.put(mpid.getGuildid(), musicManager);
         }
 
         return musicManager;
     }
-
-    /*private synchronized GuildMusicManager getGuildAudioPlayer(SlashCommandEvent event, int status){
-        long guildId = Long.parseLong(event.getGuild().getId());
-        GuildMusicManager musicManager = musicManagers.get(guildId);
-
-        if (musicManager == null || (musicManager.getStatus() == 2 && status < 2)) {
-            musicManager = new GuildMusicManager(playerManager, event, status).setHost(event.getUser());
-            event.getGuild().getAudioManager().setSendingHandler(musicManager.getSendHandler());
-            musicManagers.put(guildId, musicManager);
-        }
-
-        return musicManager;
-    }*/
 
     public int getActivePlayerCount() {
         return musicManagers.size();
@@ -76,19 +62,24 @@ public class Player extends ListenerAdapter {
 
     public void changeHost(Guild guild, User user) {
         long guildId = Long.parseLong(guild.getId());
-        musicManagers.get(guildId).setHost(user);
+        musicManagers.get(guildId).setHost(user.getId());
     }
 
+    /** meme logic and shim functions **/
     public void loadAndMeme(final CommandEvent event, final String trackUrl) {
-        GuildMusicManager musicManager = getGuildAudioPlayer(event, 1);
+        memeLogic(new MusicPlayerIDs(event), trackUrl);
+    }
+    // TODO: write slash command meme player.
+    private void memeLogic(MusicPlayerIDs mpid, String trackUrl){
+        GuildMusicManager musicManager = getGuildAudioPlayer(mpid, 1);
         if (musicManager.getStatus() < 1) {
-            event.getChannel().sendMessage("I can't meme while music's playing...").queue();
+            mpid.getChannel().sendMessage("I can't meme while music's playing...").queue();
             return;
         }
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
-                playMeme(event, musicManager, track);
+                playMeme(mpid, musicManager, track);
             }
 
             @Override
@@ -97,7 +88,7 @@ public class Player extends ListenerAdapter {
                 if (firstTrack == null) {
                     firstTrack = playlist.getTracks().get(0);
                 }
-                playMeme(event, musicManager, firstTrack);
+                playMeme(mpid, musicManager, firstTrack);
             }
 
             @Override
@@ -110,20 +101,23 @@ public class Player extends ListenerAdapter {
         });
     }
 
+    /** Regular load functions; for loading urls, main logic and shim functions **/
     public void loadAndPlaySlash(final SlashCommandEvent event, final String trackUrl){
-        // TODO: do stuff here
+        loadAndPlayLogic(new MusicPlayerIDs(event), trackUrl);
     }
-
     public void loadAndPlay(final CommandEvent event, final String trackUrl) {
-        GuildMusicManager musicManager = getGuildAudioPlayer(event, 0);
+        loadAndPlayLogic(new MusicPlayerIDs(event), trackUrl);
+    }
+    private void loadAndPlayLogic(MusicPlayerIDs mpid, String trackUrl){
+        GuildMusicManager musicManager = getGuildAudioPlayer(mpid, 0);
         if (musicManager.getStatus() == 1) {
-            event.getChannel().sendMessage("Cant play music while playing memes. sorry!").queue();
+            mpid.getTextChannel().sendMessage("Cant play music while playing memes. sorry!").queue();
             return;
         }
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
-                queueTrack(event, musicManager, track);
+                queueTrack(mpid, musicManager, track);
             }
 
             @Override
@@ -132,32 +126,32 @@ public class Player extends ListenerAdapter {
 
                 for (AudioTrack track : playlist.getTracks()) {
                     if (track != null) {
-                        play(event, musicManager, track);
+                        play(mpid, musicManager, track);
                     } else failed++;
                 }
 
-                event.getChannel().sendMessage(event.getEvent().getAuthor().getName() + " added " + (playlist.getTracks().size() - failed) + " tracks to the queue." + (failed > 0 ? " (" + failed + " track(s) could not be added.)" : "")).queue();
+                mpid.getChannel().sendMessage(mpid.getUser().getName() + " added " + (playlist.getTracks().size() - failed) + " tracks to the queue." + (failed > 0 ? " (" + failed + " track(s) could not be added.)" : "")).queue();
             }
 
             @Override
             public void noMatches() {
-                event.getChannel().sendMessage("`" + trackUrl + "` isn't a URL, sadly.").queue();
-                if (musicManager.player.getPlayingTrack() == null) killConnection(event.getGuild());
+                mpid.getChannel().sendMessage("`" + trackUrl + "` isn't a URL, sadly.").queue();
+                if (musicManager.player.getPlayingTrack() == null) killConnection(mpid.getGuild());
             }
 
             @Override
             public void loadFailed(FriendlyException exception) {
-                event.getChannel().sendMessage("WHOA AN ERROR: " + exception.getMessage()).queue();
-                if (musicManager.player.getPlayingTrack() == null) killConnection(event.getGuild());
+                mpid.getChannel().sendMessage("WHOA AN ERROR: " + exception.getMessage()).queue();
+                if (musicManager.player.getPlayingTrack() == null) killConnection(mpid.getGuild());
             }
         });
     }
 
-    private void queueTrack(CommandEvent event, GuildMusicManager musicManager, AudioTrack track) {
-        play(event, musicManager, track);
+    private void queueTrack(MusicPlayerIDs mpid, GuildMusicManager musicManager, AudioTrack track) {
+        play(mpid, musicManager, track);
         if (musicManager.scheduler.getQueueSize() < 1) return;
         String timeBefore;
-        if (event.getGuild().getAudioManager().isConnected()) {
+        if (mpid.getGuild().getAudioManager().isConnected()) {
             if (musicManager.scheduler.repeat != 2) {
                 final long[] totalLength = {0};
                 musicManager.scheduler.getQueue().forEach(list -> totalLength[0] += list.getLeft().getDuration());
@@ -175,59 +169,67 @@ public class Player extends ListenerAdapter {
                                 (musicManager.player.getPlayingTrack().getDuration() - musicManager.player.getPlayingTrack().getPosition() + (totalLength - track.getDuration()))) + " **Queue Position: " + musicManager.scheduler.getRepeatQueue().size() + "**)";
 
             }
-            event.getChannel().sendMessage("Added \"" + track.getInfo().title + "\" to the queue." + timeBefore).queue();
+            mpid.getChannel().sendMessage("Added \"" + track.getInfo().title + "\" to the queue." + timeBefore).queue();
         }
     }
 
-    private void play(CommandEvent event, GuildMusicManager musicManager, AudioTrack track) {
-        connectToUsersVoiceChannel(event);
+    private void play(MusicPlayerIDs mpid, GuildMusicManager musicManager, AudioTrack track) {
+        connectToUsersVoiceChannel(mpid);
 
-        musicManager.scheduler.queue(track, event.getEvent().getAuthor());
+        musicManager.scheduler.queue(track, mpid.getUser());
     }
 
-    private void playMeme(CommandEvent event, GuildMusicManager musicManager, AudioTrack track) {
+    private void playMeme(MusicPlayerIDs event, GuildMusicManager musicManager, AudioTrack track) {
         connectToUsersVoiceChannel(event);
 
         musicManager.memeScheduler.queue(track);
     }
 
+    /*** Repeat methods & logic ***/
     public void repeat(CommandEvent event) {
-        GuildMusicManager musicManager = getGuildAudioPlayer(event, 0);
+        DoRepeatLogic(new MusicPlayerIDs(event));
+    }
+    public void repeat(SlashCommandEvent event){
+        DoRepeatLogic(new MusicPlayerIDs(event));
+    }
+    private void DoRepeatLogic(MusicPlayerIDs mpid){
+        GuildMusicManager musicManager = getGuildAudioPlayer(mpid, 0);
         if (!musicManager.isMusic()) {
             return;
         }
         musicManager.scheduler.toggleRepeat();
-        if (musicManager.scheduler.repeat == 0) event.getChannel().sendMessage("Repeat is now set to: **OFF**.").queue();
-        else if (musicManager.scheduler.repeat == 1) event.getChannel().sendMessage("Repeat is now set to **SINGLE**.").queue();
-        else if (musicManager.scheduler.repeat == 2) event.getChannel().sendMessage("Repeat is now set to **MULTI**.").queue();
+        if (musicManager.scheduler.repeat == 0) mpid.getChannel().sendMessage("Repeat is now set to: **OFF**.").queue();
+        else if (musicManager.scheduler.repeat == 1) mpid.getChannel().sendMessage("Repeat is now set to **SINGLE**.").queue();
+        else if (musicManager.scheduler.repeat == 2) mpid.getChannel().sendMessage("Repeat is now set to **MULTI**.").queue();
     }
 
-    private void connectToUsersVoiceChannel(CommandEvent event) {
-        AudioManager audioManager = event.getGuild().getAudioManager();
-        if (!audioManager.isConnected() && !audioManager.isAttemptingToConnect()) {
-            Optional<VoiceChannel> voiceChannel = event.getGuild().getVoiceChannels().stream().filter(c -> c.getMembers().contains(event.getEvent().getMember())).findFirst();
+    /** support functions for joining voice channels and other shit **/
+    private void connectToUsersVoiceChannel(MusicPlayerIDs mpid) {
+        AudioManager audioManager = mpid.getGuild().getAudioManager();
+        if (!audioManager.isConnected()) {
+            Optional<VoiceChannel> voiceChannel = mpid.getGuild().getVoiceChannels().stream().filter(c -> c.getMembers().contains(mpid.getMember())).findFirst();
             if (!voiceChannel.isPresent()) {
-                event.getTextChannel().sendMessage("You're not in a VC you absolute muffin").queue();
+                mpid.getTextChannel().sendMessage("You're not in a VC you absolute muffin").queue();
             } else {
                 audioManager.openAudioConnection(voiceChannel.get());
-                announceStart(event, voiceChannel.get());
+                announceStart(mpid, voiceChannel.get());
             }
         } else {
-            announceStart(event, audioManager.getConnectedChannel());
+            announceStart(mpid, audioManager.getConnectedChannel());
         }
     }
 
-    private void announceStart(CommandEvent event, VoiceChannel channel) {
+    private void announceStart(MusicPlayerIDs event, VoiceChannel channel) {
         GuildMusicManager musicManager = musicManagers.get(Long.parseLong(event.getGuild().getId()));
         if (musicManager.isMusic() && !musicManager.scheduler.hasStarted()) {
             musicManagers.get(Long.parseLong(event.getGuild().getId())).scheduler.setStarted();
-            event.getChannel().sendMessage(event.getEvent().getAuthor().getAsMention() + " is playing fire music in: `" + channel.getName() + "`. ").queue();
-            musicManagers.get(Long.parseLong(event.getGuild().getId())).scheduler.currentUser = event.getEvent().getAuthor();
+            event.getChannel().sendMessage(event.getUser().getAsMention() + " is playing fire music in: `" + channel.getName() + "`. ").queue();
+            musicManagers.get(Long.parseLong(event.getGuild().getId())).scheduler.currentUser = event.getUser();
         }
     }
 
     public void announceToMusicSession(Guild guild, String message) {
-        musicManagers.get(Long.parseLong(guild.getId())).channel.sendMessage(message).queue();
+        musicManagers.get(Long.parseLong(guild.getId())).getChannel().sendMessage(message).queue();
     }
 
     public void shutdown() {
