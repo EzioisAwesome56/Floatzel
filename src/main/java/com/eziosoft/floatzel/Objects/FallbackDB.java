@@ -106,4 +106,14 @@ public class FallbackDB implements GenaricDatabase{
     public Object LowLevelDB_Load(String table, String pkey, Class<?> type) {
         return null;
     }
+
+    @Override
+    public int LowLevelDB_Count(String table) {
+        return 0;
+    }
+
+    @Override
+    public void LowLevelDB_Delete(String table, String pkey) {
+        return;
+    }
 }
