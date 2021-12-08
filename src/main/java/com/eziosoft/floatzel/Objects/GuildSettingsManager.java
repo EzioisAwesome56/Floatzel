@@ -24,7 +24,7 @@ public class GuildSettingsManager {
         try {
             set = loadGuildSettings(id);
         } catch (NullPointerException e){
-            return Floatzel.isdev ? Floatzel.conf.getPrefix() : Floatzel.conf.getDevprefix();
+            return Floatzel.isdev ? Floatzel.conf.getDevprefix() : Floatzel.conf.getPrefix();
         }
         this.cachedPrefixes.put(id, set.getPrefix());
         return set.getPrefix();
