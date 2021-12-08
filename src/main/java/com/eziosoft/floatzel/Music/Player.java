@@ -69,7 +69,9 @@ public class Player extends ListenerAdapter {
     public void loadAndMeme(final CommandEvent event, final String trackUrl) {
         memeLogic(new MusicPlayerIDs(event), trackUrl);
     }
-    // TODO: write slash command meme player.
+    public void loadAndMeme(SlashCommandEvent event, String trackurl){
+        memeLogic(new MusicPlayerIDs(event), trackurl);
+    }
     private void memeLogic(MusicPlayerIDs mpid, String trackUrl){
         GuildMusicManager musicManager = getGuildAudioPlayer(mpid, 1);
         if (musicManager.getStatus() < 1) {

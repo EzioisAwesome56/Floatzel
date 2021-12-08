@@ -166,8 +166,8 @@ public class Floatzel {
         dualRegister(new Stop());
         dualRegister(new Play());
         dualRegister(new Repeat());
-        commandClient.addCommand(new Sax());
-        commandClient.addCommand(new Starman());
+        dualRegister(new Sax());
+        dualRegister(new Starman());
         commandClient.addCommand(new Bal());
         commandClient.addCommand(new Inflate());
         commandClient.addCommand(new Gamble());
