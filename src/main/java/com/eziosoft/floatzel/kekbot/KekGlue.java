@@ -1,6 +1,7 @@
 package com.eziosoft.floatzel.kekbot;
 
 import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Objects.KekbotFunctionHooks;
 import com.eziosoft.floatzel.Util.Database;
 import com.eziosoft.floatzel.Util.Utils;
 import com.eziosoft.floatzel.kekbot.Games.Game;
@@ -20,6 +21,9 @@ import java.util.List;
 
 public class KekGlue {
     public static HashMap<String, String> text = new HashMap<>();
+
+    // hook for future mods/plugins/idk
+    public static KekbotFunctionHooks hook = null;
 
     public static void initWords(){
         text.put("game.tictactoe.aifirst", "Floatzel got the first turn");
@@ -67,7 +71,7 @@ public class KekGlue {
                 case "command.fun.game.cancel.error":
                     return text.get(raw).replace("%s", (CharSequence) objects[0]);
                 default:
-                    return getString(raw);
+                    return hook != null ? hook.isRegisteredWord(raw) ? hook.getLocalizedString(raw, objects) : getString(raw) : getString(raw);
             }
         }
 
@@ -86,7 +90,7 @@ public class KekGlue {
         }
 
         public static String getGuildPrefix(Guild g){
-            return Floatzel.isdev ? Floatzel.conf.getDevprefix() : Floatzel.conf.getPrefix();
+            return Floatzel.guildSettingsManager.getPrefix(g.getId());
         }
 
         public static CommandClient getCommandClient(){
@@ -123,12 +127,16 @@ public class KekGlue {
         }
 
         public void wonGame(double keks, int kxp){
-            // FILTHY HACK: use old methods to save shit
             // save new bal
             com.eziosoft.floatzel.Objects.User ur = Database.dbdriver.getProfile(id);
             int newbal = ur.getBal() + (int) keks;
             ur.setBal(newbal);
             Database.dbdriver.saveProfile(ur);
+            // do we have a hook? if so, run it
+            if (hook != null){
+                hook.saveKekXP(kxp);
+            }
+
         }
 
         public void tieGame(double topkeks, int KXP) {
@@ -137,6 +145,10 @@ public class KekGlue {
             int newbal = ur.getBal() + (int) topkeks;
             ur.setBal(newbal);
             Database.dbdriver.saveProfile(ur);
+            // do we have a hook? if so, run it
+            if (hook != null){
+                hook.saveKekXP(KXP);
+            }
         }
 
         public void save(){
@@ -158,6 +170,10 @@ public class KekGlue {
         }
 
         public void takeKXP(int kxp){
+            // do we have a hook loaded? if so, run it
+            if (hook != null){
+                hook.saveKekXP(hook.loadKxp(this.id) - kxp);
+            }
             return;
         }
     }
@@ -223,7 +239,7 @@ public class KekGlue {
         }
 
         public String getPrefix(){
-            return Floatzel.isdev ? Floatzel.conf.getDevprefix() : Floatzel.conf.getPrefix();
+            return Floatzel.guildSettingsManager.getPrefix(e.getGuild().getId());
         }
 
         public Message getMessage(){

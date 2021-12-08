@@ -1,5 +1,7 @@
 package com.eziosoft.floatzel.SlashCommands.Local;
 
+import com.eziosoft.floatzel.Floatzel;
+import com.eziosoft.floatzel.Objects.GuildSettings;
 import com.eziosoft.floatzel.SlashCommands.FSlashCommand;
 import com.eziosoft.floatzel.SlashCommands.Objects.SlashOption;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -17,6 +19,26 @@ public class prefix extends FSlashCommand {
 
     @Override
     public void execute(SlashCommandEvent e) {
-        e.getHook().sendMessage("sup").queue();
+        if (e.getOption("prefix") == null){
+            e.getHook().editOriginal("Error: you did not specify what prefix to use in the \"prefix\" option!").queue();
+        } else {
+            GuildSettings s;
+            String newprefix = e.getOption("prefix").getAsString();
+            try {
+                s = Floatzel.guildSettingsManager.loadGuildSettings(e.getGuild().getId());
+            } catch (NullPointerException err){
+                // just make a new guildsettings object
+                GuildSettings temp = Floatzel.guildSettingsManager.makeNewGuildSettings(e.getGuild().getId());
+                temp.setCommandsEnabled(true);
+                temp.setPrefix(newprefix);
+                Floatzel.guildSettingsManager.save(temp);
+                e.getHook().editOriginal("Prefix has been set to "  + newprefix).queue();
+                return;
+            }
+            s.setPrefix(newprefix);
+            Floatzel.guildSettingsManager.save(s);
+            e.getHook().editOriginal("Prefix has been set to "  + newprefix).queue();
+        }
+        return;
     }
 }
