@@ -35,10 +35,13 @@ import com.google.gson.GsonBuilder;
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 
@@ -68,6 +71,7 @@ public class Floatzel {
     public static MiscListener listener = new MiscListener();
     public static TwitterManager twitterManager;
     public static Player musicPlayer = new Player();
+    public static List<ListenerAdapter> adapters = new ArrayList<>();
 
     //thing for the tweet bot
     public static boolean tweeton = false;
@@ -237,6 +241,14 @@ public class Floatzel {
 
         //TwitterManager is now a listener too, which'll do all the work onReady by itself instead of relying on MiscListener
         if (!isdev && Floatzel.conf.getTwitterTog()) Floatzel.jda.addEventListener(twitterManager);
+
+        // do we have any adapters we need to load?
+        if (!adapters.isEmpty()){
+            System.out.println("Now loading additional listenerAdapters...");
+            for (ListenerAdapter a : adapters){
+                jda.addEventListener(a);
+            }
+        }
     }
 
     public static void dualRegister(FSlashableCommand c){
