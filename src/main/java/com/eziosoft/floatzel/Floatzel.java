@@ -147,7 +147,7 @@ public class Floatzel {
         twitterManager = new TwitterManager();
 
         // resume everything else
-        version = !isdev ? "2.7" : "2.x Development";
+        version = !isdev ? "2.7 HOTFIX 1" : "2.x Development";
          commandClient = new CommandClientBuilder().setPrefixFunction(event -> guildSettingsManager.getPrefix(event.getGuild().getId())).setOwnerId(conf.getOwnerid()).useHelpBuilder(false).build();
 
 
